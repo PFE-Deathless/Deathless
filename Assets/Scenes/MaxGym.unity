@@ -913,9 +913,6 @@ MonoBehaviour:
   hitDuration: 0.2
   hitCooldown: 0.5
   hitCollider: {fileID: 2048849323}
-  hitASprite: {fileID: 1959335752, guid: e65516679007f7446a1ed49cd447ea48, type: 3}
-  hitBSprite: {fileID: -582290443, guid: e65516679007f7446a1ed49cd447ea48, type: 3}
-  hitCSprite: {fileID: -1778996316, guid: e65516679007f7446a1ed49cd447ea48, type: 3}
 --- !u!43 &1204325894
 Mesh:
   m_ObjectHideFlags: 0
@@ -1268,6 +1265,62 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1823424082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823424084}
+  - component: {fileID: 1823424083}
+  m_Layer: 0
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1823424083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823424082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: bfddd739b0a84e9418aea1074f921c0c, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 2}
+  m_Size: {x: 4, y: 4, z: 4}
+  m_FadeFactor: 1
+--- !u!4 &1823424084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823424082}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.30398157, y: -0.72330964, z: -0.5715881, w: 0.24021955}
+  m_LocalPosition: {x: 0.49, y: -1, z: 9.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -103.366, y: 0, z: -134.41}
 --- !u!1 &1875581182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7650490890228544690, guid: ec2fc3f0c8b232245ae4ff42b99819e3, type: 3}
@@ -2039,3 +2092,4 @@ SceneRoots:
   - {fileID: 125079866}
   - {fileID: 1365344677}
   - {fileID: 2118902120}
+  - {fileID: 1823424084}

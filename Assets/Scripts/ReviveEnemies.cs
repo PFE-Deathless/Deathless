@@ -12,7 +12,7 @@ public class ReviveEnemies : MonoBehaviour
 			foreach (GameObject go in enemies)
 			{
 				go.SetActive(true);
-				go.GetComponent<Enemy>().health = 3;
+				//go.GetComponent<Enemy>().health = 3;
 				go.GetComponent<Enemy>().UpdateHealthInterface();
 			}
 		}

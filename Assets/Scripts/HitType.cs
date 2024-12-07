@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HitType : MonoBehaviour
+public static class HitType
 {
 	public enum Type
 	{

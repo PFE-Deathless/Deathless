@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
-	public HitType.Type type;
-
-	public int health = 3;
 	public int healthMax = 3;
 	public Sprite healthSprite;
 	public SpriteRenderer[] hitPoints;
+	
+	public HitType.Type currentType { get; private set; }
+
+	int health = 3;
 
 	void Start()
 	{
-		GetComponentInChildren<SpriteRenderer>().sprite = HitType.GetSprite(type);
+		GetComponentInChildren<SpriteRenderer>().sprite = HitType.GetSprite(currentType);
 	}
 
 	public void TakeDamage()

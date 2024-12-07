@@ -10,22 +10,12 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Technical")]
 	public GameObject hitCollider;
-	public Sprite hitASprite;
-	public Sprite hitBSprite;
-	public Sprite hitCSprite;
 
 
 	bool canHit = true;
 
 	InputsManager inputManager;
 	Rigidbody rb;
-
-	public enum Vulnerability
-	{
-		Square,
-		Triangle,
-		Circle
-	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()

@@ -13,17 +13,9 @@ public class HitCollider : MonoBehaviour
 			Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
 			if (!_enemiesInside.Contains(enemy))
 			{
-				if (enemy.type == type)
-				{
+				if (enemy.currentType == type)
 					enemy.TakeDamage();
-					Debug.Log("OK !");
-				}
-				else
-				{
-					Debug.Log("NOPE !");
-				}
 
-				//enemy.Damage(_damage);
 				_enemiesInside.Add(enemy);
 			}
 		}
@@ -33,11 +25,6 @@ public class HitCollider : MonoBehaviour
 	{
 		this.type = type;
 		GetComponentInChildren<SpriteRenderer>().sprite = HitType.GetSprite(type);
-	}
-
-	private void OnEnable()
-	{
-		//Debug.Log("Type : " + type);
 	}
 
 	private void OnDisable()
