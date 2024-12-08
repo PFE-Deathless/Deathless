@@ -3,33 +3,42 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 	public int healthMax = 3;
-	public Sprite healthSprite;
-	public SpriteRenderer[] hitPoints;
 	
 	public HitType.Type currentType { get; private set; }
+	public HitType.Type[] types { get; private set; }
 
-	int health = 3;
+	int health;
+	HitBar hitBar;
 
 	void Start()
 	{
-		GetComponentInChildren<SpriteRenderer>().sprite = HitType.GetSprite(currentType);
+		hitBar = GetComponentInChildren<HitBar>();
+		SetTypes();
+		currentType = types[0];
+		health = healthMax;
 	}
 
 	public void TakeDamage()
 	{
 		health--;
-		UpdateHealthInterface();
 		if (health <= 0)
 		{
-			gameObject.SetActive(false);
+			Destroy(gameObject);
+			return;
 		}
+
+		currentType = types[healthMax - health];
+		hitBar.UpdateHitBar(healthMax - health);
+
 	}
 
-	public void UpdateHealthInterface()
+	void SetTypes()
 	{
+		types = new HitType.Type[healthMax];
 		for (int i = 0; i < healthMax; i++)
 		{
-			hitPoints[i].sprite = health - i > 0 ? healthSprite : null;
+			types[i] = HitType.GetRandomType();
 		}
+		hitBar.SetTypes(types);
 	}
 }

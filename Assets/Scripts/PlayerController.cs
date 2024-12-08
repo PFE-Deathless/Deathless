@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
 		hitCollider.SetActive(false);
 
-		yield return new WaitForSeconds(hitDuration);
+		yield return new WaitForSeconds(hitCooldown);
 		canHit = true;
 	}
 }

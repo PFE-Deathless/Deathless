@@ -13,7 +13,7 @@ public class ReviveEnemies : MonoBehaviour
 			{
 				go.SetActive(true);
 				//go.GetComponent<Enemy>().health = 3;
-				go.GetComponent<Enemy>().UpdateHealthInterface();
+				//go.GetComponent<Enemy>().UpdateHealthInterface();
 			}
 		}
 	}

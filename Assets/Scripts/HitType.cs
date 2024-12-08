@@ -10,6 +10,11 @@ public static class HitType
 		C
 	}
 
+	public static Type GetRandomType()
+	{
+		return (Type)Random.Range(1, 4);
+	}
+
 	public static Sprite GetSprite(Type type)
 	{
 		switch (type)
