@@ -3,24 +3,36 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	[Header("Statistics")]
+	[Header("Movement")]
 	public float moveSpeed = 10f;
+	
+	[Header("Hit")]
 	public float hitDuration = 0.2f;
 	public float hitCooldown = 0.5f;
+
+	[Header("Dash")]
+	public float dashDistance = 5f;
+	public float dashDuration = 0.3f;
+	public float dashCooldown = 1f;
 
 	[Header("Technical")]
 	public GameObject hitCollider;
 
 
 	bool canHit = true;
+	bool canDash = true;
+
+	Vector3 dashOffset = Vector3.zero;
 
 	InputsManager inputManager;
+	PlayerHealth playerHealth;
 	Rigidbody rb;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		inputManager = GetComponent<InputsManager>();
+		playerHealth = GetComponent<PlayerHealth>();
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -30,6 +42,8 @@ public class PlayerController : MonoBehaviour
 		Move();
 
 		Hit();
+
+		Dash();
 	}
 
 	void Move()
@@ -40,8 +54,7 @@ public class PlayerController : MonoBehaviour
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 20f);
 		}
 
-
-		rb.linearVelocity = new Vector3(inputManager.move.x * moveSpeed, rb.linearVelocity.y, inputManager.move.y * moveSpeed);
+		rb.linearVelocity = new Vector3(inputManager.move.x * moveSpeed, rb.linearVelocity.y, inputManager.move.y * moveSpeed) + dashOffset;
 	}
 
 	void Hit()
@@ -50,8 +63,17 @@ public class PlayerController : MonoBehaviour
 		{
 			if (canHit)
 				StartCoroutine(ApplyHit(inputManager.hit));
-			
 			inputManager.hit = HitType.Type.None;
+		}
+	}
+
+	void Dash()
+	{
+		if (inputManager.dash)
+		{
+			if (canDash)
+				StartCoroutine(ApplyDash());
+			inputManager.dash = false;
 		}
 	}
 
@@ -68,5 +90,20 @@ public class PlayerController : MonoBehaviour
 
 		yield return new WaitForSeconds(hitCooldown);
 		canHit = true;
+	}
+
+	IEnumerator ApplyDash()
+	{
+		canDash = false;
+		
+		dashOffset = transform.forward * (dashDistance / dashDuration);
+		playerHealth.SetInvicibility(true);
+		
+		yield return new WaitForSeconds(dashDuration);
+		dashOffset = Vector3.zero;
+		playerHealth.SetInvicibility(false);
+
+		yield return new WaitForSeconds(dashCooldown);
+		canDash = true;
 	}
 }

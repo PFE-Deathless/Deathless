@@ -827,9 +827,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6966763510042766115}
+  - component: {fileID: 6654164438189084890}
+  - component: {fileID: 167241758498156129}
+  - component: {fileID: 345143593785962827}
   - component: {fileID: 5489980584892506887}
   - component: {fileID: 3252219212588157712}
-  - component: {fileID: 6654164438189084890}
   - component: {fileID: 2554530562431371126}
   - component: {fileID: 857118482440913873}
   m_Layer: 0
@@ -856,6 +858,52 @@ Transform:
   - {fileID: 7131377260250225577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6654164438189084890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426339170933591991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf55a5001bf4e7428dde43b01e9f626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 15
+  hitDuration: 0.15
+  hitCooldown: 0.1
+  dashDistance: 5
+  dashDuration: 0.2
+  dashCooldown: 0.8
+  hitCollider: {fileID: 2121887958397101670}
+--- !u!114 &167241758498156129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426339170933591991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5c5550e49800d45b959c0a6073b918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 50
+--- !u!114 &345143593785962827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426339170933591991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21661d8c1df644da555c6075b8b2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMax: 10
+  invicible: 0
 --- !u!136 &5489980584892506887
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -906,22 +954,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &6654164438189084890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8426339170933591991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdf55a5001bf4e7428dde43b01e9f626, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  hitDuration: 0.15
-  hitCooldown: 0.1
-  hitCollider: {fileID: 2121887958397101670}
 --- !u!114 &2554530562431371126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,3 +998,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
   hit: 0
+  dash: 0
