@@ -77,6 +77,19 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void SetSpeedModifier(float modifier, float duration)
+	{
+		StartCoroutine(ApplySpeedModifier(modifier, duration));
+	}
+
+	IEnumerator ApplySpeedModifier(float modifier, float duration)
+	{
+		float originalMoveSpeed = moveSpeed;
+		moveSpeed *= modifier;
+		yield return new WaitForSeconds(duration);
+		moveSpeed = originalMoveSpeed;
+	}
+
 	IEnumerator ApplyHit(HitType.Type type)
 	{
 		canHit = false;
