@@ -1,8 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
 	public int healthMax = 10;
+
+	[Tooltip("Invicibility duration after taking a hit")]
+	public float invicibilityTime = 0.8f;
 
 	int health;
 
@@ -25,6 +29,15 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible)
 		{
 			health -= damage;
+			StartCoroutine(InvicibilityTime());
 		}
 	}
+
+
+	IEnumerator InvicibilityTime()
+	{
+		SetInvicibility(true);
+        yield return new WaitForSeconds(invicibilityTime);
+        SetInvicibility(false);
+    }
 }
