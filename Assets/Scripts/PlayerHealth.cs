@@ -17,15 +17,15 @@ public class PlayerHealth : MonoBehaviour
 		health = healthMax;
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.K))
 		{
 			TakeDamage(1);
 		}
-    }
+	}
 
-    public void SetInvicibility(bool invicibility)
+	public void SetInvicibility(bool invicibility)
 	{
 		invicible = invicibility;
 		MeshRenderer m = GetComponentInChildren<MeshRenderer>();
@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
 	IEnumerator InvicibilityTime()
 	{
 		SetInvicibility(true);
-        yield return new WaitForSeconds(invicibilityTime);
-        SetInvicibility(false);
-    }
+		yield return new WaitForSeconds(invicibilityTime);
+		SetInvicibility(false);
+	}
 }
