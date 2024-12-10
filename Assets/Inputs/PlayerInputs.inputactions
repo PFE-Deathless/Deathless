@@ -112,7 +112,7 @@
                     "id": "11bf5e36-d4ba-4cf9-a06c-99236df09f03",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "groups": "",
                     "action": "Move",
                     "isComposite": false,
@@ -198,7 +198,7 @@
                 {
                     "name": "",
                     "id": "4c5abe12-8439-4fb6-baa7-1546fded80f1",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

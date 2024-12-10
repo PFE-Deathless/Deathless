@@ -1,12 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+	[Header("Statistics")]
 	public int healthMax = 10;
 
 	[Tooltip("Invicibility duration after taking a hit")]
 	public float invicibilityTime = 0.8f;
+
+	[Header("Technical")]
+	public Slider healthSlider;
+
+	[Header("VFX")]
+	public ParticleSystem damageParticle;
 
 	int health;
 
@@ -15,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
 	void Start()
 	{
 		health = healthMax;
+		healthSlider.value = 1f;
 	}
 
 	private void Update()
@@ -37,8 +46,10 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible)
 		{
 			health -= damage;
+			damageParticle.Play();
+			healthSlider.value = (float)health / (float)healthMax;
 			StartCoroutine(InvicibilityTime());
-			Debug.Log("HP : " + health);
+			//Debug.Log("HP : " + health);
 		}
 	}
 

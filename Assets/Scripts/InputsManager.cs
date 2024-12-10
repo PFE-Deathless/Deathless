@@ -9,7 +9,7 @@ public class InputsManager : MonoBehaviour
 
 	public void OnMove(InputValue value)
 	{
-		move = value.Get<Vector2>();
+		move = value.Get<Vector2>().normalized;
 	}
 
 	public void OnHitA()

@@ -5,6 +5,9 @@ public class ProjectileObject : ScriptableObject
 {
 	public GameObject gameObject;
 	public float speed;
+	public float lifeSpan = 10f;
 	public bool homing;
+	public int damage = 1;
+
 
 }

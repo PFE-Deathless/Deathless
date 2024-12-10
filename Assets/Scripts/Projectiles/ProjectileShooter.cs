@@ -9,15 +9,15 @@ public class ProjectileShooter : MonoBehaviour
 	{
 		GameObject obj = Instantiate(projectile.gameObject, origin.position, origin.rotation);
 		obj.AddComponent<Rigidbody>();
-		Projectile p = obj.AddComponent<Projectile>();
-		p.Setup(projectile.speed, null);
+		ProjectileMovement p = obj.AddComponent<ProjectileMovement>();
+		p.Setup(projectile);
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.E))
 		{
 			ShootProjectile();
 		}
-    }
+	}
 }

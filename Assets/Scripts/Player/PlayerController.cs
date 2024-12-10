@@ -17,7 +17,12 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Technical")]
 	public GameObject hitCollider;
+	public int playerLayer;
+	public int playerDashingLayer;
 
+	[Header("VFX")]
+	public TrailRenderer dashTrail;
+	public ParticleSystem dashCooldownParticle;
 
 	bool canHit = true;
 	bool canDash = true;
@@ -34,6 +39,8 @@ public class PlayerController : MonoBehaviour
 		inputManager = GetComponent<InputsManager>();
 		playerHealth = GetComponent<PlayerHealth>();
 		rb = GetComponent<Rigidbody>();
+		var ps = dashCooldownParticle.main;
+		ps.startLifetime = dashCooldown + dashDuration;
 	}
 
 	// Update is called once per frame
@@ -111,10 +118,15 @@ public class PlayerController : MonoBehaviour
 		
 		dashOffset = transform.forward * (dashDistance / dashDuration);
 		playerHealth.SetInvicibility(true);
-		
+		gameObject.layer = playerDashingLayer;
+		dashTrail.emitting = true;
+		dashCooldownParticle.Play();
+
 		yield return new WaitForSeconds(dashDuration);
 		dashOffset = Vector3.zero;
 		playerHealth.SetInvicibility(false);
+		gameObject.layer = playerLayer;
+		dashTrail.emitting = false;
 
 		yield return new WaitForSeconds(dashCooldown);
 		canDash = true;
