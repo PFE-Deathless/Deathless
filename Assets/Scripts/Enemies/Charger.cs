@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class Charger : MonoBehaviour
+public class Charger : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	protected override void PerformAttack()
+	{
+		Debug.Log("sling !");
+	}
 }

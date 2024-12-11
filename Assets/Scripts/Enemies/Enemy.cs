@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -9,8 +8,15 @@ public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
 	public int healthMax = 3;
-	public float range = 10f;
+	public float range = 5f;
+	public float acquisitionRange = 2f;
+	public float maxRange = 10f;
 	public float moveSpeed = 8f;
+
+	[Header("Attack")]
+	public float attackCastTime = 0.1f;
+	public float attackDuration = 0.5f;
+	public float attackCooldown = 1f;
 
 	[Header("Patrol")]
 	public float waitingTime = 2f;
@@ -18,30 +24,42 @@ public class Enemy : MonoBehaviour
 	public Vector3[] patrolPoints;
 
 	[Header("Technical")]
+	public bool showState;
 	public LayerMask playerLayerMask;
 	public TextMeshPro debugText;
 
-	public HitType.Type currentType { get; private set; }
-	public HitType.Type[] types { get; private set; }
+	public HitType.Type CurrentType { get; private set; }
+	public HitType.Type[] Types { get; private set; }
 
 	int health;
 	HitBar hitBar;
 	NavMeshAgent navMeshAgent;
-	Transform target;
+	protected Transform target;
+
+
+	// State Machine
+	EnemyState state;
+	float stateTimer;
+	Vector3 patrolDestination;
+	AttackState attackState;
 
 	void Start()
 	{
 		hitBar = GetComponentInChildren<HitBar>();
 		SetupNavMeshAgent();
 		SetTypes();
-		currentType = types[0];
+		CurrentType = Types[0];
 		health = healthMax;
-		StartCoroutine(Patrol());
+
+		ChangeState(EnemyState.Patrol);
+		ChooseNewPatrolPoint();
 	}
 
 	private void Update()
 	{
-		
+		HandleStates();
+
+		debugText.enabled = showState;
 	}
 
 	bool DetectPlayer()
@@ -49,7 +67,6 @@ public class Enemy : MonoBehaviour
 		Collider[] p = new Collider[1];
 		if (Physics.OverlapSphereNonAlloc(transform.position, range, p, playerLayerMask) > 0)
 		{
-			//Debug.Log("Player detected ! ");
 			target = p[0].transform;
 
 			return true;
@@ -73,124 +90,218 @@ public class Enemy : MonoBehaviour
 			return;
 		}
 
-		currentType = types[healthMax - health];
+		CurrentType = Types[healthMax - health];
 		hitBar.UpdateHitBar(healthMax - health);
+	}
+
+	protected virtual void PerformAttack()
+	{
+		Debug.Log("Paf!");
 	}
 
 	void SetTypes()
 	{
-		types = new HitType.Type[healthMax];
+		Types = new HitType.Type[healthMax];
 		for (int i = 0; i < healthMax; i++)
 		{
-			types[i] = HitType.GetRandomType();
+			Types[i] = HitType.GetRandomType();
 		}
-		hitBar.SetTypes(types);
+		hitBar.SetTypes(Types);
 	}
 
-	// ### COROUTINES ###
+	// #####################
+	// #####################
+	// ### STATE MACHINE ###
+	// #####################
+	// #####################
+	
+	#region state_machine
 
-	IEnumerator Search()
+	public enum EnemyState
 	{
-		debugText.text = "SEARCH";
-
-		if (DetectPlayer())
-			StartCoroutine(GoToPlayer());
-		else
-			StartCoroutine(Wait());
-		yield break;
+		Patrol,
+		GoToPlayer,
+		Attack,
+		Wait
 	}
 
-	IEnumerator Patrol()
+	public enum AttackState
+	{
+		Cast,
+		Hit,
+		Cooldown
+	}
+
+	void HandleStates()
+	{
+		switch (state)
+		{
+			case EnemyState.Patrol:
+				Patrol();
+				break;
+			case EnemyState.GoToPlayer:
+				GoToPlayer();
+				break;
+			case EnemyState.Attack:
+				Attack();
+				break;
+			case EnemyState.Wait:
+				Wait();
+				break;
+		}
+	}
+
+	void Patrol()
 	{
 		debugText.text = "PATROL";
 
 		if (patrolPoints.Length == 0)
 		{
-			StartCoroutine(Search());
-			yield break;
+			Debug.LogError("NO PATROL POINTS !!");
+			ChangeState(EnemyState.Wait);
+			return;
 		}
-		Vector3 dest = patrolPoints[Random.Range(0, patrolPoints.Length)];
 
-		navMeshAgent.SetDestination(dest);
-		while (Vector3.Distance(transform.position, dest) > 2.0f)
+		if (Vector3.Distance(transform.position, patrolDestination) <= stoppingDistance)
 		{
+			ChangeState(EnemyState.Wait);
+		}
+		else
+		{
+			navMeshAgent.SetDestination(patrolDestination);
 			if (DetectPlayer())
 			{
-				StartCoroutine(GoToPlayer());
-				yield break;
+				ChangeState(EnemyState.GoToPlayer);
 			}
-			yield return null;
 		}
-
-		StartCoroutine(Search());
-		yield break;
 	}
-	IEnumerator GoToPlayer()
+
+	void GoToPlayer()
 	{
 		debugText.text = "GO_TO_PLAYER";
 
-		while (Vector3.Distance(transform.position, target.position) > 2.0f)
+		float distance = Vector3.Distance(transform.position, target.position);
+
+		if (distance > maxRange)
+		{
+			ChooseNewPatrolPoint();
+			ChangeState(EnemyState.Patrol);
+		}
+		else if (distance <= acquisitionRange)
+		{
+			ChangeState(EnemyState.Attack);
+		}
+		else
 		{
 			navMeshAgent.SetDestination(target.position);
-			yield return null;
 		}
-
-		StartCoroutine(Attack());
-		yield break;
 	}
 
-	IEnumerator Wait()
+	void Wait()
 	{
 		debugText.text = "WAIT";
 
-		yield return new WaitForSeconds(waitingTime);
-		StartCoroutine(Patrol());
-		yield break;
+		if (DetectPlayer())
+			ChangeState(EnemyState.GoToPlayer);
+
+		stateTimer += Time.deltaTime;
+		if (stateTimer >= waitingTime)
+		{
+			ChooseNewPatrolPoint();
+			ChangeState(EnemyState.Patrol);
+		}
 	}
 
-	protected virtual IEnumerator Attack()
+	void Attack()
 	{
 		debugText.text = "ATTACK";
 
-		Debug.Log("Paf !");
-		StartCoroutine(Wait());
-		yield break;
+		navMeshAgent.isStopped = true;
+
+		stateTimer += Time.deltaTime;
+
+		if (stateTimer < attackCastTime)
+		{
+			debugText.text = "ATTACK_CAST";
+			ChangeAttackState(AttackState.Cast);
+		}
+
+		if (stateTimer >= attackCastTime && stateTimer < attackDuration + attackCastTime)
+		{
+			debugText.text = "ATTACK_HIT";
+			ChangeAttackState(AttackState.Hit);
+			PerformAttack();
+		}
+		else if (stateTimer >= attackCooldown)
+		{
+			ChangeState(EnemyState.Patrol);
+		}
+
+		if (stateTimer < attackCooldown && stateTimer >= attackDuration + attackCastTime)
+		{
+			debugText.text = "ATTACK_CD";
+			ChangeAttackState(AttackState.Cooldown);
+		}
 	}
 
-}
+	void ChooseNewPatrolPoint()
+	{
+		if (patrolPoints.Length > 0)
+		{
+			patrolDestination = patrolPoints[Random.Range(0, patrolPoints.Length)];
+		}
+	}
+
+	void ChangeState(EnemyState newState)
+	{
+		stateTimer = 0f;
+		state = newState;
+	}
+
+	protected virtual void ChangeAttackState(AttackState newState)
+	{
+		attackState = newState;
+	}
+
+	#endregion
+
+	// ### COROUTINES ###
+
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(Enemy))]
-public class EnemyEditor : Editor
-{
-	Enemy _Enemy;
-
-	public void OnEnable()
+	[CustomEditor(typeof(Enemy), true), CanEditMultipleObjects]
+	public class EnemyEditor : Editor
 	{
-		_Enemy = (Enemy)target;
-	}
+		Enemy _Enemy;
 
-	public override void OnInspectorGUI()
-	{
-		DrawDefaultInspector();
-	}
-
-	public void OnSceneGUI()
-	{
-		Handles.color = Color.magenta;
-		if (_Enemy.patrolPoints.Length > 0)
+		public void OnEnable()
 		{
-			for (int i = 0; i < _Enemy.patrolPoints.Length; i++)
+			_Enemy = (Enemy)target;
+		}
+
+		public override void OnInspectorGUI()
+		{
+			DrawDefaultInspector();
+		}
+
+		public void OnSceneGUI()
+		{
+			Handles.color = Color.magenta;
+			if (_Enemy.patrolPoints.Length > 0)
 			{
-				EditorGUI.BeginChangeCheck();
-				_Enemy.patrolPoints[i] = Handles.PositionHandle(_Enemy.patrolPoints[i], Quaternion.identity);
-				if (EditorGUI.EndChangeCheck()) // Check if position has changed
+				for (int i = 0; i < _Enemy.patrolPoints.Length; i++)
 				{
-					EditorUtility.SetDirty(_Enemy); // Mark the object as dirty to save the changes
+					EditorGUI.BeginChangeCheck();
+					_Enemy.patrolPoints[i] = Handles.PositionHandle(_Enemy.patrolPoints[i], Quaternion.identity);
+					if (EditorGUI.EndChangeCheck()) // Check if position has changed
+					{
+						EditorUtility.SetDirty(_Enemy); // Mark the object as dirty to save the changes
+					}
+					Handles.DrawLine(_Enemy.transform.position, _Enemy.patrolPoints[i], 10.0f);
 				}
-				Handles.DrawLine(_Enemy.transform.position, _Enemy.patrolPoints[i], 10.0f);
 			}
 		}
 	}
-}
 #endif
+}
+
