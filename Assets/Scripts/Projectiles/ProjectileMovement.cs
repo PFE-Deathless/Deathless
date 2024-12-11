@@ -10,7 +10,9 @@ public class ProjectileMovement : MonoBehaviour
 	public void Setup(ProjectileObject projectile)
 	{
 		rb = GetComponent<Rigidbody>();
+		//rb.isKinematic = true;
 		rb.useGravity = false;
+		rb.constraints = RigidbodyConstraints.FreezeRotation;
 		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		rb.linearVelocity = transform.forward * projectile.speed;
 		this.projectile = projectile;
@@ -30,6 +32,7 @@ public class ProjectileMovement : MonoBehaviour
 		PlayerHealth p = other.gameObject.GetComponent<PlayerHealth>();
 		if (p != null)
 			p.TakeDamage(projectile.damage);
-		Destroy(gameObject);
+		if (projectile.destroyOnContact)
+			Destroy(gameObject);
 	}
 }
