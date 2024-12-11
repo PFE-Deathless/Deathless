@@ -11230,8 +11230,8 @@ MonoBehaviour:
   moveSpeed: 15
   hitDuration: 0.15
   hitCooldown: 0.1
-  dashDistance: 5
-  dashDuration: 0.2
+  dashDistance: 3.5
+  dashDuration: 0.3
   dashCooldown: 0.8
   hitCollider: {fileID: 2121887958397101670}
   playerLayer: 3
