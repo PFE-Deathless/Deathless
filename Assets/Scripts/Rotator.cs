@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class Turret : LoopShooter
+public class Rotator : MonoBehaviour
 {
 	public Transform objToRotate;
 	public float rotationSpeed = 30f;
 
-	new void Update()
+	void Update()
 	{
-		base.Update();
 		objToRotate.eulerAngles += new Vector3(0f, rotationSpeed * Time.deltaTime, 0f);
 	}
 }

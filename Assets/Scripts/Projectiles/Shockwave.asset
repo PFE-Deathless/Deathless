@@ -17,3 +17,4 @@ MonoBehaviour:
   lifeSpan: 5
   homing: 0
   damage: 2
+  destroyOnContact: 0

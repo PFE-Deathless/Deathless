@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public abstract class LoopShooter : MonoBehaviour
+[RequireComponent (typeof(ProjectileShooter))]
+public class LoopShooter : MonoBehaviour
 {
 	public float shootFrequency = 5f;
 

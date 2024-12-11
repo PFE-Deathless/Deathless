@@ -32,6 +32,7 @@ public class ProjectileMovement : MonoBehaviour
 		PlayerHealth p = other.gameObject.GetComponent<PlayerHealth>();
 		if (p != null)
 			p.TakeDamage(projectile.damage);
-		Destroy(gameObject);
+		if (projectile.destroyOnContact)
+			Destroy(gameObject);
 	}
 }

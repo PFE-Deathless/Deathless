@@ -8,6 +8,7 @@ public class ProjectileObject : ScriptableObject
 	public float lifeSpan = 10f;
 	public bool homing;
 	public int damage = 1;
+	public bool destroyOnContact = true;
 
 
 }
