@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1522a7523bb50f746876662c72db7175, type: 3}
+  m_Name: Shockwave
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 1685194900227460346, guid: 30980906911bba14490cf352b8a19cb8, type: 3}
+  speed: 25
+  lifeSpan: 5
+  homing: 0
+  damage: 2

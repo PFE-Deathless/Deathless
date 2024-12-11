@@ -10,7 +10,9 @@ public class ProjectileMovement : MonoBehaviour
 	public void Setup(ProjectileObject projectile)
 	{
 		rb = GetComponent<Rigidbody>();
+		//rb.isKinematic = true;
 		rb.useGravity = false;
+		rb.constraints = RigidbodyConstraints.FreezeRotation;
 		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		rb.linearVelocity = transform.forward * projectile.speed;
 		this.projectile = projectile;

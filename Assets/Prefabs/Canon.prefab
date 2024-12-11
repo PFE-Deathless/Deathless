@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1284649784114307609}
   - component: {fileID: 8668025941563583147}
   - component: {fileID: 2335138130364684159}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6923824539157174130}
   - component: {fileID: 5827050061290730669}
   - component: {fileID: 977141926607697059}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 4636089758469422556}
   - component: {fileID: 5747474946726812255}
   - component: {fileID: 5629552368300343176}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Canon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,8 +257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToRotate: {fileID: 1284649784114307609}
-  rotationSpeed: 60
-  shootFrequency: 10
+  rotationSpeed: 100
+  shootFrequency: 2
 --- !u!1 &5272949578259705288
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 2495495865371857856}
   - component: {fileID: 3657475596530963536}
   - component: {fileID: 7326326080296531366}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 974765975016990830}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
