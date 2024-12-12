@@ -36,12 +36,17 @@ public class Enemy : MonoBehaviour
 	NavMeshAgent navMeshAgent;
 	protected Transform target;
 
+	// Attack
+	protected AttackState attackState;
+
 
 	// State Machine
 	EnemyState state;
 	float stateTimer;
 	Vector3 patrolDestination;
-	AttackState attackState;
+
+	// DEBUG
+	LineRenderer destLR;
 
 	void Start()
 	{
@@ -52,7 +57,10 @@ public class Enemy : MonoBehaviour
 		health = healthMax;
 
 		ChangeState(EnemyState.Patrol);
-		ChooseNewPatrolPoint();
+
+		destLR = gameObject.AddComponent<LineRenderer>();
+		destLR.startWidth = 0.2f;
+		destLR.endWidth = 0.2f;
 	}
 
 	private void Update()
@@ -60,6 +68,12 @@ public class Enemy : MonoBehaviour
 		HandleStates();
 
 		debugText.enabled = showState;
+
+		destLR.SetPosition(0, transform.position);
+		if (target != null)
+			destLR.SetPosition(1, target.position);
+		else
+			destLR.SetPosition(1, transform.position);
 	}
 
 	bool DetectPlayer()
@@ -129,11 +143,14 @@ public class Enemy : MonoBehaviour
 	{
 		Cast,
 		Hit,
-		Cooldown
+		Cooldown,
+		None
 	}
 
 	void HandleStates()
 	{
+		AnyState();
+
 		switch (state)
 		{
 			case EnemyState.Patrol:
@@ -148,6 +165,15 @@ public class Enemy : MonoBehaviour
 			case EnemyState.Wait:
 				Wait();
 				break;
+		}
+	}
+
+	void AnyState()
+	{
+		if (target != null && Vector3.Distance(transform.position, target.position) > maxRange)
+		{
+			target = null;
+			ChangeState(EnemyState.Patrol);
 		}
 	}
 
@@ -182,12 +208,7 @@ public class Enemy : MonoBehaviour
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
-		if (distance > maxRange)
-		{
-			ChooseNewPatrolPoint();
-			ChangeState(EnemyState.Patrol);
-		}
-		else if (distance <= acquisitionRange)
+		if (distance <= acquisitionRange)
 		{
 			ChangeState(EnemyState.Attack);
 		}
@@ -207,7 +228,6 @@ public class Enemy : MonoBehaviour
 		stateTimer += Time.deltaTime;
 		if (stateTimer >= waitingTime)
 		{
-			ChooseNewPatrolPoint();
 			ChangeState(EnemyState.Patrol);
 		}
 	}
@@ -218,30 +238,35 @@ public class Enemy : MonoBehaviour
 
 		navMeshAgent.isStopped = true;
 
+		float cast = attackCastTime;
+		float hit = cast + attackDuration;
+		float cooldown = hit + attackCooldown;
+		
 		stateTimer += Time.deltaTime;
 
-		if (stateTimer < attackCastTime)
+		switch (stateTimer)
 		{
-			debugText.text = "ATTACK_CAST";
-			ChangeAttackState(AttackState.Cast);
+			case var _ when stateTimer < cast:
+				debugText.text = "ATTACK_CAST";
+				attackState = AttackState.Cast;
+				break;
+			case var _ when stateTimer >= cast && stateTimer < hit:
+				debugText.text = "ATTACK_HIT";
+				attackState = AttackState.Hit;
+				break;
+			case var _ when stateTimer >= hit && stateTimer < cooldown:
+				debugText.text = "ATTACK_CD";
+				attackState = AttackState.Cooldown;
+				break;
+			case var _ when stateTimer >= cooldown:
+				attackState = AttackState.None;
+				break;
 		}
+	
+		PerformAttack();
 
-		if (stateTimer >= attackCastTime && stateTimer < attackDuration + attackCastTime)
-		{
-			debugText.text = "ATTACK_HIT";
-			ChangeAttackState(AttackState.Hit);
-			PerformAttack();
-		}
-		else if (stateTimer >= attackCooldown)
-		{
+		if (attackState == AttackState.None)
 			ChangeState(EnemyState.Patrol);
-		}
-
-		if (stateTimer < attackCooldown && stateTimer >= attackDuration + attackCastTime)
-		{
-			debugText.text = "ATTACK_CD";
-			ChangeAttackState(AttackState.Cooldown);
-		}
 	}
 
 	void ChooseNewPatrolPoint()
@@ -255,12 +280,10 @@ public class Enemy : MonoBehaviour
 	void ChangeState(EnemyState newState)
 	{
 		stateTimer = 0f;
+		navMeshAgent.isStopped = false;
+		if (newState == EnemyState.Patrol)
+			ChooseNewPatrolPoint();
 		state = newState;
-	}
-
-	protected virtual void ChangeAttackState(AttackState newState)
-	{
-		attackState = newState;
 	}
 
 	#endregion

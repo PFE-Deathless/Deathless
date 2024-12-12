@@ -8,22 +8,25 @@ public class Sniper : Enemy
 
 	protected override void PerformAttack()
 	{
-		if (!hasShot)
+		switch (attackState)
 		{
-			Quaternion targetRotation = Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1200f);
-			shooter.ShootProjectile();
-			hasShot = true;
-		}
-		Debug.Log("dzing !");
-	}
-
-	protected override void ChangeAttackState(AttackState newState)
-	{
-		base.ChangeAttackState(newState);
-		if (newState == AttackState.Cooldown)
-		{
-			hasShot = false;
+			case AttackState.Cast:
+				Quaternion targetRotation = Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 120f);
+				break;
+			case AttackState.Hit:
+				if (!hasShot)
+				{
+					Debug.Log("dzing !");
+					shooter.ShootProjectile();
+					hasShot = true;
+				}
+				break;
+			case AttackState.Cooldown:
+				break;
+			case AttackState.None:
+				hasShot = false;
+				break;
 		}
 	}
 }
