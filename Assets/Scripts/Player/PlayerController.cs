@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 	[Header("Hit")]
 	public float hitDuration = 0.2f;
 	public float hitCooldown = 0.5f;
+	public float inputBufferTime = 0.1f;
 
 	[Header("Dash")]
 	public float dashDistance = 5f;
@@ -29,7 +30,15 @@ public class PlayerController : MonoBehaviour
 
 	Vector3 dashOffset = Vector3.zero;
 
+
+	// Timers
+	float inputBufferTimer = 0f;
+	float hitTimer = 0f;
+
+	// ?
 	InputsManager inputManager;
+	HitType.Type inputBuffer = HitType.Type.None;
+	HitType.Type inputCurrent;
 	PlayerHealth playerHealth;
 	Rigidbody rb;
 
@@ -43,7 +52,6 @@ public class PlayerController : MonoBehaviour
 		ps.startLifetime = dashCooldown + dashDuration;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		Move();
@@ -58,7 +66,7 @@ public class PlayerController : MonoBehaviour
 		if (inputManager.move != Vector2.zero)
 		{
 			Quaternion targetRotation = Quaternion.LookRotation(new Vector3(inputManager.move.x, 0f, inputManager.move.y), Vector3.up);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 20f);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 3600f * Time.deltaTime );
 		}
 
 		rb.linearVelocity = new Vector3(inputManager.move.x * moveSpeed, rb.linearVelocity.y, inputManager.move.y * moveSpeed) + dashOffset;
@@ -72,6 +80,39 @@ public class PlayerController : MonoBehaviour
 				StartCoroutine(ApplyHit(inputManager.hit));
 			inputManager.hit = HitType.Type.None;
 		}
+
+		//if (inputCurrent != HitType.Type.None)
+		//{
+		//	if (hitTimer <= hitDuration)
+		//	{
+		//		hitCollider.SetActive(true);
+		//		hitCollider.GetComponent<HitCollider>().SetType(inputCurrent);
+		//	}
+		//	else if (hitTimer > hitDuration && hitTimer <= hitCooldown)
+		//	{
+		//		hitCollider.SetActive(false);
+		//	}
+		//	else if (hitTimer > (hitDuration + hitCooldown) - inputBufferTime)
+		//	{
+		//		inputBuffer = inputManager.hit;
+		//	}
+		//}
+
+		//if (hitTimer <= hitDuration + hitCooldown && inputCurrent != HitType.Type.None)
+		//{
+		//	hitTimer += Time.deltaTime;
+		//}
+		//else
+		//{
+		//	hitTimer = 0f;
+		//	if (inputBuffer != HitType.Type.None)
+		//	{
+		//		inputCurrent = inputBuffer;
+		//		inputBuffer = HitType.Type.None;
+		//	}
+		//	else
+		//		inputCurrent = inputManager.hit;
+		//}
 	}
 
 	void Dash()
