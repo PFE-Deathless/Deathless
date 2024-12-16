@@ -25,7 +25,7 @@ public class Shocker : Enemy
 				spawnTrail.emitting = false;
 				if (!hasShot)
 				{
-					Debug.Log("shockwave !");
+					//Debug.Log("shockwave !");
 					shooter.ShootProjectile();
 					hasShot = true;
 				}

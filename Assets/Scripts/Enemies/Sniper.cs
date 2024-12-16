@@ -24,7 +24,7 @@ public class Sniper : Enemy
 			case AttackState.Hit:
 				if (!hasShot)
 				{
-					Debug.Log("dzing !");
+					//Debug.Log("dzing !");
 					shooter.ShootProjectile();
 					hasShot = true;
 				}

@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 
 	[Header("Technical")]
 	public bool showState;
+	public bool showPathToTarget;
 	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
 
@@ -77,9 +78,9 @@ public class Enemy : MonoBehaviour
 		debugText.enabled = showState;
 
 		destLR.SetPosition(0, transform.position);
-		if (target != null)
+		if (target != null && showPathToTarget)
 			destLR.SetPosition(1, target.position);
-		else
+		if (target == null || !showPathToTarget)
 			destLR.SetPosition(1, transform.position);
 	}
 
