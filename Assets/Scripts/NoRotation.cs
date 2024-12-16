@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class NoRotation : MonoBehaviour
 {
+	public bool local;
+
 	void Update()
 	{
-		transform.rotation = Quaternion.identity;
+		if (local)
+			transform.localRotation = Quaternion.identity;
+		else
+			transform.rotation = Quaternion.identity;
 	}
 }
