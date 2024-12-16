@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Sniper : Enemy
+public class Shocker : Enemy
 {
 	[Header("Projectile")]
 	public ProjectileShooter shooter;
-	public Transform cubeFeedback;
-	public float maxScale = 0.7f;
-	public float minScale = 0.1f;
-	public AnimationCurve feedbackCurve;
+	public Transform spawnStart;
+	public Transform spawnEnd;
+	public Transform spawnTransform;
+	public TrailRenderer spawnTrail;
 
 	bool hasShot;
 
@@ -18,13 +18,14 @@ public class Sniper : Enemy
 			case AttackState.Cast:
 				Quaternion targetRotation = Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up);
 				transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 120f);
-				float s = Mathf.Lerp(minScale, maxScale, feedbackCurve.Evaluate(stateTimer / cast));
-				cubeFeedback.localScale = new Vector3(1f, s, 1f);
+				spawnTrail.emitting = true;
+				spawnTransform.position = Vector3.Lerp(spawnStart.position, spawnEnd.position, stateTimer / attackCastTime);
 				break;
 			case AttackState.Hit:
+				spawnTrail.emitting = false;
 				if (!hasShot)
 				{
-					Debug.Log("dzing !");
+					Debug.Log("shockwave !");
 					shooter.ShootProjectile();
 					hasShot = true;
 				}
