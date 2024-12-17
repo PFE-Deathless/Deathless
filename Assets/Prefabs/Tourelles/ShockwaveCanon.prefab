@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9143959452543504444}
   - component: {fileID: 8467609075332092503}
   m_Layer: 19
-  m_Name: Shocker
+  m_Name: ShockwaveCanon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

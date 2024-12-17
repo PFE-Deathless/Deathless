@@ -25,7 +25,8 @@ public class Enemy : MonoBehaviour
 
 	[Header("Technical")]
 	public bool showState;
-	public LayerMask playerLayerMask;
+	public bool showPathToTarget;
+	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
 
 	public HitType.Type CurrentType { get; private set; }
@@ -38,11 +39,14 @@ public class Enemy : MonoBehaviour
 
 	// Attack
 	protected AttackState attackState;
+	protected float stateTimer;
+	protected float cast;
+	protected float hit;
+	protected float cooldown;
 
 
 	// State Machine
 	EnemyState state;
-	float stateTimer;
 	Vector3 patrolDestination;
 
 	// DEBUG
@@ -61,6 +65,10 @@ public class Enemy : MonoBehaviour
 		destLR = gameObject.AddComponent<LineRenderer>();
 		destLR.startWidth = 0.2f;
 		destLR.endWidth = 0.2f;
+
+		cast = attackCastTime;
+		hit = cast + attackDuration;
+		cooldown = hit + attackCooldown;
 	}
 
 	private void Update()
@@ -70,9 +78,9 @@ public class Enemy : MonoBehaviour
 		debugText.enabled = showState;
 
 		destLR.SetPosition(0, transform.position);
-		if (target != null)
+		if (target != null && showPathToTarget)
 			destLR.SetPosition(1, target.position);
-		else
+		if (target == null || !showPathToTarget)
 			destLR.SetPosition(1, transform.position);
 	}
 
@@ -237,10 +245,6 @@ public class Enemy : MonoBehaviour
 		debugText.text = "ATTACK";
 
 		navMeshAgent.isStopped = true;
-
-		float cast = attackCastTime;
-		float hit = cast + attackDuration;
-		float cooldown = hit + attackCooldown;
 		
 		stateTimer += Time.deltaTime;
 
