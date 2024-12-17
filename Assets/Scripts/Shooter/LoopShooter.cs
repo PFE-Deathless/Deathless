@@ -15,6 +15,7 @@ public class LoopShooter : MonoBehaviour
 	void Start()
 	{
 		shooter = GetComponent<ProjectileShooter>();
+		StartCoroutine(DelayStart());
 	}
 
 	protected void Update()
