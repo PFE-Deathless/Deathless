@@ -2,44 +2,61 @@ using UnityEngine;
 
 public class QuadraticCurve : MonoBehaviour
 {
-    public Transform StartPos;
-    public Transform Target;
-    public Transform Control;
-    public Transform player;
+	public Transform target;
+	public float height;
 
-    private float ControlPosx;
-    private float ControlPosz;
+	Vector3 control;
 
-    void Start()
-    {
-        ControlPosx = Control.position.x;
-        ControlPosz = Control.position.z;
-    }
-    void Update()
-    {
-        Target.position = player.position;
-        ControlPosx = (Target.position.x + StartPos.position.x)/2;
-        ControlPosz = (Target.position.z + StartPos.position.z)/2;
-        Control.position = new Vector3(ControlPosx, Control.position.y, ControlPosz);
-    }
+	public class Curve
+	{
+		Vector3 a;
+		Vector3 b;
+		Vector3 c;
 
-    public Vector3 evaluate(float t)
-    {
-        Vector3 ac = Vector3.Lerp(StartPos.position, Control.position, t);
-        Vector3 cb = Vector3.Lerp(Control.position, Target.position, t);
-        return Vector3.Lerp(ac, cb, t);
-    }
+		public Curve(Vector3 start, Vector3 end, float height)
+		{
+			a = start;
+			b = end;
+			c = Vector3.Lerp(a, b, 0.5f);
+			c.y += height;
+		}
 
-    private void OnDrawGizmos()
-    {
-        if (StartPos == null || Target == null || Control == null)
-        {
-            return;
-        }
+		public Vector3 Evaluate(float t)
+		{
+			Vector3 ac = Vector3.Lerp(a, c, t);
+			Vector3 cb = Vector3.Lerp(c, b, t);
+			return Vector3.Lerp(ac, cb, t);
+		}
+	}
 
-        for (int i = 0; i < 20; i++)
-        {
-            Gizmos.DrawWireSphere(evaluate(i / 20f), 0.1f);
-        }
-    }
+	void Update()
+	{
+		control = Vector3.Lerp(transform.position, target.position, 0.5f);
+		control.y += height;
+	}
+
+	public Curve GetCurve()
+	{
+		return new Curve(transform.position, target.position, height);
+	}
+
+	private void OnDrawGizmos()
+	{
+		control = Vector3.Lerp(transform.position, target.position, 0.5f);
+		control.y += height;
+
+		Gizmos.DrawLine(transform.position, target.position);
+
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(control, 0.3f);
+
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(target.position, 0.3f);
+		
+		Gizmos.color = Color.green;
+		for (int i = 0; i < 20; i++)
+		{
+			Gizmos.DrawWireSphere(GetCurve().Evaluate(i / 20f), 0.1f);
+		}
+	}
 }

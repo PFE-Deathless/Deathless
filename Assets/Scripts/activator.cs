@@ -21,7 +21,7 @@ public class activator : MonoBehaviour
     {
         if (other.gameObject.layer == 3 )
         {
-            tmp
+            //tmp
             
         }
     }

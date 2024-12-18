@@ -15,8 +15,8 @@ public class ProjectileCurve : MonoBehaviour
     void Update ()
     {
         sampleTime += Time.deltaTime * speed;
-        transform.position = curve.evaluate(sampleTime);
-        transform.forward = curve.evaluate(sampleTime + 0.001f) - transform.position;
+        transform.position = curve.GetCurve().Evaluate(sampleTime);
+        transform.forward = curve.GetCurve().Evaluate(sampleTime + 0.001f) - transform.position;
 
         if (sampleTime >= 1f)
         {
