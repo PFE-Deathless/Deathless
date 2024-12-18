@@ -28,7 +28,7 @@ public class ProjectileMovement : MonoBehaviour
 		Debug.Log("nope");
 	}
 
-	public void Curve(float time, QuadraticCurve.Curve curve)
+	public void Curve(float time, CurveShooter.Curve curve)
 	{
 		StartCoroutine(FollowCurve(time, curve));
 	}
@@ -56,7 +56,7 @@ public class ProjectileMovement : MonoBehaviour
 			Destroy(gameObject);
 	}
 
-	IEnumerator FollowCurve(float time, QuadraticCurve.Curve curve)
+	IEnumerator FollowCurve(float time, CurveShooter.Curve curve)
 	{
 		float elapsedTime = 0f;
 
@@ -67,7 +67,7 @@ public class ProjectileMovement : MonoBehaviour
 			yield return null;
 		}
 
-		Debug.Log("Boom");
+		//Debug.Log("Boom");
 		Destroy(gameObject);
 	}
 }

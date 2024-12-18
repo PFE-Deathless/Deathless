@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class QuadraticCurve : MonoBehaviour
 {
+	public Transform origin;
 	public Transform target;
 	public float height;
 
@@ -29,23 +30,31 @@ public class QuadraticCurve : MonoBehaviour
 		}
 	}
 
+	private void Start()
+	{
+		if (origin == null)
+			origin = transform;
+	}
+
 	void Update()
 	{
-		control = Vector3.Lerp(transform.position, target.position, 0.5f);
+		control = Vector3.Lerp(origin.position, target.position, 0.5f);
 		control.y += height;
 	}
 
-	public Curve GetCurve()
+	public Curve GetCurve(Vector3 target)
 	{
-		return new Curve(transform.position, target.position, height);
+		return new Curve(origin.position, target, height);
 	}
 
 	private void OnDrawGizmos()
 	{
-		control = Vector3.Lerp(transform.position, target.position, 0.5f);
+		if (target == null || origin == null)
+			return;
+		control = Vector3.Lerp(origin.position, target.position, 0.5f);
 		control.y += height;
 
-		Gizmos.DrawLine(transform.position, target.position);
+		Gizmos.DrawLine(origin.position, target.position);
 
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(control, 0.3f);
@@ -56,7 +65,7 @@ public class QuadraticCurve : MonoBehaviour
 		Gizmos.color = Color.green;
 		for (int i = 0; i < 20; i++)
 		{
-			Gizmos.DrawWireSphere(GetCurve().Evaluate(i / 20f), 0.1f);
+			Gizmos.DrawWireSphere(GetCurve(target.position).Evaluate(i / 20f), 0.1f);
 		}
 	}
 }

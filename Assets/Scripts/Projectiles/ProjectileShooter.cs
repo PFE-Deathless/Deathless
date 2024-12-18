@@ -7,8 +7,7 @@ public class ProjectileShooter : MonoBehaviour
 	public ProjectileObject projectile;
 	public Transform origin;
 
-	[Header("Curve")]
-	[Tooltip("Only for curve type")] public float time;
+	[HideInInspector] public Transform target;
 
 	public enum Type
 	{
@@ -19,6 +18,8 @@ public class ProjectileShooter : MonoBehaviour
 
 	public void ShootProjectile()
 	{
+		if (origin == null)
+			origin = transform;
 		GameObject obj = Instantiate(projectile.gameObject, origin.position, origin.rotation);
 		obj.AddComponent<Rigidbody>();
 		ProjectileMovement p = obj.AddComponent<ProjectileMovement>();
@@ -31,9 +32,6 @@ public class ProjectileShooter : MonoBehaviour
 				break;
 			case Type.Homing:
 				p.Homing();
-				break;
-			case Type.Curve:
-				p.Curve(time, GetComponent<QuadraticCurve>().GetCurve());
 				break;
 		}
 	}
