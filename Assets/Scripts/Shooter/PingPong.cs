@@ -35,9 +35,9 @@ public class PingPong : Move
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(transform.position, transform.position + new Vector3(Mathf.Sin((angleOffset) * Mathf.Deg2Rad), 0f, Mathf.Cos((angleOffset) * Mathf.Deg2Rad)) * 10f);
 		Gizmos.color = Color.green;
+		Gizmos.DrawLine(transform.position, transform.position + new Vector3(Mathf.Sin((angleOffset) * Mathf.Deg2Rad), 0f, Mathf.Cos((angleOffset) * Mathf.Deg2Rad)) * 10f);
+		Gizmos.color = Color.red;
 		Gizmos.DrawLine(transform.position, transform.position + new Vector3(Mathf.Sin((angleOffset + angleRange) * Mathf.Deg2Rad), 0f, Mathf.Cos((angleOffset + angleRange) * Mathf.Deg2Rad)) * 10f);
 	}
 }
