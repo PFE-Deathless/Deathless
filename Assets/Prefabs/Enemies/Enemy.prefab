@@ -306,6 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6939404660023884105}
+  - component: {fileID: 4637872127972184919}
   - component: {fileID: 2002044623752977813}
   - component: {fileID: 1733333720193289446}
   m_Layer: 7
@@ -333,6 +334,20 @@ Transform:
   - {fileID: 5006123670389485698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4637872127972184919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650490890228544690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288a9f210d96f184b8c69e127bcb7b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootList: []
+  droppedLoot: {fileID: 422941249975878061, guid: 53ad37172c69a394687e7e7e569b09be, type: 3}
 --- !u!114 &2002044623752977813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthMax: 3
   range: 5
+  acquisitionRange: 2
   maxRange: 10
   moveSpeed: 8
   attackCastTime: 0.1

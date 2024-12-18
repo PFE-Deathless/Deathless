@@ -100,6 +100,7 @@ public class Enemy : MonoBehaviour
 		health--;
 		if (health <= 0)
 		{
+			GetComponent<LootManager>().instantiateLoot(transform.position);
 			Destroy(gameObject);
 			return;
 		}

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26708f01cd68469459f0a9161b473e4d, type: 3}
+  m_Name: ItemTest3
+  m_EditorClassIdentifier: 
+  isLootable: 0
+  isBuyable: 0
+  upgradeCost: 0
+  stockedSouls: 0
+  dropWeight: 100
+  isEnhanced: 0
+  playerChar: {fileID: 0}
+  inventoryScript: {fileID: 0}
+  isEquipped: 0
+  itemName: 
+  itemSprite: {fileID: -2124190869, guid: ce281f7bf1833c949ad2c776cb16604d, type: 3}

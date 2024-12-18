@@ -424,6 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6939404660023884105}
+  - component: {fileID: 768935598998294965}
   - component: {fileID: 5842491140895441070}
   - component: {fileID: 7787006898736549601}
   - component: {fileID: 1733333720193289446}
@@ -453,6 +454,20 @@ Transform:
   - {fileID: 5925458683569845452}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768935598998294965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650490890228544690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288a9f210d96f184b8c69e127bcb7b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootList: []
+  droppedLoot: {fileID: 422941249975878061, guid: 53ad37172c69a394687e7e7e569b09be, type: 3}
 --- !u!114 &5842491140895441070
 MonoBehaviour:
   m_ObjectHideFlags: 0
