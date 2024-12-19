@@ -30,7 +30,7 @@ public class LoopShooter : MonoBehaviour
 		if (elapsedTime >= 1f / shootFrequency)
 		{
 			shooter.ShootProjectile();
-			elapsedTime -= 1f / shootFrequency;
+			elapsedTime = 0f;
 		}
 	}
 

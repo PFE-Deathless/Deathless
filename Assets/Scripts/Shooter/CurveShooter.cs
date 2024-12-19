@@ -111,7 +111,7 @@ public class CurveShooter : MonoBehaviour
 		if (elapsedTime >= 1f / shootFrequency)
 		{
 			ShootProjectile();
-			elapsedTime -= 1f / shootFrequency;
+			elapsedTime = 0f;
 		}
 	}
 
