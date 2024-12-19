@@ -53,6 +53,7 @@ public class LootManager : MonoBehaviour
             //ajout de hauteur pour l'objet
             Vector3 newPosition = new Vector3(0f,0.5f,0f) + spawnPosition;
             GameObject lootGameObject = Instantiate(droppedLoot,newPosition,Quaternion.identity);
+            lootGameObject.GetComponent<ItemPickup>().thisLoot = droppedItem;
             lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedItem.itemSprite; 
         }
     }

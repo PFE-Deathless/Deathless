@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26708f01cd68469459f0a9161b473e4d, type: 3}
   m_Name: ItemTest1
   m_EditorClassIdentifier: 
-  isLootable: 0
   isBuyable: 0
   upgradeCost: 0
   stockedSouls: 0
@@ -23,3 +22,5 @@ MonoBehaviour:
   isEquipped: 0
   itemName: 
   itemSprite: {fileID: 2139542933, guid: ce281f7bf1833c949ad2c776cb16604d, type: 3}
+  itemMesh: {fileID: 0}
+  itemRenderer: {fileID: 0}

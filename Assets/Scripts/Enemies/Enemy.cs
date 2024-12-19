@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
 
 	protected virtual void PerformAttack()
 	{
-		Debug.Log("Paf!");
+		//Debug.Log("Paf!");
 	}
 
 	void SetTypes()

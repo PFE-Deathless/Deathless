@@ -6,7 +6,6 @@ public class Objects : ScriptableObject
 {
     //#### ATTRIBUTS ####
     protected bool isPassive; 
-    public bool isLootable;
     public bool isBuyable; 
     public int upgradeCost;
     public int stockedSouls;
@@ -16,8 +15,7 @@ public class Objects : ScriptableObject
     public Inventory  inventoryScript;
     public bool isEquipped;
     public string itemName;
-    public Sprite itemSprite; 
-
+    public Sprite itemSprite;
     public MeshFilter itemMesh;
 
     public MeshRenderer itemRenderer;
@@ -26,7 +24,7 @@ public class Objects : ScriptableObject
         playerChar = GameObject.Find("Player");
         //REFERENCE SCRIPT INVENTAIRE
         inventoryScript  = playerChar.GetComponent<Inventory>();
-        
+        itemName = this.name;
         
     }
 
