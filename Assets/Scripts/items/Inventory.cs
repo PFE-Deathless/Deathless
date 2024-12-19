@@ -35,4 +35,17 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
+	//Ajout d'âmes
+	public void GainSouls(int soulsGain)
+	{
+		souls =+ soulsGain;
+		//Vérification des objets dans l'inventaire
+		foreach (Objects item in inventory) { 
+			if(item.isEquipped == true)
+			{
+				item.SoulsGained();
+			}
+		}
+	}
+
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.VisualScripting;
+using UnityEngine.Scripting;
 
 [CreateAssetMenu]
 public class Objects : ScriptableObject
@@ -15,17 +16,17 @@ public class Objects : ScriptableObject
     public Inventory  inventoryScript;
     public bool isEquipped;
     public string itemName;
+    public string scriptName;
     public Sprite itemSprite;
     public MeshFilter itemMesh;
-
     public MeshRenderer itemRenderer;
+    public GameObject abilityPrefab;
     void Start(){
         //REFERENCE JOUEUR
         playerChar = GameObject.Find("Player");
         //REFERENCE SCRIPT INVENTAIRE
         inventoryScript  = playerChar.GetComponent<Inventory>();
         itemName = this.name;
-        
     }
 
     // ###EFFET BASE & AMELIORE
@@ -41,9 +42,10 @@ public class Objects : ScriptableObject
         {
             isEnhanced = true; 
         }
-
     }
- 
+    public virtual void SoulsGained() {}
+    public virtual void ActiveEffect(){}
+    public virtual void EnhanceEffect(){}
 }
 
 
