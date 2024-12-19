@@ -17,10 +17,11 @@ public class ItemPickup : MonoBehaviour
         interactText.enabled = false;
         //REFERENCE PLAYER
         playerChar = GameObject.Find("Player");
+        //Joueure dedans?
         playerInside = false;
     }
 
-
+    //Detection si joueur rentre
     public void OnTriggerEnter(Collider other)
     {
         Debug.Log(other + " collided!");
@@ -32,6 +33,7 @@ public class ItemPickup : MonoBehaviour
         }
     }
 
+    //Ramasser l'item
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) & playerInside == true)
@@ -41,6 +43,8 @@ public class ItemPickup : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    //Detection si joueur sort
     void OnTriggerExit(Collider other){
         Debug.Log(other + " has left");
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))

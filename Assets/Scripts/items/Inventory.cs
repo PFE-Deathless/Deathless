@@ -25,6 +25,14 @@ public class Inventory : MonoBehaviour
 	//Ajout d'un item a l'inventaire
 	public void AddItem(Objects item){
 		if (inventory.Count <= maxPassiveItem)
-		inventory.Add(item);
+		{
+			inventory.Add(item);
+		} 
+		else
+		{
+			//Si trop d'item
+			Debug.Log("Trop d'imtems!");
+		}
 	}
+
 }
