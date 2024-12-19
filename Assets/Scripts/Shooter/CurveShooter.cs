@@ -13,6 +13,7 @@ public class CurveShooter : MonoBehaviour
 	[Tooltip("Origin of the projectile that will be fired")] public Transform origin;
 	[Tooltip("Canon that will be rotated")] public Transform canon;
 	[Tooltip("Projectile that will be fired")] public ProjectileObject projectile;
+	[Tooltip("Crosshair that will highlight the player when targeted")] public GameObject crosshairObject;
 	[Tooltip("Layer of the player for detection")] public LayerMask playerLayer = (1 << 3 | 1 << 6);
 
 	float elapsedTime = 0f;
@@ -50,12 +51,20 @@ public class CurveShooter : MonoBehaviour
 		target = GetTarget();
 		if (target != null)
 		{
+			crosshairObject.SetActive(true);
+			crosshairObject.transform.position = new Curve(origin.position, target.position, height).Evaluate(0.99f);
 			if (canon != null)
+			{
 				canon.rotation = new Curve(origin.position, target.position, height).EvaluateRotation(0f);
-			PerformShoot();
+				crosshairObject.transform.eulerAngles = new Vector3(0f, canon.eulerAngles.y, 0f);
+            }
+            PerformShoot();
 		}
 		else
+		{
+			crosshairObject.SetActive(false);
 			elapsedTime = 0f;
+		}
 	}
 
 	public void ShootProjectile()
