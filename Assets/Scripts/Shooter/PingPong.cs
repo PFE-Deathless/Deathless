@@ -16,19 +16,24 @@ public class PingPong : Move
 		//Debug.Log("test");
 		if (direction)
 		{
-			t += Time.deltaTime * rotationSpeed;
-			if (t > angleRange)
+			t += Time.fixedDeltaTime * rotationSpeed;
+			if (t >= angleRange)
+			{
 				direction = false;
+				t = angleRange;
+			}
 		}
 		else
 		{
-			t -= Time.deltaTime * rotationSpeed;
-			if (t < 0f)
+			t -= Time.fixedDeltaTime * rotationSpeed;
+			if (t <= 0f)
+			{
 				direction = true;
+				t = 0f;
+			}
 		}
 
 		angle = (movementCurve.Evaluate(t / angleRange) * angleRange) + angleOffset;
-		Debug.Log("Angle : " + angle);
 
 		target.eulerAngles = new Vector3(target.eulerAngles.x, angle, target.eulerAngles.z);
 	}

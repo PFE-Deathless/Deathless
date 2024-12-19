@@ -58,16 +58,24 @@ public class CurveShooter : MonoBehaviour
 				canon.rotation = new Curve(origin.position, target.position, height).EvaluateRotation(0f);
 				crosshairObject.transform.eulerAngles = new Vector3(0f, canon.eulerAngles.y, 0f);
             }
-            PerformShoot();
 		}
 		else
 		{
 			crosshairObject.SetActive(false);
-			elapsedTime = 0f;
 		}
 	}
 
-	public void ShootProjectile()
+    private void FixedUpdate()
+    {
+        if (target != null)
+		{
+            PerformShoot();
+        }
+		else
+            elapsedTime = 0f;
+    }
+
+    public void ShootProjectile()
 	{
 		if (origin == null)
 			origin = transform;
@@ -94,7 +102,7 @@ public class CurveShooter : MonoBehaviour
 
 	protected void PerformShoot()
 	{
-		elapsedTime += Time.deltaTime;
+		elapsedTime += Time.fixedDeltaTime;
 		if (elapsedTime >= 1f / shootFrequency)
 		{
 			ShootProjectile();

@@ -14,7 +14,7 @@ public abstract class Move : MonoBehaviour
 		Setup();
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (started)
 			PerformMove();
