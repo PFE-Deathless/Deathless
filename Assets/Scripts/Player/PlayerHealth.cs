@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
 	[Header("Statistics")]
-	public int healthMax = 10;
+	public int healthMax = 5;
+	public int health;
 
 	[Tooltip("Invicibility duration after taking a hit")]
 	public float invicibilityTime = 0.8f;
@@ -15,7 +16,6 @@ public class PlayerHealth : MonoBehaviour
 	[Header("VFX")]
 	public ParticleSystem damageParticle;
 
-	int health;
 
 	[HideInInspector] public bool invicible = false;
 

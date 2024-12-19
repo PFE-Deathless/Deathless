@@ -18,21 +18,21 @@ public class HealthDisplay : MonoBehaviour
 	public PlayerHealth playerHealth;
 
 
-	//void Start()
-	//{
-	//	playerHealth.health = health;
-	//	playerHealth.healthMax = maxHealth;
-	//}
+	void Start()
+	{
+		playerHealth.health = health;
+		playerHealth.healthMax = maxHealth;
+	}
 
 	void Update()
 	{
 		// pour debug :emojinerd:
-		playerHealth.health = health;
-		playerHealth.healthMax = maxHealth;
+		//playerHealth.health = health;
+		//playerHealth.healthMax = maxHealth;
 
 		for (int i = 0; i < hearts.Length; i++)
 		{
-			if (i < health) // si il a de la vie les coeur sont pleins, sinon ils sont vides
+			if (i < playerHealth.health) // si il a de la vie les coeur sont pleins, sinon ils sont vides
 			{
 				hearts[i].sprite = fullHeart;
 			}
@@ -41,7 +41,7 @@ public class HealthDisplay : MonoBehaviour
 				hearts[i].sprite = emptyHeart;
 			}
 
-			if ( i < maxHealth ) 
+			if ( i < playerHealth.healthMax) 
 			{
 				hearts[i].enabled = true;
 			}
