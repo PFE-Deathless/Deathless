@@ -8,7 +8,6 @@ public abstract class Move : MonoBehaviour
 
 	bool started = false;
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		Setup();

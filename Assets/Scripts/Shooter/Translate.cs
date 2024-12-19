@@ -21,7 +21,6 @@ public class Translate : Move
 
 	protected override void PerformMove()
 	{
-		//Debug.Log("test");
 		if (direction)
 		{
 			t += Time.fixedDeltaTime;

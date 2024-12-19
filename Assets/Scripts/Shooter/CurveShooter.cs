@@ -51,17 +51,22 @@ public class CurveShooter : MonoBehaviour
 		target = GetTarget();
 		if (target != null)
 		{
-			crosshairObject.SetActive(true);
-			crosshairObject.transform.position = new Curve(origin.position, target.position, height).Evaluate(0.99f);
+			if (crosshairObject != null)
+			{
+				crosshairObject.SetActive(true);
+				crosshairObject.transform.position = new Curve(origin.position, target.position, height).Evaluate(0.99f);
+			}
 			if (canon != null)
 			{
-				canon.rotation = new Curve(origin.position, target.position, height).EvaluateRotation(0f);
-				crosshairObject.transform.eulerAngles = new Vector3(0f, canon.eulerAngles.y, 0f);
+                canon.rotation = new Curve(origin.position, target.position, height).EvaluateRotation(0f);
+                if (crosshairObject != null)
+                    crosshairObject.transform.eulerAngles = new Vector3(0f, canon.eulerAngles.y, 0f);
             }
 		}
 		else
 		{
-			crosshairObject.SetActive(false);
+            if (crosshairObject != null)
+	            crosshairObject.SetActive(false);
 		}
 	}
 

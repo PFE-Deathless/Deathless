@@ -93,8 +93,6 @@ public class ProjectileMovement : MonoBehaviour
 
 		previsualisation.Destroy();
 		CreateEffect();
-
-		Debug.Log("Boom");
 		Destroy(gameObject);
 	}
 }
