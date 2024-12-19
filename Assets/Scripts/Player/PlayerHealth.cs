@@ -11,7 +11,6 @@ public class PlayerHealth : MonoBehaviour
 	public float invicibilityTime = 0.8f;
 
 	[Header("Technical")]
-	public Slider healthSlider;
 
 	[Header("VFX")]
 	public ParticleSystem damageParticle;
@@ -23,7 +22,6 @@ public class PlayerHealth : MonoBehaviour
 	void Start()
 	{
 		health = healthMax;
-		healthSlider.value = 1f;
 	}
 
 	private void Update()
@@ -47,7 +45,6 @@ public class PlayerHealth : MonoBehaviour
 		{
 			health -= damage;
 			damageParticle.Play();
-			healthSlider.value = (float)health / (float)healthMax;
 			StartCoroutine(InvicibilityTime());
 			//Debug.Log("HP : " + health);
 		}

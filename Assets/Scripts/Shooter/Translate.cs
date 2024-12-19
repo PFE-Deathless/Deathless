@@ -21,10 +21,9 @@ public class Translate : Move
 
 	protected override void PerformMove()
 	{
-		//Debug.Log("test");
 		if (direction)
 		{
-			t += Time.deltaTime;
+			t += Time.fixedDeltaTime;
 			if (t >= time)
 			{
 				direction = false;
@@ -33,7 +32,7 @@ public class Translate : Move
 		}
 		else
 		{
-			t -= Time.deltaTime;
+			t -= Time.fixedDeltaTime;
 			if (t <= 0f) 
 			{ 
 				direction = true;

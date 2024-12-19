@@ -20,7 +20,6 @@ public class ProjectilePrevisualisation : MonoBehaviour
 
     public void Destroy()
     {
-        Debug.Log("bap");
         Destroy(gameObject);
     }
 }
