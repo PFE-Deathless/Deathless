@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObject: {fileID: 1685194900227460346, guid: 06428750ee3689949aa5cfa1bcf6f254, type: 3}
   effect: {fileID: 11400000, guid: 021046fa0e404b84d90bcebca5b419ce, type: 2}
+  previsualisation: {fileID: 5752575986709166891, guid: db1e397da5705be44833d90befcbc10d, type: 3}
   speed: 10
   lifeSpan: 10
   damage: 1
   destroyOnContact: 1
+  type: 2
