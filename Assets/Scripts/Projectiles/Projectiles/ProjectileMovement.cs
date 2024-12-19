@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
@@ -7,6 +8,7 @@ public class ProjectileMovement : MonoBehaviour
 	ProjectileObject projectile;
 
 	float lifeSpan = 0f;
+	bool effectCreated = false;
 
 	public void Setup(ProjectileObject projectile)
 	{
@@ -52,9 +54,21 @@ public class ProjectileMovement : MonoBehaviour
 		PlayerHealth p = other.gameObject.GetComponent<PlayerHealth>();
 		if (p != null)
 			p.TakeDamage(projectile.damage);
-		if (projectile.destroyOnContact)
+		CreateEffect();
+        if (projectile.destroyOnContact)
 			Destroy(gameObject);
 	}
+
+	void CreateEffect()
+	{
+        if (projectile.effect != null && !effectCreated)
+        {
+            GameObject obj = Instantiate(projectile.effect.gameObject, transform.position, Quaternion.identity);
+            EffectArea e = obj.AddComponent<EffectArea>();
+            e.Setup(projectile.effect);
+			effectCreated = true;
+        }
+    }
 
 	IEnumerator FollowCurve(float time, CurveShooter.Curve curve)
 	{
@@ -66,6 +80,8 @@ public class ProjectileMovement : MonoBehaviour
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
+
+		CreateEffect();
 
 		//Debug.Log("Boom");
 		Destroy(gameObject);

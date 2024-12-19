@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProjectileObject : ScriptableObject
 {
 	public GameObject gameObject;
+	[Tooltip("Will activate on projectile destroy, keep it null for no effect")] public EffectObject effect;
 	public float speed;
 	public float lifeSpan = 10f;
 	public int damage = 1;
