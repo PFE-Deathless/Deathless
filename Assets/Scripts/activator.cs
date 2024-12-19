@@ -1,28 +1,58 @@
 using TMPro;
 using UnityEngine;
 
-public class activator : MonoBehaviour
+
+public class Activator : MonoBehaviour
 {
     public GameObject activable;
     public TextMeshPro tmp;
+    private bool inBox = false;
+    private bool canInteract = true;
+    public GameObject levier;
+    public GameObject _feedback;
 
     void Start()
     {
+        tmp.enabled = false;
         
+
+
     }
 
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E) && inBox)
+        {
+            activable.SetActive(false);
+
+            // feedback
+            levier.transform.localRotation = Quaternion.Euler(0f, 0f, 30f);
+            ParticleSystem ps = _feedback.GetComponent<ParticleSystem>();
+            ps.Play();
+
+            // l'objet n'est plus utilisable
+            canInteract = false;
+
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 3 )
+        if (other.gameObject.layer == 3 && canInteract)
         {
-            //tmp
-            
+            inBox = true;
+            tmp.enabled = true;          
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 3)
+        {
+            tmp.enabled = false;
+            inBox = false;
         }
     }
 }

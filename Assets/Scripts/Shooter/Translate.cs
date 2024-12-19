@@ -21,18 +21,23 @@ public class Translate : Move
 
 	protected override void PerformMove()
 	{
-		//Debug.Log("test");
 		if (direction)
 		{
-			t += Time.deltaTime;
-			if (t > time)
+			t += Time.fixedDeltaTime;
+			if (t >= time)
+			{
 				direction = false;
+				t = time;
+			}
 		}
 		else
 		{
-			t -= Time.deltaTime;
-			if (t < 0f)
+			t -= Time.fixedDeltaTime;
+			if (t <= 0f) 
+			{ 
 				direction = true;
+				t = 0f;
+			}
 		}
 		
 		target.position = Vector3.Lerp(start.position, end.position, movementCurve.Evaluate(t / time));

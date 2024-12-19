@@ -11,7 +11,8 @@ public class CameraBehavior : MonoBehaviour
 
 	void Start()
 	{
-		transform.LookAt(objToFollow.position);
+        transform.position = objToFollow.position + offset;
+        transform.LookAt(objToFollow.position);
 	}
 
 	void LateUpdate()

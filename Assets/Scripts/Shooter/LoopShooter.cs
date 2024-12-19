@@ -18,7 +18,7 @@ public class LoopShooter : MonoBehaviour
 		StartCoroutine(DelayStart());
 	}
 
-	protected void Update()
+	protected void FixedUpdate()
 	{
 		if (started)
 			PerformShoot();
@@ -26,11 +26,11 @@ public class LoopShooter : MonoBehaviour
 
 	protected void PerformShoot()
 	{
-		elapsedTime += Time.deltaTime;
+		elapsedTime += Time.fixedDeltaTime;
 		if (elapsedTime >= 1f / shootFrequency)
 		{
 			shooter.ShootProjectile();
-			elapsedTime -= 1f / shootFrequency;
+			elapsedTime = 0f;
 		}
 	}
 

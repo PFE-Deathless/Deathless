@@ -6,6 +6,6 @@ public class Rotator : Move
 
 	protected override void PerformMove()
 	{
-		target.eulerAngles += new Vector3(0f, rotationSpeed * Time.deltaTime, 0f);
+		target.eulerAngles += new Vector3(0f, rotationSpeed * Time.fixedDeltaTime, 0f);
 	}
 }
