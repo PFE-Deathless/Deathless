@@ -32,13 +32,13 @@ public class PlayerController : MonoBehaviour
 
 
 	// Timers
-	float inputBufferTimer = 0f;
-	float hitTimer = 0f;
+	//float inputBufferTimer = 0f;
+	//float hitTimer = 0f;
 
 	// ?
 	InputsManager inputManager;
-	HitType.Type inputBuffer = HitType.Type.None;
-	HitType.Type inputCurrent;
+	//HitType.Type inputBuffer = HitType.Type.None;
+	//HitType.Type inputCurrent;
 	PlayerHealth playerHealth;
 	Rigidbody rb;
 

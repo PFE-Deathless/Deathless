@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
@@ -10,15 +11,34 @@ public class ProjectileMovement : MonoBehaviour
 	public void Setup(ProjectileObject projectile)
 	{
 		rb = GetComponent<Rigidbody>();
-		//rb.isKinematic = true;
 		rb.useGravity = false;
 		rb.constraints = RigidbodyConstraints.FreezeRotation;
 		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-		rb.linearVelocity = transform.forward * projectile.speed;
 		this.projectile = projectile;
 	}
 
+	public void Forward()
+	{
+		rb.linearVelocity = transform.forward * projectile.speed;
+	}
+
+	public void Homing()
+	{
+		// Nope
+		Debug.Log("nope");
+	}
+
+	public void Curve(float time, CurveShooter.Curve curve)
+	{
+		StartCoroutine(FollowCurve(time, curve));
+	}
+
 	private void Update()
+	{
+		LifeSpan();
+	}
+
+	void LifeSpan()
 	{
 		lifeSpan += Time.deltaTime;
 		if (lifeSpan >= projectile.lifeSpan)
@@ -34,5 +54,20 @@ public class ProjectileMovement : MonoBehaviour
 			p.TakeDamage(projectile.damage);
 		if (projectile.destroyOnContact)
 			Destroy(gameObject);
+	}
+
+	IEnumerator FollowCurve(float time, CurveShooter.Curve curve)
+	{
+		float elapsedTime = 0f;
+
+		while (elapsedTime < time)
+		{
+			transform.position = curve.Evaluate(elapsedTime / time);
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		//Debug.Log("Boom");
+		Destroy(gameObject);
 	}
 }
