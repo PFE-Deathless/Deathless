@@ -25,14 +25,20 @@ public class Translate : Move
 		if (direction)
 		{
 			t += Time.deltaTime;
-			if (t > time)
+			if (t >= time)
+			{
 				direction = false;
+				t = time;
+			}
 		}
 		else
 		{
 			t -= Time.deltaTime;
-			if (t < 0f)
+			if (t <= 0f) 
+			{ 
 				direction = true;
+				t = 0f;
+			}
 		}
 		
 		target.position = Vector3.Lerp(start.position, end.position, movementCurve.Evaluate(t / time));
