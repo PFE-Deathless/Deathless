@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2826685990114211081
 Transform:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8375412325416632655
 Transform:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.49999997
   m_Center: {x: -0.00000047683716, y: -0.00000011920929, z: 0}
@@ -297,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &91962157737474615
 Transform:
   m_ObjectHideFlags: 0
@@ -528,7 +528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c4ea1b880337e4e8e971ef383170f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objToRotate: {fileID: 7567805935030191999}
+  target: {fileID: 0}
+  offsetDelay: 0
   rotationSpeed: -360
 --- !u!1 &7341805606710962888
 GameObject:
@@ -547,7 +548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1859664523764582031
 Transform:
   m_ObjectHideFlags: 0
@@ -633,7 +634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8793805809358427617
 Transform:
   m_ObjectHideFlags: 0
@@ -787,7 +788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6760221631885944679
 Transform:
   m_ObjectHideFlags: 0
