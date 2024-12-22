@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObject: {fileID: 6937445593981999243, guid: b6079058daddba640bd4167b24aeb80f, type: 3}
   duration: 1
-  radius: 2
+  radius: 3.5
   damage: 1
