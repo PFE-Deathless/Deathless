@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
 	int health;
 	HitBar hitBar;
-	NavMeshAgent navMeshAgent;
+	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 
 	// Attack
@@ -60,6 +60,8 @@ public class Enemy : MonoBehaviour
 		CurrentType = Types[0];
 		health = healthMax;
 
+		EnemyStart();
+
 		ChangeState(EnemyState.Patrol);
 
 		destLR = gameObject.AddComponent<LineRenderer>();
@@ -82,6 +84,11 @@ public class Enemy : MonoBehaviour
 			destLR.SetPosition(1, target.position);
 		if (target == null || !showPathToTarget)
 			destLR.SetPosition(1, transform.position);
+	}
+
+	protected virtual void EnemyStart()
+	{
+
 	}
 
 	bool DetectPlayer()
