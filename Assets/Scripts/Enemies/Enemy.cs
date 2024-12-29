@@ -330,6 +330,11 @@ public class Enemy : MonoBehaviour
 		public void OnEnable()
 		{
 			_Enemy = (Enemy)target;
+			if (_Enemy.patrolPoints.Length == 0)
+			{
+				_Enemy.patrolPoints = new Vector3[1];
+				_Enemy.patrolPoints[0] = _Enemy.transform.position;
+			}
 		}
 
 		public override void OnInspectorGUI()
