@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
 	public int healthMax = 3;
+	public int souls = 1;
 	public float range = 5f;
 	public float acquisitionRange = 2f;
 	public float maxRange = 10f;
@@ -115,6 +116,7 @@ public class Enemy : MonoBehaviour
 		health--;
 		if (health <= 0)
 		{
+			GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
 			Destroy(gameObject);
 			return;
 		}
@@ -246,6 +248,8 @@ public class Enemy : MonoBehaviour
 			ChangeState(EnemyState.Patrol);
 		}
 	}
+
+
 
 	void Attack()
 	{
