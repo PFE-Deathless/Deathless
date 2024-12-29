@@ -24,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
 	void Start()
 	{
 		health = healthMax;
+		gameManager.healthDisplay.UpdateHealth(health);
+		gameManager.healthDisplay.UpdateHealthMax(healthMax);
 	}
 
 	private void Update()
@@ -46,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible)
 		{
 			health -= damage;
+			gameManager.healthDisplay.UpdateHealth(health);
 			damageParticle.Play();
 			StartCoroutine(InvicibilityTime());
 			//Debug.Log("HP : " + health);

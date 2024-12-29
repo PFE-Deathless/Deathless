@@ -5,15 +5,21 @@ public class GameManager : MonoBehaviour
 {
 	GameObject player;
 	GameObject uiPlayer;
+
 	PlayerHealth playerHealth;
 	PlayerSouls playerSouls;
+	
+	public HealthDisplay healthDisplay { get; private set; }
 
-	void Start()
+	void Awake()
 	{
 		player = GameObject.FindWithTag("Player");
 		uiPlayer = GameObject.FindWithTag("UIPlayer");
+
 		playerHealth = player.GetComponent<PlayerHealth>();
 		playerSouls = player.GetComponent<PlayerSouls>();
+		healthDisplay = uiPlayer.GetComponent<HealthDisplay>();
+
 		playerHealth.gameManager = this;
 		playerSouls.gameManager = this;
 	}
