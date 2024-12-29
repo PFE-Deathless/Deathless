@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObject: {fileID: 4245771602091435646, guid: 7a4d837bdc248a84a97a7020cf5a5189, type: 3}
   effect: {fileID: 0}
+  previsualisation: {fileID: 0}
   speed: 0
   lifeSpan: 10
   damage: 1
   destroyOnContact: 1
+  type: 0
