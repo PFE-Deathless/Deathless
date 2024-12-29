@@ -217,6 +217,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ad1c5e9f-08b0-4a1d-afbc-2ee64f34a690",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadScene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dea1f941-9f14-490f-82bd-e7a4dca66631",
                     "path": "<Gamepad>/start",
                     "interactions": "",
