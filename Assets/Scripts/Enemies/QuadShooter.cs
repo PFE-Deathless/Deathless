@@ -8,34 +8,22 @@ public class QuadShooter : Enemy
 	public Transform start;
 	public Transform end;
 
-	bool hasShot;
-
-	protected override void PerformAttack()
+	protected override void UpdateCast()
 	{
-		switch (attackState)
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, 120f);
+		feedbackCylinder.position = Vector3.Lerp(start.position, end.position, stateTimer / cast);
+	}
+
+	protected override void StartHit()
+	{
+		foreach (ProjectileShooter shooter in shooters)
 		{
-			case AttackState.Cast:
-				//Quaternion targetRotation = Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up);
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, 120f);
-				feedbackCylinder.position = Vector3.Lerp(start.position, end.position, stateTimer / cast);
-				break;
-			case AttackState.Hit:
-				if (!hasShot)
-				{
-					Debug.Log("dzing !");
-					foreach (ProjectileShooter shooter in shooters)
-					{
-						shooter.ShootProjectile();
-					}
-					hasShot = true;
-				}
-				break;
-			case AttackState.Cooldown:
-				feedbackCylinder.position = Vector3.Lerp(end.position, start.position, (stateTimer - (cast + hit)) / cooldown);
-				break;
-			case AttackState.None:
-				hasShot = false;
-				break;
+			shooter.ShootProjectile();
 		}
+	}
+
+	protected override void UpdateCooldown()
+	{
+		feedbackCylinder.position = Vector3.Lerp(end.position, start.position, (stateTimer - (cast + hit)) / cooldown);
 	}
 }

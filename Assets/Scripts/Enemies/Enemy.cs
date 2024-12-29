@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 	protected Transform target;
 
 	// Attack
-	protected AttackState attackState;
+	protected AttackState attackState = AttackState.None;
 	protected float stateTimer;
 	protected float cast;
 	protected float hit;
@@ -123,11 +123,6 @@ public class Enemy : MonoBehaviour
 
 		CurrentType = Types[healthMax - health];
 		hitBar.UpdateHitBar(healthMax - health);
-	}
-
-	protected virtual void PerformAttack()
-	{
-		Debug.Log("Paf!");
 	}
 
 	void SetTypes()
@@ -249,12 +244,8 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-
-
 	void Attack()
 	{
-		debugText.text = "ATTACK";
-
 		navMeshAgent.isStopped = true;
 		
 		stateTimer += Time.deltaTime;
@@ -262,27 +253,51 @@ public class Enemy : MonoBehaviour
 		switch (stateTimer)
 		{
 			case var _ when stateTimer < cast:
-				debugText.text = "ATTACK_CAST";
-				attackState = AttackState.Cast;
+				if (attackState != AttackState.Cast)
+				{
+					debugText.text = "ATTACK_CAST";
+					StartCast();
+					attackState = AttackState.Cast;
+				}
+				UpdateCast();
 				break;
 			case var _ when stateTimer >= cast && stateTimer < hit:
-				debugText.text = "ATTACK_HIT";
-				attackState = AttackState.Hit;
+				if (attackState != AttackState.Hit)
+				{
+					debugText.text = "ATTACK_HIT";
+					StartHit();
+					attackState = AttackState.Hit;
+				}
+				UpdateHit();
 				break;
 			case var _ when stateTimer >= hit && stateTimer < cooldown:
-				debugText.text = "ATTACK_CD";
-				attackState = AttackState.Cooldown;
+				if (attackState != AttackState.Cooldown)
+				{
+					debugText.text = "ATTACK_CD";
+					StartCooldown();
+					attackState = AttackState.Cooldown;
+				}
+				UpdateCooldown();
 				break;
 			case var _ when stateTimer >= cooldown:
+				EndAttack();
 				attackState = AttackState.None;
 				break;
 		}
-	
-		PerformAttack();
 
 		if (attackState == AttackState.None)
 			ChangeState(EnemyState.Patrol);
 	}
+
+
+	// Methods called for each phase of the attack (Start once and Update every frame)
+	protected virtual void StartCast() { }
+	protected virtual void UpdateCast() { }
+	protected virtual void StartHit() { }
+	protected virtual void UpdateHit() { }
+	protected virtual void StartCooldown() { }
+	protected virtual void UpdateCooldown() { }
+	protected virtual void EndAttack() { }
 
 	void ChooseNewPatrolPoint()
 	{
