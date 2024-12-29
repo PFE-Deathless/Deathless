@@ -9,6 +9,7 @@ public class PlayerSouls : MonoBehaviour
 	public void AddSouls(int amount)
 	{
 		souls += amount;
+		gameManager.soulsDisplay.UpdateSouls(souls);
 		Debug.Log("Souls : " + souls);
 	}
 }

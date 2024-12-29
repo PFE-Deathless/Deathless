@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 	PlayerSouls playerSouls;
 	
 	public HealthDisplay healthDisplay { get; private set; }
+	public SoulsDisplay soulsDisplay { get; private set; }
 
 	void Awake()
 	{
@@ -18,7 +19,9 @@ public class GameManager : MonoBehaviour
 
 		playerHealth = player.GetComponent<PlayerHealth>();
 		playerSouls = player.GetComponent<PlayerSouls>();
+
 		healthDisplay = uiPlayer.GetComponent<HealthDisplay>();
+		soulsDisplay = uiPlayer.GetComponent<SoulsDisplay>();
 
 		playerHealth.gameManager = this;
 		playerSouls.gameManager = this;

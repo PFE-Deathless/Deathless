@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf06f254b4f6f343a1ff14e39dcdafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soulsText: {fileID: 0}
+  soulsText: {fileID: 76424237708517164}
 --- !u!1 &5185150898329330744
 GameObject:
   m_ObjectHideFlags: 0

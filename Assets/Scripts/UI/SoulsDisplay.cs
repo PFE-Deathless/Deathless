@@ -1,12 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class SoulsDisplay : MonoBehaviour
 {
-    public Text soulsText;
+	public TextMeshProUGUI soulsText;
 
-    public void UpdateSouls (int value)
-    {
-        soulsText.text = value.ToString ();
-    }
+	public void UpdateSouls(int value)
+	{
+		soulsText.text = value.ToString();
+	}
 }
