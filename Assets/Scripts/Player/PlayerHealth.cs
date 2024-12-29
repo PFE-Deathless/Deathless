@@ -19,6 +19,8 @@ public class PlayerHealth : MonoBehaviour
 
 	[HideInInspector] public bool invicible = false;
 
+	[HideInInspector] public GameManager gameManager;
+
 	void Start()
 	{
 		health = healthMax;
