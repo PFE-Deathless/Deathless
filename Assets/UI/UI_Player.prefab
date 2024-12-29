@@ -109,8 +109,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -52.244, y: 0}
-  m_SizeDelta: {x: 104.49, y: 50}
+  m_AnchoredPosition: {x: -52.244995, y: 0}
+  m_SizeDelta: {x: 104.48999, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &545694523776673117
 CanvasRenderer:
@@ -247,8 +247,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 132.5, y: -50}
-  m_SizeDelta: {x: 265, y: 100}
+  m_AnchoredPosition: {x: 142.5, y: -50}
+  m_SizeDelta: {x: 285, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1161359656262811018
 GameObject:
@@ -375,6 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4683767903137809089}
   - component: {fileID: 2220206757659257407}
+  - component: {fileID: 6005279432980617468}
   m_Layer: 0
   m_Name: UI_Player
   m_TagString: UIPlayer
@@ -410,8 +411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a817b4a5dc7c24fa4b36e1607e5959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
   emptyHeart: {fileID: 21300000, guid: 1fad1904d2c402b439079644821a0a40, type: 3}
   fullHeart: {fileID: 21300000, guid: 569e928be5c4152429b2dd60aa7772ea, type: 3}
   hearts:
@@ -420,7 +419,19 @@ MonoBehaviour:
   - {fileID: 5193907829295981406}
   - {fileID: 8016387869696555808}
   - {fileID: 4062436279054412723}
-  playerHealth: {fileID: 0}
+--- !u!114 &6005279432980617468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3328817507981037403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf06f254b4f6f343a1ff14e39dcdafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soulsText: {fileID: 0}
 --- !u!1 &5185150898329330744
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 80.256, y: 0}
+  m_AnchoredPosition: {x: 80.255, y: 0}
   m_SizeDelta: {x: 160.51, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &260089797303391166
