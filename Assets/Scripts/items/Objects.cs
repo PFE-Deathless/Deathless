@@ -9,6 +9,7 @@ public class Objects : ScriptableObject
     protected bool isPassive; 
     public bool isBuyable; 
     public int upgradeCost;
+    public int itemID;
     public int stockedSouls;
     public int dropWeight;
     public bool isEnhanced; 
@@ -16,7 +17,7 @@ public class Objects : ScriptableObject
     public Inventory  inventoryScript;
     public bool isEquipped;
     public string itemName;
-    public string scriptName;
+    // public string scriptName;
     public Sprite itemSprite;
     public MeshFilter itemMesh;
     public MeshRenderer itemRenderer;
@@ -42,6 +43,7 @@ public class Objects : ScriptableObject
         {
             isEnhanced = true; 
         }
+
     }
     public virtual void SoulsGained() {}
     public virtual void ActiveEffect(){}

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour
 	HitType.Type inputCurrent;
 	PlayerHealth playerHealth;
 	Rigidbody rb;
-
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
