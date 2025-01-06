@@ -30,10 +30,10 @@ public class PlayerHealth : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.K))
-		{
-			TakeDamage(1);
-		}
+		//if (Input.GetKeyDown(KeyCode.K))
+		//{
+		//	TakeDamage(1);
+		//}
 	}
 
 	public void SetInvicibility(bool invicibility)

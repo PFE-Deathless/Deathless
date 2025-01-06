@@ -8,7 +8,7 @@ public class HitBar : MonoBehaviour
 	[Header("Technical")]
 	public float offset = 1f;
 	public float size = 0.3f;
-	public float scale = 2f;
+	public float scale = 1f;
 	public GameObject currentSprite;
 	
 	GameObject[] hits;
@@ -57,12 +57,15 @@ public class HitBar : MonoBehaviour
 
 		for (int i = 0; i < amount; i++)
 		{
+			
 			hits[i] = new GameObject("Sprite " + (i + 1));
 			hits[i].transform.parent = transform;
-			hits[i].transform.localScale = new Vector3(scale, scale, scale);
 			hits[i].transform.localPosition = new Vector3(((size + offset) * i) - ((size + offset) * (amount - 1)) / 2f, 0f, 0f);
 			SpriteRenderer s = hits[i].AddComponent<SpriteRenderer>();
 			s.sprite = HitType.GetSprite(types[i]);
+			float sizeMul = s.sprite.rect.size.x / 64f;
+			hits[i].transform.localScale = new Vector3(scale * sizeMul, scale * sizeMul, scale * sizeMul);
+			//Debug.Log("Size : " + s.sprite.rect.size);
 		}
 
 		currentSprite.transform.localPosition = hits[0].transform.localPosition;
