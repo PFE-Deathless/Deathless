@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class Rotator : MonoBehaviour
+public class Rotator : Move
 {
-	public Transform objToRotate;
-	public float rotationSpeed = 30f;
+	[SerializeField] float rotationSpeed = 30f;
 
-    void Update()
+	protected override void PerformMove()
 	{
-		objToRotate.eulerAngles += new Vector3(0f, rotationSpeed * Time.deltaTime, 0f);
+		target.eulerAngles += new Vector3(0f, rotationSpeed * Time.fixedDeltaTime, 0f);
 	}
 }

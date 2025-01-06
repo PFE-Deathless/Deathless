@@ -5,25 +5,27 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
 	[Header("Statistics")]
-	public int healthMax = 10;
+	public int healthMax = 5;
+	public int health;
 
 	[Tooltip("Invicibility duration after taking a hit")]
 	public float invicibilityTime = 0.8f;
 
 	[Header("Technical")]
-	public Slider healthSlider;
 
 	[Header("VFX")]
 	public ParticleSystem damageParticle;
 
-	int health;
 
 	[HideInInspector] public bool invicible = false;
+
+	[HideInInspector] public GameManager gameManager;
 
 	void Start()
 	{
 		health = healthMax;
-		healthSlider.value = 1f;
+		gameManager.healthDisplay.UpdateHealth(health);
+		gameManager.healthDisplay.UpdateHealthMax(healthMax);
 	}
 
 	private void Update()
@@ -46,8 +48,8 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible)
 		{
 			health -= damage;
+			gameManager.healthDisplay.UpdateHealth(health);
 			damageParticle.Play();
-			healthSlider.value = (float)health / (float)healthMax;
 			StartCoroutine(InvicibilityTime());
 			//Debug.Log("HP : " + health);
 		}

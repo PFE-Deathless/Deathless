@@ -33,13 +33,13 @@ public class PlayerController : MonoBehaviour
 
 
 	// Timers
-	float inputBufferTimer = 0f;
-	float hitTimer = 0f;
+	//float inputBufferTimer = 0f;
+	//float hitTimer = 0f;
 
 	// ?
 	InputsManager inputManager;
-	HitType.Type inputBuffer = HitType.Type.None;
-	HitType.Type inputCurrent;
+	//HitType.Type inputBuffer = HitType.Type.None;
+	//HitType.Type inputCurrent;
 	PlayerHealth playerHealth;
 	Rigidbody rb;
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,19 +54,22 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		Move();
-
 		Hit();
 
 		Dash();
 	}
+
+	void FixedUpdate()
+	{
+        Move();
+    }
 
 	void Move()
 	{
 		if (inputManager.move != Vector2.zero)
 		{
 			Quaternion targetRotation = Quaternion.LookRotation(new Vector3(inputManager.move.x, 0f, inputManager.move.y), Vector3.up);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 3600f * Time.deltaTime );
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 3600f * Time.fixedDeltaTime );
 		}
 
 		rb.linearVelocity = new Vector3(inputManager.move.x * moveSpeed, rb.linearVelocity.y, inputManager.move.y * moveSpeed) + dashOffset;

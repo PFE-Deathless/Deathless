@@ -6,6 +6,7 @@ public class InputsManager : MonoBehaviour
 	[HideInInspector] public Vector2 move;
 	[HideInInspector] public HitType.Type hit;
 	[HideInInspector] public bool dash;
+	[HideInInspector] public bool reloadScene;
 
 	public void OnMove(InputValue value)
 	{
@@ -30,5 +31,10 @@ public class InputsManager : MonoBehaviour
 	public void OnDash()
 	{
 		dash = true;
+	}
+
+	public void OnReloadScene()
+	{
+		reloadScene = true;
 	}
 }

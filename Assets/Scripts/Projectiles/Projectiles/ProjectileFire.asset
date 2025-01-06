@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1522a7523bb50f746876662c72db7175, type: 3}
+  m_Name: ProjectileFire
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 1685194900227460346, guid: 06428750ee3689949aa5cfa1bcf6f254, type: 3}
+  effect: {fileID: 11400000, guid: 021046fa0e404b84d90bcebca5b419ce, type: 2}
+  previsualisation: {fileID: 5752575986709166891, guid: db1e397da5705be44833d90befcbc10d, type: 3}
+  speed: 10
+  lifeSpan: 10
+  damage: 1
+  destroyOnContact: 1
+  type: 2

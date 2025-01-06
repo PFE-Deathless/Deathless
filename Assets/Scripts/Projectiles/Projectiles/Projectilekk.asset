@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1522a7523bb50f746876662c72db7175, type: 3}
+  m_Name: Projectilekk
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 6982916141246664587, guid: ee88ee0cc20f967478258295543c9384, type: 3}
+  effect: {fileID: 11400000, guid: 38b7be4258ebe9e4f8cd266d7a9d3c7f, type: 2}
+  previsualisation: {fileID: 5752575986709166891, guid: 2d91d6527fef1934db479f55cd5e1a53, type: 3}
+  speed: 10
+  lifeSpan: 10
+  damage: 1
+  destroyOnContact: 1
+  type: 2
