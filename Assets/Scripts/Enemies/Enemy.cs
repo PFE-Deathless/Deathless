@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
 	public int healthMax = 3;
+	public int souls = 1;
 	public float range = 5f;
 	public float acquisitionRange = 2f;
 	public float maxRange = 10f;
@@ -25,7 +26,8 @@ public class Enemy : MonoBehaviour
 
 	[Header("Technical")]
 	public bool showState;
-	public LayerMask playerLayerMask;
+	public bool showPathToTarget;
+	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
 
 	public HitType.Type CurrentType { get; private set; }
@@ -33,16 +35,19 @@ public class Enemy : MonoBehaviour
 
 	int health;
 	HitBar hitBar;
-	NavMeshAgent navMeshAgent;
+	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 
 	// Attack
-	protected AttackState attackState;
+	protected AttackState attackState = AttackState.None;
+	protected float stateTimer;
+	protected float cast;
+	protected float hit;
+	protected float cooldown;
 
 
 	// State Machine
 	EnemyState state;
-	float stateTimer;
 	Vector3 patrolDestination;
 
 	// DEBUG
@@ -56,11 +61,17 @@ public class Enemy : MonoBehaviour
 		CurrentType = Types[0];
 		health = healthMax;
 
+		EnemyStart();
+
 		ChangeState(EnemyState.Patrol);
 
 		destLR = gameObject.AddComponent<LineRenderer>();
 		destLR.startWidth = 0.2f;
 		destLR.endWidth = 0.2f;
+
+		cast = attackCastTime;
+		hit = cast + attackDuration;
+		cooldown = hit + attackCooldown;
 	}
 
 	private void Update()
@@ -70,10 +81,15 @@ public class Enemy : MonoBehaviour
 		debugText.enabled = showState;
 
 		destLR.SetPosition(0, transform.position);
-		if (target != null)
+		if (target != null && showPathToTarget)
 			destLR.SetPosition(1, target.position);
-		else
+		if (target == null || !showPathToTarget)
 			destLR.SetPosition(1, transform.position);
+	}
+
+	protected virtual void EnemyStart()
+	{
+
 	}
 
 	bool DetectPlayer()
@@ -100,18 +116,13 @@ public class Enemy : MonoBehaviour
 		health--;
 		if (health <= 0)
 		{
-			GetComponent<NewLootManager>().instantiateLoot(transform.position);
+			GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
 			Destroy(gameObject);
 			return;
 		}
 
 		CurrentType = Types[healthMax - health];
 		hitBar.UpdateHitBar(healthMax - health);
-	}
-
-	protected virtual void PerformAttack()
-	{
-		//Debug.Log("Paf!");
 	}
 
 	void SetTypes()
@@ -235,40 +246,58 @@ public class Enemy : MonoBehaviour
 
 	void Attack()
 	{
-		debugText.text = "ATTACK";
-
 		navMeshAgent.isStopped = true;
-
-		float cast = attackCastTime;
-		float hit = cast + attackDuration;
-		float cooldown = hit + attackCooldown;
 		
 		stateTimer += Time.deltaTime;
 
 		switch (stateTimer)
 		{
 			case var _ when stateTimer < cast:
-				debugText.text = "ATTACK_CAST";
-				attackState = AttackState.Cast;
+				if (attackState != AttackState.Cast)
+				{
+					debugText.text = "ATTACK_CAST";
+					StartCast();
+					attackState = AttackState.Cast;
+				}
+				UpdateCast();
 				break;
 			case var _ when stateTimer >= cast && stateTimer < hit:
-				debugText.text = "ATTACK_HIT";
-				attackState = AttackState.Hit;
+				if (attackState != AttackState.Hit)
+				{
+					debugText.text = "ATTACK_HIT";
+					StartHit();
+					attackState = AttackState.Hit;
+				}
+				UpdateHit();
 				break;
 			case var _ when stateTimer >= hit && stateTimer < cooldown:
-				debugText.text = "ATTACK_CD";
-				attackState = AttackState.Cooldown;
+				if (attackState != AttackState.Cooldown)
+				{
+					debugText.text = "ATTACK_CD";
+					StartCooldown();
+					attackState = AttackState.Cooldown;
+				}
+				UpdateCooldown();
 				break;
 			case var _ when stateTimer >= cooldown:
+				EndAttack();
 				attackState = AttackState.None;
 				break;
 		}
-	
-		PerformAttack();
 
 		if (attackState == AttackState.None)
 			ChangeState(EnemyState.Patrol);
 	}
+
+
+	// Methods called for each phase of the attack (Start once and Update every frame)
+	protected virtual void StartCast() { }
+	protected virtual void UpdateCast() { }
+	protected virtual void StartHit() { }
+	protected virtual void UpdateHit() { }
+	protected virtual void StartCooldown() { }
+	protected virtual void UpdateCooldown() { }
+	protected virtual void EndAttack() { }
 
 	void ChooseNewPatrolPoint()
 	{
@@ -301,6 +330,11 @@ public class Enemy : MonoBehaviour
 		public void OnEnable()
 		{
 			_Enemy = (Enemy)target;
+			if (_Enemy.patrolPoints.Length == 0)
+			{
+				_Enemy.patrolPoints = new Vector3[1];
+				_Enemy.patrolPoints[0] = _Enemy.transform.position;
+			}
 		}
 
 		public override void OnInspectorGUI()

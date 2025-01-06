@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - GameManager
+  - UIPlayer
   layers:
   - Default
   - TransparentFX
@@ -14,6 +16,7 @@ TagManager:
   - PlayerDashing
   - Enemy
   - Projectile
+  - Effect
   - 
   - 
   - 
@@ -22,8 +25,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Wall
   - Shooter
   - Ground
   - 

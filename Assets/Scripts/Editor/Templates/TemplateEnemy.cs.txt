@@ -1,0 +1,53 @@
+using UnityEngine;
+
+public class #SCRIPTNAME# : Enemy
+{
+
+	// Called at the Start() of the enemy
+	protected override void EnemyStart()
+	{
+
+	}
+
+	// Called once when the enemy is casting its attack
+	protected override void StartCast()
+	{
+
+	}
+
+	// Called every frame when the enemy is casting its attack
+	protected override void UpdateCast()
+	{
+
+	}
+
+	// Called once when the enemy is using its attack
+	protected override void StartHit()
+	{
+
+	}
+
+	// Called every frame when the enemy is using its attack
+	protected override void UpdateHit()
+	{
+
+	}
+
+	// Called once when the enemy's attack is in cooldown
+	protected override void StartCooldown()
+	{
+
+	}
+
+	// Called every frame when the enemy's attack is in cooldown
+	protected override void UpdateCooldown()
+	{
+
+	}
+
+	// Called once when the enemy has finished its attack
+	protected override void EndAttack()
+	{
+
+	}
+}
