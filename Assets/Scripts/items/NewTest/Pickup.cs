@@ -6,28 +6,29 @@ public class Pickup : MonoBehaviour
     public Item  item;
     public Items itemDrop;
     public GameObject playerChar;
+    //valeur par défaut au cas ou
     public int dropWeight = 50;
     void Start()
     {
-        //REFERENCE TEXTE UI
-        //interactText = GetComponentInChildren<TMP_Text>();
-        //DESACTIVATION TEXT UI
-        //interactText.enabled = false;
+       
         //REFERENCE PLAYER
         playerChar = GameObject.Find("Player");
-        //Joueur dedans?
     }
 
     public void AddItem(playerInventory player)
     {
+        //check si item avec le  même nom  est déjà présent
         foreach(ItemList i in player.items){
             if(i.name == item.GiveName()){
+                //si oui ne retourne rien
                 return;
             }
         }
+        //Si item n'est pas déjà présent ajoute l'item (ça  ne marche  pas ;-;)
         player.items.Add(new ItemList(item, item.GiveName()));
     }
 
+    //référence atous les items qu'on peux assigner avec un switch (modifiable dans l'éditeur)
     public Item AssignItem(Items itemToAssign)
     {
         switch(itemToAssign)
@@ -45,6 +46,7 @@ public class Pickup : MonoBehaviour
         }
     }
 
+       //j'ai tenté avec l'input sa ne fonctionnait pas donc j'ai  juste mis la  hitbox pour  le moment
        public void OnTriggerStay(Collider other)
     {
         Debug.Log(other + " collided!");
