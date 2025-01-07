@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
 
 	PlayerHealth playerHealth;
 	PlayerSouls playerSouls;
-	
+
+	public InputsManager inputsManager { get; private set; }
+
 	public HealthDisplay healthDisplay { get; private set; }
 	public SoulsDisplay soulsDisplay { get; private set; }
 
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour
 
 		playerHealth = player.GetComponent<PlayerHealth>();
 		playerSouls = player.GetComponent<PlayerSouls>();
+
+		inputsManager = player.GetComponent<InputsManager>();
 
 		healthDisplay = uiPlayer.GetComponent<HealthDisplay>();
 		soulsDisplay = uiPlayer.GetComponent<SoulsDisplay>();
@@ -31,9 +35,9 @@ public class GameManager : MonoBehaviour
 	{
 		if (player != null)
 		{
-			if (player.GetComponent<InputsManager>().reloadScene)
+			if (inputsManager.reloadScene)
 			{
-				player.GetComponent<InputsManager>().reloadScene = false;
+				inputsManager.reloadScene = false;
 				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 			}
 		}

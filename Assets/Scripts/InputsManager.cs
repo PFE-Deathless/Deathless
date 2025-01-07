@@ -7,6 +7,7 @@ public class InputsManager : MonoBehaviour
 	[HideInInspector] public HitType.Type hit;
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool reloadScene;
+	[HideInInspector] public bool interact;
 
 	public void OnMove(InputValue value)
 	{
@@ -36,5 +37,10 @@ public class InputsManager : MonoBehaviour
 	public void OnReloadScene()
 	{
 		reloadScene = true;
+	}
+
+	public void OnInteract()
+	{
+		interact = true;
 	}
 }
