@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerSouls : MonoBehaviour
 {
-	int souls;
+	public int souls;
 
 	[HideInInspector] public GameManager gameManager;
 
