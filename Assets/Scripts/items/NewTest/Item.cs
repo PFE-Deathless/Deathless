@@ -68,6 +68,7 @@ public class TestItemOne : Item
         {
             playerMov.dashDuration = 0.5f;
             playerMov.dashDistance = 8f;
+            playerMov.dashCooldown = 1f;
         }
 
     }
