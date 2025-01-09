@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	[SerializeField] HitType.Controller controller;
+
 	GameObject player;
 	GameObject uiPlayer;
 
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+		HitType.SetController(controller);
+
 		player = GameObject.FindWithTag("Player");
 		uiPlayer = GameObject.FindWithTag("UIPlayer");
 

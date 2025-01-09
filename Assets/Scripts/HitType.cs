@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public static class HitType
 {
@@ -12,9 +13,34 @@ public static class HitType
 		C
 	}
 
+	public enum Controller
+	{
+		Keyboard,
+		Xbox,
+		Playstation
+	}
+
 	public static Type GetRandomType()
 	{
 		return (Type)Random.Range(1, 4);
+	}
+
+	public static void SetController(Controller controller)
+	{
+		switch (controller)
+		{
+			case Controller.Keyboard:
+				spriteFolder = "Keyboard";
+				break;
+			case Controller.Xbox:
+				spriteFolder = "Xbox";
+				break;
+			case Controller.Playstation:
+				spriteFolder = "Playstation";
+				break;
+			default:
+				break;
+		}
 	}
 
 	public static Sprite GetSprite(Type type)
