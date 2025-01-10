@@ -24,6 +24,6 @@ public class PlayerSouls : MonoBehaviour
 	{
 		souls += amount;
 		gameManager.soulsDisplay.UpdateSouls(souls);
-		Debug.Log("Souls : " + souls);
+		//Debug.Log("Souls : " + souls);
 	}
 }

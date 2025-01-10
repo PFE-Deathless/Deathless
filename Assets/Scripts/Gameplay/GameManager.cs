@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		HitType.SetController(controller);
+		EnemyBarks.InitBarks();
 
 		player = GameObject.FindWithTag("Player");
 		uiPlayer = GameObject.FindWithTag("UIPlayer");

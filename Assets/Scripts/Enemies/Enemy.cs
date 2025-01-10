@@ -116,13 +116,20 @@ public class Enemy : MonoBehaviour
 		health--;
 		if (health <= 0)
 		{
-			GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
-			Destroy(gameObject);
+			Kill();
 			return;
 		}
 
 		CurrentType = Types[healthMax - health];
 		hitBar.UpdateHitBar(healthMax - health);
+	}
+
+	public void Kill()
+	{
+		GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
+		GameObject obj = Instantiate(Resources.Load<GameObject>("Barks/Bark"), transform.position, Quaternion.identity);
+		obj.GetComponent<BarkObject>().InitBark(souls);
+		Destroy(gameObject);
 	}
 
 	void SetTypes()
