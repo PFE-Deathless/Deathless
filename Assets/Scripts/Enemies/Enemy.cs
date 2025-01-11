@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
 	public int healthMax = 3;
-	public int souls = 1;
+	[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
+	[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
 	public float range = 5f;
 	public float acquisitionRange = 2f;
 	public float maxRange = 10f;
@@ -126,9 +127,9 @@ public class Enemy : MonoBehaviour
 
 	public void Kill()
 	{
-		GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
+		//GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
 		GameObject obj = Instantiate(Resources.Load<GameObject>("Barks/Bark"), transform.position, Quaternion.identity);
-		obj.GetComponent<BarkObject>().InitBark(souls);
+		obj.GetComponent<BarkObject>().InitBark(Random.Range(minSouls, maxSouls + 1));
 		Destroy(gameObject);
 	}
 

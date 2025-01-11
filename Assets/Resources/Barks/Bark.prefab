@@ -45,6 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559fc7fd00ba6ec4aa44641fdeebbdbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 0.3
+  offset: 0.1
+  startTime: 0.3
+  movement: 3
+  waitTime: 1
+  endTime: 0.1
+  acceleration: 80
 --- !u!114 &-1024896064688981553
 MonoBehaviour:
   m_ObjectHideFlags: 0

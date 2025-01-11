@@ -4,47 +4,58 @@ using UnityEngine;
 
 public class BarkLetter : MonoBehaviour
 {
-	TextMeshPro letter;
+	[SerializeField] TextMeshPro letter;
+	[SerializeField] GameObject soulShard;
+
+	Color color;
+	float currentSpeed = 0f;
+	float acceleration;
+	Transform target;
 
 	public void InitLetter(char letter)
 	{
-		this.letter = GetComponentInChildren<TextMeshPro>();
 		this.letter.text = letter.ToString();
-		StartCoroutine(AnimateLetterStart());
+		color = this.letter.color;
+		SetShardScale(0f);
 	}
 
-	public void MoveLetter()
+	public void SetOpacity(float opacity)
 	{
-		StartCoroutine(AnimateLetterEnd());
+		letter.color = new Color(color.r, color.g, color.b, opacity);
 	}
 
-	IEnumerator AnimateLetterStart()
+	public void SetShardScale(float scale)
 	{
-		Color color = letter.color;
-		float elapsedTime = 0f;
-		float opacityTime = 0.3f;
-		
-		letter.color = new Color(color.r, color.g, color.b, 0f);
+		soulShard.transform.localScale = new Vector3(scale, scale, scale);
+	}
 
-		while (elapsedTime < opacityTime)
+	public void SetLetterScale(float scale)
+	{
+		letter.transform.localScale = new Vector3(scale, scale, scale);
+	}
+
+	public void MoveLetter(Transform target, float acceleration)
+	{
+		this.target = target;
+		this.acceleration = acceleration * Random.Range(0.8f, 1.2f);
+		GetComponentInChildren<TrailRenderer>().emitting = true;
+		StartCoroutine(AnimateMoveLetter());
+	}
+
+	IEnumerator AnimateMoveLetter()
+	{
+		Vector3 direction;
+		Vector3 offset = new(0f, 1f, 0f);
+
+		while (Vector3.Distance(target.transform.position + offset, transform.position) > 0.2f)
 		{
-			letter.color = new Color(color.r, color.g, color.b, elapsedTime / opacityTime);
-			elapsedTime += Time.deltaTime;
+			direction = (target.transform.position + offset - transform.position).normalized;
+			currentSpeed += Time.deltaTime * acceleration;
+			transform.position += currentSpeed * Time.deltaTime * direction;
 			yield return null;
 		}
+
+		target.gameObject.GetComponent<PlayerSouls>().AddSouls(1);
+		Destroy(gameObject);
 	}
-
-	IEnumerator AnimateLetterEnd()
-	{
-		Transform player = GameObject.FindWithTag("Player").transform;
-		Vector3 velocity = Vector3.zero;
-		Vector3 offset = new Vector3(0f, 1f, 0f);
-
-		while (Vector3.Distance(player.transform.position + offset, transform.position) > 0.2f)
-		{
-			transform.position = Vector3.SmoothDamp(transform.position, player.transform.position + offset, ref velocity, 0.3f);
-			yield return null;
-		}
-	}
-
 }

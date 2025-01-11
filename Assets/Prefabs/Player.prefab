@@ -10439,6 +10439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647d791f83aa8f544806d3df3190088c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  souls: 0
   gameManager: {fileID: 0}
 --- !u!114 &167241758498156129
 MonoBehaviour:
@@ -10549,3 +10550,4 @@ MonoBehaviour:
   hit: 0
   dash: 0
   reloadScene: 0
+  interact: 0

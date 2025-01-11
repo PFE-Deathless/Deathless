@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public static class EnemyBarks
 {
@@ -16,8 +17,8 @@ public static class EnemyBarks
 		//Debug.Log("barks size : " + barks.Length);
 		for (int i = 0; i < tempBarks.Length; i++)
 		{
-			// Copy the temporary array in the temporary barks array
-			tempBarks[i] = tempArr[i + 1].ToUpper();
+			// Copy the temporary array in the temporary barks array, capitalizing the first letter and lowering the rest
+			tempBarks[i] = CaptializeFirstLetter(tempArr[i + 1]);
 
 			// Get the size of the current string
 			int size = tempBarks[i].Length;
@@ -34,6 +35,15 @@ public static class EnemyBarks
 			}
 			//Debug.Log($"{i} (size : {tempBarks[i].Length}): [{tempBarks[i]}]");
 		}
+	}
+
+	static string CaptializeFirstLetter(string str)
+	{
+		if (string.IsNullOrEmpty(str))
+			return str;
+
+		// Capitalize the first letter and make the rest lowercase
+		return char.ToUpper(str[0]) + str.Substring(1).ToLower();
 	}
 
 
