@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 0.3
-  offset: 0.1
+  offset: 0.12
   startTime: 0.3
-  movement: 3
+  movement: 5
   waitTime: 1
   endTime: 0.1
   acceleration: 80
