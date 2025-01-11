@@ -41,12 +41,14 @@ public class PlayerController : MonoBehaviour
 	//HitType.Type inputBuffer = HitType.Type.None;
 	//HitType.Type inputCurrent;
 	PlayerHealth playerHealth;
+	PlayerInteract playerInteract;
 	Rigidbody rb;
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		inputManager = GetComponent<InputsManager>();
 		playerHealth = GetComponent<PlayerHealth>();
+		playerInteract = GetComponentInChildren<PlayerInteract>();
 		rb = GetComponent<Rigidbody>();
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
@@ -54,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
+		Interact();
+
 		Hit();
 
 		Dash();
@@ -61,8 +65,20 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-        Move();
-    }
+		Move();
+	}
+
+	void Interact()
+	{
+		if (inputManager.interact)
+		{
+			// Interact with the nearest possible interactable
+			inputManager.interact = false;
+			Transform t = StaticFunctions.GetNearest(playerInteract.Interactables, transform.position);
+			if (t != null)
+				t.GetComponent<IInteractable>().Interact();
+		}
+	}
 
 	void Move()
 	{

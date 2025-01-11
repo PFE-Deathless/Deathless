@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 36c148fcbc9b8954c9ac21b5905a07f0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hitASprite: {fileID: 1959335752, guid: e65516679007f7446a1ed49cd447ea48, type: 3}
+  - hitBSprite: {fileID: -582290443, guid: e65516679007f7446a1ed49cd447ea48, type: 3}
+  - hitCSprite: {fileID: -1778996316, guid: e65516679007f7446a1ed49cd447ea48, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

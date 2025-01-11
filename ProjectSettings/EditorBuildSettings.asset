@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DonjonVerticalSlice.unity
+    path: Assets/Scenes/Levels/DonjonVerticalSlice.unity
     guid: fcb72e19b2d98bf489328f1e128d2338
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
