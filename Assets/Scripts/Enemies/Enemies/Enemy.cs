@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -38,6 +40,7 @@ public class Enemy : MonoBehaviour
 	HitBar hitBar;
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
+	protected Material defaultMaterial;
 
 	// Attack
 	protected AttackState attackState = AttackState.None;
@@ -46,6 +49,13 @@ public class Enemy : MonoBehaviour
 	protected float hit;
 	protected float cooldown;
 
+	// Damage taken
+	List<MeshRenderer> meshRenderers = new();
+	List<Material> defaultMaterials = new();
+	protected Material blinkingMaterial;
+	protected bool isBlinking = false;
+	protected float blinkingTime = 0.25f;
+	protected float currentBlinkingTime;
 
 	// State Machine
 	EnemyState state;
@@ -61,6 +71,9 @@ public class Enemy : MonoBehaviour
 		SetTypes();
 		CurrentType = Types[0];
 		health = healthMax;
+
+		GetMeshRenderersAndMaterials();
+
 
 		EnemyStart();
 
@@ -79,6 +92,8 @@ public class Enemy : MonoBehaviour
 	{
 		HandleStates();
 
+		HandleBlink();
+
 		debugText.enabled = showState;
 
 		destLR.SetPosition(0, transform.position);
@@ -91,6 +106,40 @@ public class Enemy : MonoBehaviour
 	protected virtual void EnemyStart()
 	{
 
+	}
+
+	void GetMeshRenderersAndMaterials()
+	{
+		blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
+		MeshRenderer[] mrs = GetComponentsInChildren<MeshRenderer>();
+		foreach (MeshRenderer mr in mrs)
+		{
+			meshRenderers.Add(mr);
+			defaultMaterials.Add(mr.material);
+		}
+	}
+
+	void HandleBlink()
+	{
+		if (isBlinking)
+		{
+			if (Time.time <= currentBlinkingTime + blinkingTime)
+			{
+				for (int i = 0; i < meshRenderers.Count; i++)
+				{
+					meshRenderers[i].material = blinkingMaterial;
+				}
+			}
+			else
+				isBlinking = false;
+		}
+		else
+		{
+			for (int i = 0; i < meshRenderers.Count; i++)
+			{
+				meshRenderers[i].material = defaultMaterials[i];
+			}
+		}
 	}
 
 	bool DetectPlayer()
@@ -120,6 +169,10 @@ public class Enemy : MonoBehaviour
 			Kill();
 			return;
 		}
+
+		// Blink
+		currentBlinkingTime = Time.time;
+		isBlinking = true;
 
 		CurrentType = Types[healthMax - health];
 		hitBar.UpdateHitBar(healthMax - health);

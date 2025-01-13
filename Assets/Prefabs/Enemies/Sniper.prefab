@@ -568,7 +568,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 3
-  souls: 1
+  minSouls: 3
+  maxSouls: 8
   range: 15
   acquisitionRange: 10
   maxRange: 20
@@ -586,6 +587,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   debugText: {fileID: 3867100829644979424}
+  mesh: {fileID: 5960718785853104776}
+  blinkingMaterial: {fileID: 2100000, guid: 45c571d2dd7b14b4fbb914d886c04f7b, type: 2}
   shooter: {fileID: 7787006898736549601}
   cubeFeedback: {fileID: 8384221386161780944}
   maxScale: 1.4
