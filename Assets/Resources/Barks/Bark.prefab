@@ -48,9 +48,34 @@ MonoBehaviour:
   size: 0.3
   offset: 0.12
   startTime: 0.3
-  movement: 5
+  upMovement: 3
   waitTime: 1
-  endTime: 0.1
+  endTime: 0.2
+  fancyMovement: 1
+  fancyMovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   acceleration: 80
 --- !u!114 &-1024896064688981553
 MonoBehaviour:
