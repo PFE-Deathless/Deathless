@@ -3,11 +3,21 @@ using UnityEngine.InputSystem;
 
 public class InputsManager : MonoBehaviour
 {
+	[HideInInspector] public static InputsManager Instance { get; private set; }
+
 	[HideInInspector] public Vector2 move;
 	[HideInInspector] public HitType.Type hit;
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool reloadScene;
 	[HideInInspector] public bool interact;
+
+	private void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
+	}
 
 	public void OnMove(InputValue value)
 	{

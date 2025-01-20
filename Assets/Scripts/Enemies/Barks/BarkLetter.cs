@@ -55,7 +55,6 @@ public class BarkLetter : MonoBehaviour
 			yield return null;
 		}
 
-		target.gameObject.GetComponent<PlayerSouls>().AddSouls(1);
 		Destroy(gameObject);
 	}
 }

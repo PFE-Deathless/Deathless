@@ -5201,13 +5201,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2724482504039335876}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4708903399199252732}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!96 &5129946514213943817
 TrailRenderer:
   serializedVersion: 3
@@ -5232,7 +5232,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4925e01e42c4be44790f289e82a9cc5d, type: 2}
+  - {fileID: 2100000, guid: a74ab4f4d6f69594e9c17b0fb0f972ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5253,11 +5253,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.3
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5314,15 +5314,15 @@ TrailRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.4
   m_MaskInteraction: 0
   m_Autodestruct: 0
-  m_Emitting: 0
+  m_Emitting: 1
   m_ApplyActiveColorSpace: 1
 --- !u!1 &4810244998146094782
 GameObject:
@@ -10463,7 +10463,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6966763510042766115}
-  - component: {fileID: 7527111306868348448}
   - component: {fileID: 6654164438189084890}
   - component: {fileID: 345143593785962827}
   - component: {fileID: 4466225092373734136}
@@ -10498,18 +10497,6 @@ Transform:
   - {fileID: 4708903399199252732}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7527111306868348448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8426339170933591991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d9c0dd1e3c4dc4da5f99adb9fc8cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6654164438189084890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10552,7 +10539,6 @@ MonoBehaviour:
   blinkDelay: 0.1
   damageParticle: {fileID: 4762384433489393052}
   invicible: 0
-  gameManager: {fileID: 0}
 --- !u!114 &4466225092373734136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10566,7 +10552,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   souls: 0
-  gameManager: {fileID: 0}
 --- !u!114 &167241758498156129
 MonoBehaviour:
   m_ObjectHideFlags: 0

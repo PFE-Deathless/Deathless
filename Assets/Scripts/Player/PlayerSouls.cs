@@ -2,28 +2,45 @@ using UnityEngine;
 
 public class PlayerSouls : MonoBehaviour
 {
-	public int souls;
+	[HideInInspector] public static PlayerSouls Instance { get; private set; }
 
-	[HideInInspector] public GameManager gameManager;
+	public int souls;
+	int tempSouls;
+
+	private void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
+	}
 
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.KeypadPlus))
 		{
 			souls++;
-			gameManager.soulsDisplay.UpdateSouls(souls);
+			SoulsDisplay.Instance.UpdateSouls(souls);
 		}
 		if (Input.GetKeyDown(KeyCode.KeypadMinus))
 		{
 			souls--;
-			gameManager.soulsDisplay.UpdateSouls(souls);
+			SoulsDisplay.Instance.UpdateSouls(souls);
 		}
 	}
 
 	public void AddSouls(int amount)
 	{
-		souls += amount;
-		gameManager.soulsDisplay.UpdateSouls(souls);
-		//Debug.Log("Souls : " + souls);
+		tempSouls += amount;
+		Debug.Log("Temp Souls : " + tempSouls);
+	}
+
+	public void ValidateSouls()
+	{
+		souls += tempSouls;
+		tempSouls = 0;
+        Debug.Log("Temp Souls : " + tempSouls);
+        Debug.Log("Souls : " + souls);
+        SoulsDisplay.Instance.UpdateSouls(souls);
 	}
 }

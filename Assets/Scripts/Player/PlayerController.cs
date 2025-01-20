@@ -31,24 +31,11 @@ public class PlayerController : MonoBehaviour
 
 	Vector3 dashOffset = Vector3.zero;
 
-
-	// Timers
-	//float inputBufferTimer = 0f;
-	//float hitTimer = 0f;
-
 	// ?
-	InputsManager inputManager;
-	//HitType.Type inputBuffer = HitType.Type.None;
-	//HitType.Type inputCurrent;
-	PlayerHealth playerHealth;
-	PlayerInteract playerInteract;
 	Rigidbody rb;
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
+
 	void Start()
 	{
-		inputManager = GetComponent<InputsManager>();
-		playerHealth = GetComponent<PlayerHealth>();
-		playerInteract = GetComponentInChildren<PlayerInteract>();
 		rb = GetComponent<Rigidbody>();
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
@@ -70,11 +57,11 @@ public class PlayerController : MonoBehaviour
 
 	void Interact()
 	{
-		if (inputManager.interact)
+		if (InputsManager.Instance.interact)
 		{
 			// Interact with the nearest possible interactable
-			inputManager.interact = false;
-			Transform t = StaticFunctions.GetNearest(playerInteract.Interactables, transform.position);
+			InputsManager.Instance.interact = false;
+			Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
 			if (t != null)
 				t.GetComponent<IInteractable>().Interact();
 		}
@@ -82,65 +69,32 @@ public class PlayerController : MonoBehaviour
 
 	void Move()
 	{
-		if (inputManager.move != Vector2.zero)
+		if (InputsManager.Instance.move != Vector2.zero)
 		{
-			Quaternion targetRotation = Quaternion.LookRotation(new Vector3(inputManager.move.x, 0f, inputManager.move.y), Vector3.up);
+			Quaternion targetRotation = Quaternion.LookRotation(new Vector3(InputsManager.Instance.move.x, 0f, InputsManager.Instance.move.y), Vector3.up);
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 3600f * Time.fixedDeltaTime );
 		}
 
-		rb.linearVelocity = new Vector3(inputManager.move.x * moveSpeed, rb.linearVelocity.y, inputManager.move.y * moveSpeed) + dashOffset;
+		rb.linearVelocity = new Vector3(InputsManager.Instance.move.x * moveSpeed, rb.linearVelocity.y, InputsManager.Instance.move.y * moveSpeed) + dashOffset;
 	}
 
 	void Hit()
 	{
-		if (inputManager.hit != HitType.Type.None)
+		if (InputsManager.Instance.hit != HitType.Type.None)
 		{
 			if (canHit)
-				StartCoroutine(ApplyHit(inputManager.hit));
-			inputManager.hit = HitType.Type.None;
+				StartCoroutine(ApplyHit(InputsManager.Instance.hit));
+			InputsManager.Instance.hit = HitType.Type.None;
 		}
-
-		//if (inputCurrent != HitType.Type.None)
-		//{
-		//	if (hitTimer <= hitDuration)
-		//	{
-		//		hitCollider.SetActive(true);
-		//		hitCollider.GetComponent<HitCollider>().SetType(inputCurrent);
-		//	}
-		//	else if (hitTimer > hitDuration && hitTimer <= hitCooldown)
-		//	{
-		//		hitCollider.SetActive(false);
-		//	}
-		//	else if (hitTimer > (hitDuration + hitCooldown) - inputBufferTime)
-		//	{
-		//		inputBuffer = inputManager.hit;
-		//	}
-		//}
-
-		//if (hitTimer <= hitDuration + hitCooldown && inputCurrent != HitType.Type.None)
-		//{
-		//	hitTimer += Time.deltaTime;
-		//}
-		//else
-		//{
-		//	hitTimer = 0f;
-		//	if (inputBuffer != HitType.Type.None)
-		//	{
-		//		inputCurrent = inputBuffer;
-		//		inputBuffer = HitType.Type.None;
-		//	}
-		//	else
-		//		inputCurrent = inputManager.hit;
-		//}
 	}
 
 	void Dash()
 	{
-		if (inputManager.dash)
+		if (InputsManager.Instance.dash)
 		{
 			if (canDash)
 				StartCoroutine(ApplyDash());
-			inputManager.dash = false;
+			InputsManager.Instance.dash = false;
 		}
 	}
 
@@ -177,18 +131,18 @@ public class PlayerController : MonoBehaviour
 		canDash = false;
 		
 		dashOffset = transform.forward * (dashDistance / dashDuration);
-		playerHealth.SetInvicibility(true);
+		PlayerHealth.Instance.SetInvicibility(true);
 		gameObject.layer = playerDashingLayer;
-		dashTrail.emitting = true;
-		dashCooldownParticle.Play();
+		//dashCooldownParticle.Play();
 
 		yield return new WaitForSeconds(dashDuration);
-		dashOffset = Vector3.zero;
-		playerHealth.SetInvicibility(false);
-		gameObject.layer = playerLayer;
 		dashTrail.emitting = false;
+		dashOffset = Vector3.zero;
+		PlayerHealth.Instance.SetInvicibility(false);
+		gameObject.layer = playerLayer;
 
 		yield return new WaitForSeconds(dashCooldown);
-		canDash = true;
+        dashTrail.emitting = true;
+        canDash = true;
 	}
 }

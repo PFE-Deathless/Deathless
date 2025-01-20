@@ -180,9 +180,9 @@ public class Enemy : MonoBehaviour
 
 	public void Kill()
 	{
-		//GameObject.FindWithTag("Player").GetComponent<PlayerSouls>().AddSouls(souls);
 		GameObject obj = Instantiate(Resources.Load<GameObject>("Barks/Bark"), transform.position, Quaternion.identity);
 		obj.GetComponent<BarkObject>().InitBark(Random.Range(minSouls, maxSouls + 1));
+		PlayerSouls.Instance.AddSouls(Random.Range(minSouls, maxSouls + 1));
 		Destroy(gameObject);
 	}
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+	[HideInInspector] public static PlayerHealth Instance { get; private set; }
+
 	[Header("Statistics")]
 	public int healthMax = 5;
 	public int health;
@@ -27,16 +29,21 @@ public class PlayerHealth : MonoBehaviour
 	float currentBlinkingTime;
 	float currentBlinkingDelay;
 
-
 	[HideInInspector] public bool invicible = false;
 
-	[HideInInspector] public GameManager gameManager;
+	void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
+	}
 
-	void Start()
+		void Start()
 	{
 		health = healthMax;
-		gameManager.healthDisplay.UpdateHealth(health);
-		gameManager.healthDisplay.UpdateHealthMax(healthMax);
+		HealthDisplay.Instance.UpdateHealth(health);
+		HealthDisplay.Instance.UpdateHealthMax(healthMax);
 		blinkingTime = invicibilityTime;
 		GetMeshRenderersAndMaterials();
 	}
@@ -67,8 +74,8 @@ public class PlayerHealth : MonoBehaviour
 				if (currentBlinkingDelay >= blinkDelay)
 				{
 					currentBlinkingPhase = !currentBlinkingPhase;
-                    currentBlinkingDelay = 0f;
-                }
+					currentBlinkingDelay = 0f;
+				}
 				if (currentBlinkingPhase)
 				{
 					for (int i = 0; i < meshRenderers.Count; i++)
@@ -110,7 +117,7 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible)
 		{
 			health -= damage;
-			gameManager.healthDisplay.UpdateHealth(health);
+			HealthDisplay.Instance.UpdateHealth(health);
 			damageParticle.Play();
 
 			// Blink
