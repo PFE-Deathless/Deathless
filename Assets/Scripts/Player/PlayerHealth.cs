@@ -108,8 +108,8 @@ public class PlayerHealth : MonoBehaviour
 	public void SetInvicibility(bool invicibility)
 	{
 		invicible = invicibility;
-		MeshRenderer m = GetComponentInChildren<MeshRenderer>();
-		m.material.color = new Color(m.material.color.r, m.material.color.g, m.material.color.b, invicible ? 0.1f : 1f);
+		//MeshRenderer m = GetComponentInChildren<MeshRenderer>();
+		//m.material.color = new Color(m.material.color.r, m.material.color.g, m.material.color.b, invicible ? 0.1f : 1f);
 	}
 
 	public void TakeDamage(int damage)
