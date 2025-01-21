@@ -9,6 +9,12 @@ public class Sniper : Enemy
 	public float minScale = 0.1f;
 	public AnimationCurve feedbackCurve;
 
+	protected override void StartCast()
+	{
+		if (animator != null)
+			animator.SetTrigger("Attack");
+	}
+
 	protected override void UpdateCast()
 	{
 		Quaternion targetRotation = Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up);

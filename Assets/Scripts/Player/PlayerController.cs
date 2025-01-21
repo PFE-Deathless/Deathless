@@ -33,10 +33,16 @@ public class PlayerController : MonoBehaviour
 
 	// ?
 	Rigidbody rb;
+	Animator animator;
+	float animAcceleration = 10f;
+	float animCurrentSpeed = 0f;
+	bool backhand = false;
+
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		animator = GetComponentInChildren<Animator>();
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
 	}
@@ -69,13 +75,30 @@ public class PlayerController : MonoBehaviour
 
 	void Move()
 	{
-		if (InputsManager.Instance.move != Vector2.zero)
+		if (InputsManager.Instance.move.sqrMagnitude > 0.01f)
 		{
 			Quaternion targetRotation = Quaternion.LookRotation(new Vector3(InputsManager.Instance.move.x, 0f, InputsManager.Instance.move.y), Vector3.up);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 3600f * Time.fixedDeltaTime );
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.fixedDeltaTime );
 		}
 
 		rb.linearVelocity = new Vector3(InputsManager.Instance.move.x * moveSpeed, rb.linearVelocity.y, InputsManager.Instance.move.y * moveSpeed) + dashOffset;
+
+		if (rb.linearVelocity.sqrMagnitude > 0.01f)
+		{
+			if (animCurrentSpeed < 1f)
+				animCurrentSpeed += Time.fixedDeltaTime * animAcceleration;
+			else
+				animCurrentSpeed = 1f;
+		}
+		else
+		{
+			if (animCurrentSpeed > 0f)
+				animCurrentSpeed -= Time.fixedDeltaTime * animAcceleration;
+			else
+				animCurrentSpeed = 0f;
+		}
+		
+		animator.SetFloat("Speed", animCurrentSpeed);
 	}
 
 	void Hit()
@@ -117,6 +140,9 @@ public class PlayerController : MonoBehaviour
 
 		hitCollider.SetActive(true);
 		hitCollider.GetComponent<HitCollider>().SetType(type);
+		animator.SetBool("Backhand", backhand);
+		backhand = !backhand;
+		animator.SetTrigger("Attack");
 
 		yield return new WaitForSeconds(hitDuration);
 
@@ -142,7 +168,7 @@ public class PlayerController : MonoBehaviour
 		gameObject.layer = playerLayer;
 
 		yield return new WaitForSeconds(dashCooldown);
-        dashTrail.emitting = true;
-        canDash = true;
+		dashTrail.emitting = true;
+		canDash = true;
 	}
 }

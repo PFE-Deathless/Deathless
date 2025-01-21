@@ -61,12 +61,16 @@ public class Enemy : MonoBehaviour
 	EnemyState state;
 	Vector3 patrolDestination;
 
+	// Animation
+	protected Animator animator;
+
 	// DEBUG
 	LineRenderer destLR;
 
 	void Start()
 	{
 		hitBar = GetComponentInChildren<HitBar>();
+		animator = GetComponentInChildren<Animator>();
 		SetupNavMeshAgent();
 		SetTypes();
 		CurrentType = Types[0];
@@ -93,6 +97,9 @@ public class Enemy : MonoBehaviour
 		HandleStates();
 
 		HandleBlink();
+
+		if (animator != null)
+			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
 
 		debugText.enabled = showState;
 
