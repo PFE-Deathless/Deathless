@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 5842491140895441070}
   - component: {fileID: 7787006898736549601}
   - component: {fileID: 1733333720193289446}
+  - component: {fileID: 4988177596130427342}
   m_Layer: 7
   m_Name: Sniper
   m_TagString: Untagged
@@ -589,42 +590,6 @@ MonoBehaviour:
     m_Bits: 72
   debugText: {fileID: 3867100829644979424}
   shooter: {fileID: 7787006898736549601}
-  cubeFeedback: {fileID: 8384221386161780944}
-  maxScale: 1.4
-  minScale: 0
-  feedbackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -1.25
-      outSlope: -1.25
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8
-      value: 0
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 5.0000005
-      outSlope: 5.0000005
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &7787006898736549601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,6 +628,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &4988177596130427342
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650490890228544690}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7688079069420372454
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,15 +693,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 25aaff769b0c0de49a263e0aa5ca8203, type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25aaff769b0c0de49a263e0aa5ca8203, type: 3}
       propertyPath: m_LocalScale.y
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25aaff769b0c0de49a263e0aa5ca8203, type: 3}
       propertyPath: m_LocalScale.z
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25aaff769b0c0de49a263e0aa5ca8203, type: 3}
       propertyPath: m_LocalPosition.x
