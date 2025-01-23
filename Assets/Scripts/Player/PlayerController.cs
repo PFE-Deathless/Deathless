@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
 	[Header("VFX")]
 	public TrailRenderer dashTrail;
 	public ParticleSystem dashCooldownParticle;
+	public VisualEffect scytheSlash;
 
 	bool canHit = true;
 	bool canDash = true;
@@ -36,7 +38,6 @@ public class PlayerController : MonoBehaviour
 	Animator animator;
 	float animAcceleration = 10f;
 	float animCurrentSpeed = 0f;
-	bool backhand = false;
 
 
 	void Start()
@@ -140,8 +141,8 @@ public class PlayerController : MonoBehaviour
 
 		hitCollider.SetActive(true);
 		hitCollider.GetComponent<HitCollider>().SetType(type);
-		animator.SetBool("Backhand", backhand);
-		backhand = !backhand;
+		scytheSlash.SetInt("HitType", (int)type - 1);
+		scytheSlash.Play();
 		animator.SetTrigger("Attack");
 
 		yield return new WaitForSeconds(hitDuration);

@@ -52,7 +52,7 @@ public class Canon : MonoBehaviour
 
 		if (!_animStarted && _delay - _elapsedTime < _animationDelay)
 		{
-			Debug.Log("paf");
+			//Debug.Log("paf");
 			_animator.SetTrigger("Shoot");
 			_animStarted = true;
 		}
