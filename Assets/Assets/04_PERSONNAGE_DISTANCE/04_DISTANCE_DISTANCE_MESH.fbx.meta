@@ -3,7 +3,12 @@ guid: 25aaff769b0c0de49a263e0aa5ca8203
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Distance
+    second: {fileID: 2100000, guid: 68cba6f74a9b75d438dfc6207df8d084, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
