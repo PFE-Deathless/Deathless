@@ -335,7 +335,7 @@ public class Enemy : MonoBehaviour
 				{
 					stateTimer = cast;
 					debugText.text = "ATTACK_HIT";
-					Debug.Log("Distance : " + Vector3.Distance(transform.position, target.position));
+					//Debug.Log("Distance : " + Vector3.Distance(transform.position, target.position));
 					//Debug.Log("HIT : " + stateTimer);
 					StartHit();
 					attackState = AttackState.Hit;
