@@ -3,7 +3,12 @@ guid: 110d253b5232f534380bc45867d3e801
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Poteaux
+    second: {fileID: 2100000, guid: d275e39a3266a26498b45b2e9d68aa9a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

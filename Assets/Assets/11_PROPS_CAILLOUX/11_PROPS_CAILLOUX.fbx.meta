@@ -3,7 +3,12 @@ guid: 4d73291af641ae74aad3962397eb4ca7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cailloux
+    second: {fileID: 2100000, guid: 7de9b928f61980c45b53de9f8516e887, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
