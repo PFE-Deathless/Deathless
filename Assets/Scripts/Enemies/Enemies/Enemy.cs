@@ -395,9 +395,9 @@ public class Enemy : MonoBehaviour
 		state = newState;
 	}
 
-	#endregion
+    #endregion
 
-	// ### COROUTINES ###
+    // ### COROUTINES ###
 
 
 #if UNITY_EDITOR
@@ -410,10 +410,9 @@ public class Enemy : MonoBehaviour
 		{
 			_Enemy = (Enemy)target;
 			if (_Enemy.patrolPoints.Length == 0)
-			{
 				_Enemy.patrolPoints = new Vector3[1];
+			if (_Enemy.patrolPoints.Length == 1)
 				_Enemy.patrolPoints[0] = _Enemy.transform.position;
-			}
 		}
 
 		public override void OnInspectorGUI()

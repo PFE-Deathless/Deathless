@@ -251,8 +251,7 @@ MonoBehaviour:
   attackCooldown: 2
   waitingTime: 2
   stoppingDistance: 0.1
-  patrolPoints:
-  - {x: 0, y: 0, z: 0}
+  patrolPoints: []
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

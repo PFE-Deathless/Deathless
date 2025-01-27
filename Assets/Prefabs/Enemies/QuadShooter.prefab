@@ -165,8 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   projectile: {fileID: 11400000, guid: 8f91efab13eb1844d9eeb02acd910ad2, type: 2}
   origin: {fileID: 4520245213339826526}
+  target: {fileID: 0}
 --- !u!1 &3513100625361423612
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +761,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 3
+  minSouls: 3
+  maxSouls: 8
   range: 15
   acquisitionRange: 10
   maxRange: 20
@@ -770,6 +774,7 @@ MonoBehaviour:
   stoppingDistance: 2
   patrolPoints: []
   showState: 0
+  showPathToTarget: 0
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 72
@@ -904,8 +909,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   projectile: {fileID: 11400000, guid: 8f91efab13eb1844d9eeb02acd910ad2, type: 2}
   origin: {fileID: 7682504918504798000}
+  target: {fileID: 0}
 --- !u!1 &7911387644601160340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,8 +1013,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   projectile: {fileID: 11400000, guid: 8f91efab13eb1844d9eeb02acd910ad2, type: 2}
   origin: {fileID: 1518370444100200733}
+  target: {fileID: 0}
 --- !u!1 &7933360026300726960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,8 +1117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   projectile: {fileID: 11400000, guid: 8f91efab13eb1844d9eeb02acd910ad2, type: 2}
   origin: {fileID: 5164764667918487236}
+  target: {fileID: 0}
 --- !u!1001 &5892237333060566994
 PrefabInstance:
   m_ObjectHideFlags: 0

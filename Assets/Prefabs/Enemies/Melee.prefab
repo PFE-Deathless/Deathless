@@ -444,15 +444,13 @@ MonoBehaviour:
   attackCooldown: 1
   waitingTime: 2
   stoppingDistance: 2
-  patrolPoints:
-  - {x: 0, y: 0, z: 0}
+  patrolPoints: []
   showState: 0
   showPathToTarget: 0
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 72
   debugText: {fileID: 3867100829644979424}
-  blinkingMaterial: {fileID: 2100000, guid: 45c571d2dd7b14b4fbb914d886c04f7b, type: 2}
   radius: 2
   hitCollider: {fileID: 443028908910747361}
 --- !u!195 &1733333720193289446
