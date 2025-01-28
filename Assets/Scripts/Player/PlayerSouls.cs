@@ -32,15 +32,15 @@ public class PlayerSouls : MonoBehaviour
 	public void AddSouls(int amount)
 	{
 		tempSouls += amount;
-		Debug.Log("Temp Souls : " + tempSouls);
+		//Debug.Log("Temp Souls : " + tempSouls);
 	}
 
 	public void ValidateSouls()
 	{
 		souls += tempSouls;
 		tempSouls = 0;
-        Debug.Log("Temp Souls : " + tempSouls);
-        Debug.Log("Souls : " + souls);
-        SoulsDisplay.Instance.UpdateSouls(souls);
+		//Debug.Log("Temp Souls : " + tempSouls);
+		//Debug.Log("Souls : " + souls);
+		SoulsDisplay.Instance.UpdateSouls(souls);
 	}
 }
