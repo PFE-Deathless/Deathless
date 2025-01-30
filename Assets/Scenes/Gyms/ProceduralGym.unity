@@ -509,6 +509,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5494395265447941757, guid: e6176dd7e24f03048939d3e1b5a6c839, type: 3}
+      propertyPath: pPieges
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494395265447941757, guid: e6176dd7e24f03048939d3e1b5a6c839, type: 3}
       propertyPath: tPieges
       value: 1
       objectReference: {fileID: 0}
@@ -518,6 +522,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494395265447941757, guid: e6176dd7e24f03048939d3e1b5a6c839, type: 3}
       propertyPath: fRectangle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494395265447941757, guid: e6176dd7e24f03048939d3e1b5a6c839, type: 3}
+      propertyPath: pTourelles
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5494395265447941757, guid: e6176dd7e24f03048939d3e1b5a6c839, type: 3}
