@@ -46,11 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9743ee06cdef87e459fd9fc4c871719a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fCarre: 1
-  fRectangle: 0
-  tEnnemis: 1
-  tTourelles: 1
-  tPieges: 1
+  forme: 0
+  pEnnemis: 0
+  pTourelles: 1
+  pPieges: 1
 --- !u!1 &3278621567361978346
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,9 +136,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3278621567361978346}
-  m_Text: 'S1 3
+  m_Text: 'S1 4
 
-    E/T/P'
+    E'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

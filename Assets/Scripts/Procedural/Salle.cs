@@ -3,19 +3,18 @@ using UnityEngine;
 public class Salle : MonoBehaviour
 {
     [Header("Forme")]
-    public bool fCarre;
-    public bool fRectangle;
+    public Forme forme;
 
     [Header("Type")]
-   
-    public bool tEnnemis;
-    public bool tTourelles;
-    public bool tPieges;
+    public Presence pEnnemis;
+    public Presence pTourelles;
+    public Presence pPieges;
 
-
-
-    
-
+    [Header("Portes")]
+    public bool porteNord;
+    public bool porteEst;
+    public bool porteSud;
+    public bool porteOuest;
 
     void Start()
     {
@@ -28,12 +27,26 @@ public class Salle : MonoBehaviour
         
     }
 
-    
+    void OnLoad()
+    {
+        if(porteNord)
+        {
+
+        }
+
+    }
+
 }
 
-    public enum tEnnemis 
+public enum Presence 
     { 
-        Inclusif,
-        Exclusif,
-        Bonus
+        Stricte,     // Je veux une salle avec des ennemis 
+        Nulle ,      // Je veux une salle sans ennemis
+        Optionelle   // Je veux une salle avec possiblement des ennemis
+    }
+
+public enum Forme
+    {
+        carre,
+        rectangle
     }
