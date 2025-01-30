@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   id: 0
-  itemName: 
-  icon: {fileID: 0}
+  itemName: blabla
+  icon: {fileID: 2800000, guid: 65b2c31a0936ae444bb804c6160eb585, type: 3}
   description: 
   flavorText: 

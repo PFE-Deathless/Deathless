@@ -5,6 +5,8 @@ using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
+	[HideInInspector] public static PlayerController Instance { get; private set; }
+
 	[Header("Movement")]
 	public float moveSpeed = 10f;
 	
@@ -39,6 +41,13 @@ public class PlayerController : MonoBehaviour
 	float animAcceleration = 10f;
 	float animCurrentSpeed = 0f;
 
+	private void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(this);
+	}
 
 	void Start()
 	{
@@ -120,6 +129,12 @@ public class PlayerController : MonoBehaviour
 				StartCoroutine(ApplyDash());
 			InputsManager.Instance.dash = false;
 		}
+	}
+
+	public void Teleport(Transform teleportTransform)
+	{
+		rb.MovePosition(teleportTransform.position);
+		CameraBehavior.Instance.Teleport(teleportTransform);
 	}
 
 	public void SetSpeedModifier(float modifier, float duration)

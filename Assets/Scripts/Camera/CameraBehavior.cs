@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
+	[HideInInspector] public static CameraBehavior Instance {  get; private set; }
+
 	[Header("Camera Follow")]
 	public Vector3 offset;
 	[Range(0.00001f, 179)] public float fov = 20f;
 	public float smoothDampTime;
 
 	Vector3 currentVelocity;
+
+	private void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(this);
+	}
 
 	void Start()
 	{
@@ -23,6 +33,12 @@ public class CameraBehavior : MonoBehaviour
 	void Follow()
 	{
 		Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position, transform.position + offset, ref currentVelocity, smoothDampTime);
+	}
+
+	public void Teleport(Transform teleportTransform)
+	{
+		Camera.main.transform.position = teleportTransform.position + offset;
+		currentVelocity = Vector3.zero;
 	}
 
 	private void OnValidate()
