@@ -260,7 +260,6 @@ GameObject:
   - component: {fileID: 199455308}
   - component: {fileID: 199455307}
   - component: {fileID: 199455310}
-  - component: {fileID: 199455311}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -309,7 +308,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 100
-  field of view: 40
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -335,8 +334,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199455306}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.53729963, y: -0, z: -0, w: 0.8433915}
-  m_LocalPosition: {x: 0, y: 40, z: -21}
+  m_LocalRotation: {x: 0.5606288, y: 0, z: 0, w: 0.82806724}
+  m_LocalPosition: {x: -10.5, y: 50, z: -94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -386,21 +385,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &199455311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199455306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5565d9c7940a95f4d8e035afa9c3b03a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objToFollow: {fileID: 1215405330}
-  offset: {x: 0, y: 40, z: -21}
-  smoothDampTime: 0.3
 --- !u!4 &199852080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2757416551760558959, guid: d4ec05a1a3984c145b0cbe153d105e79, type: 3}

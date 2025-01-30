@@ -10406,9 +10406,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6966763510042766115}
   - component: {fileID: 6654164438189084890}
+  - component: {fileID: 730740964312794673}
   - component: {fileID: 345143593785962827}
   - component: {fileID: 4466225092373734136}
-  - component: {fileID: 167241758498156129}
   - component: {fileID: 5489980584892506887}
   - component: {fileID: 3252219212588157712}
   - component: {fileID: 2554530562431371126}
@@ -10464,6 +10464,21 @@ MonoBehaviour:
   dashTrail: {fileID: 5129946514213943817}
   dashCooldownParticle: {fileID: 8393359239167262349}
   scytheSlash: {fileID: 8582181535093292171}
+--- !u!114 &730740964312794673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426339170933591991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5565d9c7940a95f4d8e035afa9c3b03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 50, z: -20}
+  fov: 20
+  smoothDampTime: 0.3
 --- !u!114 &345143593785962827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10495,19 +10510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   souls: 0
---- !u!114 &167241758498156129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8426339170933591991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5c5550e49800d45b959c0a6073b918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 50
 --- !u!136 &5489980584892506887
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10734,7 +10736,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.35
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
