@@ -35,10 +35,10 @@ public class CameraBehavior : MonoBehaviour
 		Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position, transform.position + offset, ref currentVelocity, smoothDampTime);
 	}
 
-	public void Teleport(Transform teleportTransform)
+	public void Teleport(Vector3 teleportPosition)
 	{
-		Camera.main.transform.position = teleportTransform.position + offset;
 		currentVelocity = Vector3.zero;
+		Camera.main.transform.position = teleportPosition + offset;
 	}
 
 	private void OnValidate()

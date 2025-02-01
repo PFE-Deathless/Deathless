@@ -131,10 +131,10 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void Teleport(Transform teleportTransform)
+	public void Teleport(Vector3 teleportPosition, Vector3 teleportRotation)
 	{
-		rb.MovePosition(teleportTransform.position);
-		CameraBehavior.Instance.Teleport(teleportTransform);
+		rb.Move(teleportPosition, Quaternion.Euler(teleportRotation));
+		CameraBehavior.Instance.Teleport(teleportPosition);
 	}
 
 	public void SetSpeedModifier(float modifier, float duration)

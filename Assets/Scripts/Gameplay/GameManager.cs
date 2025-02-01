@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 	[HideInInspector] public static GameManager Instance { get; private set; }
 
 	[SerializeField] HitType.Controller controller;
+	[SerializeField, Tooltip("Object to keep loaded between scenes")] GameObject[] objectToKeepLoaded;
 
 	void Awake()
 	{
@@ -13,6 +14,16 @@ public class GameManager : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+
+		// Keep loaded between scenes
+		foreach (GameObject obj in objectToKeepLoaded)
+		{
+			if (obj != gameObject)
+				DontDestroyOnLoad(obj);
+		}
+		DontDestroyOnLoad(gameObject);
+
+		//DontDestroyOnLoad(SceneManager.GetActiveScene());
 
 		HitType.SetController(controller);
 		EnemyBarks.InitBarks();
