@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
+	[HideInInspector] public static PlayerController Instance { get; private set; }
+
 	[Header("Movement")]
 	public float moveSpeed = 10f;
 	
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
 	[Header("VFX")]
 	public TrailRenderer dashTrail;
 	public ParticleSystem dashCooldownParticle;
+	public VisualEffect scytheSlash;
 
 	bool canHit = true;
 	bool canDash = true;
@@ -33,10 +37,22 @@ public class PlayerController : MonoBehaviour
 
 	// ?
 	Rigidbody rb;
+	Animator animator;
+	float animAcceleration = 10f;
+	float animCurrentSpeed = 0f;
+
+	private void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(this);
+	}
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		animator = GetComponentInChildren<Animator>();
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
 	}
@@ -69,13 +85,30 @@ public class PlayerController : MonoBehaviour
 
 	void Move()
 	{
-		if (InputsManager.Instance.move != Vector2.zero)
+		if (InputsManager.Instance.move.sqrMagnitude > 0.01f)
 		{
 			Quaternion targetRotation = Quaternion.LookRotation(new Vector3(InputsManager.Instance.move.x, 0f, InputsManager.Instance.move.y), Vector3.up);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 3600f * Time.fixedDeltaTime );
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.fixedDeltaTime );
 		}
 
 		rb.linearVelocity = new Vector3(InputsManager.Instance.move.x * moveSpeed, rb.linearVelocity.y, InputsManager.Instance.move.y * moveSpeed) + dashOffset;
+
+		if (rb.linearVelocity.sqrMagnitude > 0.01f)
+		{
+			if (animCurrentSpeed < 1f)
+				animCurrentSpeed += Time.fixedDeltaTime * animAcceleration;
+			else
+				animCurrentSpeed = 1f;
+		}
+		else
+		{
+			if (animCurrentSpeed > 0f)
+				animCurrentSpeed -= Time.fixedDeltaTime * animAcceleration;
+			else
+				animCurrentSpeed = 0f;
+		}
+		
+		animator.SetFloat("Speed", animCurrentSpeed);
 	}
 
 	void Hit()
@@ -98,6 +131,12 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void Teleport(Vector3 teleportPosition, Vector3 teleportRotation)
+	{
+		rb.Move(teleportPosition, Quaternion.Euler(teleportRotation));
+		CameraBehavior.Instance.Teleport(teleportPosition);
+	}
+
 	public void SetSpeedModifier(float modifier, float duration)
 	{
 		StartCoroutine(ApplySpeedModifier(modifier, duration));
@@ -117,6 +156,9 @@ public class PlayerController : MonoBehaviour
 
 		hitCollider.SetActive(true);
 		hitCollider.GetComponent<HitCollider>().SetType(type);
+		scytheSlash.SetInt("HitType", (int)type - 1);
+		scytheSlash.Play();
+		animator.SetTrigger("Attack");
 
 		yield return new WaitForSeconds(hitDuration);
 
@@ -142,7 +184,7 @@ public class PlayerController : MonoBehaviour
 		gameObject.layer = playerLayer;
 
 		yield return new WaitForSeconds(dashCooldown);
-        dashTrail.emitting = true;
-        canDash = true;
+		dashTrail.emitting = true;
+		canDash = true;
 	}
 }

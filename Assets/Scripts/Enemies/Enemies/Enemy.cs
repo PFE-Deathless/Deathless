@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -12,9 +13,9 @@ public class Enemy : MonoBehaviour
 	public int healthMax = 3;
 	[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
 	[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
-	public float range = 5f;
-	public float acquisitionRange = 2f;
-	public float maxRange = 10f;
+	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
+	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
+	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
 	public float moveSpeed = 8f;
 
 	[Header("Attack")]
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
 
 	[Header("Patrol")]
 	public float waitingTime = 2f;
-	public float stoppingDistance = 2f;
+	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
 
 	[Header("Technical")]
@@ -61,12 +62,16 @@ public class Enemy : MonoBehaviour
 	EnemyState state;
 	Vector3 patrolDestination;
 
+	// Animation
+	protected Animator animator;
+
 	// DEBUG
 	LineRenderer destLR;
 
 	void Start()
 	{
 		hitBar = GetComponentInChildren<HitBar>();
+		animator = GetComponentInChildren<Animator>();
 		SetupNavMeshAgent();
 		SetTypes();
 		CurrentType = Types[0];
@@ -93,6 +98,9 @@ public class Enemy : MonoBehaviour
 		HandleStates();
 
 		HandleBlink();
+
+		if (animator != null)
+			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
 
 		debugText.enabled = showState;
 
@@ -308,15 +316,15 @@ public class Enemy : MonoBehaviour
 	void Attack()
 	{
 		navMeshAgent.isStopped = true;
-		
-		stateTimer += Time.deltaTime;
 
 		switch (stateTimer)
 		{
 			case var _ when stateTimer < cast:
 				if (attackState != AttackState.Cast)
 				{
+					stateTimer = 0f;
 					debugText.text = "ATTACK_CAST";
+					//Debug.Log("CAST : " + stateTimer);
 					StartCast();
 					attackState = AttackState.Cast;
 				}
@@ -325,7 +333,10 @@ public class Enemy : MonoBehaviour
 			case var _ when stateTimer >= cast && stateTimer < hit:
 				if (attackState != AttackState.Hit)
 				{
+					stateTimer = cast;
 					debugText.text = "ATTACK_HIT";
+					//Debug.Log("Distance : " + Vector3.Distance(transform.position, target.position));
+					//Debug.Log("HIT : " + stateTimer);
 					StartHit();
 					attackState = AttackState.Hit;
 				}
@@ -334,17 +345,22 @@ public class Enemy : MonoBehaviour
 			case var _ when stateTimer >= hit && stateTimer < cooldown:
 				if (attackState != AttackState.Cooldown)
 				{
+					stateTimer = hit;
 					debugText.text = "ATTACK_CD";
+					//Debug.Log("COOLDOWN : " + stateTimer);
 					StartCooldown();
 					attackState = AttackState.Cooldown;
 				}
 				UpdateCooldown();
 				break;
 			case var _ when stateTimer >= cooldown:
+				//Debug.Log("END : " + stateTimer);
 				EndAttack();
 				attackState = AttackState.None;
 				break;
 		}
+
+		stateTimer += Time.deltaTime;
 
 		if (attackState == AttackState.None)
 			ChangeState(EnemyState.Patrol);
@@ -364,7 +380,9 @@ public class Enemy : MonoBehaviour
 	{
 		if (patrolPoints.Length > 0)
 		{
-			patrolDestination = patrolPoints[Random.Range(0, patrolPoints.Length)];
+			List<Vector3> tempPatrols = patrolPoints.ToList();
+			tempPatrols.Remove(patrolDestination);
+			patrolDestination = tempPatrols[Random.Range(0, tempPatrols.Count)];
 		}
 	}
 
@@ -377,9 +395,9 @@ public class Enemy : MonoBehaviour
 		state = newState;
 	}
 
-	#endregion
+    #endregion
 
-	// ### COROUTINES ###
+    // ### COROUTINES ###
 
 
 #if UNITY_EDITOR
@@ -392,10 +410,9 @@ public class Enemy : MonoBehaviour
 		{
 			_Enemy = (Enemy)target;
 			if (_Enemy.patrolPoints.Length == 0)
-			{
 				_Enemy.patrolPoints = new Vector3[1];
+			if (_Enemy.patrolPoints.Length == 1)
 				_Enemy.patrolPoints[0] = _Enemy.transform.position;
-			}
 		}
 
 		public override void OnInspectorGUI()
