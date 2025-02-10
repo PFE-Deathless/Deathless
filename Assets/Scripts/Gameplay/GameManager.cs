@@ -15,13 +15,13 @@ public class GameManager : MonoBehaviour
 		else
 			Destroy(gameObject);
 
-		// Keep loaded between scenes
-		foreach (GameObject obj in objectToKeepLoaded)
-		{
-			if (obj != gameObject)
-				DontDestroyOnLoad(obj);
-		}
-		DontDestroyOnLoad(gameObject);
+		//// Keep loaded between scenes
+		//foreach (GameObject obj in objectToKeepLoaded)
+		//{
+		//	if (obj != gameObject)
+		//		DontDestroyOnLoad(obj);
+		//}
+		//DontDestroyOnLoad(gameObject);
 
 		//DontDestroyOnLoad(SceneManager.GetActiveScene());
 

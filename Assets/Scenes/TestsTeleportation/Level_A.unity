@@ -240,6 +240,83 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &1968423425
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 903351439754722354, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_Name
+      value: SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9298621
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.3679084
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -43.173
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849776574778729297, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: sceneName
+      value: Assets/Scenes/TestsTeleportation/Hub.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: position.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: position.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: position.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
+      propertyPath: rotation.y
+      value: 18
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
 --- !u!1 &2022996003
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,3 +432,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 794789980}
   - {fileID: 2022996007}
+  - {fileID: 1968423425}
