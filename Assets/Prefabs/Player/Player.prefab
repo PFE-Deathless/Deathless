@@ -10598,7 +10598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5565d9c7940a95f4d8e035afa9c3b03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 50, z: -20}
+  offset: {x: 0, y: 40, z: -20}
   fov: 20
   smoothDampTime: 0.3
 --- !u!114 &345143593785962827
@@ -10651,10 +10651,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.6
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!54 &3252219212588157712
 Rigidbody:
   m_ObjectHideFlags: 0
