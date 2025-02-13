@@ -176,11 +176,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
---- !u!1 &1156719789 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3328817507981037403, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
-  m_PrefabInstance: {fileID: 145306981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1315588766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247,21 +242,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
-      propertyPath: objectToKeepLoaded.Array.size
-      value: 3
+      propertyPath: sceneTransitions.Array.size
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
-      propertyPath: 'objectToKeepLoaded.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1958494232}
-    - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
-      propertyPath: 'objectToKeepLoaded.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1797620146}
-    - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
-      propertyPath: 'objectToKeepLoaded.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1156719789}
     - target: {fileID: 6000297579825795909, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -397,8 +380,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797620146}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5606288, y: 0, z: 0, w: 0.82806724}
-  m_LocalPosition: {x: 0, y: 50, z: -20}
+  m_LocalRotation: {x: 0.5257311, y: 0, z: 0, w: 0.85065085}
+  m_LocalPosition: {x: 0, y: 40, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -448,11 +431,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1958494232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8426339170933591991, guid: f3c5ce09e9288b64a9540d2d10461faa, type: 3}
-  m_PrefabInstance: {fileID: 1315588766}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,13 +1,10 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
 	[SerializeField] string sceneName;
-	[SerializeField] Vector3 position;
-	[SerializeField] Vector3 rotation;
 
 	AsyncOperation _sceneLoading;
 	bool _sceneLoaded;
@@ -17,16 +14,10 @@ public class SceneLoader : MonoBehaviour
 		if (_sceneLoaded)
 		{
 			_sceneLoaded = false;
-			TeleportToNewScene();
-			Destroy(gameObject);
-		}
-	}
+			_sceneLoading.allowSceneActivation = true;
+			GameManager.Instance.activeScene = SceneManager.GetSceneAt(SceneManager.loadedSceneCount);
 
-	public void TeleportToNewScene()
-	{
-		_sceneLoading.allowSceneActivation = true;
-		PlayerController.Instance.Teleport(position, rotation);
-		Destroy(gameObject);
+		}
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -34,17 +25,24 @@ public class SceneLoader : MonoBehaviour
 		if (other.gameObject.layer == 3)
 		{
 			Debug.Log("IN !");
-			StartCoroutine(LoadSceneAsync(sceneName));
+			if (sceneName == GameManager.Instance.HubScene)
+			{
+				Debug.Log("Go to Hub !");
+				GameManager.Instance.GoToHub();
+
+			}
+			else
+			{
+				StartCoroutine(LoadSceneAsync(sceneName));
+			}
 		}
 	}
 
 	IEnumerator LoadSceneAsync(string scene)
 	{
-		DontDestroyOnLoad(gameObject);
-
 		if (scene != string.Empty)
 		{
-			_sceneLoading = SceneManager.LoadSceneAsync(scene);
+			_sceneLoading = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 			_sceneLoading.allowSceneActivation = false;
 		}
 
