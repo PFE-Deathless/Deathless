@@ -1,41 +1,65 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	GameObject player;
-	GameObject uiPlayer;
+	[HideInInspector] public static GameManager Instance { get; private set; }
 
-	PlayerHealth playerHealth;
-	PlayerSouls playerSouls;
-	
-	public HealthDisplay healthDisplay { get; private set; }
-	public SoulsDisplay soulsDisplay { get; private set; }
+	[SerializeField] HitType.Controller controller;
+
+	[Header("Scene Transition")]
+	[SerializeField] string gameScene;
+	[SerializeField] string hubScene;
+	[SerializeField, Tooltip("Transform to teleport to when coming from a certain level")] HubTransition[] sceneTransitions;
+
+	public string GameScene => gameScene;
+	public string HubScene => hubScene;
+
+	public Scene activeScene;
+
 
 	void Awake()
 	{
-		player = GameObject.FindWithTag("Player");
-		uiPlayer = GameObject.FindWithTag("UIPlayer");
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
 
-		playerHealth = player.GetComponent<PlayerHealth>();
-		playerSouls = player.GetComponent<PlayerSouls>();
+		int countLoaded = SceneManager.sceneCount;
+		Scene[] loadedScenes = new Scene[countLoaded];
 
-		healthDisplay = uiPlayer.GetComponent<HealthDisplay>();
-		soulsDisplay = uiPlayer.GetComponent<SoulsDisplay>();
+		for (int i = 0; i < countLoaded; i++)
+		{
+			loadedScenes[i] = SceneManager.GetSceneAt(i);
+			Debug.Log("Active scene {" + i + "} : " + loadedScenes[i].name);
+		}
 
-		playerHealth.gameManager = this;
-		playerSouls.gameManager = this;
+
+		HitType.SetController(controller);
+		EnemyBarks.InitBarks();
+	}
+
+	public void GoToHub()
+	{
+		SceneManager.SetActiveScene(SceneManager.GetSceneByPath(HubScene));
+		PlayerController.Instance.Teleport(Vector3.zero, Vector3.zero);
+		SceneManager.UnloadSceneAsync(activeScene);
 	}
 
 	private void Update()
 	{
-		if (player != null)
+		if (InputsManager.Instance.reloadScene)
 		{
-			if (player.GetComponent<InputsManager>().reloadScene)
-			{
-				player.GetComponent<InputsManager>().reloadScene = false;
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-			}
+			InputsManager.Instance.reloadScene = false;
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}
+}
+
+[Serializable]
+public class HubTransition
+{
+	public string sceneName;
+	public Transform teleportTransform;
 }

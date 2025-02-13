@@ -433,6 +433,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 3
+  minSouls: 3
+  maxSouls: 8
   range: 10
   acquisitionRange: 2
   maxRange: 15

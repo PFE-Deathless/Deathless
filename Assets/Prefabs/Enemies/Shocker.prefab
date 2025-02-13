@@ -593,6 +593,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 3
+  minSouls: 3
+  maxSouls: 8
   range: 20
   acquisitionRange: 15
   maxRange: 25
@@ -604,6 +606,7 @@ MonoBehaviour:
   stoppingDistance: 2
   patrolPoints: []
   showState: 0
+  showPathToTarget: 0
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 72
@@ -625,8 +628,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   projectile: {fileID: 11400000, guid: 6f344294ccd85e94abe8f43eb0c8451b, type: 2}
   origin: {fileID: 6180594580380567290}
+  target: {fileID: 0}
 --- !u!195 &1733333720193289446
 NavMeshAgent:
   m_ObjectHideFlags: 0
