@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6272470790229313131
+--- !u!1 &4945067051780134465
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6000297579825795909}
-  - component: {fileID: 1533913695237083196}
+  - component: {fileID: 7881581885673970279}
+  - component: {fileID: 3811697299259487100}
   m_Layer: 0
-  m_Name: GameManager
-  m_TagString: GameManager
-  m_Icon: {fileID: 2800000, guid: 83438053370c84456a73f7f95ef821fb, type: 3}
+  m_Name: SceneHubStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6000297579825795909
+--- !u!4 &7881581885673970279
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272470790229313131}
+  m_GameObject: {fileID: 4945067051780134465}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,20 +32,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1533913695237083196
+--- !u!114 &3811697299259487100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272470790229313131}
+  m_GameObject: {fileID: 4945067051780134465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9278979eb74e96d478696e92c86f611c, type: 3}
+  m_Script: {fileID: 11500000, guid: 44010a854343f58458bda25cb39a0a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 1
-  gameScene: Assets/Scenes/Levels/GAME_SCENE.unity
-  hubScene: Assets/Scenes/Levels/HUB.unity
-  activeScene:
-    m_Handle: 0
+  sceneTransitions:
+  - sceneName: Assets/Scenes/TestsTeleportation/Level_A.unity
+    teleportTransform: {fileID: 0}
+  - sceneName: Assets/Scenes/TestsTeleportation/Level_B.unity
+    teleportTransform: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-	[SerializeField] string sceneName;
+	[SerializeField, Tooltip("Scene this loader will load (eh)")] string sceneName;
 
 	AsyncOperation _sceneLoading;
 	bool _sceneLoaded;
@@ -16,7 +16,6 @@ public class SceneLoader : MonoBehaviour
 			_sceneLoaded = false;
 			_sceneLoading.allowSceneActivation = true;
 			GameManager.Instance.activeScene = SceneManager.GetSceneAt(SceneManager.loadedSceneCount);
-
 		}
 	}
 
@@ -24,12 +23,11 @@ public class SceneLoader : MonoBehaviour
 	{
 		if (other.gameObject.layer == 3)
 		{
-			Debug.Log("IN !");
+			//Debug.Log("IN !");
 			if (sceneName == GameManager.Instance.HubScene)
 			{
-				Debug.Log("Go to Hub !");
+				//Debug.Log("Go to Hub !");
 				GameManager.Instance.GoToHub();
-
 			}
 			else
 			{
@@ -50,7 +48,7 @@ public class SceneLoader : MonoBehaviour
 		{
 			if (_sceneLoading.progress >= 0.9f)
 			{
-				Debug.Log("Done !");
+				//Debug.Log("Done !");
 				_sceneLoaded = true;
 				break;
 			}

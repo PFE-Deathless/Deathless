@@ -37,8 +37,8 @@ public class CameraBehavior : MonoBehaviour
 
 	public void Teleport(Vector3 teleportPosition)
 	{
-		currentVelocity = Vector3.zero;
 		Camera.main.transform.position = teleportPosition + offset;
+		currentVelocity = Vector3.zero;
 	}
 
 	private void OnValidate()
