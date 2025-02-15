@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 1
-  gameScene: Assets/Scenes/Levels/GAME_SCENE.unity
-  hubScene: Assets/Scenes/Levels/HUB.unity
+  gameScenePath: Assets/Scenes/Levels/GAME_SCENE.unity
+  hubScenePath: Assets/Scenes/Levels/HUB.unity
   activeScene:
+    m_Handle: 0
+  hub:
+    m_Handle: 0
+  game:
     m_Handle: 0
