@@ -6,11 +6,19 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
 
+	[Header("Controller type")]
 	[SerializeField] HitType.Controller controller;
+	
+	[Header("Scenes path")]
 	[SerializeField] private string hubScenePath;
 	[SerializeField] private string gameScenePath;
 
+	[Header("Projectiles")]
+	[SerializeField] private Transform projectileParent;
+
 	public string HubScenePath => hubScenePath;
+
+	public Transform ProjectileParent => projectileParent;
 
 	private Scene _currentLevelScene;
 	private bool _isLoading;
