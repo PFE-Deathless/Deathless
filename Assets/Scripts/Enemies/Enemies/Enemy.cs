@@ -51,8 +51,7 @@ public class Enemy : MonoBehaviour
 	protected float cooldown;
 
 	// Damage taken
-	List<MeshRenderer> meshRenderers = new();
-	List<Material> defaultMaterials = new();
+	BlinkingMaterials blinkingMaterials;
 	protected Material blinkingMaterial;
 	protected bool isBlinking = false;
 	protected float blinkingTime = 0.25f;
@@ -67,6 +66,39 @@ public class Enemy : MonoBehaviour
 
 	// DEBUG
 	LineRenderer destLR;
+
+	class BlinkingMaterials
+	{
+		public List<SkinnedMeshRenderer> skinnedMeshRenderers;
+		public List<Material[]> defaultMaterials;
+		public List<Material[]> blinkingMaterials;
+		public Material blinkingMaterial;
+
+		public BlinkingMaterials(Material blinkingMaterial)
+		{
+			skinnedMeshRenderers = new List<SkinnedMeshRenderer>();
+			defaultMaterials = new List<Material[]>();
+			blinkingMaterials = new List<Material[]>();
+			this.blinkingMaterial = blinkingMaterial;
+		}
+
+		public void Add(SkinnedMeshRenderer skinnedMeshRenderer)
+		{
+			skinnedMeshRenderers.Add(skinnedMeshRenderer);
+			defaultMaterials.Add(skinnedMeshRenderer.materials);
+			Material[] bs = new Material[skinnedMeshRenderer.materials.Length];
+			for (int i = 0; i < bs.Length; i++) bs[i] = blinkingMaterial;
+			blinkingMaterials.Add(bs);
+		}
+
+		public void Blink(bool state)
+		{
+			for (int i = 0; i < skinnedMeshRenderers.Count; i++)
+			{
+				skinnedMeshRenderers[i].materials = state ? blinkingMaterials[i] : defaultMaterials[i];
+			}
+		}
+	}
 
 	void Start()
 	{
@@ -118,12 +150,13 @@ public class Enemy : MonoBehaviour
 
 	void GetMeshRenderersAndMaterials()
 	{
-		blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
-		MeshRenderer[] mrs = GetComponentsInChildren<MeshRenderer>();
-		foreach (MeshRenderer mr in mrs)
+		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
+		blinkingMaterials = new(blinkingMaterial);
+
+		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
+		foreach (SkinnedMeshRenderer smr in smrs)
 		{
-			meshRenderers.Add(mr);
-			defaultMaterials.Add(mr.material);
+			blinkingMaterials.Add(smr);
 		}
 	}
 
@@ -133,20 +166,14 @@ public class Enemy : MonoBehaviour
 		{
 			if (Time.time <= currentBlinkingTime + blinkingTime)
 			{
-				for (int i = 0; i < meshRenderers.Count; i++)
-				{
-					meshRenderers[i].material = blinkingMaterial;
-				}
+				blinkingMaterials.Blink(true);
 			}
 			else
 				isBlinking = false;
 		}
 		else
 		{
-			for (int i = 0; i < meshRenderers.Count; i++)
-			{
-				meshRenderers[i].material = defaultMaterials[i];
-			}
+			blinkingMaterials.Blink(false);
 		}
 	}
 
@@ -395,9 +422,9 @@ public class Enemy : MonoBehaviour
 		state = newState;
 	}
 
-    #endregion
+	#endregion
 
-    // ### COROUTINES ###
+	// ### COROUTINES ###
 
 
 #if UNITY_EDITOR

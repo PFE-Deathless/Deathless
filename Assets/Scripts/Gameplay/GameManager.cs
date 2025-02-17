@@ -94,8 +94,12 @@ public class GameManager : MonoBehaviour
 		// Activate the new level
 		newLevelLoad.allowSceneActivation = true;
 
+		// Wait until Unity actually registers the scene as loaded
+		yield return new WaitUntil(() => SceneManager.GetSceneByPath(levelPath).isLoaded);
+
 		// Store the newly loaded level
 		_currentLevelScene = SceneManager.GetSceneByPath(levelPath);
+		SceneManager.SetActiveScene(_currentLevelScene);
 
 		_isLoading = false;
 	}

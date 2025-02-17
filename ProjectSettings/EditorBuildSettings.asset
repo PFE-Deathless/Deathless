@@ -6,20 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestsTeleportation/Hub.unity
-    guid: afe99bb0b46c20141b04e5748ed88913
-  - enabled: 1
-    path: Assets/Scenes/Levels/HUB.unity
-    guid: f4fe556fe61b4f24dbd460b5760db8d5
-  - enabled: 1
     path: Assets/Scenes/Levels/GAME_SCENE.unity
     guid: 78267f2902f32524b91e91b74c949d34
   - enabled: 1
-    path: Assets/Scenes/TestsTeleportation/Level_A.unity
-    guid: f9f8e5ea6112a9c40a778a401a7c148f
-  - enabled: 1
-    path: Assets/Scenes/TestsTeleportation/Level_B.unity
-    guid: a9c7a839bed1c194ba59cdb9cc6cfdaa
+    path: Assets/Scenes/Levels/HUB.unity
+    guid: f4fe556fe61b4f24dbd460b5760db8d5
   - enabled: 1
     path: Assets/Scenes/Levels/DonjonMediatheque.unity
     guid: 320dd342d239dac40ab062914acca498
