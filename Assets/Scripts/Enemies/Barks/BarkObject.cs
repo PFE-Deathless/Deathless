@@ -15,9 +15,12 @@ public class BarkObject : MonoBehaviour
 
 	BarkLetter[] barkLetters;
 
-	public void InitBark(int size)
+	public void InitBark()
 	{
-		string bark = EnemyBarks.GetRandomBark(size);
+
+		string bark = EnemyBarks.GetRandomBark();
+		//Debug.Log($"Bark : {bark}, size : {bark.Length}");
+		int size = bark.Length;
 		GameObject letterObj = Resources.Load<GameObject>("Barks/BarkLetter");
 		barkLetters = new BarkLetter[size];
 		for (int i = 0; i < size; i++)
