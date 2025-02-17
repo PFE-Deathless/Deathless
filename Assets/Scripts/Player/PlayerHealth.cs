@@ -82,6 +82,11 @@ public class PlayerHealth : MonoBehaviour
 	void Update()
 	{
 		HandleBlink();
+
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			Kill();
+		}
 	}
 
 	void GetMeshRenderersAndMaterials()
@@ -130,6 +135,8 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible)
 		{
 			health -= damage;
+			if (health <= 0)
+				Kill();
 			HealthDisplay.Instance.UpdateHealth(health);
 			damageParticle.Play();
 
@@ -142,6 +149,13 @@ public class PlayerHealth : MonoBehaviour
 		}
 	}
 
+	public void Kill()
+	{
+		Debug.Log("x_x");
+		health = healthMax;
+		HealthDisplay.Instance.UpdateHealth(health);
+		GameManager.Instance.ReloadCurrentLevel();
+	}
 
 	IEnumerator InvicibilityTime()
 	{
