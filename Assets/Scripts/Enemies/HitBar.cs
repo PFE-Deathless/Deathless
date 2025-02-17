@@ -68,7 +68,6 @@ public class HitBar : MonoBehaviour
 			s.sprite = HitType.GetSprite(types[i]);
 			float sizeMul = s.sprite.rect.size.x / 64f;
 			hits[i].transform.localScale = new Vector3(scale * sizeMul, scale * sizeMul, scale * sizeMul);
-			//Debug.Log("Size : " + s.sprite.rect.size);
 		}
 
 		currentSprite.transform.localPosition = hits[0].transform.localPosition;
