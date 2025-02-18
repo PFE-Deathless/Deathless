@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class EnemyBarks
 {
 	static Dictionary<int, List<string>> barks;
+	static List<string> barkList = new();
 
 	public static void InitBarks()
 	{
@@ -12,28 +14,48 @@ public static class EnemyBarks
 		//Debug.Log("temp : " + temp);
 		//Debug.Log("tempArr size : " + tempArr.Length);
 		string[] tempBarks = new string[tempArr.Length - 1];
-		barks = new Dictionary<int, List<string>>();
-		//Debug.Log("barks size : " + barks.Length);
+
 		for (int i = 0; i < tempBarks.Length; i++)
 		{
 			// Copy the temporary array in the temporary barks array, capitalizing the first letter and lowering the rest
 			tempBarks[i] = CaptializeFirstLetter(tempArr[i + 1]);
-
-			// Get the size of the current string
-			int size = tempBarks[i].Length;
-			
-			// Allocate the string list for that key of it doesn't exist and add the string to that key, otherwise just add the value to that key
-			if (!barks.ContainsKey(size))
-			{
-				barks[size] = new List<string>();
-				barks[size].Add(tempBarks[i]);
-			}
-			else
-			{
-				barks[size].Add(tempBarks[i]);
-			}
-			//Debug.Log($"{i} (size : {tempBarks[i].Length}): [{tempBarks[i]}]");
 		}
+
+		barkList = tempBarks.ToList();
+
+		//for (int i = 0; i < barkList.Count; i++)
+		//{
+		//	Debug.Log($"({i}) Bark : {barkList[i]}, size : {barkList[i].Length}");
+		//}
+
+		//barks = new Dictionary<int, List<string>>();
+		////Debug.Log("barks size : " + barks.Length);
+		//for (int i = 0; i < tempBarks.Length; i++)
+		//{
+		//	// Copy the temporary array in the temporary barks array, capitalizing the first letter and lowering the rest
+		//	tempBarks[i] = CaptializeFirstLetter(tempArr[i + 1]);
+
+		//	// Get the size of the current string
+		//	int size = tempBarks[i].Length;
+
+		//	// Allocate the string list for that key of it doesn't exist and add the string to that key, otherwise just add the value to that key
+		//	if (!barks.ContainsKey(size))
+		//	{
+		//		barks[size] = new List<string>();
+		//		barks[size].Add(tempBarks[i]);
+		//	}
+		//	else
+		//	{
+		//		barks[size].Add(tempBarks[i]);
+		//	}
+		//	//Debug.Log($"{i} (size : {tempBarks[i].Length}): [{tempBarks[i]}]");
+		//}
+	}
+
+	public static string GetRandomBark()
+	{
+		return barkList[Random.Range(0, barkList.Count)];
+
 	}
 
 	static string CaptializeFirstLetter(string str)

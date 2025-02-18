@@ -46,9 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437c1acd4bd349749becb982ece6a085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
+  sceneName: Assets/Scenes/Levels/HUB.unity
 --- !u!65 &8425945933278919513
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -186,7 +186,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6966763510042766115, guid: f3c5ce09e9288b64a9540d2d10461faa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 6966763510042766115, guid: f3c5ce09e9288b64a9540d2d10461faa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -243,7 +243,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
       propertyPath: sceneTransitions.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
+      propertyPath: sceneTransitions.Array.data[0].sceneName
+      value: Assets/Scenes/TestsTeleportation/Level_A.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
+      propertyPath: sceneTransitions.Array.data[1].sceneName
+      value: Assets/Scenes/TestsTeleportation/Level_B.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6000297579825795909, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
       propertyPath: m_LocalPosition.x
