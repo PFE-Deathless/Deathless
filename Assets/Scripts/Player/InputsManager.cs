@@ -5,6 +5,8 @@ public class InputsManager : MonoBehaviour
 {
 	[HideInInspector] public static InputsManager Instance { get; private set; }
 
+	[HideInInspector] public bool canInput = true;
+
 	[HideInInspector] public Vector2 move;
 	[HideInInspector] public HitType.Type hit;
 	[HideInInspector] public bool dash;
@@ -21,36 +23,57 @@ public class InputsManager : MonoBehaviour
 
 	public void OnMove(InputValue value)
 	{
-		move = value.Get<Vector2>().normalized;
+		if (canInput)
+			move = value.Get<Vector2>().normalized;
+		else
+			move = Vector2.zero;
 	}
 
 	public void OnHitA()
 	{
-		hit = HitType.Type.A;
+		if (canInput)
+			hit = HitType.Type.A;
+		else
+			hit = HitType.Type.None;
 	}
 
 	public void OnHitB()
 	{
-		hit = HitType.Type.B;
+		if (canInput)
+			hit = HitType.Type.B;
+		else
+			hit = HitType.Type.None;
 	}
 
 	public void OnHitC()
 	{
-		hit = HitType.Type.C;
+		if (canInput)
+			hit = HitType.Type.C;
+		else
+			hit = HitType.Type.None;
 	}
 
 	public void OnDash()
 	{
-		dash = true;
+		if (canInput)
+			dash = true;
+		else
+			dash = false;
 	}
 
 	public void OnReloadScene()
 	{
-		reloadScene = true;
+		if (canInput)
+			reloadScene = true;
+		else
+			reloadScene = false;
 	}
 
 	public void OnInteract()
 	{
-		interact = true;
+		if (canInput)
+			interact = true;
+		else
+			interact = false;
 	}
 }
