@@ -226,6 +226,39 @@
                 },
                 {
                     "name": "",
+                    "id": "faf248b0-4759-4dcd-acc9-5e27e8b115e9",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f8e7b83-74de-492f-ac09-3fd25f1d6ce3",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91852f2e-25c7-47b7-ac2f-46fe913f2cd6",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ad1c5e9f-08b0-4a1d-afbc-2ee64f34a690",
                     "path": "<Keyboard>/escape",
                     "interactions": "",

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	public float dashDistance = 5f;
 	public float dashDuration = 0.3f;
 	public float dashCooldown = 1f;
+	public AnimationCurve dashCurve;
 
 	[Header("Technical")]
 	public GameObject hitCollider;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
 	[Header("VFX")]
 	public TrailRenderer dashTrail;
 	public ParticleSystem dashCooldownParticle;
+	public ParticleSystem dashParticle;
 	public VisualEffect scytheSlash;
 
 	bool canHit = true;
@@ -171,17 +173,30 @@ public class PlayerController : MonoBehaviour
 	IEnumerator ApplyDash()
 	{
 		canDash = false;
-		
-		dashOffset = transform.forward * (dashDistance / dashDuration);
+		float elapsedTime = 0f;
+		Vector3 direction = transform.forward;
+
+
+		//dashOffset = transform.forward * (dashDistance / dashDuration);
 		PlayerHealth.Instance.SetInvicibility(true);
 		gameObject.layer = playerDashingLayer;
-		//dashCooldownParticle.Play();
+		dashParticle.Play();
 
-		yield return new WaitForSeconds(dashDuration);
+
+
+		while (elapsedTime < dashDuration)
+		{
+			dashOffset = (dashDistance / dashDuration) * dashCurve.Evaluate(elapsedTime / dashDuration) * direction;
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		//yield return new WaitForSeconds(dashDuration);
 		dashTrail.emitting = false;
 		dashOffset = Vector3.zero;
 		PlayerHealth.Instance.SetInvicibility(false);
 		gameObject.layer = playerLayer;
+		dashParticle.Stop();
 
 		yield return new WaitForSeconds(dashCooldown);
 		dashTrail.emitting = true;
