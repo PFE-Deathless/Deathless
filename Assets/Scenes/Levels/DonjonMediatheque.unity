@@ -1774,8 +1774,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRange: 1
   maxRange: 15
-  shootFrequency: 0.2
-  time: 2
+  shootFrequency: 0.3
+  time: 1.5
   height: 15
   origin: {fileID: 1437691664}
   canon: {fileID: 1879960934}
