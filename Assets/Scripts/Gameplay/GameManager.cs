@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 	[Header("Projectiles")]
 	[SerializeField] private Transform projectileParent;
 
+	[Header("Debug")]
+	[SerializeField] private bool disableFadeTransition;
+
 	public string HubScenePath => hubScenePath;
 
 	public Transform ProjectileParent => projectileParent;
@@ -74,15 +77,18 @@ public class GameManager : MonoBehaviour
 	{
 		_isLoading = true;
 
-		// Block player inputs
-		InputsManager.Instance.canInput = false;
+		if (!disableFadeTransition)
+		{
+			// Block player inputs
+			InputsManager.Instance.canInput = false;
 
-		// Fade the screen black
-		FadeScreen.Instance.StartFadeIn();
+			// Fade the screen black
+			FadeScreen.Instance.StartFadeIn();
 
-		// Wait for fade to be done
-		while (!FadeScreen.Instance.FadingDone)
-			yield return null;
+			// Wait for fade to be done
+			while (!FadeScreen.Instance.FadingDone)
+				yield return null;
+		}
 
 		// Load new level additively
 		AsyncOperation newLevelLoad = SceneManager.LoadSceneAsync(levelPath, LoadSceneMode.Additive);
@@ -112,18 +118,21 @@ public class GameManager : MonoBehaviour
 		_currentLevelScene = SceneManager.GetSceneByPath(levelPath);
 		SceneManager.SetActiveScene(_currentLevelScene);
 
-		// Wait a bit in black screen
-		yield return new WaitForSeconds(blackScreenDuration);
+		if (!disableFadeTransition)
+		{
+			// Wait a bit in black screen
+			yield return new WaitForSeconds(blackScreenDuration);
 
-		// Fade the screen from black
-		FadeScreen.Instance.StartFadeOut();
+			// Fade the screen from black
+			FadeScreen.Instance.StartFadeOut();
 
-		// Wait for fade to be done
-		while (!FadeScreen.Instance.FadingDone)
-			yield return null;
+			// Wait for fade to be done
+			while (!FadeScreen.Instance.FadingDone)
+				yield return null;
 
-		// Re enable player inputs
-		InputsManager.Instance.canInput = true;
+			// Re enable player inputs
+			InputsManager.Instance.canInput = true;
+		}
 
 		_isLoading = false;
 	}
@@ -140,15 +149,18 @@ public class GameManager : MonoBehaviour
 	{
 		_isLoading = true;
 
-		// Block player inputs
-		InputsManager.Instance.canInput = false;
+		if (!disableFadeTransition)
+		{
+			// Block player inputs
+			InputsManager.Instance.canInput = false;
 
-		// Fade the screen black
-		FadeScreen.Instance.StartFadeIn();
+			// Fade the screen black
+			FadeScreen.Instance.StartFadeIn();
 
-		// Wait for fade to be done
-		while (!FadeScreen.Instance.FadingDone)
-			yield return null;
+			// Wait for fade to be done
+			while (!FadeScreen.Instance.FadingDone)
+				yield return null;
+		}
 
 		string levelPath = _currentLevelScene.path;
 
@@ -163,18 +175,21 @@ public class GameManager : MonoBehaviour
 		_currentLevelScene = SceneManager.GetSceneByPath(levelPath);
 		SceneManager.SetActiveScene(_currentLevelScene);
 
-		// Wait a bit in black screen
-		yield return new WaitForSeconds(blackScreenDuration);
+		if (!disableFadeTransition)
+		{
+			// Wait a bit in black screen
+			yield return new WaitForSeconds(blackScreenDuration);
 
-		// Fade the screen black
-		FadeScreen.Instance.StartFadeOut();
+			// Fade the screen black
+			FadeScreen.Instance.StartFadeOut();
 
-		// Wait for fade to be done
-		while (!FadeScreen.Instance.FadingDone)
-			yield return null;
+			// Wait for fade to be done
+			while (!FadeScreen.Instance.FadingDone)
+				yield return null;
 
-		// Re enable player inputs
-		InputsManager.Instance.canInput = true;
+			// Re enable player inputs
+			InputsManager.Instance.canInput = true;
+		}
 
 		_isLoading = false;
 	}
@@ -189,33 +204,39 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator ReturnToHubCoroutine()
 	{
-		// Block player inputs
-		InputsManager.Instance.canInput = false;
+		if (!disableFadeTransition)
+		{
+			// Block player inputs
+			InputsManager.Instance.canInput = false;
 
-		// Fade the screen black
-		FadeScreen.Instance.StartFadeIn();
+			// Fade the screen black
+			FadeScreen.Instance.StartFadeIn();
 
-		// Wait for fade to be done
-		while (!FadeScreen.Instance.FadingDone)
-			yield return null;
+			// Wait for fade to be done
+			while (!FadeScreen.Instance.FadingDone)
+				yield return null;
+		}
 
 		Transform t = SceneHubStart.Instance.GetTransformFromPath(_currentLevelScene.path);
 		PlayerController.Instance.Teleport(t.position, t.eulerAngles);
 
 		yield return StartCoroutine(UnloadCurrentLevel());
 
-		// Wait a bit in black screen
-		yield return new WaitForSeconds(blackScreenDuration);
+		if (!disableFadeTransition)
+		{
+			// Wait a bit in black screen
+			yield return new WaitForSeconds(blackScreenDuration);
 
-		// Fade the screen black
-		FadeScreen.Instance.StartFadeOut();
+			// Fade the screen black
+			FadeScreen.Instance.StartFadeOut();
 
-		// Wait for fade to be done
-		while (!FadeScreen.Instance.FadingDone)
-			yield return null;
+			// Wait for fade to be done
+			while (!FadeScreen.Instance.FadingDone)
+				yield return null;
 
-		// Re enable player inputs
-		InputsManager.Instance.canInput = true;
+			// Re enable player inputs
+			InputsManager.Instance.canInput = true;
+		}
 	}
 
 	private IEnumerator UnloadCurrentLevel()
