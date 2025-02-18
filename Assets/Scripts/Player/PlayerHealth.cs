@@ -29,6 +29,8 @@ public class PlayerHealth : MonoBehaviour
 
 	[HideInInspector] public bool invicible = false;
 
+	bool _invicible;
+
 	class BlinkingMaterials
 	{
 		public List<SkinnedMeshRenderer> skinnedMeshRenderers;
@@ -83,9 +85,18 @@ public class PlayerHealth : MonoBehaviour
 	{
 		HandleBlink();
 
-		if (Input.GetKeyDown(KeyCode.M))
-		{
+		if (Input.GetKeyDown(KeyCode.KeypadMinus))
 			Kill();
+
+		if (Input.GetKeyDown(KeyCode.KeypadPlus))
+		{
+			health = healthMax;
+			HealthDisplay.Instance.UpdateHealth(health);
+		}
+
+		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+		{
+			_invicible = !_invicible;
 		}
 	}
 
@@ -132,7 +143,7 @@ public class PlayerHealth : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
-		if (!invicible)
+		if (!invicible && !_invicible)
 		{
 			health -= damage;
 			if (health <= 0)
