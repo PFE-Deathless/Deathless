@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100953284288798886, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+      propertyPath: fadeDuration
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 3328817507981037403, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
       propertyPath: m_Name
       value: UI_Player
@@ -243,6 +247,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
       propertyPath: controller
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533913695237083196, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
+      propertyPath: blackScreenDuration
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6000297579825795909, guid: a779447e0344a0b448b12d0b69181d78, type: 3}
