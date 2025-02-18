@@ -13,6 +13,8 @@ public class FPSCounter : MonoBehaviour
 	{
 		_fpsText = GetComponentInChildren<TextMeshProUGUI>();
 		_updateDuration = 1f / updateFrequency;
+		_elapsedTime = _updateDuration;
+
 	}
 
 	private void Update()
@@ -26,7 +28,5 @@ public class FPSCounter : MonoBehaviour
 			_elapsedTime = 0f;
 			_fpsText.text = (1f / Time.deltaTime).ToString("#.0");
 		}
-
-
 	}
 }
