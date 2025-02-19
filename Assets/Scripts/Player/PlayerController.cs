@@ -120,6 +120,11 @@ public class PlayerController : MonoBehaviour
 			if (canHit)
 				StartCoroutine(ApplyHit(InputsManager.Instance.hit));
 			InputsManager.Instance.hit = HitType.Type.None;
+
+			// Interact
+			Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
+			if (t != null)
+				t.GetComponent<IInteractable>().Interact();
 		}
 	}
 
