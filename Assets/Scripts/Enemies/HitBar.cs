@@ -58,11 +58,9 @@ public class HitBar : MonoBehaviour
 		for (int i = 0; i < amount; i++)
 		{
 			
-			hits[i] = new GameObject("Sprite " + (i + 1));
+			hits[i] = new GameObject("Sprite_" + (i + 1));
 			hits[i].transform.parent = transform;
-			Vector3 rot = hits[i].transform.localEulerAngles;
-			rot.y = Camera.main.transform.localEulerAngles.y;
-			hits[i].transform.localEulerAngles = rot;
+			hits[i].transform.localEulerAngles = Vector3.zero;
 			hits[i].transform.localPosition = new Vector3(((size + offset) * i) - ((size + offset) * (amount - 1)) / 2f, 0f, 0f);
 			SpriteRenderer s = hits[i].AddComponent<SpriteRenderer>();
 			s.sprite = HitType.GetSprite(types[i]);
