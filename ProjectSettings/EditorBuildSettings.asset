@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/DonjonMediatheque.unity
     guid: 320dd342d239dac40ab062914acca498
+  - enabled: 1
+    path: Assets/Scenes/Levels/TutoMax.unity
+    guid: fa7aae493ee42b14d9bdfb78182076c9
+  - enabled: 1
+    path: Assets/Scenes/Levels/tuto.unity
+    guid: c50520b7d188f054e91e1cf574f4421c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
