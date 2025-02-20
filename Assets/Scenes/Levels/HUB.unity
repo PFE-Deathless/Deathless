@@ -1369,7 +1369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
       propertyPath: sceneName
-      value: Assets/Scenes/Levels/DonjonMediathequeV2.unity
+      value: Assets/Scenes/Levels/DonjonMediatheque.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
       propertyPath: position.x
@@ -1658,7 +1658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &794789979
 Light:
   m_ObjectHideFlags: 0
@@ -4856,7 +4856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
       propertyPath: sceneName
-      value: Assets/Scenes/Levels/DonjonMediatheque.unity
+      value: Assets/Scenes/Levels/DonjonMediathequeV2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6976672218366233058, guid: 0285939d454452940a1ed9f6c25848c5, type: 3}
       propertyPath: position.x
