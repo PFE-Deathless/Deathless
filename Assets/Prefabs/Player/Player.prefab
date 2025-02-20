@@ -5353,13 +5353,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4128647169595199692}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4708903399199252732}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &3326921245114830471
 Light:
   m_ObjectHideFlags: 0
@@ -5372,7 +5372,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.55602527, g: 0.9510623, b: 0.990566, a: 1}
   m_Intensity: 2
-  m_Range: 3
+  m_Range: 5
   m_SpotAngle: 48.44242
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -15297,7 +15297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5268231398937057269}
   - component: {fileID: 6428810392159238327}
-  - component: {fileID: 3731622471552047925}
+  - component: {fileID: 6935471443238791510}
   m_Layer: 0
   m_Name: InteractCollider
   m_TagString: Untagged
@@ -15314,7 +15314,7 @@ Transform:
   m_GameObject: {fileID: 7349470501330248269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1.5}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15332,8 +15332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b407e48539331ae43b945111a1d2acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &3731622471552047925
-BoxCollider:
+--- !u!64 &6935471443238791510
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15350,9 +15350,10 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4, y: 2, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 905fde7078339b049bcd3dbdb4008d66, type: 2}
 --- !u!1 &8426339170933591991
 GameObject:
   m_ObjectHideFlags: 0
