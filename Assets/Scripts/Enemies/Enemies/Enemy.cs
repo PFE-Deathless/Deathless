@@ -114,6 +114,7 @@ public class Enemy : MonoBehaviour
 
 		EnemyStart();
 
+
 		ChangeState(EnemyState.Patrol);
 
 		destLR = gameObject.AddComponent<LineRenderer>();

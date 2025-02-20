@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
 		StartCoroutine(EnsurePersistentScenesLoaded());
 	}
 
+	private void Start()
+	{
+		// Fade the screen from black
+		FadeScreen.Instance.StartFadeOut();
+	}
+
 	private void Update()
 	{
 		if (InputsManager.Instance.reloadScene)
