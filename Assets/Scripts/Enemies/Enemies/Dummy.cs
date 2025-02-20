@@ -8,6 +8,7 @@ public class Dummy : MonoBehaviour
 
 	[Header("Respawn")]
 	[SerializeField] AnimationCurve scaleCurve;
+	[SerializeField, Tooltip("Time it will take to shrink AND grow back")] float scaleDuration = 0.3f;
 
 	public HitType.Type CurrentType { get; private set; }
 	public HitType.Type[] Types { get; private set; }
@@ -52,10 +53,11 @@ public class Dummy : MonoBehaviour
 	IEnumerator Respawn()
 	{
 		float elapsedTime = 0f;
-		float duration = 0.2f;
+		float duration = scaleDuration;
 
 		GetComponent<Collider>().enabled = false;
 
+		// Shrink
 		while (elapsedTime < duration)
 		{
 			transform.localScale = scaleCurve.Evaluate(elapsedTime / duration) * Vector3.one;
@@ -67,6 +69,19 @@ public class Dummy : MonoBehaviour
 		_health = healthMax;
 		SetTypes();
 
+		elapsedTime = 0f;
+		duration = scaleDuration;
+
+		// Grow
+		while (elapsedTime < duration)
+		{
+			transform.localScale = scaleCurve.Evaluate(1f - (elapsedTime / duration)) * Vector3.one;
+
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		transform.localScale = Vector3.one;
 		GetComponent<Collider>().enabled = true;
 	}
 }
