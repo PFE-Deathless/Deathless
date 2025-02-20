@@ -6318,7 +6318,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -8137,7 +8137,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 100
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10250,7 +10250,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -15314,7 +15314,7 @@ Transform:
   m_GameObject: {fileID: 7349470501330248269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15345,13 +15345,13 @@ BoxCollider:
     m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1836031
+    m_Bits: 1838079
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 4, y: 2, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8426339170933591991
 GameObject:
@@ -15412,29 +15412,38 @@ MonoBehaviour:
   hitDuration: 0.15
   hitCooldown: 0.1
   inputBufferTime: 0.1
-  dashDistance: 4
-  dashDuration: 0.3
+  dashDistance: 3
+  dashDuration: 0.2
   dashCooldown: 0.8
   dashCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 1.6827109
-      outSlope: 1.6827109
+      time: 0.0010136743
+      value: 2.510638
+      inSlope: 0.14495945
+      outSlope: 0.14495945
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.115264796
+      outWeight: 0.38231206
+    - serializedVersion: 3
+      time: 0.055796146
+      value: 2.5072215
+      inSlope: -0.13676487
+      outSlope: -0.88770884
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.47866204
+      outWeight: 0.065733224
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -4.4706345
-      outSlope: -4.4706345
+      inSlope: -0.90944314
+      outSlope: -0.90944314
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.032961845
+      inWeight: 0.07949985
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

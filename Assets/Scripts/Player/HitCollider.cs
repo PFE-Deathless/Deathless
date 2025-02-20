@@ -4,11 +4,12 @@ using UnityEngine;
 public class HitCollider : MonoBehaviour
 {
 	List<Enemy> _enemiesInside = new List<Enemy>();
+	List<Dummy> _dummiesInside = new List<Dummy>();
 	HitType.Type type;
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.layer == 7)
+		if (other.gameObject.layer == 7) // Enemy
 		{
 			Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
 			if (!_enemiesInside.Contains(enemy))
@@ -17,6 +18,18 @@ public class HitCollider : MonoBehaviour
 					enemy.TakeDamage();
 
 				_enemiesInside.Add(enemy);
+			}
+		}
+
+		if (other.gameObject.layer == 11) // Dummy
+		{
+			Dummy dummy = other.gameObject.GetComponentInParent<Dummy>();
+			if (!_dummiesInside.Contains(dummy))
+			{
+				if (dummy.CurrentType == type)
+					dummy.TakeDamage();
+
+				_dummiesInside.Add(dummy);
 			}
 		}
 	}
@@ -30,5 +43,6 @@ public class HitCollider : MonoBehaviour
 	private void OnDisable()
 	{
 		_enemiesInside.Clear();
+		_dummiesInside.Clear();
 	}
 }
