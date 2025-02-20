@@ -79,4 +79,6 @@ MonoBehaviour:
   controller: 1
   hubScenePath: Assets/Scenes/Levels/HUB.unity
   gameScenePath: Assets/Scenes/Levels/GAME_SCENE.unity
+  blackScreenDuration: 1
   projectileParent: {fileID: 490531870922554752}
+  disableFadeTransition: 0
