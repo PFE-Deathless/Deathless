@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	[Header("Transition")]
 	[SerializeField] private string hubScenePath;
 	[SerializeField] private string gameScenePath;
+	[SerializeField] private string mainMenuPath;
 	[SerializeField] private float blackScreenDuration = 1f;
 
 	[Header("Projectiles")]
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
-			DontDestroyOnLoad(gameObject);
+			//DontDestroyOnLoad(gameObject);
 		}
 		else
 		{
@@ -58,6 +59,12 @@ public class GameManager : MonoBehaviour
 		{
 			InputsManager.Instance.reloadScene = false;
 			ReloadCurrentLevel();
+		}
+
+		if (InputsManager.Instance.mainMenu)
+		{
+			InputsManager.Instance.mainMenu = false;
+			SceneManager.LoadSceneAsync(mainMenuPath);
 		}
 	}
 

@@ -12,6 +12,7 @@ public class InputsManager : MonoBehaviour
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool reloadScene;
 	[HideInInspector] public bool interact;
+	[HideInInspector] public bool mainMenu;
 
 	private void Awake()
 	{
@@ -63,10 +64,8 @@ public class InputsManager : MonoBehaviour
 
 	public void OnReloadScene()
 	{
-		if (canInput)
-			reloadScene = true;
-		else
-			reloadScene = false;
+		canInput = true;
+		reloadScene = true;
 	}
 
 	public void OnInteract()
@@ -75,5 +74,11 @@ public class InputsManager : MonoBehaviour
 			interact = true;
 		else
 			interact = false;
+	}
+
+	public void OnMainMenu()
+	{
+		canInput = true;
+		mainMenu = true;
 	}
 }
