@@ -275,4 +275,11 @@ public class GameManager : MonoBehaviour
 		}
 		return false;
 	}
+
+
+
+	public void LoadNewLevel(string scenePath)
+	{
+
+	}
 }

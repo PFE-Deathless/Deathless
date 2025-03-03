@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - UIPlayer
+  - BeginPlay
   layers:
   - Default
   - TransparentFX
