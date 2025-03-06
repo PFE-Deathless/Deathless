@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public static class HitType
 {
@@ -7,10 +6,10 @@ public static class HitType
 
 	public enum Type
 	{
-		None,
 		A,
 		B,
-		C
+		C,
+		None
 	}
 
 	public enum Controller
