@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
 	public void Teleport(Vector3 teleportPosition, Vector3 teleportRotation)
 	{
 		rb.Move(teleportPosition, Quaternion.Euler(teleportRotation));
+		rb.linearVelocity = Vector3.zero;
 		CameraBehavior.Instance.Teleport(teleportPosition);
 	}
 

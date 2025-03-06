@@ -41,18 +41,37 @@ public class NewGameManager : MonoBehaviour
 
 		HitType.SetController(controller);
 		EnemyBarks.InitBarks();
-		SpawnPlayer();
+		SpawnTeleportPlayer();
 	}
 
-	void SpawnPlayer()
+	private void Update()
 	{
-		Transform playerStartPosition = null;
-		while (playerStartPosition == null)
-			playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
+		if (InputsManager.Instance.reloadScene)
+		{
+			InputsManager.Instance.reloadScene = false;
+			ReloadLevel();
+		}
+	}
 
-		Instantiate(userInterfacePrefab, playerParent);
-		Instantiate(playerPrefab, playerStartPosition.position, playerStartPosition.rotation, playerParent);
-		Instantiate(cameraPrefab, playerStartPosition.position, Quaternion.identity, playerParent);
+	void SpawnTeleportPlayer()
+	{
+		//Transform playerStartPosition = null;
+		//while (playerStartPosition == null)
+		//	playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
+
+		Transform beginPlayTransform = GameObject.FindWithTag("BeginPlay").transform;
+		if (PlayerController.Instance == null)
+		{
+			// If player doesnt exist, we spawn him
+			Instantiate(userInterfacePrefab, playerParent);
+			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
+			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
+		}
+		else
+		{
+			// Otherwise we teleport him
+			PlayerController.Instance.Teleport(beginPlayTransform.position, beginPlayTransform.eulerAngles);
+		}
 	}
 
 	void DestroyPlayer()
@@ -65,6 +84,12 @@ public class NewGameManager : MonoBehaviour
 	{
 		if (!_loadingLevel)
 			StartCoroutine(LoadLevelCoroutine(scenePath));
+	}
+
+	public void ReloadLevel()
+	{
+		if (!_loadingLevel)
+			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
 	}
 
 	IEnumerator LoadLevelCoroutine(string scenePath)
@@ -105,6 +130,7 @@ public class NewGameManager : MonoBehaviour
 		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
 		{
 			// Loading Screen progress here
+			//Debug.Log("Progress : " + newLevelAO.progress);
 
 			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
@@ -112,32 +138,25 @@ public class NewGameManager : MonoBehaviour
 		
 		// Activate new level
 		newLevelAO.allowSceneActivation = true;
-
-		//// Wait for the level to be fully loaded
-		//while (!newLevelAO.isDone)
-		//{
-		//	//Debug.Log("in progress");
-		//	yield return null;
-		//}
-
-
-		// Wait for the load screen to do its things uh
-		yield return new WaitForSeconds(loadingScreenDuration);
+		yield return null;
 
 		// Set new level as active level
 		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
 		SceneManager.SetActiveScene(newLevel);
 		//Debug.Log("New Level : " + newLevel.path);
 
-		// Teleport player
-		Transform playerTransform = GameObject.FindGameObjectWithTag("BeginPlay").transform;
-		PlayerController.Instance.Teleport(playerTransform.position, playerTransform.eulerAngles);
-
-		// Start fade in
-		LoadingScreen.Instance.FadeOut();
-
 		// Unload previous level
 		SceneManager.UnloadSceneAsync(oldLevel);
+		yield return null;
+
+		// Spawn/Teleport player
+		SpawnTeleportPlayer();
+
+        // Wait for the load screen to do its things uh
+        yield return new WaitForSeconds(loadingScreenDuration);
+
+		// Start fade out
+		LoadingScreen.Instance.FadeOut();
 
 		// Wait for the fade out to finish
 		while (LoadingScreen.Instance.IsFadingOut)
@@ -159,9 +178,6 @@ public class NewGameManager : MonoBehaviour
 		//	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
 		//}
 
-
 		_loadingLevel = false;
-
-		yield return null;
 	}
 }
