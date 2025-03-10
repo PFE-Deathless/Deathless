@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
 	
 	[Header("Hit")]
 	public float hitDuration = 0.2f;
-	public float hitCooldown = 0.5f;
+	public float hitCooldownSuccess = 0.5f;
+	public float hitCooldownFail = 2f;
 	public float inputBufferTime = 0.1f;
 
 	[Header("Dash")]
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
 	public AnimationCurve dashCurve;
 
 	[Header("Technical")]
-	public GameObject hitCollider;
+	public GameObject hitColliderObject;
 	public int playerLayer;
 	public int playerDashingLayer;
 
@@ -36,6 +37,9 @@ public class PlayerController : MonoBehaviour
 	bool canDash = true;
 
 	Vector3 dashOffset = Vector3.zero;
+
+	// Hit variables
+	HitCollider hitCollider;
 
 	// ?
 	Rigidbody rb;
@@ -57,6 +61,7 @@ public class PlayerController : MonoBehaviour
 		animator = GetComponentInChildren<Animator>();
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
+		hitCollider = hitColliderObject.GetComponent<HitCollider>();
 	}
 
 	void Update()
@@ -162,17 +167,18 @@ public class PlayerController : MonoBehaviour
 	{
 		canHit = false;
 
-		hitCollider.SetActive(true);
-		hitCollider.GetComponent<HitCollider>().SetType(type);
+		hitColliderObject.SetActive(true);
+        hitCollider.SetType(type);
 		scytheSlash.SetInt("HitType", (int)type - 1);
 		scytheSlash.Play();
 		animator.SetTrigger("Attack");
 
 		yield return new WaitForSeconds(hitDuration);
 
-		hitCollider.SetActive(false);
+		bool success = hitCollider.HitSucess;
+		hitColliderObject.SetActive(false);
 
-		yield return new WaitForSeconds(hitCooldown);
+		yield return new WaitForSeconds(success ? hitCooldownSuccess : hitCooldownFail);
 		canHit = true;
 	}
 
