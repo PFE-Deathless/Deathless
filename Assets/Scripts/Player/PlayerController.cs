@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 	public float dashDistance = 5f;
 	public float dashDuration = 0.3f;
 	public float dashCooldown = 1f;
+	public int dashChargesMax = 2;
+	public float dashChargesCooldown = 2f;
 	public AnimationCurve dashCurve;
 
 	[Header("Technical")]
@@ -34,11 +36,14 @@ public class PlayerController : MonoBehaviour
 	public VisualEffect scytheSlash;
 
 	bool canHit = true;
+
+	// Dash
 	bool canDash = true;
-
 	Vector3 dashOffset = Vector3.zero;
+	int _dashCharges;
+	float _dashChargesElapsedTime = 0f;
 
-	// Hit variables
+	// Hit
 	HitCollider hitCollider;
 
 	// ?
@@ -63,7 +68,8 @@ public class PlayerController : MonoBehaviour
 		ps.startLifetime = dashCooldown + dashDuration;
 		hitCollider = hitColliderObject.GetComponent<HitCollider>();
 		InputsManager.Instance.hit = HitType.Type.None;
-    }
+		_dashCharges = dashChargesMax;
+	}
 
 	void Update()
 	{
@@ -133,9 +139,27 @@ public class PlayerController : MonoBehaviour
 	{
 		if (InputsManager.Instance.dash)
 		{
-			if (canDash)
+			if (canDash && _dashCharges > 0)
+			{
 				StartCoroutine(ApplyDash());
+				_dashCharges--;
+				Debug.Log("Dash charges : " + _dashCharges);
+			}
 			InputsManager.Instance.dash = false;
+		}
+
+		if (_dashCharges < dashChargesMax)
+		{
+			if (_dashChargesElapsedTime < dashChargesCooldown)
+			{
+				_dashChargesElapsedTime += Time.deltaTime;
+			}
+			else
+			{
+				_dashChargesElapsedTime = 0f;
+				_dashCharges++;
+                Debug.Log("Dash charges : " + _dashCharges);
+            }
 		}
 	}
 
@@ -164,7 +188,7 @@ public class PlayerController : MonoBehaviour
 		canHit = false;
 
 		hitColliderObject.SetActive(true);
-        hitCollider.SetType(type);
+		hitCollider.SetType(type);
 		scytheSlash.SetInt("HitType", (int)type);
 		scytheSlash.Play();
 		animator.SetTrigger("Attack");
@@ -186,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
 
 		//dashOffset = transform.forward * (dashDistance / dashDuration);
-		PlayerHealth.Instance.SetInvicibility(true);
+		//PlayerHealth.Instance.SetInvicibility(true);
 		gameObject.layer = playerDashingLayer;
 		dashParticle.Play();
 
@@ -202,7 +226,7 @@ public class PlayerController : MonoBehaviour
 		//yield return new WaitForSeconds(dashDuration);
 		dashTrail.emitting = false;
 		dashOffset = Vector3.zero;
-		PlayerHealth.Instance.SetInvicibility(false);
+		//PlayerHealth.Instance.SetInvicibility(false);
 		gameObject.layer = playerLayer;
 		dashParticle.Stop();
 

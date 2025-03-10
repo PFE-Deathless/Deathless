@@ -15328,7 +15328,9 @@ MonoBehaviour:
   inputBufferTime: 0.1
   dashDistance: 3
   dashDuration: 0.2
-  dashCooldown: 0.8
+  dashCooldown: 0.1
+  dashChargesMax: 2
+  dashChargesCooldown: 10
   dashCurve:
     serializedVersion: 2
     m_Curve:

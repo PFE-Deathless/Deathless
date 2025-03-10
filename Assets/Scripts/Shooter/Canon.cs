@@ -16,6 +16,7 @@ public class Canon : MonoBehaviour
 	// Private properties
 	Animator _animator; // 0.5s délai
 	float _elapsedTime = 0f;
+	float _elapsedTimeDelay = 0f;
 	float _animationDelay;
 	float _delay;
 	bool _animStarted = false;
@@ -30,14 +31,19 @@ public class Canon : MonoBehaviour
 
 		if (origin == null)
 			origin = transform;
-
-		StartCoroutine(DelayStart());
 	}
 
 	private void FixedUpdate()
 	{
 		if (_started)
 			PerformShoot();
+		else
+		{
+			if (_elapsedTimeDelay < startDelay)
+				_elapsedTimeDelay += Time.fixedDeltaTime;
+			else
+				_started = true;
+        }
 	}
 
 	protected void PerformShoot()
@@ -65,11 +71,4 @@ public class Canon : MonoBehaviour
 		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
 		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
 	}
-
-	IEnumerator DelayStart()
-	{
-		yield return new WaitForSeconds(startDelay);
-		_started = true;
-	}
-
 }
