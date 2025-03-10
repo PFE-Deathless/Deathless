@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 		if (!disableFadeTransition)
 		{
 			// Block player inputs
-			InputsManager.Instance.canInput = false;
+			//InputsManager.Instance.canInput = false;
 
 			// Fade the screen black
 			FadeScreen.Instance.StartFadeIn();
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
 				yield return null;
 
 			// Re enable player inputs
-			InputsManager.Instance.canInput = true;
+			//InputsManager.Instance.canInput = true;
 		}
 
 		_isLoading = false;
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
 		if (!disableFadeTransition)
 		{
 			// Block player inputs
-			InputsManager.Instance.canInput = false;
+			//InputsManager.Instance.canInput = false;
 
 			// Fade the screen black
 			FadeScreen.Instance.StartFadeIn();
@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
 				yield return null;
 
 			// Re enable player inputs
-			InputsManager.Instance.canInput = true;
+			//InputsManager.Instance.canInput = true;
 		}
 
 		_isLoading = false;
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
 		if (!disableFadeTransition)
 		{
 			// Block player inputs
-			InputsManager.Instance.canInput = false;
+			//InputsManager.Instance.canInput = false;
 
 			// Fade the screen black
 			FadeScreen.Instance.StartFadeIn();
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
 				yield return null;
 
 			// Re enable player inputs
-			InputsManager.Instance.canInput = true;
+			//InputsManager.Instance.canInput = true;
 		}
 	}
 

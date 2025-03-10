@@ -115,6 +115,6 @@ MonoBehaviour:
   loadingScreenScenePath: Assets/Scenes/LoadingScreen.unity
   fadeInDuration: 0.2
   fadeOutDuration: 0.2
-  loadingScreenDuration: 0.1
+  loadingScreenDuration: 0.5
   projectileParent: {fileID: 162474035659303666}
   controller: 0

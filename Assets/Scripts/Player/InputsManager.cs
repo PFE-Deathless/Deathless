@@ -5,7 +5,6 @@ public class InputsManager : MonoBehaviour
 {
 	[HideInInspector] public static InputsManager Instance { get; private set; }
 
-	[HideInInspector] public bool canInput = true;
 
 	[HideInInspector] public Vector2 move;
 	[HideInInspector] public HitType.Type hit;
@@ -14,12 +13,22 @@ public class InputsManager : MonoBehaviour
 	[HideInInspector] public bool interact;
 	[HideInInspector] public bool mainMenu;
 
+	private bool canInput = true;
+
+	public bool CanInput => canInput;
+
 	private void Awake()
 	{
 		if (Instance == null)
 			Instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	public void EnableInput(bool state)
+	{
+		canInput = state;
+		move = Vector2.zero;
 	}
 
 	public void OnMove(InputValue value)

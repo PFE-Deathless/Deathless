@@ -105,7 +105,7 @@ public class NewGameManager : MonoBehaviour
 			yield return null;
 
 		// Block player inputs
-		InputsManager.Instance.canInput = false;
+		InputsManager.Instance.EnableInput(false);
 
 		// Start fade in
 		LoadingScreen.Instance.SetTiming(fadeInDuration, fadeOutDuration);
@@ -167,17 +167,17 @@ public class NewGameManager : MonoBehaviour
 
 		// Wait a bit and activate player inputs back
 		yield return new WaitForSeconds(0.2f);
-		InputsManager.Instance.canInput = true;
+        InputsManager.Instance.EnableInput(true);
 
-		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
+        //Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 
 
-		//Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
-		//for (int i = 0; i < SceneManager.loadedSceneCount; i++)
-		//{
-		//	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
-		//}
+        //Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
+        //for (int i = 0; i < SceneManager.loadedSceneCount; i++)
+        //{
+        //	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
+        //}
 
-		_loadingLevel = false;
+        _loadingLevel = false;
 	}
 }
