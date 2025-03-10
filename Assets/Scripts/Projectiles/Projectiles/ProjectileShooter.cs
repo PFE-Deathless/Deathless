@@ -20,7 +20,7 @@ public class ProjectileShooter : MonoBehaviour
 	{
 		if (origin == null)
 			origin = transform;
-		GameObject obj = Instantiate(projectile.gameObject, origin.position, origin.rotation);
+		GameObject obj = Instantiate(projectile.gameObject, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
 		obj.AddComponent<Rigidbody>();
 		ProjectileMovement p = obj.AddComponent<ProjectileMovement>();
 		p.Setup(projectile);

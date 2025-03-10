@@ -62,7 +62,7 @@ public class Canon : MonoBehaviour
 	public void Shoot()
 	{
 		//_animator.SetTrigger("Shoot");
-		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, NewGameManager.Instance.ProjectileParent);
+		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
 		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
 	}
 

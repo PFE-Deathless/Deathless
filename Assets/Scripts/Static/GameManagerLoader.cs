@@ -20,7 +20,7 @@ public static class GameManagerLoader
 
 		if (state == PlayModeStateChange.EnteredPlayMode)
 		{
-			Object gameManagerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Gameplay/NewGameManager.prefab", typeof(GameObject));
+			Object gameManagerPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Gameplay/GameManager.prefab", typeof(GameObject));
 			PrefabUtility.InstantiatePrefab(gameManagerPrefab);
 			//EditorSceneManager.LoadSceneAsync("Assets/Scenes/GameManagerScene.unity", UnityEngine.SceneManagement.LoadSceneMode.Additive);
 		}
