@@ -20,7 +20,7 @@ TagManager:
   - Effect
   - Interactable
   - Dummy
-  - 
+  - HitCollider
   - 
   - 
   - 

@@ -14,7 +14,12 @@ public class HitCollider : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.layer == 7) // Enemy
+        if (other.gameObject.layer == 10) // Interactable
+        {
+			other.gameObject.GetComponent<IInteractable>().Interact();
+        }
+
+        if (other.gameObject.layer == 7) // Enemy
 		{
 			Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
 			if (!_enemiesInside.Contains(enemy))

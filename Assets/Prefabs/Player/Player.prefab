@@ -4945,7 +4945,7 @@ GameObject:
   - component: {fileID: 2004620458146191294}
   - component: {fileID: 4291548981086470613}
   - component: {fileID: 2062811281217180387}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HitCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5033,7 +5033,7 @@ MeshCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -15216,7 +15216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5268231398937057269
 Transform:
   m_ObjectHideFlags: 0

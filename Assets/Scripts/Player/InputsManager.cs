@@ -7,7 +7,7 @@ public class InputsManager : MonoBehaviour
 
 
 	[HideInInspector] public Vector2 move;
-	[HideInInspector] public HitType.Type hit;
+	[HideInInspector] public HitType.Type hit = HitType.Type.None;
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool reloadScene;
 	[HideInInspector] public bool interact;

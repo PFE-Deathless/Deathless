@@ -62,7 +62,8 @@ public class PlayerController : MonoBehaviour
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
 		hitCollider = hitColliderObject.GetComponent<HitCollider>();
-	}
+		InputsManager.Instance.hit = HitType.Type.None;
+    }
 
 	void Update()
 	{
@@ -125,11 +126,6 @@ public class PlayerController : MonoBehaviour
 			if (canHit)
 				StartCoroutine(ApplyHit(InputsManager.Instance.hit));
 			InputsManager.Instance.hit = HitType.Type.None;
-
-			// Interact
-			Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
-			if (t != null)
-				t.GetComponent<IInteractable>().Interact();
 		}
 	}
 
@@ -169,7 +165,7 @@ public class PlayerController : MonoBehaviour
 
 		hitColliderObject.SetActive(true);
         hitCollider.SetType(type);
-		scytheSlash.SetInt("HitType", (int)type - 1);
+		scytheSlash.SetInt("HitType", (int)type);
 		scytheSlash.Play();
 		animator.SetTrigger("Attack");
 
