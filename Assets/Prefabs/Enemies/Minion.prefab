@@ -240,8 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 3
-  minSouls: 3
-  maxSouls: 8
+  weaknesses: 00000000
   range: 8
   acquisitionRange: 4
   maxRange: 10
@@ -251,7 +250,8 @@ MonoBehaviour:
   attackCooldown: 2
   waitingTime: 2
   stoppingDistance: 0.1
-  patrolPoints: []
+  patrolPoints:
+  - {x: 0, y: 0, z: 0}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

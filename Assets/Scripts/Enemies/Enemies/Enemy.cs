@@ -10,9 +10,9 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
-	public int healthMax = 3;
-	[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
-	[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
+	[SerializeField] HitType.Type[] weaknesses = new HitType.Type[1];
+	//[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
+	//[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
@@ -35,10 +35,12 @@ public class Enemy : MonoBehaviour
 	public TextMeshPro debugText;
 
 	public HitType.Type CurrentType { get; private set; }
-	public HitType.Type[] Types { get; private set; }
+	//public HitType.Type[] Types { get; private set; }
+	public HitType.Type[] Weaknesses => weaknesses;
 
+    int healthMax;
 	int health;
-	HitBar hitBar;
+    HitBar hitBar;
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 	protected Material defaultMaterial;
@@ -105,9 +107,11 @@ public class Enemy : MonoBehaviour
 		hitBar = GetComponentInChildren<HitBar>();
 		animator = GetComponentInChildren<Animator>();
 		SetupNavMeshAgent();
-		SetTypes();
-		CurrentType = Types[0];
-		health = healthMax;
+        //SetTypes();
+        hitBar.SetTypes(Weaknesses);
+        CurrentType = weaknesses[0];
+		healthMax = weaknesses.Length;
+        health = healthMax;
 
 		GetMeshRenderersAndMaterials();
 
@@ -210,7 +214,7 @@ public class Enemy : MonoBehaviour
 		currentBlinkingTime = Time.time;
 		isBlinking = true;
 
-		CurrentType = Types[healthMax - health];
+		CurrentType = Weaknesses[healthMax - health];
 		hitBar.UpdateHitBar(healthMax - health);
 	}
 
@@ -222,22 +226,22 @@ public class Enemy : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	void SetTypes()
-	{
-		Types = new HitType.Type[healthMax];
-		for (int i = 0; i < healthMax; i++)
-		{
-			Types[i] = HitType.GetRandomType();
-		}
-		hitBar.SetTypes(Types);
-	}
+	//void SetTypes()
+	//{
+	//	Weaknesses = new HitType.Type[healthMax];
+	//	for (int i = 0; i < healthMax; i++)
+	//	{
+	//		Weaknesses[i] = HitType.GetRandomType();
+	//	}
+	//	hitBar.SetTypes(Weaknesses);
+	//}
 
 	// #####################
 	// #####################
 	// ### STATE MACHINE ###
 	// #####################
 	// #####################
-	
+
 	#region state_machine
 
 	public enum EnemyState
