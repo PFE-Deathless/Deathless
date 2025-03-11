@@ -6,26 +6,28 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
 
-	[Header("Controller type")]
-	[SerializeField] HitType.Controller controller;
-	
-	[Header("Transition")]
-	[SerializeField] private string hubScenePath;
-	[SerializeField] private string gameScenePath;
-	[SerializeField] private float blackScreenDuration = 1f;
+	[Header("Objects to spawn on level start")]
+	[SerializeField] GameObject playerPrefab;
+	[SerializeField] GameObject userInterfacePrefab;
+	[SerializeField] GameObject cameraPrefab;
+	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
+
+	[Header("Scene Transition")]
+	[SerializeField] string loadingScreenScenePath;
+	[SerializeField] float fadeInDuration = 0.5f;
+	[SerializeField] float fadeOutDuration = 0.5f;
+	[SerializeField] float loadingScreenDuration = 1f;
 
 	[Header("Projectiles")]
-	[SerializeField] private Transform projectileParent;
+	[SerializeField, Tooltip("Transform the projectiles will be attached to")] Transform projectileParent;
 
-	[Header("Debug")]
-	[SerializeField] private bool disableFadeTransition;
-
-	public string HubScenePath => hubScenePath;
+	[Header("Controller type")]
+	[SerializeField] HitType.Controller controller;
 
 	public Transform ProjectileParent => projectileParent;
 
-	private Scene _currentLevelScene;
-	private bool _isLoading;
+	// Private properties
+	bool _loadingLevel = false;
 
 	private void Awake()
 	{
@@ -35,21 +37,11 @@ public class GameManager : MonoBehaviour
 			DontDestroyOnLoad(gameObject);
 		}
 		else
-		{
 			Destroy(gameObject);
-			return;
-		}
 
 		HitType.SetController(controller);
 		EnemyBarks.InitBarks();
-
-		StartCoroutine(EnsurePersistentScenesLoaded());
-	}
-
-	private void Start()
-	{
-		// Fade the screen from black
-		FadeScreen.Instance.StartFadeOut();
+		SpawnTeleportPlayer();
 	}
 
 	private void Update()
@@ -57,215 +49,139 @@ public class GameManager : MonoBehaviour
 		if (InputsManager.Instance.reloadScene)
 		{
 			InputsManager.Instance.reloadScene = false;
-			ReloadCurrentLevel();
+			ReloadLevel();
 		}
 	}
 
-	private IEnumerator EnsurePersistentScenesLoaded()
+	void SpawnTeleportPlayer()
 	{
-		// Only load Hub and Game scene if they aren't already loaded
-		if (!IsSceneLoaded(hubScenePath))
-			yield return SceneManager.LoadSceneAsync(hubScenePath, LoadSceneMode.Additive);
+		//Transform playerStartPosition = null;
+		//while (playerStartPosition == null)
+		//	playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
 
-		if (!IsSceneLoaded(gameScenePath))
-			yield return SceneManager.LoadSceneAsync(gameScenePath, LoadSceneMode.Additive);
-	}
-
-	public void LoadLevel(string levelPath)
-	{
-		if (_isLoading || string.IsNullOrEmpty(levelPath))
-			return;
-
-		StartCoroutine(LoadLevelCoroutine(levelPath));
-	}
-
-	private IEnumerator LoadLevelCoroutine(string levelPath)
-	{
-		_isLoading = true;
-
-		if (!disableFadeTransition)
+		Transform beginPlayTransform = GameObject.FindWithTag("BeginPlay").transform;
+		if (PlayerController.Instance == null)
 		{
-			// Block player inputs
-			InputsManager.Instance.canInput = false;
-
-			// Fade the screen black
-			FadeScreen.Instance.StartFadeIn();
-
-			// Wait for fade to be done
-			while (!FadeScreen.Instance.FadingDone)
-				yield return null;
+			// If player doesnt exist, we spawn him
+			Instantiate(userInterfacePrefab, playerParent);
+			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
+			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
 		}
-
-		// Load new level additively
-		AsyncOperation newLevelLoad = SceneManager.LoadSceneAsync(levelPath, LoadSceneMode.Additive);
-		newLevelLoad.allowSceneActivation = false;
-
-		while (!newLevelLoad.isDone)
+		else
 		{
-			if (newLevelLoad.progress >= 0.9f)
-				break;
+			// Otherwise we teleport him
+			PlayerController.Instance.Teleport(beginPlayTransform.position, beginPlayTransform.eulerAngles);
+		}
+	}
 
+	void DestroyPlayer()
+	{
+		foreach (Transform t in playerParent)
+			Destroy(t.gameObject);
+	}
+
+	public void LoadLevel(string scenePath)
+	{
+		if (!_loadingLevel)
+			StartCoroutine(LoadLevelCoroutine(scenePath));
+	}
+
+	public void ReloadLevel()
+	{
+		if (!_loadingLevel)
+			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
+	}
+
+	IEnumerator LoadLevelCoroutine(string scenePath)
+	{
+		_loadingLevel = true;
+
+		// Load loading screen scene
+		SceneManager.LoadSceneAsync(loadingScreenScenePath, LoadSceneMode.Additive);
+		Scene loadingScreenScene = SceneManager.GetSceneAt(SceneManager.loadedSceneCount);
+
+		// Wait until the loading screen scene to be loaded
+		while (LoadingScreen.Instance == null)
+			yield return null;
+
+		// Block player inputs
+		InputsManager.Instance.EnableInput(false);
+
+		// Start fade in
+		LoadingScreen.Instance.SetTiming(fadeInDuration, fadeOutDuration);
+		LoadingScreen.Instance.FadeIn();
+
+		// Get current scene
+		Scene oldLevel = SceneManager.GetActiveScene();
+
+		// Destroy all existing projectiles
+		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
+			Destroy(projectileParent.transform.GetChild(i).gameObject);
+
+		//Debug.Log("Scene : " + loadingScreenScene.path);
+		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
+
+		// Wait for the fade in to finish
+		while (LoadingScreen.Instance.IsFadingIn)
+			yield return null;
+
+		// Unload previous level
+		SceneManager.UnloadSceneAsync(oldLevel);
+		yield return new WaitForSeconds(0.1f);
+
+		// Start loading the new level
+		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+		newLevelAO.allowSceneActivation = false;
+
+
+		// Loading in progress
+		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
+		{
+			// Loading Screen progress here
+			//Debug.Log("Progress : " + newLevelAO.progress);
+
+			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
 		}
+		
+		// Activate new level
+		newLevelAO.allowSceneActivation = true;
+		yield return new WaitForSeconds(0.1f);
 
-		// Unload the previous level (if any)
-		if (_currentLevelScene.IsValid() && _currentLevelScene.isLoaded)
-		{
-			yield return SceneManager.UnloadSceneAsync(_currentLevelScene);
-		}
+		// Set new level as active level
+		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
+		SceneManager.SetActiveScene(newLevel);
+		//Debug.Log("New Level : " + newLevel.path);
 
-		// Activate the new level
-		newLevelLoad.allowSceneActivation = true;
+		// Spawn/Teleport player
+		SpawnTeleportPlayer();
 
-		// Wait until Unity actually registers the scene as loaded
-		yield return new WaitUntil(() => SceneManager.GetSceneByPath(levelPath).isLoaded);
+		// Wait for the load screen to do its things uh
+		yield return new WaitForSeconds(loadingScreenDuration);
 
-		// Store the newly loaded level
-		_currentLevelScene = SceneManager.GetSceneByPath(levelPath);
-		SceneManager.SetActiveScene(_currentLevelScene);
+		// Start fade out
+		LoadingScreen.Instance.FadeOut();
 
-		if (!disableFadeTransition)
-		{
-			// Wait a bit in black screen
-			yield return new WaitForSeconds(blackScreenDuration);
+		// Wait for the fade out to finish
+		while (LoadingScreen.Instance.IsFadingOut)
+			yield return null;
 
-			// Fade the screen from black
-			FadeScreen.Instance.StartFadeOut();
+		// Unload loading screen level
+		SceneManager.UnloadSceneAsync(loadingScreenScene);
 
-			// Wait for fade to be done
-			while (!FadeScreen.Instance.FadingDone)
-				yield return null;
+		// Wait a bit and activate player inputs back
+		yield return new WaitForSeconds(0.2f);
+		InputsManager.Instance.EnableInput(true);
 
-			// Re enable player inputs
-			InputsManager.Instance.canInput = true;
-		}
+		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 
-		_isLoading = false;
-	}
 
-	public void ReloadCurrentLevel()
-	{
-		if (_isLoading || !_currentLevelScene.IsValid() || !_currentLevelScene.isLoaded)
-			return;
+		//Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
+		//for (int i = 0; i < SceneManager.loadedSceneCount; i++)
+		//{
+		//	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
+		//}
 
-		StartCoroutine(ReloadLevelCoroutine());
-	}
-
-	private IEnumerator ReloadLevelCoroutine()
-	{
-		_isLoading = true;
-
-		if (!disableFadeTransition)
-		{
-			// Block player inputs
-			InputsManager.Instance.canInput = false;
-
-			// Fade the screen black
-			FadeScreen.Instance.StartFadeIn();
-
-			// Wait for fade to be done
-			while (!FadeScreen.Instance.FadingDone)
-				yield return null;
-		}
-
-		string levelPath = _currentLevelScene.path;
-
-		// Unload the current level first
-		yield return SceneManager.UnloadSceneAsync(_currentLevelScene);
-
-		// Load the new instance
-		AsyncOperation newLevelLoad = SceneManager.LoadSceneAsync(levelPath, LoadSceneMode.Additive);
-		yield return newLevelLoad; // Wait for loading to finish
-
-		// Set the new level as active
-		_currentLevelScene = SceneManager.GetSceneByPath(levelPath);
-		SceneManager.SetActiveScene(_currentLevelScene);
-
-		if (!disableFadeTransition)
-		{
-			// Wait a bit in black screen
-			yield return new WaitForSeconds(blackScreenDuration);
-
-			// Fade the screen black
-			FadeScreen.Instance.StartFadeOut();
-
-			// Wait for fade to be done
-			while (!FadeScreen.Instance.FadingDone)
-				yield return null;
-
-			// Re enable player inputs
-			InputsManager.Instance.canInput = true;
-		}
-
-		_isLoading = false;
-	}
-
-	public void ReturnToHub()
-	{
-		if (_isLoading)
-			return;
-
-		StartCoroutine(ReturnToHubCoroutine());
-	}
-
-	private IEnumerator ReturnToHubCoroutine()
-	{
-		if (!disableFadeTransition)
-		{
-			// Block player inputs
-			InputsManager.Instance.canInput = false;
-
-			// Fade the screen black
-			FadeScreen.Instance.StartFadeIn();
-
-			// Wait for fade to be done
-			while (!FadeScreen.Instance.FadingDone)
-				yield return null;
-		}
-
-		Transform t = SceneHubStart.Instance.GetTransformFromPath(_currentLevelScene.path);
-		PlayerController.Instance.Teleport(t.position, t.eulerAngles);
-
-		yield return StartCoroutine(UnloadCurrentLevel());
-
-		if (!disableFadeTransition)
-		{
-			// Wait a bit in black screen
-			yield return new WaitForSeconds(blackScreenDuration);
-
-			// Fade the screen black
-			FadeScreen.Instance.StartFadeOut();
-
-			// Wait for fade to be done
-			while (!FadeScreen.Instance.FadingDone)
-				yield return null;
-
-			// Re enable player inputs
-			InputsManager.Instance.canInput = true;
-		}
-	}
-
-	private IEnumerator UnloadCurrentLevel()
-	{
-		_isLoading = true;
-
-		if (_currentLevelScene.IsValid() && _currentLevelScene.isLoaded)
-		{
-			yield return SceneManager.UnloadSceneAsync(_currentLevelScene);
-		}
-
-		_currentLevelScene = default; // Reset level tracking
-		_isLoading = false;
-	}
-
-	private bool IsSceneLoaded(string scenePath)
-	{
-		for (int i = 0; i < SceneManager.sceneCount; i++)
-		{
-			Scene scene = SceneManager.GetSceneAt(i);
-			if (scene.path == scenePath)
-				return true;
-		}
-		return false;
+		_loadingLevel = false;
 	}
 }

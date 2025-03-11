@@ -12,17 +12,20 @@ public class PlayerController : MonoBehaviour
 	
 	[Header("Hit")]
 	public float hitDuration = 0.2f;
-	public float hitCooldown = 0.5f;
+	public float hitCooldownSuccess = 0.5f;
+	public float hitCooldownFail = 2f;
 	public float inputBufferTime = 0.1f;
 
 	[Header("Dash")]
 	public float dashDistance = 5f;
 	public float dashDuration = 0.3f;
 	public float dashCooldown = 1f;
+	public int dashChargesMax = 2;
+	public float dashChargesCooldown = 2f;
 	public AnimationCurve dashCurve;
 
 	[Header("Technical")]
-	public GameObject hitCollider;
+	public GameObject hitColliderObject;
 	public int playerLayer;
 	public int playerDashingLayer;
 
@@ -33,9 +36,15 @@ public class PlayerController : MonoBehaviour
 	public VisualEffect scytheSlash;
 
 	bool canHit = true;
-	bool canDash = true;
 
+	// Dash
+	bool canDash = true;
 	Vector3 dashOffset = Vector3.zero;
+	int _dashCharges;
+	float _dashChargesElapsedTime = 0f;
+
+	// Hit
+	HitCollider hitCollider;
 
 	// ?
 	Rigidbody rb;
@@ -57,6 +66,9 @@ public class PlayerController : MonoBehaviour
 		animator = GetComponentInChildren<Animator>();
 		var ps = dashCooldownParticle.main;
 		ps.startLifetime = dashCooldown + dashDuration;
+		hitCollider = hitColliderObject.GetComponent<HitCollider>();
+		InputsManager.Instance.hit = HitType.Type.None;
+		_dashCharges = dashChargesMax;
 	}
 
 	void Update()
@@ -120,11 +132,6 @@ public class PlayerController : MonoBehaviour
 			if (canHit)
 				StartCoroutine(ApplyHit(InputsManager.Instance.hit));
 			InputsManager.Instance.hit = HitType.Type.None;
-
-			// Interact
-			Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
-			if (t != null)
-				t.GetComponent<IInteractable>().Interact();
 		}
 	}
 
@@ -132,15 +139,34 @@ public class PlayerController : MonoBehaviour
 	{
 		if (InputsManager.Instance.dash)
 		{
-			if (canDash)
+			if (canDash && _dashCharges > 0)
+			{
 				StartCoroutine(ApplyDash());
+				_dashCharges--;
+				Debug.Log("Dash charges : " + _dashCharges);
+			}
 			InputsManager.Instance.dash = false;
+		}
+
+		if (_dashCharges < dashChargesMax)
+		{
+			if (_dashChargesElapsedTime < dashChargesCooldown)
+			{
+				_dashChargesElapsedTime += Time.deltaTime;
+			}
+			else
+			{
+				_dashChargesElapsedTime = 0f;
+				_dashCharges++;
+                Debug.Log("Dash charges : " + _dashCharges);
+            }
 		}
 	}
 
 	public void Teleport(Vector3 teleportPosition, Vector3 teleportRotation)
 	{
 		rb.Move(teleportPosition, Quaternion.Euler(teleportRotation));
+		rb.linearVelocity = Vector3.zero;
 		CameraBehavior.Instance.Teleport(teleportPosition);
 	}
 
@@ -161,17 +187,18 @@ public class PlayerController : MonoBehaviour
 	{
 		canHit = false;
 
-		hitCollider.SetActive(true);
-		hitCollider.GetComponent<HitCollider>().SetType(type);
-		scytheSlash.SetInt("HitType", (int)type - 1);
+		hitColliderObject.SetActive(true);
+		hitCollider.SetType(type);
+		scytheSlash.SetInt("HitType", (int)type);
 		scytheSlash.Play();
 		animator.SetTrigger("Attack");
 
 		yield return new WaitForSeconds(hitDuration);
 
-		hitCollider.SetActive(false);
+		bool success = hitCollider.HitSucess;
+		hitColliderObject.SetActive(false);
 
-		yield return new WaitForSeconds(hitCooldown);
+		yield return new WaitForSeconds(success ? hitCooldownSuccess : hitCooldownFail);
 		canHit = true;
 	}
 
@@ -183,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
 
 		//dashOffset = transform.forward * (dashDistance / dashDuration);
-		PlayerHealth.Instance.SetInvicibility(true);
+		//PlayerHealth.Instance.SetInvicibility(true);
 		gameObject.layer = playerDashingLayer;
 		dashParticle.Play();
 
@@ -199,7 +226,7 @@ public class PlayerController : MonoBehaviour
 		//yield return new WaitForSeconds(dashDuration);
 		dashTrail.emitting = false;
 		dashOffset = Vector3.zero;
-		PlayerHealth.Instance.SetInvicibility(false);
+		//PlayerHealth.Instance.SetInvicibility(false);
 		gameObject.layer = playerLayer;
 		dashParticle.Stop();
 

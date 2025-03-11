@@ -6,6 +6,7 @@ public class LookAtCamera : MonoBehaviour
 	void Update()
 	{
 		//gameObject.transform.eulerAngles = new Vector3(-Quaternion.LookRotation(Camera.main.transform.position, Vector3.forward).eulerAngles.x, 0f, 0f);
-		gameObject.transform.rotation = Camera.main.transform.rotation;
+		if (Camera.main != null)
+			gameObject.transform.rotation = Camera.main.transform.rotation;
 	}
 }

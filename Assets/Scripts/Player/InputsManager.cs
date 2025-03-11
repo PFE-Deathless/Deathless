@@ -5,13 +5,17 @@ public class InputsManager : MonoBehaviour
 {
 	[HideInInspector] public static InputsManager Instance { get; private set; }
 
-	[HideInInspector] public bool canInput = true;
 
 	[HideInInspector] public Vector2 move;
-	[HideInInspector] public HitType.Type hit;
+	[HideInInspector] public HitType.Type hit = HitType.Type.None;
 	[HideInInspector] public bool dash;
 	[HideInInspector] public bool reloadScene;
 	[HideInInspector] public bool interact;
+	[HideInInspector] public bool mainMenu;
+
+	private bool canInput = true;
+
+	public bool CanInput => canInput;
 
 	private void Awake()
 	{
@@ -19,6 +23,12 @@ public class InputsManager : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	public void EnableInput(bool state)
+	{
+		canInput = state;
+		move = Vector2.zero;
 	}
 
 	public void OnMove(InputValue value)
@@ -63,10 +73,8 @@ public class InputsManager : MonoBehaviour
 
 	public void OnReloadScene()
 	{
-		if (canInput)
-			reloadScene = true;
-		else
-			reloadScene = false;
+		canInput = true;
+		reloadScene = true;
 	}
 
 	public void OnInteract()
@@ -75,5 +83,11 @@ public class InputsManager : MonoBehaviour
 			interact = true;
 		else
 			interact = false;
+	}
+
+	public void OnMainMenu()
+	{
+		canInput = true;
+		mainMenu = true;
 	}
 }

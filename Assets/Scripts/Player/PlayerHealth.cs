@@ -165,7 +165,7 @@ public class PlayerHealth : MonoBehaviour
 		Debug.Log("x_x");
 		health = healthMax;
 		HealthDisplay.Instance.UpdateHealth(health);
-		GameManager.Instance.ReloadCurrentLevel();
+		GameManager.Instance.ReloadLevel();
 	}
 
 	IEnumerator InvicibilityTime()

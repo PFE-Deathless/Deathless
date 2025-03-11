@@ -20,12 +20,12 @@ public class PlayerSouls : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.KeypadPlus))
 		{
 			souls++;
-			SoulsDisplay.Instance.UpdateSouls(souls);
+			//SoulsDisplay.Instance.UpdateSouls(souls);
 		}
 		if (Input.GetKeyDown(KeyCode.KeypadMinus))
 		{
 			souls--;
-			SoulsDisplay.Instance.UpdateSouls(souls);
+			//SoulsDisplay.Instance.UpdateSouls(souls);
 		}
 	}
 
@@ -41,6 +41,6 @@ public class PlayerSouls : MonoBehaviour
 		tempSouls = 0;
 		//Debug.Log("Temp Souls : " + tempSouls);
 		//Debug.Log("Souls : " + souls);
-		SoulsDisplay.Instance.UpdateSouls(souls);
+		//SoulsDisplay.Instance.UpdateSouls(souls);
 	}
 }
