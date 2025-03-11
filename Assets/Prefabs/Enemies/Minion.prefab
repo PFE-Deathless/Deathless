@@ -239,12 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a30bb4064a5ca4ca3f987aecf8c843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMax: 3
   weaknesses: 00000000
   range: 8
   acquisitionRange: 4
   maxRange: 10
   moveSpeed: 8
+  attackWaitTime: 1
   attackCastTime: 0.46
   attackDuration: 0.1
   attackCooldown: 2
@@ -478,6 +478,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1319798904737368513, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}

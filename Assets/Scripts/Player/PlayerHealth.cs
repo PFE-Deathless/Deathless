@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
 
 	void GetMeshRenderersAndMaterials()
 	{
-		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
+		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamagePlayer");
 		blinkingMaterials = new(blinkingMaterial);
 
 		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
