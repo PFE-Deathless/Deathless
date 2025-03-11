@@ -114,12 +114,20 @@ public class GameManager : MonoBehaviour
 		// Get current scene
 		Scene oldLevel = SceneManager.GetActiveScene();
 
+		// Destroy all existing projectiles
+		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
+			Destroy(projectileParent.transform.GetChild(i).gameObject);
+
 		//Debug.Log("Scene : " + loadingScreenScene.path);
 		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 
 		// Wait for the fade in to finish
 		while (LoadingScreen.Instance.IsFadingIn)
 			yield return null;
+
+		// Unload previous level
+		SceneManager.UnloadSceneAsync(oldLevel);
+		yield return new WaitForSeconds(0.1f);
 
 		// Start loading the new level
 		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
@@ -138,22 +146,18 @@ public class GameManager : MonoBehaviour
 		
 		// Activate new level
 		newLevelAO.allowSceneActivation = true;
-		yield return null;
+		yield return new WaitForSeconds(0.1f);
 
 		// Set new level as active level
 		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
 		SceneManager.SetActiveScene(newLevel);
 		//Debug.Log("New Level : " + newLevel.path);
 
-		// Unload previous level
-		SceneManager.UnloadSceneAsync(oldLevel);
-		yield return null;
-
 		// Spawn/Teleport player
 		SpawnTeleportPlayer();
 
-        // Wait for the load screen to do its things uh
-        yield return new WaitForSeconds(loadingScreenDuration);
+		// Wait for the load screen to do its things uh
+		yield return new WaitForSeconds(loadingScreenDuration);
 
 		// Start fade out
 		LoadingScreen.Instance.FadeOut();
@@ -167,17 +171,17 @@ public class GameManager : MonoBehaviour
 
 		// Wait a bit and activate player inputs back
 		yield return new WaitForSeconds(0.2f);
-        InputsManager.Instance.EnableInput(true);
+		InputsManager.Instance.EnableInput(true);
 
-        //Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
+		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 
 
-        //Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
-        //for (int i = 0; i < SceneManager.loadedSceneCount; i++)
-        //{
-        //	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
-        //}
+		//Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
+		//for (int i = 0; i < SceneManager.loadedSceneCount; i++)
+		//{
+		//	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
+		//}
 
-        _loadingLevel = false;
+		_loadingLevel = false;
 	}
 }

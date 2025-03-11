@@ -2437,7 +2437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4992374906775295997, guid: 4dabd7f6cc5303343803546b4763ed20, type: 3}
       propertyPath: scenePath
-      value: Assets/Scenes/Gyms/MaxGym.unity
+      value: Assets/Scenes/Levels/DonjonMediathequeV2.unity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
