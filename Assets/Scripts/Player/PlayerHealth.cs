@@ -90,8 +90,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.KeypadPlus))
 		{
-			health = healthMax;
-			HealthDisplay.Instance.UpdateHealth(health);
+			Heal();
 		}
 
 		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
@@ -167,6 +166,12 @@ public class PlayerHealth : MonoBehaviour
 		HealthDisplay.Instance.UpdateHealth(health);
 		GameManager.Instance.ReloadLevel();
 	}
+
+	public void Heal()
+	{
+        health = healthMax;
+        HealthDisplay.Instance.UpdateHealth(health);
+    }
 
 	IEnumerator InvicibilityTime()
 	{

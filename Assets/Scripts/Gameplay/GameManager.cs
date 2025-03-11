@@ -153,8 +153,11 @@ public class GameManager : MonoBehaviour
 		SceneManager.SetActiveScene(newLevel);
 		//Debug.Log("New Level : " + newLevel.path);
 
-		// Spawn/Teleport player
+		// Spawn/Teleport player, reset his dash charges and fully heal him
 		SpawnTeleportPlayer();
+		yield return null;
+		PlayerController.Instance.ResetDashCharges();
+		PlayerHealth.Instance.Heal();
 
 		// Wait for the load screen to do its things uh
 		yield return new WaitForSeconds(loadingScreenDuration);
