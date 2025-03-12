@@ -554,13 +554,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15f18bb3806734408a959cc1301c73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMax: 3
-  minSouls: 3
-  maxSouls: 8
+  weaknesses: 00000000
   range: 15
   acquisitionRange: 10
-  maxRange: 20
+  maxRange: 30
   moveSpeed: 8
+  attackWaitTime: 1
   attackCastTime: 0.75
   attackDuration: 0.1
   attackCooldown: 2.3

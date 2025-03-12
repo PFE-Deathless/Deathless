@@ -474,7 +474,7 @@ public class Enemy : MonoBehaviour
 			if (_Enemy.patrolPoints.Length == 0)
 				_Enemy.patrolPoints = new Vector3[1];
 			if (_Enemy.patrolPoints.Length == 1)
-				_Enemy.patrolPoints[0] = _Enemy.transform.position;
+				_Enemy.patrolPoints[0] = _Enemy.transform.position + Vector3.forward * 2f;
 		}
 
 		public override void OnInspectorGUI()

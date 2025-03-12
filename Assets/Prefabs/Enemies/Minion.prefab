@@ -241,8 +241,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaknesses: 00000000
   range: 8
-  acquisitionRange: 4
-  maxRange: 10
+  acquisitionRange: 3
+  maxRange: 20
   moveSpeed: 8
   attackWaitTime: 1
   attackCastTime: 0.46
@@ -251,7 +251,7 @@ MonoBehaviour:
   waitingTime: 2
   stoppingDistance: 0.1
   patrolPoints:
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 2}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:
@@ -414,8 +414,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 3}
+  m_Center: {x: 0, y: 0, z: -1}
 --- !u!1001 &4927098020480285184
 PrefabInstance:
   m_ObjectHideFlags: 0
