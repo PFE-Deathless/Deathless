@@ -279,6 +279,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c119801e-c706-4e9b-9b8a-7a4c11f668f8",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadScene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "19151b0e-500c-44f1-8c52-a6bae2659ab6",
                     "path": "<Keyboard>/e",
                     "interactions": "",
