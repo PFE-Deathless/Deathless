@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class HitType
 {
-	static string spriteFolder = "Xbox";
+	static string spriteFolder = "Universal";
 
 	public enum Type
 	{
@@ -14,6 +14,7 @@ public static class HitType
 
 	public enum Controller
 	{
+		Universal,
 		Keyboard,
 		Xbox,
 		Playstation
@@ -28,7 +29,10 @@ public static class HitType
 	{
 		switch (controller)
 		{
-			case Controller.Keyboard:
+            case Controller.Universal:
+                spriteFolder = "Universal";
+                break;
+            case Controller.Keyboard:
 				spriteFolder = "Keyboard";
 				break;
 			case Controller.Xbox:

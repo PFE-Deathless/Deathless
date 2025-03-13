@@ -158,8 +158,8 @@ public class PlayerController : MonoBehaviour
 			{
 				_dashChargesElapsedTime = 0f;
 				_dashCharges++;
-                Debug.Log("Dash charges : " + _dashCharges);
-            }
+				Debug.Log("Dash charges : " + _dashCharges);
+			}
 		}
 	}
 
@@ -173,6 +173,13 @@ public class PlayerController : MonoBehaviour
 	public void SetSpeedModifier(float modifier, float duration)
 	{
 		StartCoroutine(ApplySpeedModifier(modifier, duration));
+	}
+
+	public void ResetDashCharges()
+	{
+		_dashCharges = dashChargesMax;
+		_dashChargesElapsedTime = 0f;
+		Debug.Log("Dash charges : " + _dashCharges);
 	}
 
 	IEnumerator ApplySpeedModifier(float modifier, float duration)

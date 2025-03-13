@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 	public float moveSpeed = 8f;
 
 	[Header("Attack")]
+	public float attackWaitTime = 1f;
 	public float attackCastTime = 0.1f;
 	public float attackDuration = 0.5f;
 	public float attackCooldown = 1f;
@@ -35,19 +36,20 @@ public class Enemy : MonoBehaviour
 	public TextMeshPro debugText;
 
 	public HitType.Type CurrentType { get; private set; }
-	//public HitType.Type[] Types { get; private set; }
 	public HitType.Type[] Weaknesses => weaknesses;
 
-    int healthMax;
+	int healthMax;
 	int health;
-    HitBar hitBar;
+	HitBar hitBar;
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 	protected Material defaultMaterial;
 
 	// Attack
 	protected AttackState attackState = AttackState.None;
+	protected float attackElapsedTime = 0f;
 	protected float stateTimer;
+	protected float wait;
 	protected float cast;
 	protected float hit;
 	protected float cooldown;
@@ -58,6 +60,7 @@ public class Enemy : MonoBehaviour
 	protected bool isBlinking = false;
 	protected float blinkingTime = 0.25f;
 	protected float currentBlinkingTime;
+	protected bool gotDamaged = false;
 
 	// State Machine
 	EnemyState state;
@@ -75,6 +78,7 @@ public class Enemy : MonoBehaviour
 		public List<Material[]> defaultMaterials;
 		public List<Material[]> blinkingMaterials;
 		public Material blinkingMaterial;
+		public Color originalColor;
 
 		public BlinkingMaterials(Material blinkingMaterial)
 		{
@@ -100,6 +104,11 @@ public class Enemy : MonoBehaviour
 				skinnedMeshRenderers[i].materials = state ? blinkingMaterials[i] : defaultMaterials[i];
 			}
 		}
+
+		public void ChangeEmissiveIntensity(float percentage)
+		{
+			
+		}
 	}
 
 	void Start()
@@ -107,11 +116,11 @@ public class Enemy : MonoBehaviour
 		hitBar = GetComponentInChildren<HitBar>();
 		animator = GetComponentInChildren<Animator>();
 		SetupNavMeshAgent();
-        //SetTypes();
-        hitBar.SetTypes(Weaknesses);
-        CurrentType = weaknesses[0];
+		//SetTypes();
+		hitBar.SetTypes(Weaknesses);
+		CurrentType = weaknesses[0];
 		healthMax = weaknesses.Length;
-        health = healthMax;
+		health = healthMax;
 
 		GetMeshRenderersAndMaterials();
 
@@ -125,7 +134,8 @@ public class Enemy : MonoBehaviour
 		destLR.startWidth = 0.2f;
 		destLR.endWidth = 0.2f;
 
-		cast = attackCastTime;
+		wait = attackWaitTime;
+		cast = wait + attackCastTime;
 		hit = cast + attackDuration;
 		cooldown = hit + attackCooldown;
 	}
@@ -148,14 +158,11 @@ public class Enemy : MonoBehaviour
 			destLR.SetPosition(1, transform.position);
 	}
 
-	protected virtual void EnemyStart()
-	{
-
-	}
+	protected virtual void EnemyStart() { }
 
 	void GetMeshRenderersAndMaterials()
 	{
-		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
+		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamageEnemies");
 		blinkingMaterials = new(blinkingMaterial);
 
 		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -204,6 +211,7 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage()
 	{
 		health--;
+		gotDamaged = true;
 		if (health <= 0)
 		{
 			Kill();
@@ -254,6 +262,7 @@ public class Enemy : MonoBehaviour
 
 	public enum AttackState
 	{
+		Wait,
 		Cast,
 		Hit,
 		Cooldown,
@@ -287,6 +296,13 @@ public class Enemy : MonoBehaviour
 		{
 			target = null;
 			ChangeState(EnemyState.Patrol);
+		}
+
+		if (gotDamaged)
+		{
+			gotDamaged = false;
+			animator.SetTrigger("CancelAttack");
+			ChangeState(EnemyState.GoToPlayer);
 		}
 	}
 
@@ -351,10 +367,24 @@ public class Enemy : MonoBehaviour
 
 		switch (stateTimer)
 		{
-			case var _ when stateTimer < cast:
-				if (attackState != AttackState.Cast)
+			case var _ when stateTimer < wait:
+				if (attackState != AttackState.Wait)
 				{
 					stateTimer = 0f;
+					debugText.text = "ATTACK_WAIT";
+					attackState = AttackState.Wait;
+				}
+				if (attackElapsedTime < wait)
+				{
+					blinkingMaterials.ChangeEmissiveIntensity(attackElapsedTime / wait);
+					attackElapsedTime += Time.deltaTime;
+				}
+				break;
+			case var _ when stateTimer >= wait && stateTimer < cast:
+				if (attackState != AttackState.Cast)
+				{
+					blinkingMaterials.ChangeEmissiveIntensity(0f);
+					stateTimer = wait;
 					debugText.text = "ATTACK_CAST";
 					//Debug.Log("CAST : " + stateTimer);
 					StartCast();
@@ -444,7 +474,7 @@ public class Enemy : MonoBehaviour
 			if (_Enemy.patrolPoints.Length == 0)
 				_Enemy.patrolPoints = new Vector3[1];
 			if (_Enemy.patrolPoints.Length == 1)
-				_Enemy.patrolPoints[0] = _Enemy.transform.position;
+				_Enemy.patrolPoints[0] = _Enemy.transform.position + Vector3.forward * 2f;
 		}
 
 		public override void OnInspectorGUI()

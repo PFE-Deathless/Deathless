@@ -90,8 +90,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.KeypadPlus))
 		{
-			health = healthMax;
-			HealthDisplay.Instance.UpdateHealth(health);
+			Heal();
 		}
 
 		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
@@ -102,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
 
 	void GetMeshRenderersAndMaterials()
 	{
-		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
+		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamagePlayer");
 		blinkingMaterials = new(blinkingMaterial);
 
 		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -167,6 +166,12 @@ public class PlayerHealth : MonoBehaviour
 		HealthDisplay.Instance.UpdateHealth(health);
 		GameManager.Instance.ReloadLevel();
 	}
+
+	public void Heal()
+	{
+        health = healthMax;
+        HealthDisplay.Instance.UpdateHealth(health);
+    }
 
 	IEnumerator InvicibilityTime()
 	{
