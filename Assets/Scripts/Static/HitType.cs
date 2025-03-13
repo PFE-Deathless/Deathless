@@ -22,7 +22,7 @@ public static class HitType
 
 	public static Type GetRandomType()
 	{
-		return (Type)Random.Range(1, 4);
+		return (Type)Random.Range(0, 3);
 	}
 
 	public static void SetController(Controller controller)

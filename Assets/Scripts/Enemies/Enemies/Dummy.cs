@@ -48,7 +48,7 @@ public class Dummy : MonoBehaviour
 		_hitBar.SetTypes(Types);
 
 		CurrentType = Types[0];
-	}
+    }
 
 	IEnumerator Respawn()
 	{

@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour
 			{
 				StartCoroutine(ApplyDash());
 				_dashCharges--;
+				DashDisplay.Instance.SetDashCooldown(_dashCharges, _dashChargesElapsedTime / dashChargesCooldown);
 				Debug.Log("Dash charges : " + _dashCharges);
 			}
 			InputsManager.Instance.dash = false;
@@ -160,6 +161,7 @@ public class PlayerController : MonoBehaviour
 				_dashCharges++;
 				Debug.Log("Dash charges : " + _dashCharges);
 			}
+			DashDisplay.Instance.SetDashCooldown(_dashCharges, _dashChargesElapsedTime / dashChargesCooldown);
 		}
 	}
 
@@ -179,6 +181,7 @@ public class PlayerController : MonoBehaviour
 	{
 		_dashCharges = dashChargesMax;
 		_dashChargesElapsedTime = 0f;
+		DashDisplay.Instance.SetDashCooldown(_dashCharges, 1f);
 		Debug.Log("Dash charges : " + _dashCharges);
 	}
 
