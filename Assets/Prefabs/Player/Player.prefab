@@ -15323,8 +15323,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   hitDuration: 0.15
-  hitCooldownSuccess: 0.2
-  hitCooldownFail: 2
+  hitCooldownSuccess: 0.1
+  hitCooldownFail: 1
   inputBufferTime: 0.1
   dashDistance: 3
   dashDuration: 0.2
