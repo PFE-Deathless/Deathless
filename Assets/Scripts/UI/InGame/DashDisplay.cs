@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,10 @@ public class DashDisplay : MonoBehaviour
 {
 	public static DashDisplay Instance { get; private set; }
 
+	[SerializeField] float blinkTime = 0.3f;
 	[SerializeField] Image[] dashImages;
+
+	Color _originalColor;
 
 	void Awake()
 	{
@@ -15,6 +19,11 @@ public class DashDisplay : MonoBehaviour
 			Destroy(gameObject);
 	}
 
+	private void Start()
+	{
+		_originalColor = dashImages[0].color;
+	}
+
 	public void SetDashCooldown(int remainingDashes, float percentage)
 	{
 		for (int i = 0; i < dashImages.Length; i++)
@@ -22,5 +31,17 @@ public class DashDisplay : MonoBehaviour
 
 		if (remainingDashes < dashImages.Length)
 			dashImages[remainingDashes].fillAmount = percentage;
+	}
+
+	public void BlinkColor(int dashCharges)
+	{
+		StartCoroutine(BlinkCoroutine(dashCharges));
+	}
+
+	IEnumerator BlinkCoroutine(int index)
+	{
+		dashImages[index].color = Color.white;
+		yield return new WaitForSeconds(blinkTime);
+		dashImages[index].color =  _originalColor;
 	}
 }

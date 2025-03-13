@@ -154,12 +154,13 @@ public class PlayerController : MonoBehaviour
 			if (_dashChargesElapsedTime < dashChargesCooldown)
 			{
 				_dashChargesElapsedTime += Time.deltaTime;
-			}
+            }
 			else
 			{
 				_dashChargesElapsedTime = 0f;
+				DashDisplay.Instance.BlinkColor(_dashCharges);
 				_dashCharges++;
-				Debug.Log("Dash charges : " + _dashCharges);
+                Debug.Log("Dash charges : " + _dashCharges);
 			}
 			DashDisplay.Instance.SetDashCooldown(_dashCharges, _dashChargesElapsedTime / dashChargesCooldown);
 		}
