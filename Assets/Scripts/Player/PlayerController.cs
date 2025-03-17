@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
 	// Hit
 	HitCollider hitCollider;
+	float _hitElapsedTime;
+	bool _isHitting;
+	bool _hitSuccess;
 
 	// ?
 	Rigidbody rb;
@@ -127,13 +130,52 @@ public class PlayerController : MonoBehaviour
 
 	void Hit()
 	{
-		if (InputsManager.Instance.hit != HitType.Type.None)
+		//if (InputsManager.Instance.hit != HitType.Type.None)
+		//{
+		//	if (canHit)
+		//		StartCoroutine(ApplyHit(InputsManager.Instance.hit));
+		//	InputsManager.Instance.hit = HitType.Type.None;
+		//}
+
+        if (InputsManager.Instance.hit != HitType.Type.None)
+        {
+            if (canHit && !_isHitting)
+			{
+				_isHitting = true;
+				canHit = false;
+				_hitElapsedTime = 0f;
+                hitColliderObject.SetActive(true);
+                hitCollider.SetType(InputsManager.Instance.hit);
+                scytheSlash.SetInt("HitType", (int)InputsManager.Instance.hit);
+                scytheSlash.Play();
+                animator.SetTrigger("Attack");
+            }
+            InputsManager.Instance.hit = HitType.Type.None;
+        }
+
+		if (_isHitting)
 		{
-			if (canHit)
-				StartCoroutine(ApplyHit(InputsManager.Instance.hit));
-			InputsManager.Instance.hit = HitType.Type.None;
-		}
-	}
+			if (_hitElapsedTime < hitDuration)
+			{
+                _hitSuccess = hitCollider.HitSucess;
+            }
+			else if (_hitElapsedTime < (_hitSuccess ? hitCooldownSuccess : hitCooldownFail))
+			{
+
+                hitColliderObject.SetActive(false);
+            }
+			else
+			{
+                _isHitting = false;
+                canHit = true;
+            }
+
+            _hitElapsedTime += Time.deltaTime;
+        }
+
+
+
+    }
 
 	void Dash()
 	{
@@ -153,7 +195,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (_dashChargesElapsedTime < dashChargesCooldown)
 			{
-				_dashChargesElapsedTime += Time.deltaTime;
+                _dashChargesElapsedTime += Time.deltaTime;
             }
 			else
 			{
@@ -192,25 +234,6 @@ public class PlayerController : MonoBehaviour
 		moveSpeed *= modifier;
 		yield return new WaitForSeconds(duration);
 		moveSpeed = originalMoveSpeed;
-	}
-
-	IEnumerator ApplyHit(HitType.Type type)
-	{
-		canHit = false;
-
-		hitColliderObject.SetActive(true);
-		hitCollider.SetType(type);
-		scytheSlash.SetInt("HitType", (int)type);
-		scytheSlash.Play();
-		animator.SetTrigger("Attack");
-
-		yield return new WaitForSeconds(hitDuration);
-
-		bool success = hitCollider.HitSucess;
-		hitColliderObject.SetActive(false);
-
-		yield return new WaitForSeconds(success ? hitCooldownSuccess : hitCooldownFail);
-		canHit = true;
 	}
 
 	IEnumerator ApplyDash()
