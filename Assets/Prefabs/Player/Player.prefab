@@ -15323,8 +15323,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   hitDuration: 0.15
-  hitCooldownSuccess: 0.2
-  hitCooldownFail: 2
+  hitCooldownSuccess: 0.05
+  hitCooldownFail: 1.5
   inputBufferTime: 0.1
   dashDistance: 3
   dashDuration: 0.2
@@ -15371,6 +15371,7 @@ MonoBehaviour:
   dashCooldownParticle: {fileID: 8393359239167262349}
   dashParticle: {fileID: 7760994313837412435}
   scytheSlash: {fileID: 8582181535093292171}
+  scytheRenderer: {fileID: 4083552963227293055}
 --- !u!114 &730740964312794673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15594,6 +15595,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5956485601908683408}
   m_SourcePrefab: {fileID: 100100000, guid: 0f2b6e2f7961e814c9736aa44ed02484, type: 3}
+--- !u!137 &4083552963227293055 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3522515219564478733, guid: 0f2b6e2f7961e814c9736aa44ed02484, type: 3}
+  m_PrefabInstance: {fileID: 8626138052309003148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4709807145292513961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3957162688938404133, guid: 0f2b6e2f7961e814c9736aa44ed02484, type: 3}

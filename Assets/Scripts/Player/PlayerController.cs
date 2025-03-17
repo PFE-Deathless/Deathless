@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 	public ParticleSystem dashCooldownParticle;
 	public ParticleSystem dashParticle;
 	public VisualEffect scytheSlash;
+	public SkinnedMeshRenderer scytheRenderer;
 
 	bool canHit = true;
 
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
 	float _hitElapsedTime;
 	bool _isHitting;
 	bool _hitSuccess;
+	Color _scytheBaseEmissive;
 
 	// ?
 	Rigidbody rb;
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour
 		hitCollider = hitColliderObject.GetComponent<HitCollider>();
 		InputsManager.Instance.hit = HitType.Type.None;
 		_dashCharges = dashChargesMax;
+		_scytheBaseEmissive = scytheRenderer.material.GetVector("_EmissionColor");
+
 	}
 
 	void Update()
@@ -130,52 +134,54 @@ public class PlayerController : MonoBehaviour
 
 	void Hit()
 	{
-		//if (InputsManager.Instance.hit != HitType.Type.None)
-		//{
-		//	if (canHit)
-		//		StartCoroutine(ApplyHit(InputsManager.Instance.hit));
-		//	InputsManager.Instance.hit = HitType.Type.None;
-		//}
-
-        if (InputsManager.Instance.hit != HitType.Type.None)
-        {
-            if (canHit && !_isHitting)
+		if (InputsManager.Instance.hit != HitType.Type.None)
+		{
+			if (canHit && !_isHitting)
 			{
 				_isHitting = true;
 				canHit = false;
 				_hitElapsedTime = 0f;
-                hitColliderObject.SetActive(true);
-                hitCollider.SetType(InputsManager.Instance.hit);
-                scytheSlash.SetInt("HitType", (int)InputsManager.Instance.hit);
-                scytheSlash.Play();
-                animator.SetTrigger("Attack");
-            }
-            InputsManager.Instance.hit = HitType.Type.None;
-        }
+				hitCollider.SetType(InputsManager.Instance.hit);
+				scytheSlash.SetInt("HitType", (int)InputsManager.Instance.hit);
+				hitColliderObject.SetActive(true);
+				scytheSlash.Play();
+				animator.SetTrigger("Attack");
+				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
+			}
+			InputsManager.Instance.hit = HitType.Type.None;
+		}
 
 		if (_isHitting)
 		{
+			float cooldownDuration = (_hitSuccess ? hitCooldownSuccess : hitCooldownFail) + hitDuration;
+
 			if (_hitElapsedTime < hitDuration)
 			{
-                _hitSuccess = hitCollider.HitSucess;
-            }
-			else if (_hitElapsedTime < (_hitSuccess ? hitCooldownSuccess : hitCooldownFail))
-			{
+				float percentage = (_hitElapsedTime / hitDuration);
 
-                hitColliderObject.SetActive(false);
-            }
+				_hitSuccess = hitCollider.HitSucess;
+				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * (1f - percentage) * 4f);
+			}
+			else if (_hitElapsedTime < cooldownDuration)
+			{
+				float percentage = (_hitElapsedTime - hitDuration) / (cooldownDuration - hitDuration);
+
+				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
+				hitColliderObject.SetActive(false);
+			}
 			else
 			{
-                _isHitting = false;
-                canHit = true;
-            }
+				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
+				_isHitting = false;
+				canHit = true;
+			}
 
-            _hitElapsedTime += Time.deltaTime;
-        }
+			_hitElapsedTime += Time.deltaTime;
+		}
 
 
 
-    }
+	}
 
 	void Dash()
 	{
@@ -186,7 +192,6 @@ public class PlayerController : MonoBehaviour
 				StartCoroutine(ApplyDash());
 				_dashCharges--;
 				DashDisplay.Instance.SetDashCooldown(_dashCharges, _dashChargesElapsedTime / dashChargesCooldown);
-				Debug.Log("Dash charges : " + _dashCharges);
 			}
 			InputsManager.Instance.dash = false;
 		}
@@ -195,14 +200,13 @@ public class PlayerController : MonoBehaviour
 		{
 			if (_dashChargesElapsedTime < dashChargesCooldown)
 			{
-                _dashChargesElapsedTime += Time.deltaTime;
-            }
+				_dashChargesElapsedTime += Time.deltaTime;
+			}
 			else
 			{
 				_dashChargesElapsedTime = 0f;
 				DashDisplay.Instance.BlinkColor(_dashCharges);
 				_dashCharges++;
-                Debug.Log("Dash charges : " + _dashCharges);
 			}
 			DashDisplay.Instance.SetDashCooldown(_dashCharges, _dashChargesElapsedTime / dashChargesCooldown);
 		}
@@ -225,7 +229,6 @@ public class PlayerController : MonoBehaviour
 		_dashCharges = dashChargesMax;
 		_dashChargesElapsedTime = 0f;
 		DashDisplay.Instance.SetDashCooldown(_dashCharges, 1f);
-		Debug.Log("Dash charges : " + _dashCharges);
 	}
 
 	IEnumerator ApplySpeedModifier(float modifier, float duration)
