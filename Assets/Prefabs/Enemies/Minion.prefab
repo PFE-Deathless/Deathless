@@ -244,7 +244,7 @@ MonoBehaviour:
   acquisitionRange: 3
   maxRange: 20
   moveSpeed: 8
-  attackWaitTime: 1
+  attackWaitTime: 0.3
   attackCastTime: 0.46
   attackDuration: 0.1
   attackCooldown: 2
