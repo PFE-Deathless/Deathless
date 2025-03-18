@@ -40,7 +40,7 @@ public class DashDisplay : MonoBehaviour
 
 	IEnumerator BlinkCoroutine(int index)
 	{
-		dashImages[index].color = Color.white;
+		dashImages[index].color = Color.red;
 		yield return new WaitForSeconds(blinkTime);
 		dashImages[index].color =  _originalColor;
 	}
