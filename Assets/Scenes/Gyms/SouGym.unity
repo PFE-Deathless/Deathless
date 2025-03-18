@@ -1761,10 +1761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9278979eb74e96d478696e92c86f611c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 0
-  hubScenePath: 
-  gameScenePath: 
-  projectileParent: {fileID: 0}
 --- !u!4 &1725465989
 Transform:
   m_ObjectHideFlags: 0
@@ -2221,6 +2217,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 259788879889806340, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 89c92742a42087b498ae3606f9ae2478, type: 3}
+    - target: {fileID: 1972116248161201672, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 89c92742a42087b498ae3606f9ae2478, type: 3}
     - target: {fileID: 3328817507981037403, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
       propertyPath: m_Name
       value: UI_Player
@@ -2265,13 +2269,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7465876632683882546, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
-      propertyPath: m_Name
-      value: CanvasInGame
+    - target: {fileID: 5978315749920093926, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 89c92742a42087b498ae3606f9ae2478, type: 3}
+    - target: {fileID: 6979621858475809985, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 89c92742a42087b498ae3606f9ae2478, type: 3}
+    - target: {fileID: 6979621858475809985, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1319876360804927853, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
