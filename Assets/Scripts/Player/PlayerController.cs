@@ -146,6 +146,7 @@ public class PlayerController : MonoBehaviour
 				hitColliderObject.SetActive(true);
 				scytheSlash.Play();
 				animator.SetTrigger("Attack");
+				//HitDisplay.Instance.SetVignPercentage(0f);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
 			}
 			InputsManager.Instance.hit = HitType.Type.None;
@@ -160,17 +161,24 @@ public class PlayerController : MonoBehaviour
 				float percentage = (_hitElapsedTime / hitDuration);
 
 				_hitSuccess = hitCollider.HitSucess;
+				//HitDisplay.Instance.SetVignPercentage(1f - percentage);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * (1f - percentage) * 4f);
 			}
 			else if (_hitElapsedTime < cooldownDuration)
 			{
 				float percentage = (_hitElapsedTime - hitDuration) / (cooldownDuration - hitDuration);
 
-				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
+				if (_hitSuccess)
+					HitDisplay.Instance.SetVignPercentage(1f);
+				else
+					HitDisplay.Instance.SetVignPercentage(percentage);
+
+					scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
 			{
+				HitDisplay.Instance.SetVignPercentage(1f);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
 				_isHitting = false;
 				canHit = true;
