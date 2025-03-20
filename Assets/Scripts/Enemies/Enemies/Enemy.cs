@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
 	int healthMax;
 	int health;
-	HitBar hitBar;
+	NewHitBar hitBar;
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 	protected Material defaultMaterial;
@@ -120,11 +120,11 @@ public class Enemy : MonoBehaviour
 
 	void Start()
 	{
-		hitBar = GetComponentInChildren<HitBar>();
+		hitBar = GetComponentInChildren<NewHitBar>();
 		animator = GetComponentInChildren<Animator>();
 		SetupNavMeshAgent();
 		//SetTypes();
-		hitBar.SetTypes(Weaknesses);
+		hitBar.SetTypes(weaknesses, 0);
 		CurrentType = weaknesses[0];
 		healthMax = weaknesses.Length;
 		health = healthMax;
@@ -252,7 +252,8 @@ public class Enemy : MonoBehaviour
 		isBlinking = true;
 
 		CurrentType = Weaknesses[healthMax - health];
-		hitBar.UpdateHitBar(healthMax - health);
+		//hitBar.UpdateHitBar(healthMax - health);
+		hitBar.SetTypes(Weaknesses, healthMax - health);
 	}
 
 	public void Kill()
