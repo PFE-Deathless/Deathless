@@ -6,6 +6,10 @@ public class Dummy : MonoBehaviour
 	[Header("Statistics")]
 	[SerializeField] int healthMax = 3;
 
+	[Header("VFX")]
+	public GameObject slashObject;
+	public Transform slashTransform;
+
 	[Header("Respawn")]
 	[SerializeField] AnimationCurve scaleCurve;
 	[SerializeField, Tooltip("Time it will take to shrink AND grow back")] float scaleDuration = 0.3f;
@@ -27,6 +31,8 @@ public class Dummy : MonoBehaviour
 	public void TakeDamage()
 	{
 		_health--;
+		if (slashObject != null && slashTransform != null)
+			Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
 		if (_health <= 0)
 		{
 			StartCoroutine(Respawn());

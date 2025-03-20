@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
 
 	[Header("VFX")]
 	public GameObject slashObject;
+	public Transform slashTransform;
 
 	[Header("Technical")]
 	public bool showState;
@@ -214,8 +215,8 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage()
 	{
 		health--;
-		if (slashObject != null)
-			Instantiate(slashObject, transform.position, Quaternion.identity);
+		if (slashObject != null && slashTransform != null)
+			Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
 		gotDamaged = true;
 		if (health <= 0)
 		{
