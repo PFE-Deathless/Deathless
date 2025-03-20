@@ -252,6 +252,7 @@ MonoBehaviour:
   stoppingDistance: 0.1
   patrolPoints:
   - {x: 0, y: 0, z: 2}
+  slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

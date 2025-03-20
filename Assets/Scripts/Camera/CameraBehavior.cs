@@ -34,7 +34,7 @@ public class CameraBehavior : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.O))
 		{
-			Shake(0.2f, 20f, 0.5f);
+			Shake(0.4f, 20f, 0.5f);
 		}
 	}
 

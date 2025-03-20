@@ -29,6 +29,9 @@ public class Enemy : MonoBehaviour
 	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
 
+	[Header("VFX")]
+	public GameObject slashObject;
+
 	[Header("Technical")]
 	public bool showState;
 	public bool showPathToTarget;
@@ -211,6 +214,8 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage()
 	{
 		health--;
+		if (slashObject != null)
+			Instantiate(slashObject, transform.position, Quaternion.identity);
 		gotDamaged = true;
 		if (health <= 0)
 		{
