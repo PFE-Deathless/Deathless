@@ -292,6 +292,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   debugText: {fileID: 3867100829644979424}
+  mesh: {fileID: 4893768982302858731}
   hitCollider: {fileID: 7746641731999784135}
 --- !u!195 &1733333720193289446
 NavMeshAgent:

@@ -607,6 +607,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   debugText: {fileID: 3867100829644979424}
+  mesh: {fileID: 150502497124725794}
   shooter: {fileID: 7787006898736549601}
 --- !u!114 &7787006898736549601
 MonoBehaviour:

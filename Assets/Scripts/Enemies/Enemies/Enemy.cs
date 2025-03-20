@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
 	public bool showPathToTarget;
 	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
+	public Transform mesh;
 
 	public HitType.Type CurrentType { get; private set; }
 	public HitType.Type[] Weaknesses => weaknesses;
@@ -65,6 +66,8 @@ public class Enemy : MonoBehaviour
 	protected float blinkingTime = 0.25f;
 	protected float currentBlinkingTime;
 	protected bool gotDamaged = false;
+	protected float _shakeTime = 0.2f;
+	protected float _shakeElapsedTime = 0f;
 
 	// State Machine
 	EnemyState state;
@@ -150,6 +153,8 @@ public class Enemy : MonoBehaviour
 
 		HandleBlink();
 
+		HandleShake();
+
 		if (animator != null)
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
 
@@ -193,6 +198,23 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	void HandleShake()
+	{
+		if (_shakeElapsedTime >= 0)
+		{
+			float strength = 0.3f;
+			float shakeX = (Mathf.PerlinNoise(Time.time * 20f, 0) - 0.5f) * 2f * strength;
+			float shakeZ = (Mathf.PerlinNoise(0, Time.time * 20f) - 0.5f) * 2f * strength;
+			_shakeElapsedTime -= Time.deltaTime;
+
+			mesh.localPosition = new(shakeX, 0f, shakeZ);
+		}
+		else
+		{
+			mesh.localPosition = Vector3.zero;
+		}
+	}
+
 	bool DetectPlayer()
 	{
 		Collider[] p = new Collider[1];
@@ -218,6 +240,7 @@ public class Enemy : MonoBehaviour
 		if (slashObject != null && slashTransform != null)
 			Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
 		gotDamaged = true;
+		_shakeElapsedTime = _shakeTime;
 		if (health <= 0)
 		{
 			Kill();
@@ -343,7 +366,7 @@ public class Enemy : MonoBehaviour
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
-		if (distance <= acquisitionRange)
+		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))
 		{
 			ChangeState(EnemyState.Attack);
 		}
