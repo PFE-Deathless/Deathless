@@ -145,6 +145,7 @@ public class PlayerHealth : MonoBehaviour
 		if (!invicible && !_invicible)
 		{
 			health -= damage;
+			CameraBehavior.Instance.Shake(0.2f, 20f, 0.5f);
 			if (health <= 0)
 				Kill();
 			HealthDisplay.Instance.UpdateHealth(health);
