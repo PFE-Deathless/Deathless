@@ -24,8 +24,8 @@ public class Dummy : MonoBehaviour
 	private void Start()
 	{
 		_hitBar = GetComponentInChildren<HitBar>();
-		SetTypes();
 		_health = healthMax;
+		SetTypes();
 	}
 
 	public void TakeDamage()
@@ -40,7 +40,7 @@ public class Dummy : MonoBehaviour
 		}
 
 		CurrentType = Types[healthMax - _health];
-		_hitBar.UpdateHitBar(healthMax - _health);
+		_hitBar.SetTypes(Types, healthMax - _health);
 	}
 
 
@@ -51,10 +51,10 @@ public class Dummy : MonoBehaviour
 		{
 			Types[i] = HitType.GetRandomType();
 		}
-		_hitBar.SetTypes(Types);
+		_hitBar.SetTypes(Types, 0);
 
 		CurrentType = Types[0];
-    }
+	}
 
 	IEnumerator Respawn()
 	{

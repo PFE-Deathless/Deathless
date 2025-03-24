@@ -13,7 +13,11 @@ public class Sniper : Enemy
 
 	protected override void UpdateCast()
 	{
-		Quaternion targetRotation = Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up);
+		Vector3 direction = target.position - transform.position;
+		direction.y = 0f;
+		direction.Normalize();
+
+		Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 120f);
 	}
 

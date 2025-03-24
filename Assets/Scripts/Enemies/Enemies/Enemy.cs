@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
 	int healthMax;
 	int health;
-	NewHitBar hitBar;
+	HitBar hitBar;
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 	protected Material defaultMaterial;
@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
 	protected float blinkingTime = 0.25f;
 	protected float currentBlinkingTime;
 	protected bool gotDamaged = false;
-	protected float _shakeTime = 0.2f;
+	protected float _shakeDuration = 0.3f;
 	protected float _shakeElapsedTime = 0f;
 
 	// State Machine
@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour
 
 	void Start()
 	{
-		hitBar = GetComponentInChildren<NewHitBar>();
+		hitBar = GetComponentInChildren<HitBar>();
 		animator = GetComponentInChildren<Animator>();
 		SetupNavMeshAgent();
 		//SetTypes();
@@ -202,7 +202,7 @@ public class Enemy : MonoBehaviour
 	{
 		if (_shakeElapsedTime >= 0)
 		{
-			float strength = 0.3f;
+			float strength = (_shakeElapsedTime / _shakeDuration) * 0.5f;
 			float shakeX = (Mathf.PerlinNoise(Time.time * 20f, 0) - 0.5f) * 2f * strength;
 			float shakeZ = (Mathf.PerlinNoise(0, Time.time * 20f) - 0.5f) * 2f * strength;
 			_shakeElapsedTime -= Time.deltaTime;
@@ -240,7 +240,7 @@ public class Enemy : MonoBehaviour
 		if (slashObject != null && slashTransform != null)
 			Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
 		gotDamaged = true;
-		_shakeElapsedTime = _shakeTime;
+		_shakeElapsedTime = _shakeDuration;
 		if (health <= 0)
 		{
 			Kill();
