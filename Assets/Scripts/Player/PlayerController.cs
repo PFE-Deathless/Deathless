@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -98,9 +99,12 @@ public class PlayerController : MonoBehaviour
 		{
 			// Interact with the nearest possible interactable
 			InputsManager.Instance.interact = false;
-			Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
-			if (t != null)
-				t.GetComponent<IInteractable>().Interact();
+			if (PlayerInteract.Instance.Interactables.Count > 0)
+			{
+				Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
+				if (t != null && t.TryGetComponent(out IInteractable interact))
+					interact.Interact();
+			}
 		}
 	}
 
