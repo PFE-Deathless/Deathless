@@ -6,11 +6,18 @@ public class HealthDisplay : MonoBehaviour
 {
 	[HideInInspector] public static HealthDisplay Instance { get; private set; }
 
-	[Header("Appearance")]
+	[Header("Health Points")]
 
 	public Sprite emptyHeart;
 	public Sprite fullHeart;
 	public Image[] hearts;
+
+	[Header("Vignette")]
+	[SerializeField] RawImage[] hitVignetteImages;
+	[SerializeField] float fadeSpeed = 2f;
+
+
+	private float _vignettePercentage = 0f;
 
 	void Awake()
 	{
@@ -18,6 +25,11 @@ public class HealthDisplay : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	private void Update()
+	{
+		UpdateVignette();
 	}
 
 
@@ -34,6 +46,34 @@ public class HealthDisplay : MonoBehaviour
 		for (int i = 0; i < hearts.Length; i++)
 		{
 			hearts[i].enabled = i < value;
+		}
+	}
+
+	public void ShowVignette()
+	{
+		_vignettePercentage = 1f;
+	}
+
+	void UpdateVignette()
+	{
+		if (_vignettePercentage >= 0f)
+		{
+			SetVignettePercentage(_vignettePercentage);
+			_vignettePercentage -= Time.deltaTime * fadeSpeed;
+		}
+		else
+		{
+			SetVignettePercentage(0f);
+			_vignettePercentage = 0f;
+		}
+	}
+
+	public void SetVignettePercentage(float percentage)
+	{
+		foreach(RawImage vignette in hitVignetteImages)
+		{
+			Vector3 scale = new(1f, percentage, 1f);
+			vignette.transform.localScale = scale;
 		}
 	}
 }

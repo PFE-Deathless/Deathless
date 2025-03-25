@@ -86,5 +86,7 @@ public class BarkObject : MonoBehaviour
 		{
 			letter.MoveLetter(target, acceleration);
 		}
+
+		Destroy(gameObject, 10f);
 	}
 }

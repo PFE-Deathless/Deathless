@@ -1,74 +1,63 @@
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 
 public class HitBar : MonoBehaviour
 {
-	//[Header("Amount")]
-	int amount;
+	[Header("Sprites")]
+	[SerializeField] Sprite backgroundSprite;
+	[SerializeField] Sprite hitACurrentSprite;
+	[SerializeField] Sprite hitANextSprite;
+	[SerializeField] Sprite hitBCurrentSprite;
+	[SerializeField] Sprite hitBNextSprite;
+	[SerializeField] Sprite hitCCurrentSprite;
+	[SerializeField] Sprite hitCNextSprite;
 
-	[Header("Technical")]
-	public float offset = 1f;
-	public float size = 0.3f;
-	public float scale = 1f;
-	public GameObject currentSprite;
-	
-	GameObject[] hits;
-	HitType.Type[] types;
+	[Header("Sprite Renderers")]
+	[SerializeField] SpriteRenderer backgroundSR;
+	[SerializeField] SpriteRenderer currentSR;
+	[SerializeField] SpriteRenderer nextSR;
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
+	private void Start()
 	{
-		currentSprite.SetActive(true);
+		backgroundSR.sprite = backgroundSprite;
 	}
 
-	public void SetTypes(HitType.Type[] t)
+	public void SetTypes(HitType.Type[] types, int index)
 	{
-		amount = t.Length;
-		types = new HitType.Type[amount];
-		for (int i = 0; i < amount; i++)
-		{
-			types[i] = t[i];
-		}
-		ApplyTypes();
+		SetTypes(types[index], types.Length > index + 1 ? types[index + 1] : HitType.Type.None);
 	}
 
-	public void UpdateHitBar(int current)
+	public void SetTypes(HitType.Type current, HitType.Type next)
 	{
-		for (int i = 0; i < amount; i++)
+		switch (current)
 		{
-			if (i < current)
-			{
-				hits[i].GetComponent<SpriteRenderer>().sprite = null;
-			}
-		}
-		currentSprite.transform.localPosition = hits[current].transform.localPosition;
-	}
-
-	void ApplyTypes()
-	{
-		if (hits != null)
-		{
-			for (int i = 0;i < hits.Length;i++)
-			{
-				Destroy(hits[i]);
-			}
+			case HitType.Type.A:
+				currentSR.sprite = hitACurrentSprite;
+				break;
+			case HitType.Type.B:
+				currentSR.sprite = hitBCurrentSprite;
+				break;
+			case HitType.Type.C:
+				currentSR.sprite = hitCCurrentSprite;
+				break;
+			default:
+				currentSR.sprite = null;
+				break;
 		}
 
-		hits = new GameObject[amount];
-
-		for (int i = 0; i < amount; i++)
+		switch (next)
 		{
-			
-			hits[i] = new GameObject("Sprite_" + (i + 1));
-			hits[i].transform.parent = transform;
-			hits[i].transform.localEulerAngles = Vector3.zero;
-			hits[i].transform.localPosition = new Vector3(((size + offset) * i) - ((size + offset) * (amount - 1)) / 2f, 0f, 0f);
-			SpriteRenderer s = hits[i].AddComponent<SpriteRenderer>();
-			s.sprite = HitType.GetSprite(types[i]);
-			float sizeMul = s.sprite.rect.size.x / 64f;
-			hits[i].transform.localScale = new Vector3(scale * sizeMul, scale * sizeMul, scale * sizeMul);
+			case HitType.Type.A:
+				nextSR.sprite = hitANextSprite;
+				break;
+			case HitType.Type.B:
+				nextSR.sprite = hitBNextSprite;
+				break;
+			case HitType.Type.C:
+				nextSR.sprite = hitCNextSprite;
+				break;
+			default:
+				nextSR.sprite = null;
+				break;
 		}
-
-		currentSprite.transform.localPosition = hits[0].transform.localPosition;
 	}
 }

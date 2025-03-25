@@ -24,16 +24,28 @@ public class Enemy : MonoBehaviour
 	public float attackDuration = 0.5f;
 	public float attackCooldown = 1f;
 
+	[Header("Damage")]
+	[SerializeField] protected float blinkingTime = 0.25f;
+	[SerializeField] protected float shakeDuration = 0.3f;
+	[SerializeField] protected float deathDuration = 1f;
+	[SerializeField] protected float deathDisplacement = 2f;
+
 	[Header("Patrol")]
 	public float waitingTime = 2f;
 	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
+
+	[Header("VFX")]
+	public GameObject slashObject;
+	public Transform slashTransform;
+	public GameObject damageParticle;
 
 	[Header("Technical")]
 	public bool showState;
 	public bool showPathToTarget;
 	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
+	public Transform mesh;
 
 	public HitType.Type CurrentType { get; private set; }
 	public HitType.Type[] Weaknesses => weaknesses;
@@ -56,11 +68,14 @@ public class Enemy : MonoBehaviour
 
 	// Damage taken
 	BlinkingMaterials blinkingMaterials;
+	ParticleSystem damagePS;
 	protected Material blinkingMaterial;
 	protected bool isBlinking = false;
-	protected float blinkingTime = 0.25f;
 	protected float currentBlinkingTime;
 	protected bool gotDamaged = false;
+	protected float _shakeElapsedTime = 0f;
+
+	// Death
 
 	// State Machine
 	EnemyState state;
@@ -115,9 +130,11 @@ public class Enemy : MonoBehaviour
 	{
 		hitBar = GetComponentInChildren<HitBar>();
 		animator = GetComponentInChildren<Animator>();
+		if (damageParticle != null)
+			damagePS = damageParticle.GetComponent<ParticleSystem>();
 		SetupNavMeshAgent();
 		//SetTypes();
-		hitBar.SetTypes(Weaknesses);
+		hitBar.SetTypes(weaknesses, 0);
 		CurrentType = weaknesses[0];
 		healthMax = weaknesses.Length;
 		health = healthMax;
@@ -145,6 +162,8 @@ public class Enemy : MonoBehaviour
 		HandleStates();
 
 		HandleBlink();
+
+		HandleShake();
 
 		if (animator != null)
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
@@ -189,8 +208,27 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	void HandleShake()
+	{
+		if (_shakeElapsedTime >= 0)
+		{
+			float strength = (_shakeElapsedTime / shakeDuration) * 0.5f;
+			float shakeX = (Mathf.PerlinNoise(Time.time * 20f, 0) - 0.5f) * 2f * strength;
+			float shakeZ = (Mathf.PerlinNoise(0, Time.time * 20f) - 0.5f) * 2f * strength;
+			_shakeElapsedTime -= Time.deltaTime;
+
+			mesh.localPosition = new(shakeX, 0f, shakeZ);
+		}
+		else
+		{
+			mesh.localPosition = Vector3.zero;
+		}
+	}
+
 	bool DetectPlayer()
 	{
+		if (target != null)
+			return true;
 		Collider[] p = new Collider[1];
 		if (Physics.OverlapSphereNonAlloc(transform.position, range, p, playerLayerMask) > 0)
 		{
@@ -210,8 +248,19 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage()
 	{
+		if (state == EnemyState.Death)
+			return;
+
 		health--;
+		if (slashObject != null && slashTransform != null)
+		{
+			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			Destroy(obj, 5f);
+		}
+		if (damagePS != null)
+			damagePS.Play();
 		gotDamaged = true;
+		_shakeElapsedTime = shakeDuration;
 		if (health <= 0)
 		{
 			Kill();
@@ -223,7 +272,7 @@ public class Enemy : MonoBehaviour
 		isBlinking = true;
 
 		CurrentType = Weaknesses[healthMax - health];
-		hitBar.UpdateHitBar(healthMax - health);
+		hitBar.SetTypes(Weaknesses, healthMax - health);
 	}
 
 	public void Kill()
@@ -231,18 +280,9 @@ public class Enemy : MonoBehaviour
 		GameObject obj = Instantiate(Resources.Load<GameObject>("Barks/Bark"), transform.position, Quaternion.identity);
 		obj.GetComponent<BarkObject>().InitBark();
 		//PlayerSouls.Instance.AddSouls(Random.Range(minSouls, maxSouls + 1));
-		Destroy(gameObject);
+		
+		ChangeState(EnemyState.Death);
 	}
-
-	//void SetTypes()
-	//{
-	//	Weaknesses = new HitType.Type[healthMax];
-	//	for (int i = 0; i < healthMax; i++)
-	//	{
-	//		Weaknesses[i] = HitType.GetRandomType();
-	//	}
-	//	hitBar.SetTypes(Weaknesses);
-	//}
 
 	// #####################
 	// #####################
@@ -257,7 +297,8 @@ public class Enemy : MonoBehaviour
 		Patrol,
 		GoToPlayer,
 		Attack,
-		Wait
+		Wait,
+		Death
 	}
 
 	public enum AttackState
@@ -287,16 +328,16 @@ public class Enemy : MonoBehaviour
 			case EnemyState.Wait:
 				Wait();
 				break;
+			case EnemyState.Death:
+				Death();
+				break;
 		}
 	}
 
 	void AnyState()
 	{
-		if (target != null && Vector3.Distance(transform.position, target.position) > maxRange)
-		{
-			target = null;
-			ChangeState(EnemyState.Patrol);
-		}
+		if (state == EnemyState.Death)
+			return;
 
 		if (gotDamaged)
 		{
@@ -304,7 +345,38 @@ public class Enemy : MonoBehaviour
 			animator.SetTrigger("CancelAttack");
 			ChangeState(EnemyState.GoToPlayer);
 		}
+
+		if (target != null)
+		{
+			if (Vector3.Distance(transform.position, target.position) > maxRange)
+			{
+				target = null;
+				ChangeState(EnemyState.Patrol);
+			}
+		}
 	}
+
+	void Death()
+	{
+		hitBar.gameObject.SetActive(false);
+		GetComponent<Collider>().enabled = false;
+		animator.SetTrigger("CancelAttack");
+		animator.SetFloat("Speed", 0f);
+		navMeshAgent.isStopped = true;
+
+		if (stateTimer < deathDuration)
+		{
+			Vector3 newPos = transform.position;
+			newPos.y = (stateTimer / deathDuration) * -deathDisplacement;
+			transform.position = newPos;
+			stateTimer += Time.deltaTime;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
+
 
 	void Patrol()
 	{
@@ -325,9 +397,7 @@ public class Enemy : MonoBehaviour
 		{
 			navMeshAgent.SetDestination(patrolDestination);
 			if (DetectPlayer())
-			{
 				ChangeState(EnemyState.GoToPlayer);
-			}
 		}
 	}
 
@@ -337,7 +407,7 @@ public class Enemy : MonoBehaviour
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
-		if (distance <= acquisitionRange)
+		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))
 		{
 			ChangeState(EnemyState.Attack);
 		}

@@ -6,6 +6,10 @@ public class Dummy : MonoBehaviour
 	[Header("Statistics")]
 	[SerializeField] int healthMax = 3;
 
+	[Header("VFX")]
+	public GameObject slashObject;
+	public Transform slashTransform;
+
 	[Header("Respawn")]
 	[SerializeField] AnimationCurve scaleCurve;
 	[SerializeField, Tooltip("Time it will take to shrink AND grow back")] float scaleDuration = 0.3f;
@@ -20,13 +24,15 @@ public class Dummy : MonoBehaviour
 	private void Start()
 	{
 		_hitBar = GetComponentInChildren<HitBar>();
-		SetTypes();
 		_health = healthMax;
+		SetTypes();
 	}
 
 	public void TakeDamage()
 	{
 		_health--;
+		if (slashObject != null && slashTransform != null)
+			Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
 		if (_health <= 0)
 		{
 			StartCoroutine(Respawn());
@@ -34,7 +40,7 @@ public class Dummy : MonoBehaviour
 		}
 
 		CurrentType = Types[healthMax - _health];
-		_hitBar.UpdateHitBar(healthMax - _health);
+		_hitBar.SetTypes(Types, healthMax - _health);
 	}
 
 
@@ -45,7 +51,7 @@ public class Dummy : MonoBehaviour
 		{
 			Types[i] = HitType.GetRandomType();
 		}
-		_hitBar.SetTypes(Types);
+		_hitBar.SetTypes(Types, 0);
 
 		CurrentType = Types[0];
 	}
