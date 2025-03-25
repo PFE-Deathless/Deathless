@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
 	[Header("VFX")]
 	public ParticleSystem dashParticle;
+	public ParticleSystem hitCooldownParticle;
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
 
@@ -180,7 +181,9 @@ public class PlayerController : MonoBehaviour
 			{
 				HitDisplay.Instance.SetVignPercentage(1f);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
-				_isHitting = false;
+                if (!_hitSuccess)
+                    hitCooldownParticle.Play();
+                _isHitting = false;
 				canHit = true;
 			}
 
