@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
 	public int playerDashingLayer;
 
 	[Header("VFX")]
-	public TrailRenderer dashTrail;
-	public ParticleSystem dashCooldownParticle;
 	public ParticleSystem dashParticle;
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
@@ -70,8 +68,6 @@ public class PlayerController : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		animator = GetComponentInChildren<Animator>();
-		var ps = dashCooldownParticle.main;
-		ps.startLifetime = dashCooldown + dashDuration;
 		hitCollider = hitColliderObject.GetComponent<HitCollider>();
 		InputsManager.Instance.hit = HitType.Type.None;
 		_dashCharges = dashChargesMax;
@@ -273,14 +269,12 @@ public class PlayerController : MonoBehaviour
 		}
 
 		//yield return new WaitForSeconds(dashDuration);
-		dashTrail.emitting = false;
 		dashOffset = Vector3.zero;
 		//PlayerHealth.Instance.SetInvicibility(false);
 		gameObject.layer = playerLayer;
 		dashParticle.Stop();
 
 		yield return new WaitForSeconds(dashCooldown);
-		dashTrail.emitting = true;
 		canDash = true;
 	}
 }
