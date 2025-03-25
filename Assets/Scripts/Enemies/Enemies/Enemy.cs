@@ -253,7 +253,10 @@ public class Enemy : MonoBehaviour
 
 		health--;
 		if (slashObject != null && slashTransform != null)
-			Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+		{
+			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			Destroy(obj, 5f);
+		}
 		if (damagePS != null)
 			damagePS.Play();
 		gotDamaged = true;
