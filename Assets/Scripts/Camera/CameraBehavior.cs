@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
+using System.Linq;
 
 public class CameraBehavior : MonoBehaviour
 {
@@ -11,9 +12,21 @@ public class CameraBehavior : MonoBehaviour
 	[SerializeField] float smoothDampTime = 0.3f;
 	[SerializeField] Transform cameraTransform;
 
+	[Header("Camera Transparency")]
+	[SerializeField] string ditheredShaderName = "Shader Graphs/S_DitherTransparency";
+	[SerializeField, Range(0f, 1f)] float transparentPercentage = 0.5f;
+	[SerializeField] float transparentRadius = 2f;
+
 	private Transform playerTransform;
 	private Vector3 currentVelocity;
 	private List<ShakeInstance> activeShakes = new List<ShakeInstance>();
+
+	// Transparent walls
+	private Collider[] _transparentColliders = new Collider[5];
+	private RaycastHit[] _transparentHits = new RaycastHit[5];
+	private List<MeshRenderer> _transparentMR = new List<MeshRenderer>();
+	private List<MeshRenderer> _transparentActiveMR = new List<MeshRenderer>();
+	private List<MeshRenderer> _transparentUnactiveMR = new List<MeshRenderer>();
 
 	private void Awake()
 	{
@@ -40,9 +53,112 @@ public class CameraBehavior : MonoBehaviour
 
 	void LateUpdate()
 	{
+		ManageTransparentDecors();
+
 		ManageShakes();
 
 		Follow();
+	}
+
+	void ManageTransparentDecors()
+	{
+		//int transparentObjectCount = Physics.OverlapCapsuleNonAlloc(transform.position, playerTransform.position, transparentRadius, _transparentColliders);
+
+		int transparentObjectCount = Physics.RaycastNonAlloc(playerTransform.position, transform.position - playerTransform.position, _transparentHits, 5f);
+
+		_transparentMR.Clear();
+		if (transparentObjectCount > 0)
+		{
+			for (int i = 0; i < transparentObjectCount; i++)
+			{
+				MeshRenderer mr = _transparentHits[i].collider.GetComponentInChildren<MeshRenderer>();
+				if (mr != null && mr.material.shader.name == ditheredShaderName)
+					_transparentMR.Add(mr);
+			}
+				
+		}
+
+		for (int i = 0; i < _transparentMR.Count; i++)
+		{
+			if (!_transparentActiveMR.Contains(_transparentMR[i]))
+			{
+				Color c = _transparentMR[i].material.GetColor("_Base_Color");
+				c.a = transparentPercentage;
+				_transparentMR[i].material.SetColor("_Base_Color", c);
+				_transparentActiveMR.Add(_transparentMR[i]);
+			}
+		}
+
+		for (int i = 0; i < _transparentActiveMR.Count; i++)
+		{
+			if (!_transparentMR.Contains(_transparentActiveMR[i]))
+			{
+				_transparentUnactiveMR.Add(_transparentActiveMR[i]);
+			}
+		}
+
+		for (int i = 0; i < _transparentUnactiveMR.Count; i++)
+		{
+			Color c = _transparentUnactiveMR[i].material.GetColor("_Base_Color");
+			c.a = 1f;
+			_transparentUnactiveMR[i].material.SetColor("_Base_Color", c);
+			_transparentActiveMR.Remove(_transparentUnactiveMR[i]);
+		}
+
+		_transparentUnactiveMR.Clear();
+
+
+
+
+
+
+		//if (transparentObjectCount > 0)
+		//{
+		//	for (int i = 0; i < j; i++)
+		//	{
+		//		//Debug.Log($"{i} : {transparentColliders[i].name}");
+
+		//		MeshRenderer mr = transparentColliders[i].GetComponentInChildren<MeshRenderer>();
+		//		if (mr != null && mr.material.shader.name == ditheredShaderName)
+		//		{
+		//			if (!transparentMeshRenderers.Contains(mr))
+		//			{
+		//				Color c = mr.material.GetColor("_Base_Color");
+		//				c.a = transparentPercentage;
+		//				mr.material.SetColor("_Base_Color", c);
+		//				transparentMeshRenderers.Add(mr);
+		//			}
+
+
+		//			//Debug.Log("Shader name : " + mr.material.shader.name);
+		//			//Color c = mr.material.GetColor("_Base_Color");
+		//			//c.a = 0.5f;
+		//			//mr.material.SetColor("_Base_Color", c);
+		//			//Destroy(mr.gameObject);
+		//		}
+		//	}
+
+		//	//Debug.Log("j : " + j);transparentMeshRenderers
+		//}
+
+		//for (int i = 0; i < transparentMeshRenderers.Count; i++)
+		//{
+		//	if (!Array.Exists(transparentColliders, x => x == transparentMeshRenderers[i].gameObject.GetComponent<Collider>()))
+		//	{
+		//		Debug.Log("ayaya : " + transparentMeshRenderers[i].name);
+		//		Color c = transparentMeshRenderers[i].material.GetColor("_Base_Color");
+		//		c.a = 1f;
+		//		transparentMeshRenderers[i].material.SetColor("_Base_Color", c);
+		//		transparentMRtoDelete.Add(transparentMeshRenderers[i]);
+		//	}
+		//}
+
+		//if (transparentMRtoDelete.Count > 0)
+		//{
+		//	foreach (MeshRenderer mr in transparentMRtoDelete)
+		//		transparentMeshRenderers.Remove(mr);
+		//	transparentMRtoDelete.Clear();
+		//}
 	}
 
 	void Follow()
@@ -106,5 +222,14 @@ public class CameraBehavior : MonoBehaviour
 			float t = timeLeft / duration;
 			return amplitude * t * t; // Quadratic easing (faster falloff)
 		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+
+		Gizmos.DrawWireSphere(transform.position, transparentRadius);
+		Gizmos.DrawWireSphere(playerTransform.position, transparentRadius);
+		Gizmos.DrawLine(transform.position, playerTransform.position);
 	}
 }
