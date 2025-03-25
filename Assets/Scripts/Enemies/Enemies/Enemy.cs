@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
 	public GameObject slashObject;
 	public Transform slashTransform;
 	public GameObject damageParticle;
+	public GameObject exclamationMarkPrefab;
 
 	[Header("Technical")]
 	public bool showState;
@@ -233,6 +234,9 @@ public class Enemy : MonoBehaviour
 		if (Physics.OverlapSphereNonAlloc(transform.position, range, p, playerLayerMask) > 0)
 		{
 			target = p[0].transform;
+
+			if (exclamationMarkPrefab != null)
+				Instantiate(exclamationMarkPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 
 			return true;
 		}

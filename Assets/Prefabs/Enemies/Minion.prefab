@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaknesses: 00000000
-  range: 8
+  range: 5
   acquisitionRange: 3
   maxRange: 20
   moveSpeed: 8
@@ -324,6 +324,7 @@ MonoBehaviour:
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 8793929234922687775}
   damageParticle: {fileID: 5468568597703221516}
+  exclamationMarkPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:
