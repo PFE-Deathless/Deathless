@@ -29,6 +29,8 @@ public class PlayerHealth : MonoBehaviour
 
 	[HideInInspector] public bool invicible = false;
 
+	bool _invicible;
+
 	class BlinkingMaterials
 	{
 		public List<SkinnedMeshRenderer> skinnedMeshRenderers;
@@ -82,11 +84,24 @@ public class PlayerHealth : MonoBehaviour
 	void Update()
 	{
 		HandleBlink();
+
+		if (Input.GetKeyDown(KeyCode.KeypadMinus))
+			Kill();
+
+		if (Input.GetKeyDown(KeyCode.KeypadPlus))
+		{
+			Heal();
+		}
+
+		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+		{
+			_invicible = !_invicible;
+		}
 	}
 
 	void GetMeshRenderersAndMaterials()
 	{
-		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
+		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamagePlayer");
 		blinkingMaterials = new(blinkingMaterial);
 
 		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -127,9 +142,13 @@ public class PlayerHealth : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
-		if (!invicible)
+		if (!invicible && !_invicible)
 		{
 			health -= damage;
+			CameraBehavior.Instance.Shake(0.4f, 20f, 0.5f);
+			HealthDisplay.Instance.ShowVignette();
+			if (health <= 0)
+				Kill();
 			HealthDisplay.Instance.UpdateHealth(health);
 			damageParticle.Play();
 
@@ -142,6 +161,19 @@ public class PlayerHealth : MonoBehaviour
 		}
 	}
 
+	public void Kill()
+	{
+		Debug.Log("x_x");
+		health = healthMax;
+		HealthDisplay.Instance.UpdateHealth(health);
+		GameManager.Instance.ReloadLevel();
+	}
+
+	public void Heal()
+	{
+        health = healthMax;
+        HealthDisplay.Instance.UpdateHealth(health);
+    }
 
 	IEnumerator InvicibilityTime()
 	{

@@ -1,20 +1,20 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public static class HitType
 {
-	static string spriteFolder = "Xbox";
+	static string spriteFolder = "Universal";
 
 	public enum Type
 	{
-		None,
 		A,
 		B,
-		C
+		C,
+		None
 	}
 
 	public enum Controller
 	{
+		Universal,
 		Keyboard,
 		Xbox,
 		Playstation
@@ -22,14 +22,17 @@ public static class HitType
 
 	public static Type GetRandomType()
 	{
-		return (Type)Random.Range(1, 4);
+		return (Type)Random.Range(0, 3);
 	}
 
 	public static void SetController(Controller controller)
 	{
 		switch (controller)
 		{
-			case Controller.Keyboard:
+            case Controller.Universal:
+                spriteFolder = "Universal";
+                break;
+            case Controller.Keyboard:
 				spriteFolder = "Keyboard";
 				break;
 			case Controller.Xbox:

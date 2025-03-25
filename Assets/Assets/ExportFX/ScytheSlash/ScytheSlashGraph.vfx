@@ -1717,7 +1717,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":1.5655268430709839,"g":2.9339640140533449,"b":15.813396453857422,"a":1.0}'
+      m_SerializableObject: '{"r":0.7827634215354919,"g":1.4669820070266724,"b":7.906698226928711,"a":1.0}'
     m_Space: -1
   m_Property:
     name: _Color
@@ -1725,8 +1725,7 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661615380}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661615252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,7 +4609,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":255.0,"g":0.0,"b":0.0,"a":1.0}'
+      m_SerializableObject: '{"r":0.0,"g":0.0,"b":149.5287628173828,"a":0.7843137383460999}'
     m_Space: -1
   m_Property:
     name: Value 0
@@ -4780,7 +4779,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.0,"g":255.0,"b":0.0,"a":1.0}'
+      m_SerializableObject: '{"r":316.4135437011719,"g":268.3507385253906,"b":0.0,"a":0.7843137383460999}'
     m_Space: -1
   m_Property:
     name: Value 1
@@ -5128,8 +5127,7 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 1
-  m_LinkedSlots:
-  - {fileID: 8926484042661615251}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661615381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5291,7 +5289,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.0,"g":0.0,"b":255.0,"a":1.0}'
+      m_SerializableObject: '{"r":194.9214324951172,"g":0.0,"b":0.0,"a":0.7843137383460999}'
     m_Space: -1
   m_Property:
     name: Value 2

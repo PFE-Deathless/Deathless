@@ -15,10 +15,10 @@ public class Canon : MonoBehaviour
 
 	// Private properties
 	Animator _animator; // 0.5s délai
-	Transform _projectilesParent;
 	float _elapsedTime = 0f;
-    float _animationDelay;
-    float _delay;
+	float _elapsedTimeDelay = 0f;
+	float _animationDelay;
+	float _delay;
 	bool _animStarted = false;
 	bool _started = false;
 
@@ -29,21 +29,21 @@ public class Canon : MonoBehaviour
 		_animator.SetFloat("AnimSpeed", frequency);
 		_animationDelay = _delay / 2f;
 
-        // Object the projectiles will be attached to
-        GameObject obj = new GameObject("__Projectiles__");
-		obj.transform.parent = transform;
-		_projectilesParent = obj.transform;
-
 		if (origin == null)
 			origin = transform;
-
-		StartCoroutine(DelayStart());
 	}
 
 	private void FixedUpdate()
 	{
 		if (_started)
 			PerformShoot();
+		else
+		{
+			if (_elapsedTimeDelay < startDelay)
+				_elapsedTimeDelay += Time.fixedDeltaTime;
+			else
+				_started = true;
+        }
 	}
 
 	protected void PerformShoot()
@@ -68,14 +68,7 @@ public class Canon : MonoBehaviour
 	public void Shoot()
 	{
 		//_animator.SetTrigger("Shoot");
-		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, _projectilesParent);
+		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
 		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
 	}
-
-	IEnumerator DelayStart()
-	{
-		yield return new WaitForSeconds(startDelay);
-		_started = true;
-	}
-
 }

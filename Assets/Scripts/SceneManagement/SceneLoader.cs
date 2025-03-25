@@ -1,62 +1,26 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-	[SerializeField] string sceneName;
-	[SerializeField] Vector3 position;
-	[SerializeField] Vector3 rotation;
+	[Header("Properties")]
+	[SerializeField] string scenePath;
+	[SerializeField] bool removeGreenArea = true;
 
-	AsyncOperation _sceneLoading;
-	bool _sceneLoaded;
+	[Header("Technical")]
+	[SerializeField] LayerMask playerLayer = (1 << 3) | (1 << 6);
+	[SerializeField] GameObject mesh;
 
-	private void Update()
+    private void Start()
+    {
+		if (removeGreenArea)
+			mesh.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
 	{
-		if (_sceneLoaded)
+		if ((playerLayer & (1 << other.gameObject.layer)) != 0)
 		{
-			_sceneLoaded = false;
-			TeleportToNewScene();
-			Destroy(gameObject);
-		}
-	}
-
-	public void TeleportToNewScene()
-	{
-		_sceneLoading.allowSceneActivation = true;
-		PlayerController.Instance.Teleport(position, rotation);
-		Destroy(gameObject);
-	}
-
-	void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.layer == 3)
-		{
-			Debug.Log("IN !");
-			StartCoroutine(LoadSceneAsync(sceneName));
-		}
-	}
-
-	IEnumerator LoadSceneAsync(string scene)
-	{
-		DontDestroyOnLoad(gameObject);
-
-		if (scene != string.Empty)
-		{
-			_sceneLoading = SceneManager.LoadSceneAsync(scene);
-			_sceneLoading.allowSceneActivation = false;
-		}
-
-		while (!_sceneLoading.isDone)
-		{
-			if (_sceneLoading.progress >= 0.9f)
-			{
-				Debug.Log("Done !");
-				_sceneLoaded = true;
-				break;
-			}
-			yield return null;
+			GameManager.Instance.LoadLevel(scenePath);
 		}
 	}
 }

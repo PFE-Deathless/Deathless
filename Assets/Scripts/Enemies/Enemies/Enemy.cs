@@ -10,33 +10,48 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
-	public int healthMax = 3;
-	[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
-	[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
+	[SerializeField] HitType.Type[] weaknesses = new HitType.Type[1];
+	//[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
+	//[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
 	public float moveSpeed = 8f;
 
 	[Header("Attack")]
+	public float attackWaitTime = 1f;
 	public float attackCastTime = 0.1f;
 	public float attackDuration = 0.5f;
 	public float attackCooldown = 1f;
+
+	[Header("Damage")]
+	[SerializeField] protected float blinkingTime = 0.25f;
+	[SerializeField] protected float shakeDuration = 0.3f;
+	[SerializeField] protected float deathDuration = 1f;
+	[SerializeField] protected float deathDisplacement = 2f;
 
 	[Header("Patrol")]
 	public float waitingTime = 2f;
 	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
 
+	[Header("VFX")]
+	public GameObject slashObject;
+	public Transform slashTransform;
+	public GameObject damageParticle;
+	public GameObject exclamationMarkPrefab;
+
 	[Header("Technical")]
 	public bool showState;
 	public bool showPathToTarget;
 	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
+	public Transform mesh;
 
 	public HitType.Type CurrentType { get; private set; }
-	public HitType.Type[] Types { get; private set; }
+	public HitType.Type[] Weaknesses => weaknesses;
 
+	int healthMax;
 	int health;
 	HitBar hitBar;
 	protected NavMeshAgent navMeshAgent;
@@ -45,18 +60,23 @@ public class Enemy : MonoBehaviour
 
 	// Attack
 	protected AttackState attackState = AttackState.None;
+	protected float attackElapsedTime = 0f;
 	protected float stateTimer;
+	protected float wait;
 	protected float cast;
 	protected float hit;
 	protected float cooldown;
 
 	// Damage taken
-	List<MeshRenderer> meshRenderers = new();
-	List<Material> defaultMaterials = new();
+	BlinkingMaterials blinkingMaterials;
+	ParticleSystem damagePS;
 	protected Material blinkingMaterial;
 	protected bool isBlinking = false;
-	protected float blinkingTime = 0.25f;
 	protected float currentBlinkingTime;
+	protected bool gotDamaged = false;
+	protected float _shakeElapsedTime = 0f;
+
+	// Death
 
 	// State Machine
 	EnemyState state;
@@ -68,13 +88,56 @@ public class Enemy : MonoBehaviour
 	// DEBUG
 	LineRenderer destLR;
 
+	class BlinkingMaterials
+	{
+		public List<SkinnedMeshRenderer> skinnedMeshRenderers;
+		public List<Material[]> defaultMaterials;
+		public List<Material[]> blinkingMaterials;
+		public Material blinkingMaterial;
+		public Color originalColor;
+
+		public BlinkingMaterials(Material blinkingMaterial)
+		{
+			skinnedMeshRenderers = new List<SkinnedMeshRenderer>();
+			defaultMaterials = new List<Material[]>();
+			blinkingMaterials = new List<Material[]>();
+			this.blinkingMaterial = blinkingMaterial;
+		}
+
+		public void Add(SkinnedMeshRenderer skinnedMeshRenderer)
+		{
+			skinnedMeshRenderers.Add(skinnedMeshRenderer);
+			defaultMaterials.Add(skinnedMeshRenderer.materials);
+			Material[] bs = new Material[skinnedMeshRenderer.materials.Length];
+			for (int i = 0; i < bs.Length; i++) bs[i] = blinkingMaterial;
+			blinkingMaterials.Add(bs);
+		}
+
+		public void Blink(bool state)
+		{
+			for (int i = 0; i < skinnedMeshRenderers.Count; i++)
+			{
+				skinnedMeshRenderers[i].materials = state ? blinkingMaterials[i] : defaultMaterials[i];
+			}
+		}
+
+		public void ChangeEmissiveIntensity(float percentage)
+		{
+			
+		}
+	}
+
 	void Start()
 	{
 		hitBar = GetComponentInChildren<HitBar>();
 		animator = GetComponentInChildren<Animator>();
+		if (damageParticle != null)
+			damagePS = damageParticle.GetComponent<ParticleSystem>();
 		SetupNavMeshAgent();
-		SetTypes();
-		CurrentType = Types[0];
+		//SetTypes();
+		hitBar.SetTypes(weaknesses, 0);
+		CurrentType = weaknesses[0];
+		healthMax = weaknesses.Length;
 		health = healthMax;
 
 		GetMeshRenderersAndMaterials();
@@ -82,13 +145,15 @@ public class Enemy : MonoBehaviour
 
 		EnemyStart();
 
+
 		ChangeState(EnemyState.Patrol);
 
 		destLR = gameObject.AddComponent<LineRenderer>();
 		destLR.startWidth = 0.2f;
 		destLR.endWidth = 0.2f;
 
-		cast = attackCastTime;
+		wait = attackWaitTime;
+		cast = wait + attackCastTime;
 		hit = cast + attackDuration;
 		cooldown = hit + attackCooldown;
 	}
@@ -98,6 +163,8 @@ public class Enemy : MonoBehaviour
 		HandleStates();
 
 		HandleBlink();
+
+		HandleShake();
 
 		if (animator != null)
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
@@ -111,19 +178,17 @@ public class Enemy : MonoBehaviour
 			destLR.SetPosition(1, transform.position);
 	}
 
-	protected virtual void EnemyStart()
-	{
-
-	}
+	protected virtual void EnemyStart() { }
 
 	void GetMeshRenderersAndMaterials()
 	{
-		blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamage");
-		MeshRenderer[] mrs = GetComponentsInChildren<MeshRenderer>();
-		foreach (MeshRenderer mr in mrs)
+		Material blinkingMaterial = Resources.Load<Material>("Materials/M_BlinkDamageEnemies");
+		blinkingMaterials = new(blinkingMaterial);
+
+		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
+		foreach (SkinnedMeshRenderer smr in smrs)
 		{
-			meshRenderers.Add(mr);
-			defaultMaterials.Add(mr.material);
+			blinkingMaterials.Add(smr);
 		}
 	}
 
@@ -133,29 +198,45 @@ public class Enemy : MonoBehaviour
 		{
 			if (Time.time <= currentBlinkingTime + blinkingTime)
 			{
-				for (int i = 0; i < meshRenderers.Count; i++)
-				{
-					meshRenderers[i].material = blinkingMaterial;
-				}
+				blinkingMaterials.Blink(true);
 			}
 			else
 				isBlinking = false;
 		}
 		else
 		{
-			for (int i = 0; i < meshRenderers.Count; i++)
-			{
-				meshRenderers[i].material = defaultMaterials[i];
-			}
+			blinkingMaterials.Blink(false);
+		}
+	}
+
+	void HandleShake()
+	{
+		if (_shakeElapsedTime >= 0)
+		{
+			float strength = (_shakeElapsedTime / shakeDuration) * 0.5f;
+			float shakeX = (Mathf.PerlinNoise(Time.time * 20f, 0) - 0.5f) * 2f * strength;
+			float shakeZ = (Mathf.PerlinNoise(0, Time.time * 20f) - 0.5f) * 2f * strength;
+			_shakeElapsedTime -= Time.deltaTime;
+
+			mesh.localPosition = new(shakeX, 0f, shakeZ);
+		}
+		else
+		{
+			mesh.localPosition = Vector3.zero;
 		}
 	}
 
 	bool DetectPlayer()
 	{
+		if (target != null)
+			return true;
 		Collider[] p = new Collider[1];
 		if (Physics.OverlapSphereNonAlloc(transform.position, range, p, playerLayerMask) > 0)
 		{
 			target = p[0].transform;
+
+			if (exclamationMarkPrefab != null)
+				Instantiate(exclamationMarkPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 
 			return true;
 		}
@@ -171,7 +252,19 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage()
 	{
+		if (state == EnemyState.Death)
+			return;
+
 		health--;
+		if (slashObject != null && slashTransform != null)
+		{
+			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			Destroy(obj, 5f);
+		}
+		if (damagePS != null)
+			damagePS.Play();
+		gotDamaged = true;
+		_shakeElapsedTime = shakeDuration;
 		if (health <= 0)
 		{
 			Kill();
@@ -182,26 +275,17 @@ public class Enemy : MonoBehaviour
 		currentBlinkingTime = Time.time;
 		isBlinking = true;
 
-		CurrentType = Types[healthMax - health];
-		hitBar.UpdateHitBar(healthMax - health);
+		CurrentType = Weaknesses[healthMax - health];
+		hitBar.SetTypes(Weaknesses, healthMax - health);
 	}
 
 	public void Kill()
 	{
 		GameObject obj = Instantiate(Resources.Load<GameObject>("Barks/Bark"), transform.position, Quaternion.identity);
-		obj.GetComponent<BarkObject>().InitBark(Random.Range(minSouls, maxSouls + 1));
-		PlayerSouls.Instance.AddSouls(Random.Range(minSouls, maxSouls + 1));
-		Destroy(gameObject);
-	}
-
-	void SetTypes()
-	{
-		Types = new HitType.Type[healthMax];
-		for (int i = 0; i < healthMax; i++)
-		{
-			Types[i] = HitType.GetRandomType();
-		}
-		hitBar.SetTypes(Types);
+		obj.GetComponent<BarkObject>().InitBark();
+		//PlayerSouls.Instance.AddSouls(Random.Range(minSouls, maxSouls + 1));
+		
+		ChangeState(EnemyState.Death);
 	}
 
 	// #####################
@@ -209,7 +293,7 @@ public class Enemy : MonoBehaviour
 	// ### STATE MACHINE ###
 	// #####################
 	// #####################
-	
+
 	#region state_machine
 
 	public enum EnemyState
@@ -217,11 +301,13 @@ public class Enemy : MonoBehaviour
 		Patrol,
 		GoToPlayer,
 		Attack,
-		Wait
+		Wait,
+		Death
 	}
 
 	public enum AttackState
 	{
+		Wait,
 		Cast,
 		Hit,
 		Cooldown,
@@ -246,17 +332,55 @@ public class Enemy : MonoBehaviour
 			case EnemyState.Wait:
 				Wait();
 				break;
+			case EnemyState.Death:
+				Death();
+				break;
 		}
 	}
 
 	void AnyState()
 	{
-		if (target != null && Vector3.Distance(transform.position, target.position) > maxRange)
+		if (state == EnemyState.Death)
+			return;
+
+		if (gotDamaged)
 		{
-			target = null;
-			ChangeState(EnemyState.Patrol);
+			gotDamaged = false;
+			animator.SetTrigger("CancelAttack");
+			ChangeState(EnemyState.GoToPlayer);
+		}
+
+		if (target != null)
+		{
+			if (Vector3.Distance(transform.position, target.position) > maxRange)
+			{
+				target = null;
+				ChangeState(EnemyState.Patrol);
+			}
 		}
 	}
+
+	void Death()
+	{
+		hitBar.gameObject.SetActive(false);
+		GetComponent<Collider>().enabled = false;
+		animator.SetTrigger("CancelAttack");
+		animator.SetFloat("Speed", 0f);
+		navMeshAgent.isStopped = true;
+
+		if (stateTimer < deathDuration)
+		{
+			Vector3 newPos = transform.position;
+			newPos.y = (stateTimer / deathDuration) * -deathDisplacement;
+			transform.position = newPos;
+			stateTimer += Time.deltaTime;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
+
 
 	void Patrol()
 	{
@@ -277,9 +401,7 @@ public class Enemy : MonoBehaviour
 		{
 			navMeshAgent.SetDestination(patrolDestination);
 			if (DetectPlayer())
-			{
 				ChangeState(EnemyState.GoToPlayer);
-			}
 		}
 	}
 
@@ -289,7 +411,7 @@ public class Enemy : MonoBehaviour
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
-		if (distance <= acquisitionRange)
+		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))
 		{
 			ChangeState(EnemyState.Attack);
 		}
@@ -319,10 +441,24 @@ public class Enemy : MonoBehaviour
 
 		switch (stateTimer)
 		{
-			case var _ when stateTimer < cast:
-				if (attackState != AttackState.Cast)
+			case var _ when stateTimer < wait:
+				if (attackState != AttackState.Wait)
 				{
 					stateTimer = 0f;
+					debugText.text = "ATTACK_WAIT";
+					attackState = AttackState.Wait;
+				}
+				if (attackElapsedTime < wait)
+				{
+					blinkingMaterials.ChangeEmissiveIntensity(attackElapsedTime / wait);
+					attackElapsedTime += Time.deltaTime;
+				}
+				break;
+			case var _ when stateTimer >= wait && stateTimer < cast:
+				if (attackState != AttackState.Cast)
+				{
+					blinkingMaterials.ChangeEmissiveIntensity(0f);
+					stateTimer = wait;
 					debugText.text = "ATTACK_CAST";
 					//Debug.Log("CAST : " + stateTimer);
 					StartCast();
@@ -395,9 +531,9 @@ public class Enemy : MonoBehaviour
 		state = newState;
 	}
 
-    #endregion
+	#endregion
 
-    // ### COROUTINES ###
+	// ### COROUTINES ###
 
 
 #if UNITY_EDITOR
@@ -412,7 +548,7 @@ public class Enemy : MonoBehaviour
 			if (_Enemy.patrolPoints.Length == 0)
 				_Enemy.patrolPoints = new Vector3[1];
 			if (_Enemy.patrolPoints.Length == 1)
-				_Enemy.patrolPoints[0] = _Enemy.transform.position;
+				_Enemy.patrolPoints[0] = _Enemy.transform.position + Vector3.forward * 2f;
 		}
 
 		public override void OnInspectorGUI()
