@@ -183,6 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 40, z: -20}
-  fov: 20
   smoothDampTime: 0.3
   cameraTransform: {fileID: 3626012037096243393}
+  ditheredShaderName: Shader Graphs/S_DitherTransparency
