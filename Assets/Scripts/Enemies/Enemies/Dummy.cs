@@ -42,13 +42,14 @@ public class Dummy : MonoBehaviour
 		}
 		if (_health <= 0)
 		{
-            
-            StartCoroutine(Respawn());
+			
+			StartCoroutine(Respawn());
 			return;
 		}
 
 		CurrentType = Types[healthMax - _health];
 		_hitBar.SetTypes(Types, healthMax - _health);
+		_hitBar.Shake();
 	}
 
 
@@ -70,10 +71,10 @@ public class Dummy : MonoBehaviour
 		float duration = scaleDuration;
 
 		GetComponent<Collider>().enabled = false;
-        animator.SetTrigger("Kill");
+		animator.SetTrigger("Kill");
 
-        // Shrink
-        while (elapsedTime < duration)
+		// Shrink
+		while (elapsedTime < duration)
 		{
 			_hitBar.transform.localScale = scaleCurve.Evaluate(elapsedTime / duration) * Vector3.one;
 
@@ -92,13 +93,13 @@ public class Dummy : MonoBehaviour
 		// Grow
 		while (elapsedTime < duration)
 		{
-            _hitBar.transform.localScale = scaleCurve.Evaluate(1f - (elapsedTime / duration)) * Vector3.one;
+			_hitBar.transform.localScale = scaleCurve.Evaluate(1f - (elapsedTime / duration)) * Vector3.one;
 
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
 
-        _hitBar.transform.localScale = Vector3.one;
+		_hitBar.transform.localScale = Vector3.one;
 		GetComponent<Collider>().enabled = true;
-    }
+	}
 }
