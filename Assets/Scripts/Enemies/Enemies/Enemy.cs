@@ -16,7 +16,8 @@ public class Enemy : MonoBehaviour
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
-	public float moveSpeed = 8f;
+	[SerializeField] float chargeMoveSpeed = 8f;
+	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
 	public float attackWaitTime = 1f;
@@ -247,7 +248,7 @@ public class Enemy : MonoBehaviour
 	void SetupNavMeshAgent()
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
-		navMeshAgent.speed = moveSpeed;
+		navMeshAgent.speed = patrolMoveSpeed;
 		navMeshAgent.stoppingDistance = stoppingDistance;
 	}
 
@@ -322,9 +323,11 @@ public class Enemy : MonoBehaviour
 		switch (state)
 		{
 			case EnemyState.Patrol:
+				navMeshAgent.speed = patrolMoveSpeed;
 				Patrol();
 				break;
 			case EnemyState.GoToPlayer:
+				navMeshAgent.speed = chargeMoveSpeed;
 				GoToPlayer();
 				break;
 			case EnemyState.Attack:
