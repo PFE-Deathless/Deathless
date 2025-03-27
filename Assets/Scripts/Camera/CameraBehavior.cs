@@ -195,6 +195,9 @@ public class CameraBehavior : MonoBehaviour
 	{
 		transform.position = teleportPosition + offset;
 		currentVelocity = Vector3.zero;
+
+		_transparentUnactiveMR.Clear();
+		_transparentActiveMR.Clear();
 	}
 
 	public void Shake(float amplitude, float frequency, float duration)

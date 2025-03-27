@@ -535,6 +535,10 @@ public class Enemy : MonoBehaviour
 
 	// ### COROUTINES ###
 
+	private void OnValidate()
+	{
+		debugText.enabled = showState;
+	}
 
 #if UNITY_EDITOR
 	[CustomEditor(typeof(Enemy), true), CanEditMultipleObjects]
