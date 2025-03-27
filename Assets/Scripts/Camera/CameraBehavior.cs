@@ -27,6 +27,9 @@ public class CameraBehavior : MonoBehaviour
 	private List<MeshRenderer> _transparentActiveMR = new List<MeshRenderer>();
 	private List<MeshRenderer> _transparentUnactiveMR = new List<MeshRenderer>();
 
+	// Teleport
+	[HideInInspector] public bool isTeleporting = false;
+
 	private void Awake()
 	{
 		if (Instance == null)
@@ -61,8 +64,18 @@ public class CameraBehavior : MonoBehaviour
 
 	void ManageTransparentDecors()
 	{
-		//int transparentObjectCount = Physics.OverlapCapsuleNonAlloc(transform.position, playerTransform.position, transparentRadius, _transparentColliders);
+		if (isTeleporting)
+			return;
 
+		SetActiveWalls();
+
+		SetTransparencyActiveWalls();
+
+		SetTransparencyUnactiveWalls();
+	}
+
+	void SetActiveWalls()
+	{
 		_transparentMR.Clear();
 
 		for (int x = -1; x <= 1; x++)
@@ -82,9 +95,10 @@ public class CameraBehavior : MonoBehaviour
 				}
 			}
 		}
+	}
 
-
-
+	void SetTransparencyActiveWalls()
+	{
 		for (int i = 0; i < _transparentMR.Count; i++)
 		{
 			if (!_transparentActiveMR.Contains(_transparentMR[i]))
@@ -95,7 +109,10 @@ public class CameraBehavior : MonoBehaviour
 				_transparentActiveMR.Add(_transparentMR[i]);
 			}
 		}
+	}
 
+	void SetTransparencyUnactiveWalls()
+	{
 		for (int i = 0; i < _transparentActiveMR.Count; i++)
 		{
 			if (!_transparentMR.Contains(_transparentActiveMR[i]))
@@ -113,7 +130,6 @@ public class CameraBehavior : MonoBehaviour
 		}
 
 		_transparentUnactiveMR.Clear();
-
 	}
 
 	void Follow()
@@ -148,6 +164,8 @@ public class CameraBehavior : MonoBehaviour
 
 	public void Teleport(Vector3 teleportPosition)
 	{
+		isTeleporting = true;
+
 		transform.position = teleportPosition + offset;
 		currentVelocity = Vector3.zero;
 
