@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -251,7 +251,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -309,6 +309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a54663e8fa0f61459ab7e6ab99cc35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeDuration: 0.2
+  shakeAmplitude: 10
+  shakeStrength: 1
   backgroundSprite: {fileID: 21300000, guid: 274da5b6444b8e742a2004e9158a763a, type: 3}
   hitACurrentSprite: {fileID: 21300000, guid: 41d06e30763d6ab488c497c011fec554, type: 3}
   hitANextSprite: {fileID: 21300000, guid: be0dfa9dd4d63b040b88d0b2f09c2850, type: 3}

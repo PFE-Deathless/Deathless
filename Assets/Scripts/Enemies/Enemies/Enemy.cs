@@ -279,6 +279,7 @@ public class Enemy : MonoBehaviour
 
 		CurrentType = Weaknesses[healthMax - health];
 		hitBar.SetTypes(Weaknesses, healthMax - health);
+		hitBar.Shake();
 	}
 
 	public void Kill()
