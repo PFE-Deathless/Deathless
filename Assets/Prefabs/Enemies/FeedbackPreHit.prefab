@@ -90,7 +90,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 91e0825f9cb8a734081a1fcfdffce94f, type: 3}
-  m_Color: {r: 0.40396258, g: 0.46226418, b: 0.25075653, a: 1}
+  m_Color: {r: 0.5283019, g: 0.13664168, b: 0.11712353, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 2517953472024412455}
   - component: {fileID: 22739113615050958}
   m_Layer: 0
-  m_Name: ExclamationMark
+  m_Name: FeedbackPreHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,6 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bb277b5630f574b87a653c0f13154f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
-  displacement: 2
+  duration: 0.4
+  displacement: 1
   spriteRenderer: {fileID: 2144635493391495607}

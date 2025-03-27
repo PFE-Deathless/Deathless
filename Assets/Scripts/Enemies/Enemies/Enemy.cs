@@ -39,7 +39,8 @@ public class Enemy : MonoBehaviour
 	public GameObject slashObject;
 	public Transform slashTransform;
 	public GameObject damageParticle;
-	public GameObject exclamationMarkPrefab;
+	public GameObject aggroFeedbackPrefab;
+	public GameObject preHitFeedbackPrefab;
 
 	[Header("Technical")]
 	public bool showState;
@@ -235,8 +236,8 @@ public class Enemy : MonoBehaviour
 		{
 			target = p[0].transform;
 
-			if (exclamationMarkPrefab != null)
-				Instantiate(exclamationMarkPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
+			if (aggroFeedbackPrefab != null)
+				Instantiate(aggroFeedbackPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 
 			return true;
 		}
@@ -447,6 +448,9 @@ public class Enemy : MonoBehaviour
 					stateTimer = 0f;
 					debugText.text = "ATTACK_WAIT";
 					attackState = AttackState.Wait;
+
+					if (preHitFeedbackPrefab != null)
+						Instantiate(preHitFeedbackPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 				}
 				if (attackElapsedTime < wait)
 				{
