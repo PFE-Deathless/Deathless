@@ -18,7 +18,7 @@ public class TutoManager : MonoBehaviour
 
     IEnumerator affichage()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.75f);
         infoUI[0].SetActive(true);
     }
 }
