@@ -15,14 +15,13 @@ public class CameraBehavior : MonoBehaviour
 	[Header("Camera Transparency")]
 	[SerializeField] string ditheredShaderName = "Shader Graphs/S_DitherTransparency";
 	[SerializeField, Range(0f, 1f)] float transparentPercentage = 0.5f;
-	[SerializeField] float transparentRadius = 2f;
+	[SerializeField] LayerMask wallLayer = (1 << 18);
 
 	private Transform playerTransform;
 	private Vector3 currentVelocity;
 	private List<ShakeInstance> activeShakes = new List<ShakeInstance>();
 
 	// Transparent walls
-	private Collider[] _transparentColliders = new Collider[5];
 	private RaycastHit[] _transparentHits = new RaycastHit[5];
 	private List<MeshRenderer> _transparentMR = new List<MeshRenderer>();
 	private List<MeshRenderer> _transparentActiveMR = new List<MeshRenderer>();
@@ -64,19 +63,27 @@ public class CameraBehavior : MonoBehaviour
 	{
 		//int transparentObjectCount = Physics.OverlapCapsuleNonAlloc(transform.position, playerTransform.position, transparentRadius, _transparentColliders);
 
-		int transparentObjectCount = Physics.RaycastNonAlloc(playerTransform.position, transform.position - playerTransform.position, _transparentHits, 5f);
-
 		_transparentMR.Clear();
-		if (transparentObjectCount > 0)
+
+		for (int x = -1; x <= 1; x++)
 		{
-			for (int i = 0; i < transparentObjectCount; i++)
+			int transparentObjectCount = Physics.RaycastNonAlloc(
+				playerTransform.position + new Vector3(x, -0.1f, -0.5f),
+				transform.position - playerTransform.position,
+				_transparentHits, 10f, wallLayer);
+
+			if (transparentObjectCount > 0)
 			{
-				MeshRenderer mr = _transparentHits[i].collider.GetComponentInChildren<MeshRenderer>();
-				if (mr != null && mr.material.shader.name == ditheredShaderName)
-					_transparentMR.Add(mr);
+				for (int i = 0; i < transparentObjectCount; i++)
+				{
+					MeshRenderer mr = _transparentHits[i].collider.GetComponentInChildren<MeshRenderer>();
+					if (mr != null && mr.material.shader.name == ditheredShaderName)
+						_transparentMR.Add(mr);
+				}
 			}
-				
 		}
+
+
 
 		for (int i = 0; i < _transparentMR.Count; i++)
 		{
@@ -107,58 +114,6 @@ public class CameraBehavior : MonoBehaviour
 
 		_transparentUnactiveMR.Clear();
 
-
-
-
-
-
-		//if (transparentObjectCount > 0)
-		//{
-		//	for (int i = 0; i < j; i++)
-		//	{
-		//		//Debug.Log($"{i} : {transparentColliders[i].name}");
-
-		//		MeshRenderer mr = transparentColliders[i].GetComponentInChildren<MeshRenderer>();
-		//		if (mr != null && mr.material.shader.name == ditheredShaderName)
-		//		{
-		//			if (!transparentMeshRenderers.Contains(mr))
-		//			{
-		//				Color c = mr.material.GetColor("_Base_Color");
-		//				c.a = transparentPercentage;
-		//				mr.material.SetColor("_Base_Color", c);
-		//				transparentMeshRenderers.Add(mr);
-		//			}
-
-
-		//			//Debug.Log("Shader name : " + mr.material.shader.name);
-		//			//Color c = mr.material.GetColor("_Base_Color");
-		//			//c.a = 0.5f;
-		//			//mr.material.SetColor("_Base_Color", c);
-		//			//Destroy(mr.gameObject);
-		//		}
-		//	}
-
-		//	//Debug.Log("j : " + j);transparentMeshRenderers
-		//}
-
-		//for (int i = 0; i < transparentMeshRenderers.Count; i++)
-		//{
-		//	if (!Array.Exists(transparentColliders, x => x == transparentMeshRenderers[i].gameObject.GetComponent<Collider>()))
-		//	{
-		//		Debug.Log("ayaya : " + transparentMeshRenderers[i].name);
-		//		Color c = transparentMeshRenderers[i].material.GetColor("_Base_Color");
-		//		c.a = 1f;
-		//		transparentMeshRenderers[i].material.SetColor("_Base_Color", c);
-		//		transparentMRtoDelete.Add(transparentMeshRenderers[i]);
-		//	}
-		//}
-
-		//if (transparentMRtoDelete.Count > 0)
-		//{
-		//	foreach (MeshRenderer mr in transparentMRtoDelete)
-		//		transparentMeshRenderers.Remove(mr);
-		//	transparentMRtoDelete.Clear();
-		//}
 	}
 
 	void Follow()
@@ -230,9 +185,9 @@ public class CameraBehavior : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.green;
-
-		Gizmos.DrawWireSphere(transform.position, transparentRadius);
-		Gizmos.DrawWireSphere(playerTransform.position, transparentRadius);
-		Gizmos.DrawLine(transform.position, playerTransform.position);
+		for (int x = -1; x <= 1; x++)
+		{
+			Gizmos.DrawRay(playerTransform.position + new Vector3(x, -0.1f, -0.5f), (transform.position - playerTransform.position).normalized * 10f);
+		}
 	}
 }

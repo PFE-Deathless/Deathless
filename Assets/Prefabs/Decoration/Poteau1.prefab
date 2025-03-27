@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2757416551760558959}
   - component: {fileID: -4185029516515497425}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Poteau1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

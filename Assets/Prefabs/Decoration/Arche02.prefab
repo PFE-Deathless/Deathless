@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457022224621355336}
   - component: {fileID: 5381014284779958151}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Arche02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 5, z: 1}
-  m_Center: {x: 0, y: 2.5, z: 0}
+  m_Size: {x: 3, y: 8, z: 1}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!1 &9070218661272100543
 GameObject:
   m_ObjectHideFlags: 0

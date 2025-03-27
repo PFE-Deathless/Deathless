@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7938887806208061222}
   - component: {fileID: 8533469371181388145}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mur04
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10316,8 +10316,6 @@ MonoBehaviour:
   hitColliderObject: {fileID: 2121887958397101670}
   playerLayer: 3
   playerDashingLayer: 6
-  dashTrail: {fileID: 0}
-  dashCooldownParticle: {fileID: 0}
   dashParticle: {fileID: 7760994313837412435}
   scytheSlash: {fileID: 8582181535093292171}
   scytheRenderer: {fileID: 4083552963227293055}
@@ -10371,7 +10369,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 1
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
