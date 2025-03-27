@@ -537,7 +537,7 @@ public class Enemy : MonoBehaviour
 
 	private void OnValidate()
 	{
-		debugText.gameObject.SetActive(showState);
+		debugText.enabled = showState;
 	}
 
 #if UNITY_EDITOR
