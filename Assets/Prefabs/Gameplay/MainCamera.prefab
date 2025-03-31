@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ditheredShaderName: Shader Graphs/S_DitherTransparency
-  transparentPercentage: 0.5
+  transparentPercentage: 0.4
+  fadeDuration: 0.1
   cameraTransform: {fileID: 3626012037096243393}
   wallLayer:
     serializedVersion: 2
