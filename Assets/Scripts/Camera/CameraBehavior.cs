@@ -11,23 +11,9 @@ public class CameraBehavior : MonoBehaviour
 	[SerializeField] float smoothDampTime = 0.3f;
 	[SerializeField] Transform cameraTransform;
 
-	[Header("Camera Transparency")]
-	[SerializeField] string ditheredShaderName = "Shader Graphs/S_DitherTransparency";
-	[SerializeField, Range(0f, 1f)] float transparentPercentage = 0.5f;
-	[SerializeField] LayerMask wallLayer = (1 << 18);
-
 	private Transform playerTransform;
 	private Vector3 currentVelocity;
 	private List<ShakeInstance> activeShakes = new List<ShakeInstance>();
-
-	// Transparent walls
-	private RaycastHit[] _transparentHits = new RaycastHit[5];
-	private List<MeshRenderer> _transparentMR = new List<MeshRenderer>();
-	private List<MeshRenderer> _transparentActiveMR = new List<MeshRenderer>();
-	private List<MeshRenderer> _transparentUnactiveMR = new List<MeshRenderer>();
-
-	// Teleport
-	[HideInInspector] public bool isTeleporting = false;
 
 	private void Awake()
 	{
@@ -59,76 +45,6 @@ public class CameraBehavior : MonoBehaviour
 		ManageShakes();
 
 		Follow();
-	}
-
-	void ManageTransparentDecors()
-	{
-		if (isTeleporting)
-			return;
-
-		SetActiveWalls();
-
-		SetTransparencyActiveWalls();
-
-		SetTransparencyUnactiveWalls();
-	}
-
-	void SetActiveWalls()
-	{
-		_transparentMR.Clear();
-
-		for (int x = -1; x <= 1; x++)
-		{
-			int transparentObjectCount = Physics.RaycastNonAlloc(
-				playerTransform.position + new Vector3(x, -0.1f, -0.5f),
-				transform.position - playerTransform.position,
-				_transparentHits, 10f, wallLayer);
-
-			if (transparentObjectCount > 0)
-			{
-				for (int i = 0; i < transparentObjectCount; i++)
-				{
-					MeshRenderer mr = _transparentHits[i].collider.GetComponentInChildren<MeshRenderer>();
-					if (mr != null && mr.material.shader.name == ditheredShaderName)
-						_transparentMR.Add(mr);
-				}
-			}
-		}
-	}
-
-	void SetTransparencyActiveWalls()
-	{
-		for (int i = 0; i < _transparentMR.Count; i++)
-		{
-			if (!_transparentActiveMR.Contains(_transparentMR[i]))
-			{
-				Color c = _transparentMR[i].material.GetColor("_Base_Color");
-				c.a = transparentPercentage;
-				_transparentMR[i].material.SetColor("_Base_Color", c);
-				_transparentActiveMR.Add(_transparentMR[i]);
-			}
-		}
-	}
-
-	void SetTransparencyUnactiveWalls()
-	{
-		for (int i = 0; i < _transparentActiveMR.Count; i++)
-		{
-			if (!_transparentMR.Contains(_transparentActiveMR[i]))
-			{
-				_transparentUnactiveMR.Add(_transparentActiveMR[i]);
-			}
-		}
-
-		for (int i = 0; i < _transparentUnactiveMR.Count; i++)
-		{
-			Color c = _transparentUnactiveMR[i].material.GetColor("_Base_Color");
-			c.a = 1f;
-			_transparentUnactiveMR[i].material.SetColor("_Base_Color", c);
-			_transparentActiveMR.Remove(_transparentUnactiveMR[i]);
-		}
-
-		_transparentUnactiveMR.Clear();
 	}
 
 	void Follow()
@@ -163,13 +79,8 @@ public class CameraBehavior : MonoBehaviour
 
 	public void Teleport(Vector3 teleportPosition)
 	{
-		isTeleporting = true;
-
 		transform.position = teleportPosition + offset;
 		currentVelocity = Vector3.zero;
-
-		_transparentUnactiveMR.Clear();
-		_transparentActiveMR.Clear();
 	}
 
 	public void Shake(float amplitude, float frequency, float duration)
@@ -196,19 +107,6 @@ public class CameraBehavior : MonoBehaviour
 		{
 			float t = timeLeft / duration;
 			return amplitude * t * t; // Quadratic easing (faster falloff)
-		}
-	}
-
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.green;
-
-		if (playerTransform != null)
-		{
-			for (int x = -1; x <= 1; x++)
-			{
-				Gizmos.DrawRay(playerTransform.position + new Vector3(x, -0.1f, -0.5f), (transform.position - playerTransform.position).normalized * 10f);
-			}
 		}
 	}
 }

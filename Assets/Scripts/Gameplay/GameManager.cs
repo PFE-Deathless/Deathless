@@ -26,8 +26,12 @@ public class GameManager : MonoBehaviour
 
 	public Transform ProjectileParent => projectileParent;
 
+
 	// Private properties
 	bool _loadingLevel = false;
+
+	// Public attributes
+	public bool LevelIsLoading => _loadingLevel;
 
 	private void Awake()
 	{
@@ -174,7 +178,6 @@ public class GameManager : MonoBehaviour
 
 		// Wait a bit and activate player inputs back
 		yield return new WaitForSeconds(0.2f);
-		CameraBehavior.Instance.isTeleporting = false;
 		InputsManager.Instance.EnableInput(true);
 
 		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);

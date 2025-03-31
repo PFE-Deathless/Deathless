@@ -29,9 +29,10 @@ public class TransparentWallManager : MonoBehaviour
 	{
 		if (_playerTransform != null)
 		{
-			Vector3 direction = _playerTransform.position - cameraTransform.position;
+			Vector3 targetPos = _playerTransform.position + new Vector3(0f, 0f, -0.4f);
+			Vector3 direction = targetPos - cameraTransform.position;
 
-			rb.Move(Vector3.Lerp(_playerTransform.position, cameraTransform.position, 0.15f), Quaternion.LookRotation(direction));
+			rb.Move(Vector3.Lerp(targetPos, cameraTransform.position, 0.15f), Quaternion.LookRotation(direction));
 		}
 
 		ManageTransparency();
@@ -39,6 +40,29 @@ public class TransparentWallManager : MonoBehaviour
 
 	void ManageTransparency()
 	{
+		if (GameManager.Instance.LevelIsLoading)
+		{
+			if (_inMR.Count > 0)
+			{
+				foreach (MeshRenderer mr in _inMR)
+					mr.material.SetColor("_Base_Color", Color.white);
+				_inMR.Clear();
+			}
+
+			if (_outMR.Count > 0)
+			{
+				foreach (MeshRenderer mr in _outMR)
+					mr.material.SetColor("_Base_Color", Color.white);
+				_outMR.Clear();
+			}
+
+			if (_clearMR.Count > 0)
+				_clearMR.Clear();
+
+			return;
+		}
+
+		// Fade hit walls to transparent
 		foreach (MeshRenderer mr in _inMR)
 		{
 			Color c = mr.material.GetColor("_Base_Color");
@@ -55,6 +79,7 @@ public class TransparentWallManager : MonoBehaviour
 			}
 		}
 
+		// Fade the others back to opaque
 		foreach (MeshRenderer mr in _outMR)
 		{
 			Color c = mr.material.GetColor("_Base_Color");
@@ -75,18 +100,17 @@ public class TransparentWallManager : MonoBehaviour
 		}
 
 		foreach (MeshRenderer mr in _clearMR)
-		{
 			_outMR.Remove(mr);
-		}
 		_clearMR.Clear();
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (GameManager.Instance.LevelIsLoading)
+			return;
+
 		if ((wallLayer.value & (1 << other.gameObject.layer)) > 0)
 		{
-			Debug.Log("Wall in : " + other.gameObject.name);
-
 			MeshRenderer mr = other.GetComponentInChildren<MeshRenderer>();
 
 			if (mr == null || mr.material.shader.name != ditheredShaderName)
@@ -103,10 +127,11 @@ public class TransparentWallManager : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
+		if (GameManager.Instance.LevelIsLoading)
+			return;
+
 		if ((wallLayer.value & (1 << other.gameObject.layer)) > 0)
 		{
-			Debug.Log("Wall out : " + other.gameObject.name);
-
 			MeshRenderer mr = other.GetComponentInChildren<MeshRenderer>();
 
 			if (mr == null || mr.material.shader.name != ditheredShaderName)
