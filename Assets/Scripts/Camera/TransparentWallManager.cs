@@ -34,6 +34,11 @@ public class TransparentWallManager : MonoBehaviour
 			rb.Move(Vector3.Lerp(_playerTransform.position, cameraTransform.position, 0.15f), Quaternion.LookRotation(direction));
 		}
 
+		ManageTransparency();
+	}
+
+	void ManageTransparency()
+	{
 		foreach (MeshRenderer mr in _inMR)
 		{
 			Color c = mr.material.GetColor("_Base_Color");
@@ -56,9 +61,6 @@ public class TransparentWallManager : MonoBehaviour
 			_outMR.Remove(mr);
 		}
 		_clearMR.Clear();
-
-
-
 	}
 
 	private void OnTriggerEnter(Collider other)
