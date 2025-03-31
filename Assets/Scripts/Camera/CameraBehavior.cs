@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using System.Linq;
 
 public class CameraBehavior : MonoBehaviour
 {
@@ -55,7 +54,7 @@ public class CameraBehavior : MonoBehaviour
 
 	void LateUpdate()
 	{
-		ManageTransparentDecors();
+		//ManageTransparentDecors();
 
 		ManageShakes();
 
@@ -203,9 +202,13 @@ public class CameraBehavior : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.green;
-		for (int x = -1; x <= 1; x++)
+
+		if (playerTransform != null)
 		{
-			Gizmos.DrawRay(playerTransform.position + new Vector3(x, -0.1f, -0.5f), (transform.position - playerTransform.position).normalized * 10f);
+			for (int x = -1; x <= 1; x++)
+			{
+				Gizmos.DrawRay(playerTransform.position + new Vector3(x, -0.1f, -0.5f), (transform.position - playerTransform.position).normalized * 10f);
+			}
 		}
 	}
 }
