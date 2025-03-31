@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -181,9 +179,9 @@ public class PlayerController : MonoBehaviour
 			{
 				HitDisplay.Instance.SetVignPercentage(1f);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
-                if (!_hitSuccess)
-                    hitCooldownParticle.Play();
-                _isHitting = false;
+				if (!_hitSuccess)
+					hitCooldownParticle.Play();
+				_isHitting = false;
 				canHit = true;
 			}
 
