@@ -42,18 +42,36 @@ public class TransparentWallManager : MonoBehaviour
 		foreach (MeshRenderer mr in _inMR)
 		{
 			Color c = mr.material.GetColor("_Base_Color");
-			c.a = transparentPercentage;
-			mr.material.SetColor("_Base_Color", c);
+
+			if (c.a > transparentPercentage)
+			{
+				c.a -= (1f - transparentPercentage) * (Time.deltaTime * fadeDuration);
+				mr.material.SetColor("_Base_Color", c);
+			}
+			else
+			{
+				c.a = transparentPercentage;
+				mr.material.SetColor("_Base_Color", c);
+			}
 		}
 
 		foreach (MeshRenderer mr in _outMR)
 		{
 			Color c = mr.material.GetColor("_Base_Color");
-			c.a = 1f;
-			mr.material.SetColor("_Base_Color", c);
 
-			if (!_clearMR.Contains(mr))
-				_clearMR.Add(mr);
+			if (c.a < 1f)
+			{
+				c.a += (1f - transparentPercentage) * (Time.deltaTime * fadeDuration);
+				mr.material.SetColor("_Base_Color", c);
+			}
+			else
+			{
+				c.a = 1f;
+				mr.material.SetColor("_Base_Color", c);
+				if (!_clearMR.Contains(mr))
+					_clearMR.Add(mr);
+			}
+
 		}
 
 		foreach (MeshRenderer mr in _clearMR)
