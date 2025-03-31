@@ -45,7 +45,7 @@ public class TransparentWallManager : MonoBehaviour
 
 			if (c.a > transparentPercentage)
 			{
-				c.a -= (1f - transparentPercentage) * (Time.deltaTime * fadeDuration);
+				c.a -= (1f - transparentPercentage) * (Time.deltaTime / fadeDuration);
 				mr.material.SetColor("_Base_Color", c);
 			}
 			else
@@ -61,7 +61,7 @@ public class TransparentWallManager : MonoBehaviour
 
 			if (c.a < 1f)
 			{
-				c.a += (1f - transparentPercentage) * (Time.deltaTime * fadeDuration);
+				c.a += (1f - transparentPercentage) * (Time.deltaTime / fadeDuration);
 				mr.material.SetColor("_Base_Color", c);
 			}
 			else
