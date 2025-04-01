@@ -150,11 +150,6 @@ public class PlayerController : MonoBehaviour
 		else
 			_bufferedAttack = HitType.Type.None;
 
-		Debug.Log("Buffered attack : " +  _bufferedAttack);
-
-		//_inputBufferElapsedTime
-
-
 		if (_bufferedAttack != HitType.Type.None && canHit && !_isHitting)
 		{
 			_isHitting = true;
