@@ -1799,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81273be651471d40af74a9cf80e03ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoUI: {fileID: 684218037}
+  id: 0
   activate: 0
 --- !u!1 &891324006
 GameObject:
@@ -1870,10 +1870,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2813,7 +2813,7 @@ GameObject:
   - component: {fileID: 1336214918}
   - component: {fileID: 1336214919}
   m_Layer: 0
-  m_Name: EventUI
+  m_Name: EventTuto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3350,7 +3350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81273be651471d40af74a9cf80e03ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoUI: {fileID: 567940780}
+  id: 0
   activate: 1
 --- !u!1001 &1566252354
 PrefabInstance:
@@ -3849,6 +3849,10 @@ PrefabInstance:
     - target: {fileID: 1024386937387934618, guid: 6b83bb5d592520744847064a61eda0a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8903455281367595649, guid: 6b83bb5d592520744847064a61eda0a5, type: 3}
+      propertyPath: healthMax
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
