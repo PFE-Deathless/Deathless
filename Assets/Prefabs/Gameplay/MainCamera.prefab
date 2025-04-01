@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1744000206663466925}
   - component: {fileID: 7347528408901492320}
   - component: {fileID: 4170926534984487357}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TransparentWallManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,9 +292,3 @@ MonoBehaviour:
   offset: {x: 0, y: 40, z: -20}
   smoothDampTime: 0.3
   cameraTransform: {fileID: 3626012037096243393}
-  ditheredShaderName: Shader Graphs/S_DitherTransparency
-  transparentPercentage: 0.5
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 262144
-  isTeleporting: 0

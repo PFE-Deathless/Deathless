@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.layer == 3 || other.gameObject.layer == 6)
+		if (other.gameObject.layer == 14)
 		{
 			PlayerHealth.Instance.TakeDamage(1);
 		}
