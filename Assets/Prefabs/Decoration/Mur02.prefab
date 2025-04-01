@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7203804206387001243}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mur02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -15,7 +13,7 @@ public class PlayerController : MonoBehaviour
 	public float hitDuration = 0.2f;
 	public float hitCooldownSuccess = 0.5f;
 	public float hitCooldownFail = 2f;
-	public float inputBufferTime = 0.1f;
+	public float inputBufferDuration = 0.1f;
 
 	[Header("Dash")]
 	public float dashDistance = 5f;
@@ -32,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
 	[Header("VFX")]
 	public ParticleSystem dashParticle;
+	public ParticleSystem hitCooldownParticle;
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
 
@@ -49,6 +48,10 @@ public class PlayerController : MonoBehaviour
 	bool _isHitting;
 	bool _hitSuccess;
 	Color _scytheBaseEmissive;
+
+	// Input buffer
+	float _inputBufferElapsedTime = 0f;
+	HitType.Type _bufferedAttack = HitType.Type.None;
 
 	// ?
 	Rigidbody rb;
@@ -136,20 +139,34 @@ public class PlayerController : MonoBehaviour
 	{
 		if (InputsManager.Instance.hit != HitType.Type.None)
 		{
-			if (canHit && !_isHitting)
-			{
-				_isHitting = true;
-				canHit = false;
-				_hitElapsedTime = 0f;
-				hitCollider.SetType(InputsManager.Instance.hit);
-				scytheSlash.SetInt("HitType", (int)InputsManager.Instance.hit);
-				hitColliderObject.SetActive(true);
-				scytheSlash.Play();
-				animator.SetTrigger("Attack");
-				//HitDisplay.Instance.SetVignPercentage(0f);
-				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
-			}
+			_bufferedAttack = InputsManager.Instance.hit;
+			_inputBufferElapsedTime = inputBufferDuration;
+
 			InputsManager.Instance.hit = HitType.Type.None;
+		}
+
+		if (_inputBufferElapsedTime > 0)
+			_inputBufferElapsedTime -= Time.deltaTime;
+		else
+			_bufferedAttack = HitType.Type.None;
+
+		Debug.Log("Buffered attack : " +  _bufferedAttack);
+
+		//_inputBufferElapsedTime
+
+
+		if (_bufferedAttack != HitType.Type.None && canHit && !_isHitting)
+		{
+			_isHitting = true;
+			canHit = false;
+			_hitElapsedTime = 0f;
+			hitCollider.SetType(_bufferedAttack);
+			scytheSlash.SetInt("HitType", (int)_bufferedAttack);
+			hitColliderObject.SetActive(true);
+			scytheSlash.Play();
+			animator.SetTrigger("Attack");
+			scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
+			_bufferedAttack = HitType.Type.None;
 		}
 
 		if (_isHitting)
@@ -180,6 +197,8 @@ public class PlayerController : MonoBehaviour
 			{
 				HitDisplay.Instance.SetVignPercentage(1f);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
+				if (!_hitSuccess)
+					hitCooldownParticle.Play();
 				_isHitting = false;
 				canHit = true;
 			}

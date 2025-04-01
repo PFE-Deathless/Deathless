@@ -1,7 +1,14 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HitBar : MonoBehaviour
 {
+	[Header("Shake")]
+	[SerializeField] float shakeDuration = 0.2f;
+	[SerializeField] float shakeAmplitude = 5f;
+	[SerializeField] float shakeStrength = 0.5f;
+
+
 	[Header("Sprites")]
 	[SerializeField] Sprite backgroundSprite;
 	[SerializeField] Sprite hitACurrentSprite;
@@ -16,9 +23,42 @@ public class HitBar : MonoBehaviour
 	[SerializeField] SpriteRenderer currentSR;
 	[SerializeField] SpriteRenderer nextSR;
 
+	float _shakeElapsedTime = 0f;
+
 	private void Start()
 	{
 		backgroundSR.sprite = backgroundSprite;
+	}
+
+	private void Update()
+	{
+		HandleShake();
+	}
+
+	public void Shake()
+	{
+		_shakeElapsedTime = shakeDuration;
+	}
+
+	void HandleShake()
+	{
+		if (_shakeElapsedTime >= 0)
+		{
+			float strength = (_shakeElapsedTime / shakeDuration) * shakeStrength;
+			float shakeX = (Mathf.PerlinNoise(Time.time * shakeAmplitude, 0) - 0.5f) * 2f * strength;
+			float shakeY = (Mathf.PerlinNoise(0, Time.time * shakeAmplitude) - 0.5f) * 2f * strength;
+			_shakeElapsedTime -= Time.deltaTime;
+
+			backgroundSR.transform.localPosition = new(shakeX, shakeY, 0.01f);
+			currentSR.transform.localPosition = new(shakeX, shakeY, 0f);
+			nextSR.transform.localPosition = new(shakeX, shakeY, -0.01f);
+		}
+		else
+		{
+			backgroundSR.transform.localPosition = new(0f, 0f, 0.01f);
+			currentSR.transform.localPosition = Vector3.zero;
+			nextSR.transform.localPosition = new(0f, 0f, -0.01f);
+		}
 	}
 
 	public void SetTypes(HitType.Type[] types, int index)

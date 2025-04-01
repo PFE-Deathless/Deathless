@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5006123670389485698
 RectTransform:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3948206713256892939}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
@@ -624,7 +624,7 @@ MonoBehaviour:
   acquisitionRange: 10
   maxRange: 30
   moveSpeed: 8
-  attackWaitTime: 1
+  attackWaitTime: 0.1
   attackCastTime: 0.75
   attackDuration: 0.1
   attackCooldown: 2.3
@@ -639,7 +639,8 @@ MonoBehaviour:
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 5383759795747591157}
   damageParticle: {fileID: 5393851631189198996}
-  exclamationMarkPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
+  aggroFeedbackPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
+  preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

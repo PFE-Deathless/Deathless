@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
@@ -40,6 +40,8 @@ public class CameraBehavior : MonoBehaviour
 
 	void LateUpdate()
 	{
+		//ManageTransparentDecors();
+
 		ManageShakes();
 
 		Follow();

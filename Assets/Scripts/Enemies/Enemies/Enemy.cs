@@ -16,7 +16,8 @@ public class Enemy : MonoBehaviour
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
-	public float moveSpeed = 8f;
+	[SerializeField] float chargeMoveSpeed = 8f;
+	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
 	public float attackWaitTime = 1f;
@@ -39,7 +40,8 @@ public class Enemy : MonoBehaviour
 	public GameObject slashObject;
 	public Transform slashTransform;
 	public GameObject damageParticle;
-	public GameObject exclamationMarkPrefab;
+	public GameObject aggroFeedbackPrefab;
+	public GameObject preHitFeedbackPrefab;
 
 	[Header("Technical")]
 	public bool showState;
@@ -235,8 +237,8 @@ public class Enemy : MonoBehaviour
 		{
 			target = p[0].transform;
 
-			if (exclamationMarkPrefab != null)
-				Instantiate(exclamationMarkPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
+			if (aggroFeedbackPrefab != null)
+				Instantiate(aggroFeedbackPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 
 			return true;
 		}
@@ -246,7 +248,7 @@ public class Enemy : MonoBehaviour
 	void SetupNavMeshAgent()
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
-		navMeshAgent.speed = moveSpeed;
+		navMeshAgent.speed = patrolMoveSpeed;
 		navMeshAgent.stoppingDistance = stoppingDistance;
 	}
 
@@ -277,6 +279,7 @@ public class Enemy : MonoBehaviour
 
 		CurrentType = Weaknesses[healthMax - health];
 		hitBar.SetTypes(Weaknesses, healthMax - health);
+		hitBar.Shake();
 	}
 
 	public void Kill()
@@ -321,9 +324,11 @@ public class Enemy : MonoBehaviour
 		switch (state)
 		{
 			case EnemyState.Patrol:
+				navMeshAgent.speed = patrolMoveSpeed;
 				Patrol();
 				break;
 			case EnemyState.GoToPlayer:
+				navMeshAgent.speed = chargeMoveSpeed;
 				GoToPlayer();
 				break;
 			case EnemyState.Attack:
@@ -447,6 +452,9 @@ public class Enemy : MonoBehaviour
 					stateTimer = 0f;
 					debugText.text = "ATTACK_WAIT";
 					attackState = AttackState.Wait;
+
+					if (preHitFeedbackPrefab != null)
+						Instantiate(preHitFeedbackPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 				}
 				if (attackElapsedTime < wait)
 				{
@@ -535,6 +543,10 @@ public class Enemy : MonoBehaviour
 
 	// ### COROUTINES ###
 
+	private void OnValidate()
+	{
+		debugText.enabled = showState;
+	}
 
 #if UNITY_EDITOR
 	[CustomEditor(typeof(Enemy), true), CanEditMultipleObjects]

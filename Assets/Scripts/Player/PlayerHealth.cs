@@ -171,9 +171,9 @@ public class PlayerHealth : MonoBehaviour
 
 	public void Heal()
 	{
-        health = healthMax;
-        HealthDisplay.Instance.UpdateHealth(health);
-    }
+		health = healthMax;
+		HealthDisplay.Instance.UpdateHealth(health);
+	}
 
 	IEnumerator InvicibilityTime()
 	{
