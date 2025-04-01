@@ -10276,7 +10276,7 @@ MonoBehaviour:
   hitDuration: 0.15
   hitCooldownSuccess: 0.05
   hitCooldownFail: 1.5
-  inputBufferTime: 0.1
+  inputBufferDuration: 0.15
   dashDistance: 3
   dashDuration: 0.2
   dashCooldown: 0.1
