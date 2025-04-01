@@ -86,6 +86,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1147543858264311774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8554666044247282003}
+  m_Layer: 0
+  m_Name: AggroTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8554666044247282003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147543858264311774}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1862401512798484248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2316004383365196156
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +148,7 @@ Transform:
   m_Children:
   - {fileID: 4193861891579099469}
   - {fileID: 5383759795747591157}
+  - {fileID: 8554666044247282003}
   m_Father: {fileID: 6939404660023884105}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3948206713256892939
@@ -623,8 +655,9 @@ MonoBehaviour:
   range: 10
   acquisitionRange: 10
   maxRange: 30
-  moveSpeed: 8
-  attackWaitTime: 0.1
+  chargeMoveSpeed: 8
+  patrolMoveSpeed: 4
+  attackWaitTime: 0.2
   attackCastTime: 0.75
   attackDuration: 0.1
   attackCooldown: 2.3
@@ -638,6 +671,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 2}
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 5383759795747591157}
+  aggroTransform: {fileID: 8554666044247282003}
   damageParticle: {fileID: 5393851631189198996}
   aggroFeedbackPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
   preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
