@@ -10,6 +10,14 @@ public class TutoManager : MonoBehaviour
     [Header("UIs")]
     [SerializeField] GameObject[] infoUI;
 
+    [Header("Autres objets a désactiver")]
+    [SerializeField] GameObject dummy;
+    [SerializeField] GameObject porteAOuvrir;
+
+
+
+
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -27,6 +35,13 @@ public class TutoManager : MonoBehaviour
         StartCoroutine(Affichage());
     }
 
+    void Update()
+    {
+        // Quand le dummy il meurt la première fois ça ouvre la suite
+        if (dummy.GetComponent<Dummy>().Died == true) DummyDies();
+
+    }
+
     public void Activate(int _id, bool state)
     {
             infoUI[_id].SetActive(state);
@@ -38,46 +53,11 @@ public class TutoManager : MonoBehaviour
         infoUI[0].SetActive(true);
     }
 
-
-    /*// Références
-    [Header("UIs")]
-    [SerializeField] GameObject[] infoUI;
-
-    [Header("Salle du dummy")]
-    [SerializeField] GameObject dummy;
-    [SerializeField] GameObject porteAOuvrir;
-
-
-    // variables
-
-
-    void Start()
+    void DummyDies()
     {
-        // désactive toute les UI au lancement de la scène
-        for (int i = 0; i < infoUI.Length; i++)
-        {
-            infoUI[i].gameObject.SetActive(false);
-        }
-        // Active la première UI
-        StartCoroutine(Affichage());
+        porteAOuvrir.SetActive(false);
+        infoUI[1].SetActive(false);
+
     }
 
-    void Update()
-    {
-        // Quand le dummy il meurt la première fois ça ouvre la suite
-        if (dummy.GetComponent<Dummy>().Died == true) Ouverture();
-        
-    }
-
-
-    IEnumerator Affichage()
-    {
-        yield return new WaitForSeconds(0.75f);
-        infoUI[0].SetActive(true);
-    }
-
-    void Ouverture()
-    {
-
-    }*/
 }
