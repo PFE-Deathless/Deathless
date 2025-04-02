@@ -26,8 +26,12 @@ public class GameManager : MonoBehaviour
 
 	public Transform ProjectileParent => projectileParent;
 
+
 	// Private properties
 	bool _loadingLevel = false;
+
+	// Public attributes
+	public bool LevelIsLoading => _loadingLevel;
 
 	private void Awake()
 	{

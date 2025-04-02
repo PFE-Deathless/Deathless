@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b2ac88be7910c02439d4840f1491f3ab, type: 2}
+  - {fileID: 2100000, guid: 07664c8a21902764382cb33944e5bca9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2355163875321439043}
   - component: {fileID: 6065851573521887356}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mur03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

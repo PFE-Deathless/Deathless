@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7203804206387001243}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mur02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 319b2f2aab38de04a96b5ee7e892335d, type: 2}
+  - {fileID: 2100000, guid: 848d4a7ff68fe0d4c889dfe8f2a1a31c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

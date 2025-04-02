@@ -6,6 +6,13 @@ public class Dummy : MonoBehaviour
 	[Header("Statistics")]
 	[SerializeField] int healthMax = 3;
 
+	[Header("VFX")]
+	public GameObject slashObject;
+	public Transform slashTransform;
+
+	[Header("Animator")]
+	public Animator animator;
+
 	[Header("Respawn")]
 	[SerializeField] AnimationCurve scaleCurve;
 	[SerializeField, Tooltip("Time it will take to shrink AND grow back")] float scaleDuration = 0.3f;
@@ -20,21 +27,29 @@ public class Dummy : MonoBehaviour
 	private void Start()
 	{
 		_hitBar = GetComponentInChildren<HitBar>();
-		SetTypes();
 		_health = healthMax;
+		SetTypes();
 	}
 
 	public void TakeDamage()
 	{
+		animator.SetTrigger("Hit");
 		_health--;
+		if (slashObject != null && slashTransform != null)
+		{
+			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			Destroy(obj, 5f);
+		}
 		if (_health <= 0)
 		{
+			
 			StartCoroutine(Respawn());
 			return;
 		}
 
 		CurrentType = Types[healthMax - _health];
-		_hitBar.UpdateHitBar(healthMax - _health);
+		_hitBar.SetTypes(Types, healthMax - _health);
+		_hitBar.Shake();
 	}
 
 
@@ -45,10 +60,10 @@ public class Dummy : MonoBehaviour
 		{
 			Types[i] = HitType.GetRandomType();
 		}
-		_hitBar.SetTypes(Types);
+		_hitBar.SetTypes(Types, 0);
 
 		CurrentType = Types[0];
-    }
+	}
 
 	IEnumerator Respawn()
 	{
@@ -56,11 +71,12 @@ public class Dummy : MonoBehaviour
 		float duration = scaleDuration;
 
 		GetComponent<Collider>().enabled = false;
+		animator.SetTrigger("Kill");
 
 		// Shrink
 		while (elapsedTime < duration)
 		{
-			transform.localScale = scaleCurve.Evaluate(elapsedTime / duration) * Vector3.one;
+			_hitBar.transform.localScale = scaleCurve.Evaluate(elapsedTime / duration) * Vector3.one;
 
 			elapsedTime += Time.deltaTime;
 			yield return null;
@@ -68,6 +84,8 @@ public class Dummy : MonoBehaviour
 
 		_health = healthMax;
 		SetTypes();
+		yield return new WaitForSeconds(.5f);
+		animator.SetTrigger("Respawn");
 
 		elapsedTime = 0f;
 		duration = scaleDuration;
@@ -75,13 +93,13 @@ public class Dummy : MonoBehaviour
 		// Grow
 		while (elapsedTime < duration)
 		{
-			transform.localScale = scaleCurve.Evaluate(1f - (elapsedTime / duration)) * Vector3.one;
+			_hitBar.transform.localScale = scaleCurve.Evaluate(1f - (elapsedTime / duration)) * Vector3.one;
 
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
 
-		transform.localScale = Vector3.one;
+		_hitBar.transform.localScale = Vector3.one;
 		GetComponent<Collider>().enabled = true;
 	}
 }

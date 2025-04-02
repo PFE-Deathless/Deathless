@@ -16,7 +16,8 @@ public class Enemy : MonoBehaviour
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
-	public float moveSpeed = 8f;
+	[SerializeField] float chargeMoveSpeed = 8f;
+	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
 	public float attackWaitTime = 1f;
@@ -24,16 +25,31 @@ public class Enemy : MonoBehaviour
 	public float attackDuration = 0.5f;
 	public float attackCooldown = 1f;
 
+	[Header("Damage")]
+	[SerializeField] protected float blinkingTime = 0.25f;
+	[SerializeField] protected float shakeDuration = 0.3f;
+	[SerializeField] protected float deathDuration = 1f;
+	[SerializeField] protected float deathDisplacement = 2f;
+
 	[Header("Patrol")]
 	public float waitingTime = 2f;
 	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
+
+	[Header("VFX")]
+	public GameObject slashObject;
+	public Transform slashTransform;
+	public Transform aggroTransform;
+	public GameObject damageParticle;
+	public GameObject aggroFeedbackPrefab;
+	public GameObject preHitFeedbackPrefab;
 
 	[Header("Technical")]
 	public bool showState;
 	public bool showPathToTarget;
 	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
 	public TextMeshPro debugText;
+	public Transform mesh;
 
 	public HitType.Type CurrentType { get; private set; }
 	public HitType.Type[] Weaknesses => weaknesses;
@@ -56,11 +72,14 @@ public class Enemy : MonoBehaviour
 
 	// Damage taken
 	BlinkingMaterials blinkingMaterials;
+	ParticleSystem damagePS;
 	protected Material blinkingMaterial;
 	protected bool isBlinking = false;
-	protected float blinkingTime = 0.25f;
 	protected float currentBlinkingTime;
 	protected bool gotDamaged = false;
+	protected float _shakeElapsedTime = 0f;
+
+	// Death
 
 	// State Machine
 	EnemyState state;
@@ -104,23 +123,22 @@ public class Enemy : MonoBehaviour
 				skinnedMeshRenderers[i].materials = state ? blinkingMaterials[i] : defaultMaterials[i];
 			}
 		}
-
-		public void ChangeEmissiveIntensity(float percentage)
-		{
-			
-		}
 	}
 
 	void Start()
 	{
 		hitBar = GetComponentInChildren<HitBar>();
 		animator = GetComponentInChildren<Animator>();
+		if (damageParticle != null)
+			damagePS = damageParticle.GetComponent<ParticleSystem>();
 		SetupNavMeshAgent();
 		//SetTypes();
-		hitBar.SetTypes(Weaknesses);
+		hitBar.SetTypes(weaknesses, 0);
 		CurrentType = weaknesses[0];
 		healthMax = weaknesses.Length;
 		health = healthMax;
+
+		debugText.gameObject.SetActive(showState);
 
 		GetMeshRenderersAndMaterials();
 
@@ -145,6 +163,8 @@ public class Enemy : MonoBehaviour
 		HandleStates();
 
 		HandleBlink();
+
+		HandleShake();
 
 		if (animator != null)
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
@@ -189,12 +209,34 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	void HandleShake()
+	{
+		if (_shakeElapsedTime >= 0)
+		{
+			float strength = (_shakeElapsedTime / shakeDuration) * 0.5f;
+			float shakeX = (Mathf.PerlinNoise(Time.time * 20f, 0) - 0.5f) * 2f * strength;
+			float shakeZ = (Mathf.PerlinNoise(0, Time.time * 20f) - 0.5f) * 2f * strength;
+			_shakeElapsedTime -= Time.deltaTime;
+
+			mesh.localPosition = new(shakeX, 0f, shakeZ);
+		}
+		else
+		{
+			mesh.localPosition = Vector3.zero;
+		}
+	}
+
 	bool DetectPlayer()
 	{
+		if (target != null)
+			return true;
 		Collider[] p = new Collider[1];
 		if (Physics.OverlapSphereNonAlloc(transform.position, range, p, playerLayerMask) > 0)
 		{
 			target = p[0].transform;
+
+			if (aggroFeedbackPrefab != null)
+				Instantiate(aggroFeedbackPrefab, aggroTransform.position, Quaternion.identity, transform);
 
 			return true;
 		}
@@ -204,14 +246,25 @@ public class Enemy : MonoBehaviour
 	void SetupNavMeshAgent()
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
-		navMeshAgent.speed = moveSpeed;
+		navMeshAgent.speed = patrolMoveSpeed;
 		navMeshAgent.stoppingDistance = stoppingDistance;
 	}
 
 	public void TakeDamage()
 	{
+		if (state == EnemyState.Death)
+			return;
+
 		health--;
+		if (slashObject != null && slashTransform != null)
+		{
+			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			Destroy(obj, 5f);
+		}
+		if (damagePS != null)
+			damagePS.Play();
 		gotDamaged = true;
+		_shakeElapsedTime = shakeDuration;
 		if (health <= 0)
 		{
 			Kill();
@@ -223,7 +276,8 @@ public class Enemy : MonoBehaviour
 		isBlinking = true;
 
 		CurrentType = Weaknesses[healthMax - health];
-		hitBar.UpdateHitBar(healthMax - health);
+		hitBar.SetTypes(Weaknesses, healthMax - health);
+		hitBar.Shake();
 	}
 
 	public void Kill()
@@ -231,18 +285,9 @@ public class Enemy : MonoBehaviour
 		GameObject obj = Instantiate(Resources.Load<GameObject>("Barks/Bark"), transform.position, Quaternion.identity);
 		obj.GetComponent<BarkObject>().InitBark();
 		//PlayerSouls.Instance.AddSouls(Random.Range(minSouls, maxSouls + 1));
-		Destroy(gameObject);
+		
+		ChangeState(EnemyState.Death);
 	}
-
-	//void SetTypes()
-	//{
-	//	Weaknesses = new HitType.Type[healthMax];
-	//	for (int i = 0; i < healthMax; i++)
-	//	{
-	//		Weaknesses[i] = HitType.GetRandomType();
-	//	}
-	//	hitBar.SetTypes(Weaknesses);
-	//}
 
 	// #####################
 	// #####################
@@ -257,7 +302,8 @@ public class Enemy : MonoBehaviour
 		Patrol,
 		GoToPlayer,
 		Attack,
-		Wait
+		Wait,
+		Death
 	}
 
 	public enum AttackState
@@ -276,9 +322,11 @@ public class Enemy : MonoBehaviour
 		switch (state)
 		{
 			case EnemyState.Patrol:
+				navMeshAgent.speed = patrolMoveSpeed;
 				Patrol();
 				break;
 			case EnemyState.GoToPlayer:
+				navMeshAgent.speed = chargeMoveSpeed;
 				GoToPlayer();
 				break;
 			case EnemyState.Attack:
@@ -287,16 +335,16 @@ public class Enemy : MonoBehaviour
 			case EnemyState.Wait:
 				Wait();
 				break;
+			case EnemyState.Death:
+				Death();
+				break;
 		}
 	}
 
 	void AnyState()
 	{
-		if (target != null && Vector3.Distance(transform.position, target.position) > maxRange)
-		{
-			target = null;
-			ChangeState(EnemyState.Patrol);
-		}
+		if (state == EnemyState.Death)
+			return;
 
 		if (gotDamaged)
 		{
@@ -304,7 +352,38 @@ public class Enemy : MonoBehaviour
 			animator.SetTrigger("CancelAttack");
 			ChangeState(EnemyState.GoToPlayer);
 		}
+
+		if (target != null)
+		{
+			if (Vector3.Distance(transform.position, target.position) > maxRange)
+			{
+				target = null;
+				ChangeState(EnemyState.Patrol);
+			}
+		}
 	}
+
+	void Death()
+	{
+		hitBar.gameObject.SetActive(false);
+		GetComponent<Collider>().enabled = false;
+		animator.SetTrigger("CancelAttack");
+		animator.SetFloat("Speed", 0f);
+		navMeshAgent.isStopped = true;
+
+		if (stateTimer < deathDuration)
+		{
+			Vector3 newPos = transform.position;
+			newPos.y = (stateTimer / deathDuration) * -deathDisplacement;
+			transform.position = newPos;
+			stateTimer += Time.deltaTime;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
+
 
 	void Patrol()
 	{
@@ -325,9 +404,7 @@ public class Enemy : MonoBehaviour
 		{
 			navMeshAgent.SetDestination(patrolDestination);
 			if (DetectPlayer())
-			{
 				ChangeState(EnemyState.GoToPlayer);
-			}
 		}
 	}
 
@@ -337,7 +414,7 @@ public class Enemy : MonoBehaviour
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
-		if (distance <= acquisitionRange)
+		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))
 		{
 			ChangeState(EnemyState.Attack);
 		}
@@ -376,17 +453,18 @@ public class Enemy : MonoBehaviour
 				}
 				if (attackElapsedTime < wait)
 				{
-					blinkingMaterials.ChangeEmissiveIntensity(attackElapsedTime / wait);
 					attackElapsedTime += Time.deltaTime;
 				}
 				break;
 			case var _ when stateTimer >= wait && stateTimer < cast:
 				if (attackState != AttackState.Cast)
 				{
-					blinkingMaterials.ChangeEmissiveIntensity(0f);
 					stateTimer = wait;
+
+					if (preHitFeedbackPrefab != null)
+						Instantiate(preHitFeedbackPrefab, aggroTransform.position, Quaternion.identity, transform);
+
 					debugText.text = "ATTACK_CAST";
-					//Debug.Log("CAST : " + stateTimer);
 					StartCast();
 					attackState = AttackState.Cast;
 				}
@@ -397,8 +475,6 @@ public class Enemy : MonoBehaviour
 				{
 					stateTimer = cast;
 					debugText.text = "ATTACK_HIT";
-					//Debug.Log("Distance : " + Vector3.Distance(transform.position, target.position));
-					//Debug.Log("HIT : " + stateTimer);
 					StartHit();
 					attackState = AttackState.Hit;
 				}
@@ -409,14 +485,12 @@ public class Enemy : MonoBehaviour
 				{
 					stateTimer = hit;
 					debugText.text = "ATTACK_CD";
-					//Debug.Log("COOLDOWN : " + stateTimer);
 					StartCooldown();
 					attackState = AttackState.Cooldown;
 				}
 				UpdateCooldown();
 				break;
 			case var _ when stateTimer >= cooldown:
-				//Debug.Log("END : " + stateTimer);
 				EndAttack();
 				attackState = AttackState.None;
 				break;
@@ -461,6 +535,10 @@ public class Enemy : MonoBehaviour
 
 	// ### COROUTINES ###
 
+	private void OnValidate()
+	{
+		debugText.enabled = showState;
+	}
 
 #if UNITY_EDITOR
 	[CustomEditor(typeof(Enemy), true), CanEditMultipleObjects]

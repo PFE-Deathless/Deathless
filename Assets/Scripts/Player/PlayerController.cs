@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -14,7 +13,7 @@ public class PlayerController : MonoBehaviour
 	public float hitDuration = 0.2f;
 	public float hitCooldownSuccess = 0.5f;
 	public float hitCooldownFail = 2f;
-	public float inputBufferTime = 0.1f;
+	public float inputBufferDuration = 0.1f;
 
 	[Header("Dash")]
 	public float dashDistance = 5f;
@@ -30,9 +29,8 @@ public class PlayerController : MonoBehaviour
 	public int playerDashingLayer;
 
 	[Header("VFX")]
-	public TrailRenderer dashTrail;
-	public ParticleSystem dashCooldownParticle;
 	public ParticleSystem dashParticle;
+	public ParticleSystem hitCooldownParticle;
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
 
@@ -50,6 +48,10 @@ public class PlayerController : MonoBehaviour
 	bool _isHitting;
 	bool _hitSuccess;
 	Color _scytheBaseEmissive;
+
+	// Input buffer
+	float _inputBufferElapsedTime = 0f;
+	HitType.Type _bufferedAttack = HitType.Type.None;
 
 	// ?
 	Rigidbody rb;
@@ -69,8 +71,6 @@ public class PlayerController : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		animator = GetComponentInChildren<Animator>();
-		var ps = dashCooldownParticle.main;
-		ps.startLifetime = dashCooldown + dashDuration;
 		hitCollider = hitColliderObject.GetComponent<HitCollider>();
 		InputsManager.Instance.hit = HitType.Type.None;
 		_dashCharges = dashChargesMax;
@@ -98,9 +98,12 @@ public class PlayerController : MonoBehaviour
 		{
 			// Interact with the nearest possible interactable
 			InputsManager.Instance.interact = false;
-			Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
-			if (t != null)
-				t.GetComponent<IInteractable>().Interact();
+			if (PlayerInteract.Instance.Interactables.Count > 0)
+			{
+				Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
+				if (t != null && t.TryGetComponent(out IInteractable interact))
+					interact.Interact();
+			}
 		}
 	}
 
@@ -136,19 +139,29 @@ public class PlayerController : MonoBehaviour
 	{
 		if (InputsManager.Instance.hit != HitType.Type.None)
 		{
-			if (canHit && !_isHitting)
-			{
-				_isHitting = true;
-				canHit = false;
-				_hitElapsedTime = 0f;
-				hitCollider.SetType(InputsManager.Instance.hit);
-				scytheSlash.SetInt("HitType", (int)InputsManager.Instance.hit);
-				hitColliderObject.SetActive(true);
-				scytheSlash.Play();
-				animator.SetTrigger("Attack");
-				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
-			}
+			_bufferedAttack = InputsManager.Instance.hit;
+			_inputBufferElapsedTime = inputBufferDuration;
+
 			InputsManager.Instance.hit = HitType.Type.None;
+		}
+
+		if (_inputBufferElapsedTime > 0)
+			_inputBufferElapsedTime -= Time.deltaTime;
+		else
+			_bufferedAttack = HitType.Type.None;
+
+		if (_bufferedAttack != HitType.Type.None && canHit && !_isHitting)
+		{
+			_isHitting = true;
+			canHit = false;
+			_hitElapsedTime = 0f;
+			hitCollider.SetType(_bufferedAttack);
+			scytheSlash.SetInt("HitType", (int)_bufferedAttack);
+			hitColliderObject.SetActive(true);
+			scytheSlash.Play();
+			animator.SetTrigger("Attack");
+			scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
+			_bufferedAttack = HitType.Type.None;
 		}
 
 		if (_isHitting)
@@ -160,18 +173,27 @@ public class PlayerController : MonoBehaviour
 				float percentage = (_hitElapsedTime / hitDuration);
 
 				_hitSuccess = hitCollider.HitSucess;
+				//HitDisplay.Instance.SetVignPercentage(1f - percentage);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * (1f - percentage) * 4f);
 			}
 			else if (_hitElapsedTime < cooldownDuration)
 			{
 				float percentage = (_hitElapsedTime - hitDuration) / (cooldownDuration - hitDuration);
 
-				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
+				if (_hitSuccess)
+					HitDisplay.Instance.SetVignPercentage(1f);
+				else
+					HitDisplay.Instance.SetVignPercentage(percentage);
+
+					scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
 			{
+				HitDisplay.Instance.SetVignPercentage(1f);
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
+				if (!_hitSuccess)
+					hitCooldownParticle.Play();
 				_isHitting = false;
 				canHit = true;
 			}
@@ -261,14 +283,12 @@ public class PlayerController : MonoBehaviour
 		}
 
 		//yield return new WaitForSeconds(dashDuration);
-		dashTrail.emitting = false;
 		dashOffset = Vector3.zero;
 		//PlayerHealth.Instance.SetInvicibility(false);
 		gameObject.layer = playerLayer;
 		dashParticle.Stop();
 
 		yield return new WaitForSeconds(dashCooldown);
-		dashTrail.emitting = true;
 		canDash = true;
 	}
 }

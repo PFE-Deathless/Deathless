@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b277867f0e764fd498d4034a92728be7, type: 2}
+  - {fileID: 2100000, guid: 49dc4c291f2b9f34e9df6920309945df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8628758056406207641}
   - component: {fileID: 6250165157045573790}
   - component: {fileID: 5484382488295234798}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Arche01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,8 +139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 5, z: 1}
-  m_Center: {x: -2, y: 2.5, z: 0}
+  m_Size: {x: 2, y: 8, z: 1}
+  m_Center: {x: -2, y: 4, z: 0}
 --- !u!65 &5484382488295234798
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160,5 +160,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 5, z: 1}
-  m_Center: {x: 2, y: 2.5, z: 0}
+  m_Size: {x: 2, y: 8, z: 1}
+  m_Center: {x: 2, y: 4, z: 0}

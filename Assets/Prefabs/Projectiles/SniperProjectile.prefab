@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5879710806469614212}
   - component: {fileID: 9132215565509909392}
+  - component: {fileID: -3361959340241201948}
   m_Layer: 8
   m_Name: SniperProjectile
   m_TagString: Untagged
@@ -55,6 +56,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3361959340241201948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343146433802814093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ceb4d961282ed946a24b6d7d7097f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeSpan: 10
 --- !u!1 &8008682571640550610
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +146,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.15
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -142,7 +156,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2
+        value: 0.12028831
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -251,6 +265,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ef075f74152e0ca42af24c49ff30b5fb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ef075f74152e0ca42af24c49ff30b5fb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6faebf4c21ef2dc459790ed08c1172cd, type: 2}
+    - target: {fileID: -7511558181221131132, guid: ef075f74152e0ca42af24c49ff30b5fb, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6faebf4c21ef2dc459790ed08c1172cd, type: 2}
     - target: {fileID: 919132149155446097, guid: ef075f74152e0ca42af24c49ff30b5fb, type: 3}
       propertyPath: m_Name
       value: 04_DISTANCE_HAND

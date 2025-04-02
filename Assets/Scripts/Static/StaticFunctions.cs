@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public static class StaticFunctions
 	{
 		if (list == null)
 			return null;
+
+		if (list.Count == 1)
+			return list[0];
 
 		float nearestDistance = Mathf.Infinity;
 		float distance;
@@ -30,6 +34,9 @@ public static class StaticFunctions
 	{
 		if (array == null)
 			return null;
+
+		if (array.Length == 1)
+			return array[0];
 
 		float nearestDistance = Mathf.Infinity;
 		float distance;

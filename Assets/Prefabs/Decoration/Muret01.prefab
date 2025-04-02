@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 927dedc020b8e87409ea14445756cbf4, type: 2}
+  - {fileID: 2100000, guid: bcd263a98aa39af40ab43ffc15c6c0aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8004807561303163293}
   - component: {fileID: 5111848913095357854}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Muret01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
