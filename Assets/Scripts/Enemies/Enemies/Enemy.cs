@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
 	[Header("VFX")]
 	public GameObject slashObject;
 	public Transform slashTransform;
+	public Transform aggroTransform;
 	public GameObject damageParticle;
 	public GameObject aggroFeedbackPrefab;
 	public GameObject preHitFeedbackPrefab;
@@ -122,11 +123,6 @@ public class Enemy : MonoBehaviour
 				skinnedMeshRenderers[i].materials = state ? blinkingMaterials[i] : defaultMaterials[i];
 			}
 		}
-
-		public void ChangeEmissiveIntensity(float percentage)
-		{
-			
-		}
 	}
 
 	void Start()
@@ -141,6 +137,8 @@ public class Enemy : MonoBehaviour
 		CurrentType = weaknesses[0];
 		healthMax = weaknesses.Length;
 		health = healthMax;
+
+		debugText.gameObject.SetActive(showState);
 
 		GetMeshRenderersAndMaterials();
 
@@ -238,7 +236,7 @@ public class Enemy : MonoBehaviour
 			target = p[0].transform;
 
 			if (aggroFeedbackPrefab != null)
-				Instantiate(aggroFeedbackPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
+				Instantiate(aggroFeedbackPrefab, aggroTransform.position, Quaternion.identity, transform);
 
 			return true;
 		}
@@ -452,23 +450,21 @@ public class Enemy : MonoBehaviour
 					stateTimer = 0f;
 					debugText.text = "ATTACK_WAIT";
 					attackState = AttackState.Wait;
-
-					if (preHitFeedbackPrefab != null)
-						Instantiate(preHitFeedbackPrefab, transform.position + new Vector3(0f, 4f, 0f), Quaternion.identity, transform);
 				}
 				if (attackElapsedTime < wait)
 				{
-					blinkingMaterials.ChangeEmissiveIntensity(attackElapsedTime / wait);
 					attackElapsedTime += Time.deltaTime;
 				}
 				break;
 			case var _ when stateTimer >= wait && stateTimer < cast:
 				if (attackState != AttackState.Cast)
 				{
-					blinkingMaterials.ChangeEmissiveIntensity(0f);
 					stateTimer = wait;
+
+					if (preHitFeedbackPrefab != null)
+						Instantiate(preHitFeedbackPrefab, aggroTransform.position, Quaternion.identity, transform);
+
 					debugText.text = "ATTACK_CAST";
-					//Debug.Log("CAST : " + stateTimer);
 					StartCast();
 					attackState = AttackState.Cast;
 				}
@@ -479,8 +475,6 @@ public class Enemy : MonoBehaviour
 				{
 					stateTimer = cast;
 					debugText.text = "ATTACK_HIT";
-					//Debug.Log("Distance : " + Vector3.Distance(transform.position, target.position));
-					//Debug.Log("HIT : " + stateTimer);
 					StartHit();
 					attackState = AttackState.Hit;
 				}
@@ -491,14 +485,12 @@ public class Enemy : MonoBehaviour
 				{
 					stateTimer = hit;
 					debugText.text = "ATTACK_CD";
-					//Debug.Log("COOLDOWN : " + stateTimer);
 					StartCooldown();
 					attackState = AttackState.Cooldown;
 				}
 				UpdateCooldown();
 				break;
 			case var _ when stateTimer >= cooldown:
-				//Debug.Log("END : " + stateTimer);
 				EndAttack();
 				attackState = AttackState.None;
 				break;
