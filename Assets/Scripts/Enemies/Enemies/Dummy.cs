@@ -40,7 +40,7 @@ public class Dummy : MonoBehaviour
 		_health--;
 		if (slashObject != null && slashTransform != null)
 		{
-			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			GameObject obj = Instantiate(slashObject, slashTransform.position, Quaternion.LookRotation(transform.position - PlayerController.Instance.transform.position));
 			Destroy(obj, 5f);
 		}
 		if (_health <= 0)
