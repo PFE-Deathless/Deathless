@@ -724,9 +724,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1066836818}
     m_Modifications:
+    - target: {fileID: 3867100829644979424, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: showState
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: weaknesses.Array.size
@@ -829,9 +833,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1066836818}
     m_Modifications:
+    - target: {fileID: 3867100829644979424, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: showState
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: weaknesses.Array.size
@@ -1580,7 +1588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.95
+      value: 11.3
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1588,7 +1596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -61.54
+      value: -13.3
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1636,9 +1644,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1066836818}
     m_Modifications:
+    - target: {fileID: 3867100829644979424, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: showState
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: weaknesses.Array.size
@@ -2043,9 +2055,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1066836818}
     m_Modifications:
+    - target: {fileID: 3867100829644979424, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: showState
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: weaknesses.Array.size
@@ -2153,9 +2169,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1066836818}
     m_Modifications:
+    - target: {fileID: 3867100829644979424, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: showState
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 611d738d73c0ac94f8a8e687e22a2bf2, type: 3}
       propertyPath: weaknesses.Array.size
