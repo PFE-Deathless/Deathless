@@ -21,6 +21,9 @@ public class Dummy : MonoBehaviour
 	public HitType.Type[] Types { get; private set; }
 
 	int _health;
+	bool _died = false;
+
+	public bool Died { get { return _died; } set { _died = value; } }
 
 	HitBar _hitBar;
 
@@ -42,7 +45,7 @@ public class Dummy : MonoBehaviour
 		}
 		if (_health <= 0)
 		{
-			
+			_died = true;
 			StartCoroutine(Respawn());
 			return;
 		}
