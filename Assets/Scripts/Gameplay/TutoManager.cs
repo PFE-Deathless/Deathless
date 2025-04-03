@@ -13,6 +13,8 @@ public class TutoManager : MonoBehaviour
     [Header("Autres objets a désactiver")]
     [SerializeField] GameObject dummy;
     [SerializeField] GameObject porteAOuvrir;
+    [SerializeField] GameObject[] ennemisFin;
+    [SerializeField] GameObject porteDeFin;
 
 
 
@@ -40,6 +42,9 @@ public class TutoManager : MonoBehaviour
         // Quand le dummy il meurt la première fois ça ouvre la suite
         if (dummy.GetComponent<Dummy>().Died == true) DummyDies();
 
+        // Quand le joueur a tué tout les ennemis pour dévérouiller le porte finale
+        if (ennemisFin[0] == null && ennemisFin[1] == null && ennemisFin[2] == null && ennemisFin[3] == null) EndTuto();
+
     }
 
     public void Activate(int _id, bool state)
@@ -58,6 +63,13 @@ public class TutoManager : MonoBehaviour
         porteAOuvrir.SetActive(false);
         infoUI[1].SetActive(false);
 
+    }
+
+    void EndTuto()
+    {
+        porteDeFin.SetActive(false);
+        infoUI[5].SetActive(false);
+        infoUI[6].SetActive(true);
     }
 
 }
