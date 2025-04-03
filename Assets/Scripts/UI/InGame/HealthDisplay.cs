@@ -13,7 +13,7 @@ public class HealthDisplay : MonoBehaviour
 	public Image[] hearts;
 
 	[Header("Vignette")]
-	[SerializeField] RawImage[] hitVignetteImages;
+	[SerializeField] Image[] hitVignetteImages;
 	[SerializeField] float fadeSpeed = 2f;
 
 
@@ -70,7 +70,7 @@ public class HealthDisplay : MonoBehaviour
 
 	public void SetVignettePercentage(float percentage)
 	{
-		foreach(RawImage vignette in hitVignetteImages)
+		foreach(Image vignette in hitVignetteImages)
 		{
 			Vector3 scale = new(1f, percentage, 1f);
 			vignette.transform.localScale = scale;
