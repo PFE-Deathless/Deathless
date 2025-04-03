@@ -116,5 +116,8 @@ MonoBehaviour:
   fadeInDuration: 0.2
   fadeOutDuration: 0.2
   loadingScreenDuration: 0.5
+  mainMenuScenePath: Assets/Scenes/Menu/TitleScreen.unity
+  menuScenePaths:
+  - Assets/Scenes/Menu/TitleScreen.unity
   projectileParent: {fileID: 162474035659303666}
   controller: 0
