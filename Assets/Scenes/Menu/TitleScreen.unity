@@ -540,7 +540,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Assets/Scenes/Levels/OldLevels/HUB.unity
+          m_StringArgument: Assets/Scenes/Levels/HUB.unity
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &390472656
@@ -1782,8 +1782,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169a4940b9eaf8b4f95e7aabd844c45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPath: Assets/Scenes/Levels/GAME_SCENE.unity
-  fadeDuration: 0.2
   canvaActive: {fileID: 1725838627}
   canvaDeactivate: {fileID: 1830656591}
 --- !u!1 &1858278202

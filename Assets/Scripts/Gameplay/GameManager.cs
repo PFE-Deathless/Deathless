@@ -143,7 +143,6 @@ public class GameManager : MonoBehaviour
 
 		// Check if the new level is a menu or not
 		bool isMenu = IsMenu(scenePath);
-		Debug.Log("Is menu ? : " + isMenu);
 
 		// Load loading screen scene
 		SceneManager.LoadSceneAsync(loadingScreenScenePath, LoadSceneMode.Additive);
