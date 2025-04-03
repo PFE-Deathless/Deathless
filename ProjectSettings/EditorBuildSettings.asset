@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/TitleScreen.unity
     guid: 4c479e028c29d6348bf5cadc03a6681c
   - enabled: 0
-    path: Assets/Scenes/Levels/OldLevels/HUB.unity
+    path: Assets/Scenes/Levels/HUB.unity
     guid: f4fe556fe61b4f24dbd460b5760db8d5
   - enabled: 0
     path: Assets/Scenes/Levels/OldLevels/DonjonMediatheque.unity
