@@ -8,15 +8,14 @@ public class RememberLastButton : MonoBehaviour
 
 	private void Reset()
 	{
-		eventSystem = FindObjectOfType<EventSystem>();
-        lastSelectedElement = eventSystem.firstSelectedGameObject;
+		lastSelectedElement = eventSystem.firstSelectedGameObject;
 		
 	}
 
 	void Update()
 	{
 		if (eventSystem.currentSelectedGameObject &&
-            lastSelectedElement != eventSystem.currentSelectedGameObject)
+			lastSelectedElement != eventSystem.currentSelectedGameObject)
 			lastSelectedElement = eventSystem.currentSelectedGameObject;
 
 		if (!eventSystem.currentSelectedGameObject && lastSelectedElement)
