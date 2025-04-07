@@ -349,15 +349,13 @@ MonoBehaviour:
   blinkingTime: 0.25
   shakeDuration: 0.3
   deathDuration: 1
-  deathDisplacement: 1
+  deathDisplacement: 3
   waitingTime: 2
   stoppingDistance: 0.1
   patrolPoints:
-  - {x: 222.97923, y: 0, z: 145.94785}
-  - {x: 200.53198, y: 0, z: 171.52286}
-  - {x: 209.97899, y: 0, z: 147.82184}
-  - {x: 196.2765, y: 0, z: 160.04742}
-  - {x: 214.59927, y: 0, z: 160.4305}
+  - {x: 220.08621, y: 0, z: 148.73775}
+  - {x: 204.18825, y: 0, z: 169.18877}
+  - {x: 216.59259, y: 0, z: 160.51328}
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 8793929234922687775}
   aggroTransform: {fileID: 7128961381971432287}
@@ -664,6 +662,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1319798904737368513, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e660fba6cfeea8d4894f0ccf65ec56a7, type: 2}
     - target: {fileID: 919132149155446097, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
       propertyPath: m_Name
       value: 02_PERSONNAGE_SBIRE_MESH
@@ -891,10 +893,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa201b770f46acc45bddf9a7ff25a7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRange: 3
+  minRange: 0
   maxRange: 15
-  shootFrequency: 0.4
-  time: 1.5
+  shootFrequency: 0.7
+  time: 1
   height: 10
   origin: {fileID: 6580639035488121583}
   canon: {fileID: 0}

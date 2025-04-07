@@ -27673,7 +27673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.45
+      value: 187
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27681,7 +27681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.71
+      value: 146.1
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30129,6 +30129,10 @@ PrefabInstance:
     - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
       propertyPath: attackWaitTime
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: deathDisplacement
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
       propertyPath: patrolPoints.Array.size
