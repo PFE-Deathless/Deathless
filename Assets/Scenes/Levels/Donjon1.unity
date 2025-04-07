@@ -30138,6 +30138,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 932646176}
     m_Modifications:
     - target: {fileID: 27612291432865186, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 27612291432865186, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
       propertyPath: canon
       value: 
       objectReference: {fileID: 1879960934}
