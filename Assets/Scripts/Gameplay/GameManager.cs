@@ -13,10 +13,14 @@ public class GameManager : MonoBehaviour
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
 
 	[Header("Scene Transition")]
-	[SerializeField] string loadingScreenScenePath;
+	[SerializeField] string loadingScreenScenePath = "Assets/Scenes/LoadingScreen.unity";
 	[SerializeField] float fadeInDuration = 0.5f;
 	[SerializeField] float fadeOutDuration = 0.5f;
 	[SerializeField] float loadingScreenDuration = 1f;
+
+	[Header("Menu Scene")]
+	[SerializeField] string mainMenuScenePath;
+	[SerializeField] string[] menuScenePaths;
 
 	[Header("Projectiles")]
 	[SerializeField, Tooltip("Transform the projectiles will be attached to")] Transform projectileParent;
@@ -42,19 +46,49 @@ public class GameManager : MonoBehaviour
 		}
 		else
 			Destroy(gameObject);
+	}
 
+	private void Start()
+	{
 		HitType.SetController(controller);
 		EnemyBarks.InitBarks();
-		SpawnTeleportPlayer();
+
+		if (!IsMenu(SceneManager.GetActiveScene().path))
+		{
+			SpawnTeleportPlayer();
+		}
 	}
 
 	private void Update()
 	{
-		if (InputsManager.Instance.reloadScene)
+		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
 		{
 			InputsManager.Instance.reloadScene = false;
 			ReloadLevel();
 		}
+
+		if (InputsManager.Instance != null && InputsManager.Instance.mainMenu)
+		{
+			InputsManager.Instance.mainMenu = false;
+			LoadLevel(mainMenuScenePath);
+		}
+	}
+
+	bool IsMenu(string path)
+	{
+		if (menuScenePaths.Length == 0)
+			return false;
+
+		int i = 0;
+
+		while (i < menuScenePaths.Length)
+		{
+			if (menuScenePaths[i] == path)
+				return true;
+			i++;
+		}
+
+		return false;
 	}
 
 	void SpawnTeleportPlayer()
@@ -64,6 +98,13 @@ public class GameManager : MonoBehaviour
 		//	playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
 
 		Transform beginPlayTransform = GameObject.FindWithTag("BeginPlay").transform;
+
+		if (beginPlayTransform == null)
+		{
+			Debug.LogWarning("No Begin Play in the Scene ! ");
+			return;
+		}
+
 		if (PlayerController.Instance == null)
 		{
 			// If player doesnt exist, we spawn him
@@ -100,6 +141,9 @@ public class GameManager : MonoBehaviour
 	{
 		_loadingLevel = true;
 
+		// Check if the new level is a menu or not
+		bool isMenu = IsMenu(scenePath);
+
 		// Load loading screen scene
 		SceneManager.LoadSceneAsync(loadingScreenScenePath, LoadSceneMode.Additive);
 		Scene loadingScreenScene = SceneManager.GetSceneAt(SceneManager.loadedSceneCount);
@@ -109,7 +153,8 @@ public class GameManager : MonoBehaviour
 			yield return null;
 
 		// Block player inputs
-		InputsManager.Instance.EnableInput(false);
+		if (InputsManager.Instance != null && !isMenu)
+			InputsManager.Instance.EnableInput(false);
 
 		// Start fade in
 		LoadingScreen.Instance.SetTiming(fadeInDuration, fadeOutDuration);
@@ -157,11 +202,19 @@ public class GameManager : MonoBehaviour
 		SceneManager.SetActiveScene(newLevel);
 		//Debug.Log("New Level : " + newLevel.path);
 
-		// Spawn/Teleport player, reset his dash charges and fully heal him
-		SpawnTeleportPlayer();
-		yield return null;
-		PlayerController.Instance.ResetDashCharges();
-		PlayerHealth.Instance.Heal();
+		// Spawn/Teleport player, reset his dash charges and fully heal him, if the scene isn't a menu
+		if (!isMenu)
+		{
+			SpawnTeleportPlayer();
+			yield return null;
+			PlayerController.Instance.ResetDashCharges();
+			PlayerHealth.Instance.Heal();
+		}
+		else // Otherwise we destroy the player object
+		{
+			DestroyPlayer();
+			yield return null;
+		}
 
 		// Wait for the load screen to do its things uh
 		yield return new WaitForSeconds(loadingScreenDuration);
@@ -178,7 +231,8 @@ public class GameManager : MonoBehaviour
 
 		// Wait a bit and activate player inputs back
 		yield return new WaitForSeconds(0.2f);
-		InputsManager.Instance.EnableInput(true);
+		if (!isMenu)
+			InputsManager.Instance.EnableInput(true);
 
 		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 

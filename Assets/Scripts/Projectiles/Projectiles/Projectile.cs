@@ -3,6 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 	public float lifeSpan = 10f;
+	[SerializeField] bool destroyOnImpact = true;
 
 	void Start()
 	{
@@ -15,6 +16,7 @@ public class Projectile : MonoBehaviour
 		{
 			PlayerHealth.Instance.TakeDamage(1);
 		}
-		Destroy(gameObject, 0.02f);
+		if (destroyOnImpact)
+			Destroy(gameObject, 0.02f);
 	}
 }

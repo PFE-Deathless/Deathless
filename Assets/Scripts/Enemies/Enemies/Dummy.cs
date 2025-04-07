@@ -21,6 +21,9 @@ public class Dummy : MonoBehaviour
 	public HitType.Type[] Types { get; private set; }
 
 	int _health;
+	bool _died = false;
+
+	public bool Died { get { return _died; } set { _died = value; } }
 
 	HitBar _hitBar;
 
@@ -37,12 +40,12 @@ public class Dummy : MonoBehaviour
 		_health--;
 		if (slashObject != null && slashTransform != null)
 		{
-			GameObject obj = Instantiate(slashObject, slashTransform.position, PlayerController.Instance.transform.rotation);
+			GameObject obj = Instantiate(slashObject, slashTransform.position, Quaternion.LookRotation(transform.position - PlayerController.Instance.transform.position));
 			Destroy(obj, 5f);
 		}
 		if (_health <= 0)
 		{
-			
+			_died = true;
 			StartCoroutine(Respawn());
 			return;
 		}

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbefb6b80a0a2d48bc66390a974fb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMax: 3
+  healthMax: 15
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 9029844530921490313}
   animator: {fileID: 1070587931147706213}
