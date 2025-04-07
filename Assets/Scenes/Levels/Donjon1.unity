@@ -30130,6 +30130,42 @@ PrefabInstance:
       propertyPath: attackWaitTime
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[0].x
+      value: 220.08621
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[0].z
+      value: 148.73775
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[1].x
+      value: 204.18825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[1].z
+      value: 169.18877
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[2].x
+      value: 216.59259
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[2].z
+      value: 160.51328
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[3].x
+      value: 203.37506
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: patrolPoints.Array.data[3].z
+      value: 161.1021
+      objectReference: {fileID: 0}
     - target: {fileID: 6939404660023884105, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.24
