@@ -3261,8 +3261,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' symbole  <voffset=9> <size=45><sprite=21><space=-15></voffset></size>au
-    dessus de l''ennemi.'
+  m_text: ' symbole  <voffset=9> <size=45><sprite=21><space=-15></voffset></size>au-dessus
+    de l''ennemi.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6111,7 +6111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Bien jou\xE9 ! Vous pouvez d\xE9sormais explorer le monde des \xE2mes."
+  m_text: "Bien jou\xE9 ! Vous pouvez d\xE9sormais explorer le Monde des \xC2mes."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6138,8 +6138,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7431,8 +7431,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Utilisez <voffset=8><size= 35> <sprite=15> <sprite=10> <sprite=11> <sprite=6></size></voffset>pour
-    effectuer une ru\xE9e vous propulsant dans vers l'avant."
+  m_text: "Utilisez <voffset=8><size= 25> <sprite=4> <sprite=8> </size><size=30><sprite=15>
+    <sprite=11></size></voffset>pour effectuer une ru\xE9e vous propulsant vers l'avant."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9704,8 +9704,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mais attention, les adversairs que vous affronterez ne resterons pas a
-    attendre le jugement dernier.
+  m_text: "Mais attention, les adversaires que vous affrontez ne restent pas \xE0
+    attendre le jugement dernier."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13852,8 +13852,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Le monde des \xE2mes est parsem\xE9 d'entit\xE9s \xE9mettant des projectiles.
-    Essayez de les \xE9viter !"
+  m_text: "Le Monde des \xC2mes est corrompu et parsem\xE9 de pi\xE8ges, \xE9vitez
+    leurs attaques!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
