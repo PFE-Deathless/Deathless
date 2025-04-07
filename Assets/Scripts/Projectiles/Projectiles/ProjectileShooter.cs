@@ -21,7 +21,11 @@ public class ProjectileShooter : MonoBehaviour
 		if (origin == null)
 			origin = transform;
 		GameObject obj = Instantiate(projectile.gameObject, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
-		obj.AddComponent<Rigidbody>();
+		Rigidbody rb = obj.AddComponent<Rigidbody>();
+		rb.useGravity = false;
+		rb.constraints = RigidbodyConstraints.FreezeRotation;
+		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+		rb.interpolation = RigidbodyInterpolation.Interpolate;
 		ProjectileMovement p = obj.AddComponent<ProjectileMovement>();
 		p.Setup(projectile);
 
