@@ -21454,7 +21454,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 0.6415094, g: 0.3594441, b: 0.20274118, a: 1}
+  m_Color: {r: 0.745283, g: 0.57308346, b: 0.46052867, a: 1}
   m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
@@ -27709,15 +27709,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.06
+      value: -7.45
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000009536743
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.63
+      value: 8.71
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30142,10 +30142,26 @@ PrefabInstance:
       propertyPath: canon
       value: 
       objectReference: {fileID: 1879960934}
+    - target: {fileID: 27612291432865186, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: minRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27612291432865186, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: shootFrequency
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 3012820640490851391, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: e660fba6cfeea8d4894f0ccf65ec56a7, type: 2}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: attackCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855585691885731899, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
+      propertyPath: attackWaitTime
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6939404660023884105, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.24
@@ -37711,7 +37727,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
