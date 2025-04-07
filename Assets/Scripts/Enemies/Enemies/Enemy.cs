@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 	public float attackCastTime = 0.1f;
 	public float attackDuration = 0.5f;
 	public float attackCooldown = 1f;
+	public float attackKnockbackForce = 0f;
 
 	[Header("Damage")]
 	[SerializeField] protected float blinkingTime = 0.25f;

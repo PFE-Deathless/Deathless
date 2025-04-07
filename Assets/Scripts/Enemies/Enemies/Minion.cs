@@ -7,7 +7,7 @@ public class Minion : Enemy
 	// Called at the Start() of the enemy
 	protected override void EnemyStart()
 	{
-
+		hitCollider.GetComponent<EnemyHitCollider>().knockbackForce = attackKnockbackForce;
 	}
 
 	// Called once when the enemy is casting its attack

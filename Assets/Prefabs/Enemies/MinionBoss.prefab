@@ -346,6 +346,7 @@ MonoBehaviour:
   attackCastTime: 0.46
   attackDuration: 0.1
   attackCooldown: 3
+  attackKnockbackForce: 150
   blinkingTime: 0.25
   shakeDuration: 0.3
   deathDuration: 1
@@ -461,6 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be735c741d3237f4fbbb40682461bc64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackForce: 0
 --- !u!23 &4960916469420895448
 MeshRenderer:
   m_ObjectHideFlags: 0

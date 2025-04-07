@@ -234,6 +234,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void Knockback(Vector3 force)
+	{
+		rb.AddForce(force, ForceMode.Impulse);
+	}
+
 	public void Teleport(Vector3 teleportPosition, Vector3 teleportRotation)
 	{
 		rb.Move(teleportPosition, Quaternion.Euler(teleportRotation));
