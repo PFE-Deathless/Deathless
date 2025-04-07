@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Activator : MonoBehaviour, IInteractable
 {
-	public GameObject activable;
+	public Door activable;
 	public TextMeshPro tmp;
 	//private bool inBox = false;
 	private bool canInteract = true;
@@ -19,7 +19,7 @@ public class Activator : MonoBehaviour, IInteractable
 	{
 		if (canInteract)
 		{
-			activable.SetActive(false);
+			activable.Activate();
 
 			// feedback
 			levier.transform.localRotation = Quaternion.Euler(0f, 0f, 30f);

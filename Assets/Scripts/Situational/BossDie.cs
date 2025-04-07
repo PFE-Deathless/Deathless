@@ -6,7 +6,7 @@ public class BossDie : MonoBehaviour
 
     void Update()
     {
-        if(boss == null) gameObject.SetActive(false);
+        if (boss == null) gameObject.GetComponentInChildren<Door>().Activate();
         
     }
 }
