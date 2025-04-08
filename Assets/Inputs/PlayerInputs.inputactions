@@ -280,7 +280,7 @@
                 {
                     "name": "",
                     "id": "c119801e-c706-4e9b-9b8a-7a4c11f668f8",
-                    "path": "<Keyboard>/f1",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -307,28 +307,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0b0d30db-38bc-4a74-aaa7-1916582abc48",
-                    "path": "<Gamepad>/select",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MainMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3f0af2b5-cbd0-47be-8b32-5bdfb7342922",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MainMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
