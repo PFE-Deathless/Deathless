@@ -64,7 +64,7 @@ public class ProjectileMovement : MonoBehaviour
 				p.TakeDamage(projectile.damage);
 			CreateEffect();
 			if (projectile.destroyOnContact)
-				Destroy(gameObject);      
+				Destroy(gameObject);
 		}
 	}
 

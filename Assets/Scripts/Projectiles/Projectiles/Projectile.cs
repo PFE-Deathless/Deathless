@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-	public float lifeSpan = 10f;
+	[SerializeField] float lifeSpan = 10f;
 	[SerializeField] bool destroyOnImpact = true;
 
 	void Start()

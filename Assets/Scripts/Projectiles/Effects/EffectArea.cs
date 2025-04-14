@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
 
 public class EffectArea : MonoBehaviour
 {
@@ -13,15 +12,15 @@ public class EffectArea : MonoBehaviour
 		this.effect = effect;
 		this.effect.gameObject.transform.localScale = Vector3.one * this.effect.radius * 2f;
 		started = true;
-    }
+	}
 
-    private void Update()
-    {
-        if (started)
-            PerformEffect();
-    }
+	private void Update()
+	{
+		if (started)
+			PerformEffect();
+	}
 
-    public void PerformEffect()
+	public void PerformEffect()
 	{
 		elapsedTime += Time.deltaTime;
 		if (elapsedTime > effect.duration)
