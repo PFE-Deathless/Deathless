@@ -12,22 +12,21 @@ public class Canon : MonoBehaviour
 	[Header("Technical")]
 	[SerializeField] GameObject projectile;
 	[SerializeField] Transform origin;
+	[SerializeField, Range(0f, 1f)] float shootAnimationPercentage = 0.5f;
 
 	// Private properties
 	Animator _animator; // 0.5s délai
 	float _elapsedTime = 0f;
 	float _elapsedTimeDelay = 0f;
-	float _animationDelay;
 	float _delay;
-	bool _animStarted = false;
 	bool _started = false;
+	bool _shot;
 
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
 		_delay = 1f / frequency;
 		_animator.SetFloat("AnimSpeed", frequency);
-		_animationDelay = _delay / 2f;
 
 		if (origin == null)
 			origin = transform;
@@ -48,19 +47,19 @@ public class Canon : MonoBehaviour
 
 	protected void PerformShoot()
 	{
-		_elapsedTime += Time.fixedDeltaTime;
-
-		if (!_animStarted && _delay - _elapsedTime < _animationDelay)
+		if (_elapsedTime < _delay)
 		{
-			//Debug.Log("paf");
-			_animator.SetTrigger("Shoot");
-			_animStarted = true;
+			if (_elapsedTime / _delay > shootAnimationPercentage && !_shot)
+			{
+				Shoot();
+				_shot = true;
+			}
+			_elapsedTime += Time.fixedDeltaTime;
 		}
-
-		if (_elapsedTime >= _delay)
+		else
 		{
-			Shoot();
-			_animStarted = false;
+			_animator.SetTrigger("Shoot");
+			_shot = false;
 			_elapsedTime = 0f;
 		}
 	}
