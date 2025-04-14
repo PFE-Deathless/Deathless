@@ -3,29 +3,32 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - GameManager
+  - UIPlayer
+  - BeginPlay
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - PlayerDashing
   - Enemy
+  - Projectile
+  - Effect
+  - Interactable
+  - Dummy
+  - HitCollider
+  - TransparentWallCollider
+  - PlayerHealth
+  - EnemyHitCollider
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Shooter
+  - Ground
   - 
   - 
   - 

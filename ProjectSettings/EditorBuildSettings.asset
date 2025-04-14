@@ -6,8 +6,41 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Menu/TitleScreen.unity
+    guid: 4c479e028c29d6348bf5cadc03a6681c
+  - enabled: 1
+    path: Assets/Scenes/LoadingScreen.unity
+    guid: 67147a00af1abd74a833ccdf5d329a57
+  - enabled: 1
+    path: Assets/Scenes/Levels/HUB.unity
+    guid: f4fe556fe61b4f24dbd460b5760db8d5
+  - enabled: 1
+    path: Assets/Scenes/Levels/LD_Tuto.unity
+    guid: a8507ba23547f5440a6852b20b38718a
+  - enabled: 1
+    path: Assets/Scenes/Levels/CarrefourDesTest.unity
+    guid: a9bf009bb7d551f458d963ffd1ce346e
+  - enabled: 1
+    path: Assets/Scenes/Levels/Donjon1.unity
+    guid: e328c6e1c22357a4f94ab7fd9305a4d6
+  - enabled: 0
+    path: Assets/Scenes/Levels/OldLevels/DonjonMediatheque.unity
+    guid: 320dd342d239dac40ab062914acca498
+  - enabled: 0
+    path: Assets/Scenes/Levels/OldLevels/TutoMax.unity
+    guid: fa7aae493ee42b14d9bdfb78182076c9
+  - enabled: 0
+    path: Assets/Scenes/Levels/OldLevels/tuto.unity
+    guid: c50520b7d188f054e91e1cf574f4421c
+  - enabled: 0
+    path: Assets/Scenes/Levels/OldLevels/DonjonMediathequeV2.unity
+    guid: 7cbbdec4b69b2a244bfaa3167e817f8d
+  - enabled: 0
+    path: Assets/Scenes/Gyms/MaxGym.unity
+    guid: 8612e44bbd141fc41b647c3d81eb8746
+  - enabled: 0
+    path: Assets/Scenes/Gyms/MaxGym_1.unity
+    guid: 1e24c83b32533834bb1cb290c8272954
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
