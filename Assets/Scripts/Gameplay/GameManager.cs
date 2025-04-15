@@ -52,7 +52,9 @@ public class GameManager : MonoBehaviour
 	{
 		HitType.SetController(controller);
 		EnemyBarks.InitBarks();
+#if !UNITY_EDITOR
 		Cursor.visible = false;
+#endif
 
 		if (!IsMenu(SceneManager.GetActiveScene().path))
 		{
