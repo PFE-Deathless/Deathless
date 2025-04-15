@@ -3,7 +3,11 @@ using UnityEngine;
 public class Sniper : Enemy
 {
 	[Header("Projectile")]
-	public ProjectileShooter shooter;
+	[SerializeField] Transform projectileOrigin;
+	[SerializeField] GameObject projectilePrefab;
+	[SerializeField] float projectileSpeed;
+	[SerializeField] float projectileLifespan;
+	[SerializeField] bool projectileDestroyOnImpact = true;
 
 	protected override void StartCast()
 	{
@@ -23,6 +27,8 @@ public class Sniper : Enemy
 
 	protected override void StartHit()
 	{
-		shooter.ShootProjectile();
+		GameObject obj = Instantiate(projectilePrefab, projectileOrigin.position, projectileOrigin.rotation, GameManager.Instance.ProjectileParent);
+		obj.GetComponent<Projectile>().Setup(projectileLifespan, projectileDestroyOnImpact);
+		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
 	}
 }

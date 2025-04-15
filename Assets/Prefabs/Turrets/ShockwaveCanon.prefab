@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2699399794361277893}
-  - component: {fileID: 9143959452543504444}
-  - component: {fileID: 8467609075332092503}
+  - component: {fileID: 3648649493403905380}
   m_Layer: 19
   m_Name: ShockwaveCanon
   m_TagString: Untagged
@@ -27,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 679437318997302745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.38, y: 0, z: -0.46}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35,7 +34,7 @@ Transform:
   - {fileID: 2846599756429448943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9143959452543504444
+--- !u!114 &3648649493403905380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,24 +43,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 679437318997302745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4272551657d50ef4c8e4435ad461bf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 11400000, guid: 6f344294ccd85e94abe8f43eb0c8451b, type: 2}
+  startDelay: 0
+  projectileSpeed: 8
+  projectileLifeSpan: 10
+  destroyOnImpact: 0
+  projectilesPerBurst: 1
+  delayBetweenBursts: 0
+  delayBetweenProjectiles: 4
+  projectile: {fileID: 3183832701736721295, guid: 2990b950644bd0142a6da04ea38dd43e, type: 3}
   origin: {fileID: 2846599756429448943}
---- !u!114 &8467609075332092503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679437318997302745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90d16174cce090f42a3fd8e4e4cbcfea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootFrequency: 0.5
+  shootAnimationPercentage: 0.5
 --- !u!1 &2601734724106438083
 GameObject:
   m_ObjectHideFlags: 0
