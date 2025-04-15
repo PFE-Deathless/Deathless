@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2699399794361277893}
-  - component: {fileID: 118099374945648485}
+  - component: {fileID: 3648649493403905380}
   m_Layer: 19
   m_Name: ShockwaveCanon
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 2846599756429448943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &118099374945648485
+--- !u!114 &3648649493403905380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,16 +43,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 679437318997302745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fa4aa4197d2c5646a4429b9b404d153, type: 3}
+  m_Script: {fileID: 11500000, guid: 4272551657d50ef4c8e4435ad461bf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 1
   startDelay: 0
   projectileSpeed: 8
   projectileLifeSpan: 10
   destroyOnImpact: 0
+  projectilesPerBurst: 1
+  delayBetweenBursts: 0
+  delayBetweenProjectiles: 4
   projectile: {fileID: 3183832701736721295, guid: 2990b950644bd0142a6da04ea38dd43e, type: 3}
   origin: {fileID: 2846599756429448943}
+  shootAnimationPercentage: 0.5
 --- !u!1 &2601734724106438083
 GameObject:
   m_ObjectHideFlags: 0

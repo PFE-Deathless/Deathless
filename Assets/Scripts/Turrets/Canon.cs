@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
-	[Header("Statistics")]
-	[SerializeField] float frequency = 1f;
-	[SerializeField] float startDelay;
-	[SerializeField] float projectileSpeed = 10f;
-	[SerializeField] float projectileLifeSpan = 10f;
-	[SerializeField] bool destroyOnImpact = true;
+	[Header("Properties")]
+	[SerializeField, Tooltip("Delay before the turret starts to shoot")] float startDelay;
+	[SerializeField, Tooltip("Speed of the projectile shot")] float projectileSpeed = 10f;
+	[SerializeField, Tooltip("Life SPan of the projectile, it will be destroyed after this time")] float projectileLifeSpan = 10f;
+	[SerializeField, Tooltip("If the projectile should be destroyed if it touches something")] bool destroyOnImpact = true;
+
+	[Header("Bursts")]
+	[SerializeField, Tooltip("Number of projectiles in a burst")] int projectilesPerBurst = 1;
+	[SerializeField, Tooltip("Delay between bursts")] float delayBetweenBursts = 0f;
+	[SerializeField, Tooltip("Delay between projectile in a burst")] float delayBetweenProjectiles = 0.5f;
 
 	[Header("Technical")]
 	[SerializeField] GameObject projectile;
@@ -16,17 +20,20 @@ public class Canon : MonoBehaviour
 
 	// Private properties
 	Animator _animator; // 0.5s délai
-	float _elapsedTime = 0f;
 	float _elapsedTimeDelay = 0f;
-	float _delay;
 	bool _started = false;
 	bool _shot;
+	int _projectilesInBurst;
+	float _burstDelayElapsedTime;
+	float _projectileDelayElapsedTime;
 
 	private void Start()
 	{
 		_animator = GetComponentInChildren<Animator>();
-		_delay = 1f / frequency;
-		_animator.SetFloat("AnimSpeed", frequency);
+		if (_animator != null)
+			_animator.SetFloat("AnimSpeed", 1f / delayBetweenProjectiles);
+
+		_projectileDelayElapsedTime = delayBetweenProjectiles;
 
 		if (origin == null)
 			origin = transform;
@@ -47,26 +54,42 @@ public class Canon : MonoBehaviour
 
 	protected void PerformShoot()
 	{
-		if (_elapsedTime < _delay)
+		if (_projectilesInBurst < projectilesPerBurst)
 		{
-			if (_elapsedTime / _delay > shootAnimationPercentage && !_shot)
+			if (_projectileDelayElapsedTime < delayBetweenProjectiles)
+			{
+				if (_projectileDelayElapsedTime / delayBetweenProjectiles > shootAnimationPercentage && !_shot)
+				{
+					if (_animator != null)
+						_animator.SetTrigger("Shoot");
+					_shot = true;
+				}
+				_projectileDelayElapsedTime += Time.fixedDeltaTime;
+			}
+			else
 			{
 				Shoot();
-				_shot = true;
+				_shot = false;
+				_projectilesInBurst++;
+				_projectileDelayElapsedTime = 0f;
 			}
-			_elapsedTime += Time.fixedDeltaTime;
 		}
 		else
 		{
-			_animator.SetTrigger("Shoot");
-			_shot = false;
-			_elapsedTime = 0f;
+			if (_burstDelayElapsedTime < delayBetweenBursts)
+			{
+				_burstDelayElapsedTime += Time.fixedDeltaTime;
+			}
+			else
+			{
+				_projectilesInBurst = 0;
+				_burstDelayElapsedTime = 0f;
+			}
 		}
 	}
 
 	public void Shoot()
 	{
-		//_animator.SetTrigger("Shoot");
 		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
 		obj.GetComponent<Projectile>().Setup(projectileLifeSpan, destroyOnImpact);
 		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
