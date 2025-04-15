@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_Montagne
-    second: {fileID: 2100000, guid: 6d41e1a1ef411e44ebd08e1123bd2899, type: 2}
+    second: {fileID: 2100000, guid: b6c0004d7e858c5439c37d508e218d22, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
