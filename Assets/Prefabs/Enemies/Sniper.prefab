@@ -607,7 +607,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6939404660023884105}
   - component: {fileID: 5842491140895441070}
-  - component: {fileID: 7787006898736549601}
   - component: {fileID: 1733333720193289446}
   - component: {fileID: 4988177596130427342}
   m_Layer: 7
@@ -661,6 +660,7 @@ MonoBehaviour:
   attackCastTime: 0.75
   attackDuration: 0.1
   attackCooldown: 2.3
+  attackKnockbackForce: 0
   blinkingTime: 0.25
   shakeDuration: 0.3
   deathDuration: 1
@@ -682,23 +682,11 @@ MonoBehaviour:
     m_Bits: 72
   debugText: {fileID: 3867100829644979424}
   mesh: {fileID: 150502497124725794}
-  shooter: {fileID: 7787006898736549601}
---- !u!114 &7787006898736549601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7650490890228544690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2074882cc13264ebe353c49ba0c79c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  projectile: {fileID: 11400000, guid: 922e8fe5d38b8a4418fc4a3861befd7e, type: 2}
-  origin: {fileID: 5281720512270914494}
-  target: {fileID: 0}
+  projectileOrigin: {fileID: 5281720512270914494}
+  projectilePrefab: {fileID: 3767511356344545613, guid: 5e9a16f6fda316540876d0c462b67d37, type: 3}
+  projectileSpeed: 15
+  projectileLifespan: 10
+  projectileDestroyOnImpact: 1
 --- !u!195 &1733333720193289446
 NavMeshAgent:
   m_ObjectHideFlags: 0

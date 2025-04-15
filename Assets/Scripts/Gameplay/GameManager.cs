@@ -25,9 +25,6 @@ public class GameManager : MonoBehaviour
 	[Header("Projectiles")]
 	[SerializeField, Tooltip("Transform the projectiles will be attached to")] Transform projectileParent;
 
-	[Header("Controller type")]
-	[SerializeField] HitType.Controller controller;
-
 	public Transform ProjectileParent => projectileParent;
 
 
@@ -50,9 +47,9 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		HitType.SetController(controller);
-		EnemyBarks.InitBarks();
+#if !UNITY_EDITOR
 		Cursor.visible = false;
+#endif
 
 		if (!IsMenu(SceneManager.GetActiveScene().path))
 		{
