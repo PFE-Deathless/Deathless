@@ -4,6 +4,7 @@ using UnityEngine;
 public class Activator : MonoBehaviour, IInteractable
 {
 	public Door activable;
+	public InteractableType interactableType = InteractableType.Both;
 	public TextMeshPro tmp;
 	//private bool inBox = false;
 	private bool canInteract = true;
@@ -15,9 +16,9 @@ public class Activator : MonoBehaviour, IInteractable
 		tmp.enabled = false;
 	}
 
-	public void Interact()
+	public void Interact(InteractableType type)
 	{
-		if (canInteract)
+		if (canInteract && (interactableType == type || interactableType == InteractableType.Both))
 		{
 			activable.Activate();
 
