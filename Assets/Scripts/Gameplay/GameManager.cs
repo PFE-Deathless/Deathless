@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
 	[Header("Save/Load player data")]
 	[SerializeField] string saveFileName = "data.sav";
 
+	[Header("Tomb System")]
+	[SerializeField] string tombTSVFileName = "Texte_Tombes";
+
 	[Header("Scene Transition")]
 	[SerializeField] string loadingScreenScenePath = "Assets/Scenes/LoadingScreen.unity";
 	[SerializeField] float fadeInDuration = 0.5f;
@@ -30,11 +33,18 @@ public class GameManager : MonoBehaviour
 	[SerializeField, Tooltip("Transform the projectiles will be attached to")] Transform projectileParent;
 
 	// Public Properties
-	public PlayerData playerData = new();
+	public PlayerData playerData;
 
-	// Private properties
+	// ### Private properties ###
+	// Level Loading
 	bool _loadingLevel = false;
+
+	// Save/Load system
 	string _savePath;
+
+	// Tomb system
+	string[] _epitaphs;
+	string[] _memories;
 
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
@@ -58,6 +68,11 @@ public class GameManager : MonoBehaviour
 #endif
 
 		_savePath = Path.Combine(Application.persistentDataPath, saveFileName);
+
+		LoadData();
+		//playerData = new(); // To change to load correct data on game start
+
+		LoadTombText();
 
 		if (!IsMenu(SceneManager.GetActiveScene().path))
 		{
@@ -94,6 +109,8 @@ public class GameManager : MonoBehaviour
 	{
 		switch (dungeon)
 		{
+			case Dungeon.None:
+				return true;
 			case Dungeon.Dungeon1:
 				return playerData.dungeon1;
 			case Dungeon.Dungeon2:
@@ -109,6 +126,47 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	#region TOMB_SYSTEM
+
+	void LoadTombText()
+	{
+		string path = Path.Combine("Tomb", tombTSVFileName);
+
+		TextAsset temp = Resources.Load<TextAsset>(path);
+		string[] tempArr = temp.text.Split("\r\n");
+
+		_epitaphs = new string[tempArr.Length - 1];
+		_memories = new string[tempArr.Length - 1];
+
+		for (int i = 0; i < tempArr.Length - 1; i++)
+		{
+			string t = tempArr[i + 1];
+
+			_epitaphs[i] = t.Split("\t")[1];
+			_memories[i] = t.Split("\t")[2];
+		}
+	}
+
+	public string GetTombEpitah(uint id)
+	{
+		if (id > _epitaphs.Length)
+			return "ERROR : Epitaph ID out of range !";
+		if (id == 0)
+			return "DEFAULT_EPITAPH_TEXT";
+		return _epitaphs[id - 1];
+	}
+
+	public string GetTombMemory(uint id)
+	{
+		if (id > _memories.Length)
+			return "ERROR : Memory ID out of range !";
+		if (id == 0)
+			return "DEFAULT_MEMORY_TEXT";
+		return _memories[id - 1];
+	}
+
+	#endregion
+
 	#region SAVE_PLAYER_DATA
 
 	public void SaveData()
@@ -120,9 +178,15 @@ public class GameManager : MonoBehaviour
 
 	public void LoadData()
 	{
+		if (!File.Exists(_savePath))
+		{
+			playerData = new();
+			return;
+		}
+
 		string json = File.ReadAllText(_savePath);
 		playerData = JsonUtility.FromJson<PlayerData>(json);
-		Debug.Log("Game Loaded from : " + _savePath);
+		Debug.Log("Game Loaded from : " + _savePath + " !");
 	}
 
 	#endregion
@@ -306,6 +370,7 @@ public class GameManager : MonoBehaviour
 
 public enum Dungeon
 {
+	None,
 	Dungeon1,
 	Dungeon2,
 	Dungeon3,
