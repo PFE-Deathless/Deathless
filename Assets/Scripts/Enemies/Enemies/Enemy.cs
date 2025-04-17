@@ -234,6 +234,9 @@ public class Enemy : MonoBehaviour
 		Collider[] p = new Collider[1];
 		if (Physics.OverlapSphereNonAlloc(transform.position, range, p, playerLayerMask) > 0)
 		{
+			if (NavMesh.Raycast(transform.position, p[0].transform.position, out NavMeshHit hit, NavMesh.AllAreas))
+				return false;
+
 			target = p[0].transform;
 
 			if (aggroFeedbackPrefab != null)
