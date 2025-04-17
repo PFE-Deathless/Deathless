@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,12 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject userInterfacePrefab;
 	[SerializeField] GameObject cameraPrefab;
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
+
+	[Header("Save/Load player data")]
+	[SerializeField] string saveFileName = "data.sav";
+
+	[Header("Tomb System")]
+	[SerializeField] string tombTSVFileName = "Texte_Tombes";
 
 	[Header("Scene Transition")]
 	[SerializeField] string loadingScreenScenePath = "Assets/Scenes/LoadingScreen.unity";
@@ -25,14 +32,23 @@ public class GameManager : MonoBehaviour
 	[Header("Projectiles")]
 	[SerializeField, Tooltip("Transform the projectiles will be attached to")] Transform projectileParent;
 
-	public Transform ProjectileParent => projectileParent;
+	// Public Properties
+	public PlayerData playerData;
 
-
-	// Private properties
+	// ### Private properties ###
+	// Level Loading
 	bool _loadingLevel = false;
+
+	// Save/Load system
+	string _savePath;
+
+	// Tomb system
+	string[] _epitaphs;
+	string[] _memories;
 
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
+	public Transform ProjectileParent => projectileParent;
 
 	private void Awake()
 	{
@@ -51,6 +67,13 @@ public class GameManager : MonoBehaviour
 		Cursor.visible = false;
 #endif
 
+		_savePath = Path.Combine(Application.persistentDataPath, saveFileName);
+
+		LoadData();
+		//playerData = new(); // To change to load correct data on game start
+
+		LoadTombText();
+
 		if (!IsMenu(SceneManager.GetActiveScene().path))
 		{
 			SpawnTeleportPlayer();
@@ -59,6 +82,16 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Y))
+		{
+			SaveData();
+		}
+
+		if (Input.GetKeyDown(KeyCode.U))
+		{
+			LoadData();
+		}
+
 		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
 		{
 			InputsManager.Instance.reloadScene = false;
@@ -71,6 +104,94 @@ public class GameManager : MonoBehaviour
 			LoadLevel(mainMenuScenePath);
 		}
 	}
+
+	public bool IsUnlocked(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return true;
+			case Dungeon.Dungeon1:
+				return playerData.dungeon1;
+			case Dungeon.Dungeon2:
+				return playerData.dungeon2;
+			case Dungeon.Dungeon3:
+				return playerData.dungeon3;
+			case Dungeon.Dungeon4:
+				return playerData.dungeon4;
+			case Dungeon.Dungeon5:
+				return playerData.dungeon5;
+			default:
+				return false;
+		}
+	}
+
+	#region TOMB_SYSTEM
+
+	void LoadTombText()
+	{
+		string path = Path.Combine("Tomb", tombTSVFileName);
+
+		TextAsset temp = Resources.Load<TextAsset>(path);
+		string[] tempArr = temp.text.Split("\r\n");
+
+		_epitaphs = new string[tempArr.Length - 1];
+		_memories = new string[tempArr.Length - 1];
+
+		for (int i = 0; i < tempArr.Length - 1; i++)
+		{
+			string t = tempArr[i + 1];
+
+			_epitaphs[i] = t.Split("\t")[1];
+			_memories[i] = t.Split("\t")[2];
+		}
+	}
+
+	public string GetTombEpitah(uint id)
+	{
+		if (id > _epitaphs.Length)
+			return "ERROR : Epitaph ID out of range !";
+		if (id == 0)
+			return "DEFAULT_EPITAPH_TEXT";
+		return _epitaphs[id - 1];
+	}
+
+	public string GetTombMemory(uint id)
+	{
+		if (id > _memories.Length)
+			return "ERROR : Memory ID out of range !";
+		if (id == 0)
+			return "DEFAULT_MEMORY_TEXT";
+		return _memories[id - 1];
+	}
+
+	#endregion
+
+	#region SAVE_PLAYER_DATA
+
+	public void SaveData()
+	{
+		string json = JsonUtility.ToJson(playerData, true);
+		File.WriteAllText(_savePath, json);
+		Debug.Log("Game Saved at : " + _savePath);
+	}
+
+	public void LoadData()
+	{
+		if (!File.Exists(_savePath))
+		{
+			playerData = new();
+			return;
+		}
+
+		string json = File.ReadAllText(_savePath);
+		playerData = JsonUtility.FromJson<PlayerData>(json);
+		Debug.Log("Game Loaded from : " + _savePath + " !");
+	}
+
+	#endregion
+
+	#region LEVEL_MANAGER
 
 	bool IsMenu(string path)
 	{
@@ -243,4 +364,26 @@ public class GameManager : MonoBehaviour
 
 		_loadingLevel = false;
 	}
+
+	#endregion
+}
+
+public enum Dungeon
+{
+	None,
+	Dungeon1,
+	Dungeon2,
+	Dungeon3,
+	Dungeon4,
+	Dungeon5,
+}
+
+public class PlayerData
+{
+	public bool dungeon1 = false;
+	public bool dungeon2 = false;
+	public bool dungeon3 = false;
+	public bool dungeon4 = false;
+	public bool dungeon5 = false;
+	public bool tuto = false;
 }

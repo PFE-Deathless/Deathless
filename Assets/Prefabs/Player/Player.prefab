@@ -10196,6 +10196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b407e48539331ae43b945111a1d2acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactObjectPrefab: {fileID: 2317120428064906363, guid: 48ee15783d40c0a48a4b3ec058050dd0, type: 3}
 --- !u!64 &6935471443238791510
 MeshCollider:
   m_ObjectHideFlags: 0

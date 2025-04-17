@@ -98,12 +98,7 @@ public class PlayerController : MonoBehaviour
 		{
 			// Interact with the nearest possible interactable
 			InputsManager.Instance.interact = false;
-			if (PlayerInteract.Instance.Interactables.Count > 0)
-			{
-				Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
-				if (t != null && t.TryGetComponent(out IInteractable interact))
-					interact.Interact();
-			}
+			PlayerInteract.Instance.Interact();
 		}
 	}
 
@@ -185,7 +180,7 @@ public class PlayerController : MonoBehaviour
 				else
 					HitDisplay.Instance.SetVignPercentage(percentage);
 
-					scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
+				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
