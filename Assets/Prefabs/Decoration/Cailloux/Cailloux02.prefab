@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 4242780886305094347}
   - component: {fileID: 2193389096489102209}
   - component: {fileID: 3402432621656700734}
-  - component: {fileID: 3548953013819702304}
+  - component: {fileID: 7657798135276880087}
+  - component: {fileID: 718120036002162116}
+  - component: {fileID: 162951810198095261}
   m_Layer: 18
   m_Name: Cailloux02
   m_TagString: Untagged
@@ -87,8 +89,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3548953013819702304
-BoxCollider:
+--- !u!135 &7657798135276880087
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,5 +108,47 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.89097357, y: 0.5322739, z: 0.4125694}
+  m_Radius: 0.24
   m_Center: {x: -0.017389894, y: 0.25940818, z: 0.01515159}
+--- !u!135 &718120036002162116
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636529497810418013}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.18
+  m_Center: {x: -0.32, y: 0.21, z: 0}
+--- !u!135 &162951810198095261
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636529497810418013}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.12
+  m_Center: {x: 0.3, y: 0.15, z: 0}
