@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3210482994714187342}
   - component: {fileID: 2032010169962272264}
   - component: {fileID: 806484638225510351}
-  - component: {fileID: 3565332817427023164}
+  - component: {fileID: 8771076787495974804}
+  - component: {fileID: 525778152914942256}
   m_Layer: 18
   m_Name: Montagne02
   m_TagString: Untagged
@@ -87,8 +88,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3565332817427023164
-BoxCollider:
+--- !u!135 &8771076787495974804
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,5 +107,26 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8.347394, y: 10.458508, z: 8.751746}
-  m_Center: {x: 0, y: 5.30886, z: 0.00000047683716}
+  m_Radius: 4.2
+  m_Center: {x: -0.11, y: 0.78, z: -0.27}
+--- !u!135 &525778152914942256
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6826184093416284596}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.83
+  m_Center: {x: 1.52, y: 0.78, z: 1.4}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6345922506037846091}
   - component: {fileID: 307705339283626928}
   - component: {fileID: 7082523031485874582}
-  - component: {fileID: 4180729971541338859}
+  - component: {fileID: 6946386603177159503}
   m_Layer: 18
   m_Name: Montagne01
   m_TagString: Untagged
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4180729971541338859
-BoxCollider:
+--- !u!136 &6946386603177159503
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,6 +105,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.002026, y: 6.1384163, z: 5.68853}
-  m_Center: {x: 0, y: 3.1847167, z: -0.00000011920929}
+  serializedVersion: 2
+  m_Radius: 2.11
+  m_Height: 5.76
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.49, z: 0}
