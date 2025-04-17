@@ -22336,7 +22336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 640011538171591284, guid: 701b760d702afe7449ecd48d02f689f0, type: 3}
       propertyPath: delayBetweenProjectiles
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3683261498517363350, guid: 701b760d702afe7449ecd48d02f689f0, type: 3}
       propertyPath: m_LocalScale.x
@@ -24837,7 +24837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 640011538171591284, guid: 701b760d702afe7449ecd48d02f689f0, type: 3}
       propertyPath: delayBetweenProjectiles
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3683261498517363350, guid: 701b760d702afe7449ecd48d02f689f0, type: 3}
       propertyPath: m_LocalScale.x
