@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class AudioManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.T))
 		{
-			PlayOneShot(test);
+			PlayOneShot(test, 0.03f);
 			MixerGroup m = MixerGroup.Master;
 			Debug.Log("test :\n" + m.ToString() + "Volume");
 		}
@@ -61,12 +60,18 @@ public class AudioManager : MonoBehaviour
 		globalAudioSource.PlayOneShot(entry.audioClip);
 	}
 
+	public void PlayOneShot(AudioEntry entry, float randomPitchDelta)
+	{
+		SetGlobalAudioSourceParams(entry);
+		globalAudioSource.pitch = entry.pitch + Random.Range(-randomPitchDelta, randomPitchDelta);
+		globalAudioSource.PlayOneShot(entry.audioClip);
+	}
+
 	public enum MixerGroup
 	{
 		Master,
 		Music,
 		SFX,
 		Interface,
-		Ambience
 	}
 }

@@ -10323,6 +10323,8 @@ MonoBehaviour:
   hitCooldownParticle: {fileID: 2288487816673272808}
   scytheSlash: {fileID: 8582181535093292171}
   scytheRenderer: {fileID: 4083552963227293055}
+  audioScytheSlash: {fileID: 11400000, guid: b24aba21b6528504bb31f024458b844e, type: 2}
+  audioDash: {fileID: 11400000, guid: 0677b2e1742c1ff449916a508ebe519a, type: 2}
 --- !u!114 &345143593785962827
 MonoBehaviour:
   m_ObjectHideFlags: 0

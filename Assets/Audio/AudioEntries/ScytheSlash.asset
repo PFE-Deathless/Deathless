@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67a23923bcade2e4da3b347e7c9ecad1, type: 3}
-  m_Name: Test
+  m_Name: ScytheSlash
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: d4d196f2a32c1f94b8d03c5a25340921, type: 3}
   group: {fileID: -5351241934542893398, guid: bc0258342d28b9e4c8dc0ba5a9c8cc6b, type: 2}
-  volume: 1
-  pitch: 1
+  volume: 0.3
+  pitch: 0.7
   bypassEffects: 0
   bypassListenerEffects: 0
   loop: 0
