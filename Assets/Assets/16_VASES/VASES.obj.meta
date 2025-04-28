@@ -7,8 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: VASESMat
-    second: {fileID: 2100000, guid: 468cb5122b888734685675f4e788ff7d, type: 2}
+      name: VASE_01Mat
+    second: {fileID: 2100000, guid: bbd3ebfdd070e4e478a657453c4eab76, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VASE_02Mat
+    second: {fileID: 2100000, guid: c2f2a9137c66e694f8192dbd03f424f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VASE_03Mat
+    second: {fileID: 2100000, guid: f75d5e0ba4b448b4a894fdf2026ce87e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VASE_04Mat
+    second: {fileID: 2100000, guid: 7fee493111b362f42ae4735e51e54a16, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,7 +53,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -93,7 +108,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
