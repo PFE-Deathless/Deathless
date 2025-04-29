@@ -59,13 +59,18 @@ public class GameManager : MonoBehaviour
 		}
 		else
 			Destroy(gameObject);
+
+		Debug.developerConsoleEnabled = true;
+		Debug.developerConsoleVisible = true;
 	}
 
 	private void Start()
 	{
 #if !UNITY_EDITOR
-		Cursor.visible = false;
+		//Cursor.visible = false;
 #endif
+		Debug.developerConsoleEnabled = true;
+		Debug.developerConsoleVisible = true;
 
 		_savePath = Path.Combine(Application.persistentDataPath, saveFileName);
 
@@ -85,6 +90,12 @@ public class GameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Y))
 		{
 			SaveData();
+		}
+
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			Debug.LogError("X !");
+			Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
 		}
 
 		if (Input.GetKeyDown(KeyCode.U))
@@ -216,7 +227,13 @@ public class GameManager : MonoBehaviour
 		//while (playerStartPosition == null)
 		//	playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
 
-		Transform beginPlayTransform = GameObject.FindWithTag("BeginPlay").transform;
+		GameObject beginPlayObj;
+		do
+		{
+			beginPlayObj = GameObject.FindWithTag("BeginPlay");
+		} while (beginPlayObj == null);
+
+		Transform beginPlayTransform = beginPlayObj.transform;
 
 		if (beginPlayTransform == null)
 		{
@@ -269,7 +286,10 @@ public class GameManager : MonoBehaviour
 
 		// Wait until the loading screen scene to be loaded
 		while (LoadingScreen.Instance == null)
+		{
+			Debug.Log("Waiting for loading screen");
 			yield return null;
+		}
 
 		// Block player inputs
 		if (InputsManager.Instance != null && !isMenu)
@@ -291,7 +311,10 @@ public class GameManager : MonoBehaviour
 
 		// Wait for the fade in to finish
 		while (LoadingScreen.Instance.IsFadingIn)
+		{
+			Debug.Log("Waiting for fade in");
 			yield return null;
+		}
 
 		// Unload previous level
 		SceneManager.UnloadSceneAsync(oldLevel);
@@ -343,7 +366,10 @@ public class GameManager : MonoBehaviour
 
 		// Wait for the fade out to finish
 		while (LoadingScreen.Instance.IsFadingOut)
+		{
+			Debug.Log("Waiting for fade out");
 			yield return null;
+		}
 
 		// Unload loading screen level
 		SceneManager.UnloadSceneAsync(loadingScreenScene);
