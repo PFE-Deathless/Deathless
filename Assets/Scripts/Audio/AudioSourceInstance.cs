@@ -9,5 +9,8 @@ public class AudioSourceInstance : MonoBehaviour
 		_audioSource = GetComponent<AudioSource>();
 	}
 
+	public void PlayAudio(AudioEntry entry)
+	{
 
+	}
 }
