@@ -282,10 +282,6 @@ public class GameManager : MonoBehaviour
 		// Get current scene
 		Scene oldLevel = SceneManager.GetActiveScene();
 
-		// Destroy all existing projectiles
-		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
-			Destroy(projectileParent.transform.GetChild(i).gameObject);
-
 		//Debug.Log("Scene : " + loadingScreenScene.path);
 		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 
@@ -296,6 +292,10 @@ public class GameManager : MonoBehaviour
 		// Unload previous level
 		SceneManager.UnloadSceneAsync(oldLevel);
 		yield return new WaitForSeconds(0.1f);
+
+		// Destroy all existing projectiles
+		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
+			Destroy(projectileParent.transform.GetChild(i).gameObject);
 
 		// Start loading the new level
 		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
