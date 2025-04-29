@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 60cbcac3ec19cbf4093b4751ff1172ca, type: 3}
-  group: {fileID: -5351241934542893398, guid: bc0258342d28b9e4c8dc0ba5a9c8cc6b, type: 2}
+  group: 1
   volume: 1
   pitch: 1
   bypassEffects: 0

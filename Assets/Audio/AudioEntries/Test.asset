@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a23923bcade2e4da3b347e7c9ecad1, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: d4d196f2a32c1f94b8d03c5a25340921, type: 3}
-  group: {fileID: -5351241934542893398, guid: bc0258342d28b9e4c8dc0ba5a9c8cc6b, type: 2}
+  audioClip: {fileID: 8300000, guid: b8adc9321834f374faea1d89e3ef1fe4, type: 3}
+  group: 1
   volume: 1
   pitch: 1
+  randomPitchDelta: 0.2
   bypassEffects: 0
   bypassListenerEffects: 0
   loop: 0

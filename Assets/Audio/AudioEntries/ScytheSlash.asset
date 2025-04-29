@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScytheSlash
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: d4d196f2a32c1f94b8d03c5a25340921, type: 3}
-  group: {fileID: -5351241934542893398, guid: bc0258342d28b9e4c8dc0ba5a9c8cc6b, type: 2}
+  group: 1
   volume: 0.3
   pitch: 0.7
   bypassEffects: 0
