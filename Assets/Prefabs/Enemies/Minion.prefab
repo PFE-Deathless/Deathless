@@ -346,6 +346,7 @@ MonoBehaviour:
   attackCastTime: 0.46
   attackDuration: 0.1
   attackCooldown: 2
+  attackKnockbackForce: 0
   blinkingTime: 0.25
   shakeDuration: 0.3
   deathDuration: 1
@@ -360,6 +361,9 @@ MonoBehaviour:
   damageParticle: {fileID: 5468568597703221516}
   aggroFeedbackPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
   preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
+  audioHit: {fileID: 11400000, guid: 7db62c7741e679d4b8bf2e8a61f74dcd, type: 2}
+  audioDamage: {fileID: 11400000, guid: 3f67e6e0f10ba3c4e8962d171c2d58b3, type: 2}
+  audioDeath: {fileID: 11400000, guid: 82032d01009c6e344b34761af6546555, type: 2}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:
@@ -459,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be735c741d3237f4fbbb40682461bc64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackForce: 0
 --- !u!23 &4960916469420895448
 MeshRenderer:
   m_ObjectHideFlags: 0

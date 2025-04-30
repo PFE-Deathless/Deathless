@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class AudioManager : MonoBehaviour
 {
 	public static AudioManager Instance { get; private set; }
 
 	[Header("Properties")]
+	[SerializeField] private float maxPlayerDistance = 30f;
 	[SerializeField, Range(1, 100)] private int minimumPooledSFXSource = 10;
 	[SerializeField, Range(1, 100)] private int minimumPooledInterfaceSource = 3;
 	[SerializeField, Range(1, 100)] private int minimumPooledMusicSource = 1;
@@ -29,12 +31,12 @@ public class AudioManager : MonoBehaviour
 	private Transform _sourceInstanceParent;
 
 	// Active
-	private List<AudioSourceInstance> _activePoolSFX = new();
+	[SerializeField] private List<AudioSourceInstance> _activePoolSFX = new();
 	private List<AudioSourceInstance> _activePoolInterface = new();
 	private List<AudioSourceInstance> _activePoolMusic = new();
-	
+
 	// Inactive
-	private List<AudioSourceInstance> _inactivePoolSFX = new();
+	[SerializeField] private List<AudioSourceInstance> _inactivePoolSFX = new();
 	private List<AudioSourceInstance> _inactivePoolInterface = new();
 	private List<AudioSourceInstance> _inactivePoolMusic = new();
 
@@ -152,16 +154,19 @@ public class AudioManager : MonoBehaviour
 				return;
 			case MixerGroup.SFX:
 				asi.gameObject.SetActive(false);
+				asi.gameObject.transform.parent = _sourceInstanceParent;
 				_inactivePoolSFX.Add(asi);
 				_activePoolSFX.Remove(asi);
 				return;
 			case MixerGroup.Interface:
 				asi.gameObject.SetActive(false);
+				asi.gameObject.transform.parent = _sourceInstanceParent;
 				_inactivePoolInterface.Add(asi);
 				_activePoolInterface.Remove(asi);
 				return;
 			case MixerGroup.Music:
 				asi.gameObject.SetActive(false);
+				asi.gameObject.transform.parent = _sourceInstanceParent;
 				_inactivePoolMusic.Add(asi);
 				_activePoolMusic.Remove(asi);
 				return;
@@ -175,8 +180,56 @@ public class AudioManager : MonoBehaviour
 		Play(entry, Vector3.zero);
 	}
 
+	public void Play(AudioEntry entry, Transform parent)
+	{
+		if (Vector3.Distance(PlayerController.Instance.transform.position, parent.position) > maxPlayerDistance)
+			return;
+
+		AudioSourceInstance asi;
+
+		switch (entry.group)
+		{
+			case MixerGroup.Master:
+				Debug.LogWarning("You cannot play audio directly on the master");
+				return;
+			case MixerGroup.SFX:
+				if (_inactivePoolSFX.Count == 0)
+					AddSourceInstance(MixerGroup.SFX);
+				asi = _inactivePoolSFX[0];
+				_inactivePoolSFX.Remove(asi);
+				_activePoolSFX.Add(asi);
+				asi.gameObject.SetActive(true);
+				asi.gameObject.transform.parent = parent;
+				asi.PlayAudio(entry, parent.position);
+				return;
+			case MixerGroup.Interface:
+				if (_inactivePoolInterface.Count == 0)
+					AddSourceInstance(MixerGroup.Interface);
+				asi = _inactivePoolInterface[0];
+				_inactivePoolInterface.Remove(asi);
+				_activePoolInterface.Add(asi);
+				asi.gameObject.SetActive(true);
+				asi.gameObject.transform.parent = parent;
+				asi.PlayAudio(entry, parent.position);
+				return;
+			case MixerGroup.Music:
+				if (_inactivePoolMusic.Count == 0)
+					AddSourceInstance(MixerGroup.Music);
+				asi = _inactivePoolMusic[0];
+				_inactivePoolMusic.Remove(asi);
+				_activePoolMusic.Add(asi);
+				asi.gameObject.SetActive(true);
+				asi.gameObject.transform.parent = parent;
+				asi.PlayAudio(entry, parent.position);
+				return;
+		}
+	}
+
 	public void Play(AudioEntry entry, Vector3 position)
 	{
+		if (Vector3.Distance(PlayerController.Instance.transform.position, position) > maxPlayerDistance)
+			return;
+
 		AudioSourceInstance asi;
 
 		switch (entry.group)
@@ -214,34 +267,9 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-
-
-
-	void SetGlobalAudioSourceParams(AudioEntry entry)
-	{
-		globalAudioSource.pitch = entry.pitch;
-		globalAudioSource.volume = entry.volume;
-		globalAudioSource.bypassEffects = entry.bypassEffects;
-		globalAudioSource.bypassEffects = entry.bypassListenerEffects;
-		globalAudioSource.loop = entry.loop;
-	}
-
 	public void SetVolume(MixerGroup group, float volume)
 	{
 		audioMixer.SetFloat(group.ToString() + "Volume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
-	}
-
-	public void PlayOneShot(AudioEntry entry)
-	{
-		SetGlobalAudioSourceParams(entry);
-		globalAudioSource.PlayOneShot(entry.audioClip);
-	}
-
-	public void PlayOneShot(AudioEntry entry, float randomPitchDelta)
-	{
-		SetGlobalAudioSourceParams(entry);
-		globalAudioSource.pitch = entry.pitch + Random.Range(-randomPitchDelta, randomPitchDelta);
-		globalAudioSource.PlayOneShot(entry.audioClip);
 	}
 
 	public enum MixerGroup

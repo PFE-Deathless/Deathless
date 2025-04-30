@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 			scytheSlash.SetInt("HitType", (int)_bufferedAttack);
 			hitColliderObject.SetActive(true);
 			scytheSlash.Play();
-			AudioManager.Instance.PlayOneShot(audioScytheSlash, 0.05f);
+			AudioManager.Instance.Play(audioScytheSlash, transform);
 			animator.SetTrigger("Attack");
 			scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
 			_bufferedAttack = HitType.Type.None;
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
 		gameObject.layer = playerDashingLayer;
 		dashParticle.Play();
 
-		AudioManager.Instance.PlayOneShot(audioDash);
+		AudioManager.Instance.Play(audioDash, transform);
 
 		while (elapsedTime < dashDuration)
 		{

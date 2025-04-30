@@ -45,6 +45,11 @@ public class Enemy : MonoBehaviour
 	public GameObject aggroFeedbackPrefab;
 	public GameObject preHitFeedbackPrefab;
 
+	[Header("SFX")]
+	[SerializeField] AudioEntry audioHit;
+	[SerializeField] AudioEntry audioDamage;
+	[SerializeField] AudioEntry audioDeath;
+
 	[Header("Technical")]
 	public bool showState;
 	public bool showPathToTarget;
@@ -267,10 +272,13 @@ public class Enemy : MonoBehaviour
 		}
 		if (damagePS != null)
 			damagePS.Play();
+		AudioManager.Instance.Play(audioDamage, transform);
 		gotDamaged = true;
 		_shakeElapsedTime = shakeDuration;
 		if (health <= 0)
 		{
+			AudioManager.Instance.Play(audioDeath, transform.position);
+			Debug.Log("Death !");
 			Kill();
 			return;
 		}
@@ -412,6 +420,12 @@ public class Enemy : MonoBehaviour
 	{
 		debugText.text = "GO_TO_PLAYER";
 
+		if (target == null)
+		{
+			ChangeState(EnemyState.Patrol);
+			return;
+		}
+
 		float distance = Vector3.Distance(transform.position, target.position);
 
 		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))
@@ -475,6 +489,9 @@ public class Enemy : MonoBehaviour
 				{
 					stateTimer = cast;
 					debugText.text = "ATTACK_HIT";
+
+					AudioManager.Instance.Play(audioHit, transform);
+
 					StartHit();
 					attackState = AttackState.Hit;
 				}

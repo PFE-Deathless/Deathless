@@ -77,12 +77,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4272551657d50ef4c8e4435ad461bf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 1
   startDelay: 0
   projectileSpeed: 10
-  animationDelay: 0.17
+  projectileLifeSpan: 10
+  destroyOnImpact: 1
+  projectilesPerBurst: 1
+  delayBetweenBursts: 0
+  delayBetweenProjectiles: 0.5
+  audioShoot: {fileID: 11400000, guid: 8d75960b04c44f544802c52d65751f99, type: 2}
   projectile: {fileID: 5507243440735149530, guid: 02b3b6bd0eecb1a49ab03dab5beb550d, type: 3}
   origin: {fileID: 607712371254964801}
+  shootAnimationPercentage: 0.5
 --- !u!1001 &3716923775975206978
 PrefabInstance:
   m_ObjectHideFlags: 0

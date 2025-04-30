@@ -4,10 +4,8 @@ using UnityEngine;
 public class AudioSourceInstance : MonoBehaviour
 {
 	private AudioSource _audioSource;
-	private bool _isActive;
 	private AudioManager.MixerGroup _mixerGroup;
 
-	public bool IsActive => _isActive;
 	public AudioManager.MixerGroup MixerGroup => _mixerGroup;
 
 	private void Awake()
@@ -51,7 +49,7 @@ public class AudioSourceInstance : MonoBehaviour
 	IEnumerator ReturnToPool(float delay)
 	{
 		yield return new WaitForSeconds(delay);
-		yield return null; // Wait an ewtra frame to avoid clicks
+		yield return null; // Wait an extra frame to avoid clicks
 
 		AudioManager.Instance.ReturnASIToPool(this);
 	}
