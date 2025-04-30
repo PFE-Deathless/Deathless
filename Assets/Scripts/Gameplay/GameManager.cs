@@ -230,6 +230,12 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Game Loaded from : " + _savePath + " !");
 	}
 
+	public void ResetData()
+	{
+		playerData = new();
+		SaveData();
+	}
+
 	#endregion
 
 	#region LEVEL_MANAGER
