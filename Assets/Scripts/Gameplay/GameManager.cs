@@ -105,12 +105,16 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	#region DUNGEON_SYSTEM
+
 	public bool IsUnlocked(Dungeon dungeon)
 	{
 		switch (dungeon)
 		{
 			case Dungeon.None:
 				return true;
+			case Dungeon.Tutorial:
+				return playerData.tutorial;
 			case Dungeon.Dungeon1:
 				return playerData.dungeon1;
 			case Dungeon.Dungeon2:
@@ -125,6 +129,43 @@ public class GameManager : MonoBehaviour
 				return false;
 		}
 	}
+
+	public void UnlockDungeon(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return;
+			case Dungeon.Tutorial:
+				playerData.tutorial = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon1:
+				playerData.dungeon1 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon2:
+				playerData.dungeon2 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon3:
+				playerData.dungeon3 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon4:
+				playerData.dungeon4 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon5:
+				playerData.dungeon5 = true;
+				SaveData();
+				return;
+			default:
+				return;
+		}
+	}
+
+	#endregion
 
 	#region TOMB_SYSTEM
 
@@ -371,6 +412,7 @@ public class GameManager : MonoBehaviour
 public enum Dungeon
 {
 	None,
+	Tutorial,
 	Dungeon1,
 	Dungeon2,
 	Dungeon3,
@@ -385,5 +427,5 @@ public class PlayerData
 	public bool dungeon3 = false;
 	public bool dungeon4 = false;
 	public bool dungeon5 = false;
-	public bool tuto = false;
+	public bool tutorial = false;
 }
