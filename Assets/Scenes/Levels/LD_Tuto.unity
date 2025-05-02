@@ -8028,7 +8028,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Avant de quitter un donjon r\xE9colter son \xE2me pour progresser dans
+  m_text: "Avant de quitter un donjon r\xE9coltez son \xE2me pour progresser dans
     votre qu\xEAte ! "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
