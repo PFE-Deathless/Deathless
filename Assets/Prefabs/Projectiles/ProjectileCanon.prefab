@@ -234,6 +234,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8057087591936831072, guid: 53b05e0400aea804db75c4222070a04e, type: 3}
+      propertyPath: lifeSpan
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1952979964041454959, guid: 53b05e0400aea804db75c4222070a04e, type: 3}
       propertyPath: m_Name
       value: ProjectileCanon

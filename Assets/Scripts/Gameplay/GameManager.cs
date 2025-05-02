@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		HitType.SetController(controller);
-		EnemyBarks.InitBarks();
-		Cursor.visible = false;
+		//EnemyBarks.InitBarks();
+		//Cursor.visible = false;
 
 		if (!IsMenu(SceneManager.GetActiveScene().path))
 		{

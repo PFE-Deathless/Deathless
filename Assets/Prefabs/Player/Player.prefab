@@ -10282,7 +10282,7 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 0.1
   dashChargesMax: 2
-  dashChargesCooldown: 5
+  dashChargesCooldown: 1.5
   dashCurve:
     serializedVersion: 2
     m_Curve:
