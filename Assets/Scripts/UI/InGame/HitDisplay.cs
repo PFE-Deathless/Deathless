@@ -17,7 +17,7 @@ public class HitDisplay : MonoBehaviour
 
 	public void SetVignPercentage(float percentage)
 	{
-		foreach (Image vign in hitVigns)
-			vign.fillAmount = percentage;
+		//foreach (Image vign in hitVigns)
+		//	vign.fillAmount = percentage;
 	}
 }
