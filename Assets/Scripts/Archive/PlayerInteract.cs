@@ -49,8 +49,19 @@ public class PlayerInteract : MonoBehaviour
 		_interactObject.SetActive(true);
 
 		Transform nearest = StaticFunctions.GetNearest(interactables, transform.position);
-		if (nearest != null && nearest.TryGetComponent(out IInteractable interact))
-			_nearest = interact;
+
+		if (nearest == null)
+		{
+			_interactObject.SetActive(false);
+			return;
+		}
+		else
+		{
+			if (nearest.TryGetComponent(out IInteractable interact))
+				_nearest = interact;
+			else
+				return;
+		}
 
 		_interactObject.transform.position = nearest.position;
 	}
