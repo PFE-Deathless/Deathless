@@ -175,7 +175,10 @@ public class Enemy : MonoBehaviour
 		HandleShake();
 
 		if (animator != null)
+		{
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
+			animator.SetFloat("AnimationSpeed", navMeshAgent.speed);
+		}
 
 		debugText.enabled = showState;
 
