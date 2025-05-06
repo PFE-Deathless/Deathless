@@ -432,6 +432,9 @@ public class Enemy : MonoBehaviour
 
 		navMeshAgent.speed = chargeMoveSpeed;
 
+		if (target == null)
+			ChangeState(EnemyState.Patrol);
+
 		float distance = Vector3.Distance(transform.position, target.position);
 
 		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))

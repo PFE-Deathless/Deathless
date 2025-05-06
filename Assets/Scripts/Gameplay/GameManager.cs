@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
 	{
 		string json = JsonUtility.ToJson(playerData, true);
 		File.WriteAllText(_savePath, json);
-		Debug.Log("Game Saved at : " + _savePath);
+		Debug.Log("Game Saved at : " + _savePath + " !\n" + json);
 	}
 
 	public void LoadData()
@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
 
 		string json = File.ReadAllText(_savePath);
 		playerData = JsonUtility.FromJson<PlayerData>(json);
-		Debug.Log("Game Loaded from : " + _savePath + " !");
+		Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
 	}
 
 	public void ResetData()
@@ -296,13 +296,19 @@ public class GameManager : MonoBehaviour
 	public void LoadLevel(string scenePath)
 	{
 		if (!_loadingLevel)
+		{
+			LoadData();
 			StartCoroutine(LoadLevelCoroutine(scenePath));
+		}
 	}
 
 	public void ReloadLevel()
 	{
 		if (!_loadingLevel)
+		{
+			LoadData();
 			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
+		}
 	}
 
 	IEnumerator LoadLevelCoroutine(string scenePath)
