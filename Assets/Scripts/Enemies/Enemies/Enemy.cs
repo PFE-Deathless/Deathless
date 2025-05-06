@@ -433,7 +433,10 @@ public class Enemy : MonoBehaviour
 		navMeshAgent.speed = chargeMoveSpeed;
 
 		if (target == null)
+		{
 			ChangeState(EnemyState.Patrol);
+			return;
+		}
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
@@ -483,6 +486,12 @@ public class Enemy : MonoBehaviour
 		debugText.text = "FLEE";
 
 		navMeshAgent.speed = fleeMoveSpeed;
+
+		if (target == null)
+		{
+			ChangeState(EnemyState.Patrol);
+			return;
+		}
 
 		Vector3 direction = (transform.position - target.position).normalized;
 
