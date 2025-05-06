@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] GameObject userInterfacePrefab;
 	[SerializeField] GameObject cameraPrefab;
+	[SerializeField] GameObject audioManagerPrefab;
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
 
 	[Header("Save/Load player data")]
@@ -277,6 +278,7 @@ public class GameManager : MonoBehaviour
 			Instantiate(userInterfacePrefab, playerParent);
 			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
 			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
+			Instantiate(audioManagerPrefab, playerParent);
 		}
 		else
 		{

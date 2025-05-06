@@ -111,6 +111,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 8426339170933591991, guid: f3c5ce09e9288b64a9540d2d10461faa, type: 3}
   userInterfacePrefab: {fileID: 3328817507981037403, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
   cameraPrefab: {fileID: 6665708693319582443, guid: 4f5b4a74e74bbd340b0e35d90c76b41a, type: 3}
+  audioManagerPrefab: {fileID: 5122343253450590490, guid: 454dd6af1cc033d40a8d401d0ba6007f, type: 3}
   playerParent: {fileID: 7109721540235664752}
   saveFileName: data.sav
   tombTSVFileName: Texte_Tombes
