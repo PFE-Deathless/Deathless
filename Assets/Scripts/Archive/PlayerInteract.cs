@@ -3,9 +3,14 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-	[HideInInspector] public static PlayerInteract Instance { get; private set; }
+	public static PlayerInteract Instance { get; private set; }
+
+	[SerializeField] GameObject interactObjectPrefab;
 
 	readonly List<Transform> interactables = new();
+	IInteractable _nearest;
+
+	GameObject _interactObject;
 
 	private void Awake()
 	{
@@ -13,6 +18,57 @@ public class PlayerInteract : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	private void Update()
+	{
+		SetInteractObject();
+	}
+
+	public void Interact()
+	{
+		if (interactables.Count > 0 && _nearest != null)
+		{
+			_nearest.Interact(InteractableType.Interact);
+		}
+	}
+
+	public void Remove(Transform interactable)
+	{
+		interactables.Remove(interactable);
+	}
+
+	void SetInteractObject()
+	{
+		if (interactables.Count == 0)
+		{
+			if (_interactObject != null)
+				_interactObject.SetActive(false);
+			_nearest = null;
+			return;
+		}
+
+		if (_interactObject == null)
+			_interactObject = Instantiate(interactObjectPrefab, transform); 
+
+		_interactObject.SetActive(true);
+
+		Transform nearest = StaticFunctions.GetNearest(interactables, transform.position);
+
+		if (nearest == null)
+		{
+			_interactObject.SetActive(false);
+			return;
+		}
+		else
+		{
+			if (nearest.TryGetComponent(out IInteractable interact))
+				_nearest = interact;
+			else
+				return;
+		}
+
+		_interactObject.transform.position = nearest.position;
 	}
 
 	public List<Transform> Interactables

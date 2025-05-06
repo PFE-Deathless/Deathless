@@ -34,6 +34,10 @@ public class PlayerController : MonoBehaviour
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
 
+	[Header("SFX")]
+	[SerializeField] AudioEntry audioScytheSlash;
+	[SerializeField] AudioEntry audioDash;
+
 	bool canHit = true;
 
 	// Dash
@@ -98,12 +102,7 @@ public class PlayerController : MonoBehaviour
 		{
 			// Interact with the nearest possible interactable
 			InputsManager.Instance.interact = false;
-			if (PlayerInteract.Instance.Interactables.Count > 0)
-			{
-				Transform t = StaticFunctions.GetNearest(PlayerInteract.Instance.Interactables, transform.position);
-				if (t != null && t.TryGetComponent(out IInteractable interact))
-					interact.Interact();
-			}
+			PlayerInteract.Instance.Interact();
 		}
 	}
 
@@ -159,6 +158,7 @@ public class PlayerController : MonoBehaviour
 			scytheSlash.SetInt("HitType", (int)_bufferedAttack);
 			hitColliderObject.SetActive(true);
 			scytheSlash.Play();
+			AudioManager.Instance.Play(audioScytheSlash, transform);
 			animator.SetTrigger("Attack");
 			scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 0f);
 			_bufferedAttack = HitType.Type.None;
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
 				else
 					HitDisplay.Instance.SetVignPercentage(percentage);
 
-					scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
+				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
 		gameObject.layer = playerDashingLayer;
 		dashParticle.Play();
 
-
+		AudioManager.Instance.Play(audioDash, transform);
 
 		while (elapsedTime < dashDuration)
 		{

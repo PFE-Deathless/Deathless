@@ -13,6 +13,9 @@ public class Canon : MonoBehaviour
 	[SerializeField, Tooltip("Delay between bursts")] float delayBetweenBursts = 0f;
 	[SerializeField, Tooltip("Delay between projectile in a burst")] float delayBetweenProjectiles = 0.5f;
 
+	[Header("SFX")]
+	[SerializeField] AudioEntry audioShoot;
+
 	[Header("Technical")]
 	[SerializeField] GameObject projectile;
 	[SerializeField] Transform origin;
@@ -91,6 +94,9 @@ public class Canon : MonoBehaviour
 	public void Shoot()
 	{
 		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
+
+		if (AudioManager.Instance != null)
+			AudioManager.Instance.Play(audioShoot, transform.position);
 		obj.GetComponent<Projectile>().Setup(projectileLifeSpan, destroyOnImpact);
 		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
 	}

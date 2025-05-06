@@ -4,7 +4,7 @@ public class NoRotation : MonoBehaviour
 {
 	public bool local;
 
-	void Update()
+	void LateUpdate()
 	{
 		if (local)
 			transform.localRotation = Quaternion.identity;

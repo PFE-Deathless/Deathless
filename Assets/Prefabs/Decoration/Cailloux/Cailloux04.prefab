@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3017761281978350385}
   - component: {fileID: 7970266562174102338}
   - component: {fileID: 7179204839548903733}
-  - component: {fileID: 1821102105007489875}
-  m_Layer: 0
+  - component: {fileID: 5116062301246859160}
+  m_Layer: 18
   m_Name: Cailloux04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4471984264491266991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.808678, y: -0.00000023841858, z: -47.860588}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1821102105007489875
-BoxCollider:
+--- !u!136 &5116062301246859160
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,6 +105,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7943543, y: 0.2903426, z: 0.63566494}
-  m_Center: {x: -0.017849356, y: 0.1641853, z: -0.004873261}
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 0.9
+  m_Direction: 0
+  m_Center: {x: -0.04, y: 0.03, z: 0}
