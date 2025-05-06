@@ -9,12 +9,14 @@ using UnityEngine.AI;
 [RequireComponent (typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-	[Header("Statistics")]
+	[Header("Properties")]
 	[SerializeField] HitType.Type[] weaknesses = new HitType.Type[1];
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
 	[SerializeField] BehaviorType behaviorType = BehaviorType.Attack;
+	[SerializeField, Tooltip("Should the enemy drop a key when dying ?")] bool dropKey = false;
+	[SerializeField, Tooltip("Transform where the key should be if the enemy would drop one")] Transform keyTransform;
 	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
@@ -64,6 +66,8 @@ public class Enemy : MonoBehaviour
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 	protected Material defaultMaterial;
+
+	protected Key key;
 
 	// Attack
 	protected AttackState attackState = AttackState.None;
@@ -145,6 +149,13 @@ public class Enemy : MonoBehaviour
 		CurrentType = weaknesses[0];
 		healthMax = weaknesses.Length;
 		health = healthMax;
+
+		if (dropKey && keyTransform != null)
+		{
+			GameObject prefab = Resources.Load<GameObject>("Key/Key");
+			GameObject obj = Instantiate(prefab, keyTransform.position, keyTransform.rotation, keyTransform);
+			key = obj.GetComponent<Key>();
+		}
 
 		debugText.gameObject.SetActive(showState);
 
@@ -396,6 +407,8 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
+			if (dropKey)
+				key.DropKey();
 			Destroy(gameObject);
 		}
 	}

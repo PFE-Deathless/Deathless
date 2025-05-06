@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
 	string[] _epitaphs;
 	string[] _memories;
 
+	// Key System
+	int _keys;
+
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
@@ -164,6 +167,27 @@ public class GameManager : MonoBehaviour
 			default:
 				return;
 		}
+	}
+
+	#endregion
+
+	#region KEYS
+
+	public void AddKey()
+	{
+		_keys++;
+		Debug.Log("Keys : " + _keys);
+	}
+
+	public bool UseKey()
+	{
+		if (_keys >= 1)
+		{
+			_keys--;
+			Debug.Log("Keys : " + _keys);
+			return true;
+		}
+		return false;
 	}
 
 	#endregion
@@ -341,6 +365,9 @@ public class GameManager : MonoBehaviour
 		// Unload previous level
 		SceneManager.UnloadSceneAsync(oldLevel);
 		yield return new WaitForSeconds(0.1f);
+
+		// Reset keys number
+		_keys = 0;
 
 		// Destroy all existing projectiles
 		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
