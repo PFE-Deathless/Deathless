@@ -11,20 +11,23 @@ public class Enemy : MonoBehaviour
 {
 	[Header("Statistics")]
 	[SerializeField] HitType.Type[] weaknesses = new HitType.Type[1];
-	//[Tooltip("Minimum souls the enemy gives when dying")] public int minSouls = 3;
-	//[Tooltip("Maximum souls the enemy gives when dying")] public int maxSouls = 8;
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
-	[SerializeField] float chargeMoveSpeed = 8f;
+	[SerializeField] BehaviorType behaviorType = BehaviorType.Attack;
 	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
-	public float attackWaitTime = 1f;
-	public float attackCastTime = 0.1f;
-	public float attackDuration = 0.5f;
-	public float attackCooldown = 1f;
-	public float attackKnockbackForce = 0f;
+	[SerializeField] protected float chargeMoveSpeed = 8f;
+	[SerializeField] protected float attackWaitTime = 1f;
+	[SerializeField] protected float attackCastTime = 0.1f;
+	[SerializeField] protected float attackDuration = 0.5f;
+	[SerializeField] protected float attackCooldown = 1f;
+	[SerializeField] protected float attackKnockbackForce = 0f;
+
+	[Header("Flee")]
+	[SerializeField] protected float fleeMoveSpeed = 4f;
+	[SerializeField] protected float fleeDistance = 2f;
 
 	[Header("Damage")]
 	[SerializeField] protected float blinkingTime = 0.25f;
@@ -70,6 +73,10 @@ public class Enemy : MonoBehaviour
 	protected float cast;
 	protected float hit;
 	protected float cooldown;
+
+	// Flee
+	protected Vector3 _fleePosition;
+	protected bool _reachedFleePosition;
 
 	// Damage taken
 	BlinkingMaterials blinkingMaterials;
@@ -168,7 +175,10 @@ public class Enemy : MonoBehaviour
 		HandleShake();
 
 		if (animator != null)
+		{
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
+			animator.SetFloat("AnimationSpeed", navMeshAgent.speed);
+		}
 
 		debugText.enabled = showState;
 
@@ -295,13 +305,15 @@ public class Enemy : MonoBehaviour
 	// #####################
 	// #####################
 
-	#region state_machine
+	#region STATE_MACHINE
 
 	public enum EnemyState
 	{
 		Patrol,
+		Action,
 		GoToPlayer,
 		Attack,
+		Flee,
 		Wait,
 		Death
 	}
@@ -322,15 +334,19 @@ public class Enemy : MonoBehaviour
 		switch (state)
 		{
 			case EnemyState.Patrol:
-				navMeshAgent.speed = patrolMoveSpeed;
 				Patrol();
 				break;
+			case EnemyState.Action:
+				Action();
+				break;
 			case EnemyState.GoToPlayer:
-				navMeshAgent.speed = chargeMoveSpeed;
 				GoToPlayer();
 				break;
 			case EnemyState.Attack:
 				Attack();
+				break;
+			case EnemyState.Flee:
+				Flee();
 				break;
 			case EnemyState.Wait:
 				Wait();
@@ -350,7 +366,7 @@ public class Enemy : MonoBehaviour
 		{
 			gotDamaged = false;
 			animator.SetTrigger("CancelAttack");
-			ChangeState(EnemyState.GoToPlayer);
+			ChangeState(EnemyState.Action);
 		}
 
 		if (target != null)
@@ -389,6 +405,8 @@ public class Enemy : MonoBehaviour
 	{
 		debugText.text = "PATROL";
 
+		navMeshAgent.speed = patrolMoveSpeed;
+
 		if (patrolPoints.Length == 0)
 		{
 			Debug.LogError("NO PATROL POINTS !!");
@@ -404,13 +422,15 @@ public class Enemy : MonoBehaviour
 		{
 			navMeshAgent.SetDestination(patrolDestination);
 			if (DetectPlayer())
-				ChangeState(EnemyState.GoToPlayer);
+				ChangeState(EnemyState.Action);
 		}
 	}
 
 	void GoToPlayer()
 	{
 		debugText.text = "GO_TO_PLAYER";
+
+		navMeshAgent.speed = chargeMoveSpeed;
 
 		float distance = Vector3.Distance(transform.position, target.position);
 
@@ -429,13 +449,46 @@ public class Enemy : MonoBehaviour
 		debugText.text = "WAIT";
 
 		if (DetectPlayer())
-			ChangeState(EnemyState.GoToPlayer);
+			ChangeState(EnemyState.Action);
 
 		stateTimer += Time.deltaTime;
 		if (stateTimer >= waitingTime)
 		{
 			ChangeState(EnemyState.Patrol);
 		}
+	}
+
+	void Action()
+	{
+		debugText.text = "ACTION";
+
+		switch (behaviorType)
+		{
+			case BehaviorType.Attack:
+				GoToPlayer();
+				return;
+			case BehaviorType.Flee:
+				Flee();
+				return;
+			default:
+				return;
+		}
+	}
+
+	void Flee()
+	{
+		debugText.text = "FLEE";
+
+		navMeshAgent.speed = fleeMoveSpeed;
+
+		Vector3 direction = (transform.position - target.position).normalized;
+
+		if (NavMesh.Raycast(transform.position, transform.position + direction * fleeDistance, out NavMeshHit hit, NavMesh.AllAreas))
+			_fleePosition = hit.position;
+		else
+			_fleePosition = transform.position + direction * fleeDistance;
+
+		navMeshAgent.SetDestination(_fleePosition);
 	}
 
 	void Attack()
@@ -533,7 +586,12 @@ public class Enemy : MonoBehaviour
 
 	#endregion
 
-	// ### COROUTINES ###
+	public enum BehaviorType
+	{
+		Attack,
+		Flee,
+	}
+
 
 	private void OnValidate()
 	{
