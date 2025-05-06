@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5197324207124122344}
+  - component: {fileID: 8669483801937539471}
   m_Layer: 0
   m_Name: Cemetery_Column
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 7079522614608552353}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8669483801937539471
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2248025041544236811}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7, y: 2.61, z: 0.7}
+  m_Center: {x: 0, y: 1.3, z: -0.04}
 --- !u!1001 &7079522614608232167
 PrefabInstance:
   m_ObjectHideFlags: 0
