@@ -3,17 +3,30 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
-	List<Enemy> _enemiesInside = new List<Enemy>();
-	List<Dummy> _dummiesInside = new List<Dummy>();
+	[SerializeField, Tooltip("Layers the hit cannot traverse")] LayerMask wallLayerMask;
+
+	readonly List<Enemy> _enemiesInside = new();
+	readonly List<Dummy> _dummiesInside = new();
 	HitType.Type type;
 
 	bool _hitSuccess = false;
 
 	public bool HitSucess => _hitSuccess;
 
-
 	private void OnTriggerEnter(Collider other)
 	{
+		// Check if a wall is hit before applying damage
+		Vector3 origin = transform.position;
+		Vector3 destination = other.transform.position;
+
+		origin.y = 0.5f;
+		destination.y = 0.5f;
+
+		Vector3 direction = (destination - origin).normalized;
+		Ray ray = new(origin, direction);
+		if (Physics.Raycast(ray, Vector3.Distance(transform.position, other.transform.position), wallLayerMask))
+			return;
+
 		if (other.gameObject.layer == 10) // Interactable
 		{
 			other.gameObject.GetComponent<IInteractable>().Interact(InteractableType.Hit);

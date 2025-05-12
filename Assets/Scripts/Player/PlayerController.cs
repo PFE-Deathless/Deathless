@@ -86,8 +86,6 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log("Speed : " + moveSpeed);
-
 		Interact();
 
 		Hit();
