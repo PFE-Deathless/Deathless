@@ -7,7 +7,13 @@ public class Tank : Enemy
 	// Called at the Start() of the enemy
 	protected override void EnemyStart()
 	{
-		hitCollider.GetComponent<EnemyHitCollider>().knockbackForce = attackKnockbackForce;
+		EnemyHitCollider hitColl = hitCollider.GetComponent<EnemyHitCollider>();
+		hitColl.knockbackForce = attackKnockbackForce;
+		if (attackSlowDuration > 0f)
+		{
+			hitColl.slowMultiplier = attackSlowMultiplier;
+			hitColl.slowDuration = attackSlowDuration;
+		}
 	}
 
 	// Called once when the enemy is casting its attack

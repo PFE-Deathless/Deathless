@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
 	[SerializeField] BehaviorType behaviorType = BehaviorType.Attack;
+	[SerializeField, Tooltip("If the attack of the enemy can be canceled when hit")] bool staggerable = true;
 	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
@@ -24,6 +25,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] protected float attackDuration = 0.5f;
 	[SerializeField] protected float attackCooldown = 1f;
 	[SerializeField] protected float attackKnockbackForce = 0f;
+	[SerializeField] protected float attackSlowMultiplier = 1f;
+	[SerializeField] protected float attackSlowDuration = 0f;
 
 	[Header("Flee")]
 	[SerializeField] protected float fleeMoveSpeed = 4f;
@@ -362,7 +365,7 @@ public class Enemy : MonoBehaviour
 		if (state == EnemyState.Death)
 			return;
 
-		if (gotDamaged)
+		if (gotDamaged && staggerable)
 		{
 			gotDamaged = false;
 			animator.SetTrigger("CancelAttack");

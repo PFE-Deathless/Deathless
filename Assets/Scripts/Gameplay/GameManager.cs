@@ -366,7 +366,9 @@ public class GameManager : MonoBehaviour
 			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
 		}
-		
+
+		yield return null;
+
 		// Activate new level
 		newLevelAO.allowSceneActivation = true;
 		yield return new WaitForSeconds(0.1f);
