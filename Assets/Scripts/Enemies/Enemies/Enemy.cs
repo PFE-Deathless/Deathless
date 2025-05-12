@@ -595,7 +595,13 @@ public class Enemy : MonoBehaviour
 
 	void ChooseNewPatrolPoint()
 	{
-		if (patrolPoints.Length > 0)
+		if (patrolPoints.Length == 1)
+		{
+			patrolDestination = patrolPoints[0];
+			return;
+		}
+
+		if (patrolPoints.Length > 1)
 		{
 			List<Vector3> tempPatrols = patrolPoints.ToList();
 			tempPatrols.Remove(patrolDestination);
