@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caf53733df0dbc4caabf5242b7a090f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 262145
 --- !u!1 &2455879557000010129
 GameObject:
   m_ObjectHideFlags: 0
@@ -10162,7 +10165,7 @@ GameObject:
   - component: {fileID: 5268231398937057269}
   - component: {fileID: 6428810392159238327}
   - component: {fileID: 6935471443238791510}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: InteractCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
