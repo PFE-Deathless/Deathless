@@ -394,12 +394,17 @@ MonoBehaviour:
   stoppingDistance: 0.1
   patrolPoints:
   - {x: 0, y: 0, z: 2}
+  protecting: 0
+  protectedEnemies: []
+  VFXParent: {fileID: 3733443275274896514}
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 8793929234922687775}
   aggroTransform: {fileID: 7128961381971432287}
   damageParticle: {fileID: 5468568597703221516}
   aggroFeedbackPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
   preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
+  protectionLinkPrefab: {fileID: 292647218442263076, guid: 123c471b026a05049b04c3637729a985, type: 3}
+  protectionAuraPrefab: {fileID: 5224460352986802442, guid: b54086eb462c2004e8cec8caac694e97, type: 3}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

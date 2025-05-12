@@ -45,13 +45,20 @@ public class Enemy : MonoBehaviour
 	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
 
+	[Header("Protection")]
+	[SerializeField] protected bool protecting = false;
+	[SerializeField] protected Enemy[] protectedEnemies;
+
 	[Header("VFX")]
+	[SerializeField] Transform VFXParent;
 	public GameObject slashObject;
 	public Transform slashTransform;
 	public Transform aggroTransform;
 	public GameObject damageParticle;
 	public GameObject aggroFeedbackPrefab;
 	public GameObject preHitFeedbackPrefab;
+	[SerializeField] private GameObject protectionLinkPrefab;
+	[SerializeField] private GameObject protectionAuraPrefab;
 
 	[Header("Technical")]
 	public bool showState;
@@ -95,6 +102,12 @@ public class Enemy : MonoBehaviour
 	protected float _shakeElapsedTime = 0f;
 
 	// Death
+
+	// Protection
+	protected bool _isProtected;
+	protected Enemy _protector;
+	protected GameObject _protectionAura;
+	protected LineRenderer[] _protectionLinksLR;
 
 	// State Machine
 	EnemyState state;
@@ -160,6 +173,21 @@ public class Enemy : MonoBehaviour
 			key = obj.GetComponent<Key>();
 		}
 
+		if (protectedEnemies.Length > 0)
+		{
+			_protectionLinksLR = new LineRenderer[protectedEnemies.Length];
+			for (int i = 0; i < protectedEnemies.Length; i++)
+			{
+				protectedEnemies[i].SetProtector(this);
+				GameObject obj = Instantiate(protectionLinkPrefab, transform.position, Quaternion.identity, VFXParent);
+				_protectionLinksLR[i] = obj.GetComponent<LineRenderer>();
+			}
+		}
+		else
+		{
+			protecting = false;
+		}
+
 		debugText.gameObject.SetActive(showState);
 
 		GetMeshRenderersAndMaterials();
@@ -192,6 +220,15 @@ public class Enemy : MonoBehaviour
 		{
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
 			animator.SetFloat("AnimationSpeed", navMeshAgent.speed);
+		}
+
+		if (protecting)
+		{
+			for (int i = 0; i < _protectionLinksLR.Length; i++)
+			{
+				_protectionLinksLR[i].SetPosition(0, transform.position);
+				_protectionLinksLR[i].SetPosition(1, protectedEnemies[i].transform.position);
+			}
 		}
 
 		debugText.enabled = showState;
@@ -283,6 +320,9 @@ public class Enemy : MonoBehaviour
 		if (state == EnemyState.Death)
 			return;
 
+		if (_isProtected)
+			return;
+
 		health--;
 		if (slashObject != null && slashTransform != null)
 		{
@@ -310,7 +350,27 @@ public class Enemy : MonoBehaviour
 
 	public void Kill()
 	{
+		if (protecting)
+		{
+			for (int i = 0; i < protectedEnemies.Length; i++)
+				protectedEnemies[i].SetProtector(null);
+		}
+
 		ChangeState(EnemyState.Death);
+	}
+
+	public void SetProtector(Enemy protector)
+	{
+		if (protector == null)
+		{
+			Destroy(_protectionAura);
+			_isProtected = false;
+			return;
+		}
+
+		_protectionAura = Instantiate(protectionAuraPrefab, transform.position, Quaternion.identity, VFXParent);
+		_protector = protector;
+		_isProtected = true;
 	}
 
 	// #####################
