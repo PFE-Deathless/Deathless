@@ -8744,6 +8744,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 1
+  doorType: 0
+  dungeonValidation: 0
 --- !u!1001 &940187861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16210,7 +16212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2355163875321439043, guid: 7c46d2705c8f7e045ba2d051a73d05d9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2355163875321439043, guid: 7c46d2705c8f7e045ba2d051a73d05d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16353,6 +16355,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 1
+  doorType: 0
+  dungeonValidation: 0
 --- !u!1001 &1701893068
 PrefabInstance:
   m_ObjectHideFlags: 0
