@@ -33,6 +33,11 @@ public class PlayerInteract : MonoBehaviour
 		}
 	}
 
+	public void Remove(Transform interactable)
+	{
+		interactables.Remove(interactable);
+	}
+
 	void SetInteractObject()
 	{
 		if (interactables.Count == 0)

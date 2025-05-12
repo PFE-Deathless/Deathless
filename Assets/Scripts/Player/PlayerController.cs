@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
 	Animator animator;
 	float animAcceleration = 10f;
 	float animCurrentSpeed = 0f;
+	float _originalMoveSpeed;
+	Coroutine _speedModifierCoroutine;
 
 	private void Awake()
 	{
@@ -79,11 +81,13 @@ public class PlayerController : MonoBehaviour
 		InputsManager.Instance.hit = HitType.Type.None;
 		_dashCharges = dashChargesMax;
 		_scytheBaseEmissive = scytheRenderer.material.GetVector("_EmissionColor");
-
+		_originalMoveSpeed = moveSpeed;
 	}
 
 	void Update()
 	{
+		Debug.Log("Speed : " + moveSpeed);
+
 		Interact();
 
 		Hit();
@@ -248,7 +252,9 @@ public class PlayerController : MonoBehaviour
 
 	public void SetSpeedModifier(float modifier, float duration)
 	{
-		StartCoroutine(ApplySpeedModifier(modifier, duration));
+		if (_speedModifierCoroutine != null)
+			StopCoroutine(_speedModifierCoroutine);
+		_speedModifierCoroutine = StartCoroutine(ApplySpeedModifier(modifier, duration));
 	}
 
 	public void ResetDashCharges()
@@ -260,10 +266,9 @@ public class PlayerController : MonoBehaviour
 
 	IEnumerator ApplySpeedModifier(float modifier, float duration)
 	{
-		float originalMoveSpeed = moveSpeed;
 		moveSpeed *= modifier;
 		yield return new WaitForSeconds(duration);
-		moveSpeed = originalMoveSpeed;
+		moveSpeed = _originalMoveSpeed;
 	}
 
 	IEnumerator ApplyDash()

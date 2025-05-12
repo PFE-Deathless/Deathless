@@ -14008,8 +14008,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440874075}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.38268343, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -58.58, y: 0, z: 117.33}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.45, y: 0, z: 206.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30146,7 +30146,8 @@ PrefabInstance:
       value: MinionBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4291051114482094720, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 570b7e53f69d6f84fb5f7e77c0c705bd, type: 3}
@@ -50414,6 +50415,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 1
+  doorType: 0
+  dungeonValidation: 0
 --- !u!1001 &1861017126
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -654,13 +654,19 @@ MonoBehaviour:
   range: 10
   acquisitionRange: 10
   maxRange: 30
-  chargeMoveSpeed: 8
+  behaviorType: 0
+  staggerable: 1
   patrolMoveSpeed: 4
+  chargeMoveSpeed: 8
   attackWaitTime: 0.2
   attackCastTime: 0.75
   attackDuration: 0.1
   attackCooldown: 2.3
   attackKnockbackForce: 0
+  attackSlowMultiplier: 1
+  attackSlowDuration: 0
+  fleeMoveSpeed: 4
+  fleeDistance: 2
   blinkingTime: 0.25
   shakeDuration: 0.3
   deathDuration: 1
@@ -675,9 +681,6 @@ MonoBehaviour:
   damageParticle: {fileID: 5393851631189198996}
   aggroFeedbackPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
   preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
-  audioHit: {fileID: 11400000, guid: 7db62c7741e679d4b8bf2e8a61f74dcd, type: 2}
-  audioDamage: {fileID: 11400000, guid: 3f67e6e0f10ba3c4e8962d171c2d58b3, type: 2}
-  audioDeath: {fileID: 11400000, guid: 82032d01009c6e344b34761af6546555, type: 2}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

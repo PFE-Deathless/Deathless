@@ -372,6 +372,7 @@ MonoBehaviour:
   acquisitionRange: 3
   maxRange: 20
   behaviorType: 0
+  staggerable: 1
   dropKey: 0
   keyTransform: {fileID: 1908527584793675140}
   patrolMoveSpeed: 4
@@ -381,6 +382,8 @@ MonoBehaviour:
   attackDuration: 0.1
   attackCooldown: 2
   attackKnockbackForce: 0
+  attackSlowMultiplier: 1
+  attackSlowDuration: 0
   fleeMoveSpeed: 4
   fleeDistance: 2
   blinkingTime: 0.25
@@ -497,6 +500,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockbackForce: 0
+  slowDuration: 0
+  slowMultiplier: 0
 --- !u!23 &4960916469420895448
 MeshRenderer:
   m_ObjectHideFlags: 0

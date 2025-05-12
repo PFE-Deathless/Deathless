@@ -341,6 +341,7 @@ MonoBehaviour:
   acquisitionRange: 3
   maxRange: 10
   behaviorType: 0
+  staggerable: 0
   patrolMoveSpeed: 3
   chargeMoveSpeed: 7
   attackWaitTime: 0.1
@@ -348,6 +349,8 @@ MonoBehaviour:
   attackDuration: 0.1
   attackCooldown: 2
   attackKnockbackForce: 0
+  attackSlowMultiplier: 0.5
+  attackSlowDuration: 0.8
   fleeMoveSpeed: 3
   fleeDistance: 2
   blinkingTime: 0.25
@@ -464,6 +467,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockbackForce: 0
+  slowDuration: 0
+  slowMultiplier: 0
 --- !u!23 &4960916469420895448
 MeshRenderer:
   m_ObjectHideFlags: 0

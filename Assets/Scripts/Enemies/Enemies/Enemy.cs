@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
 	[SerializeField] BehaviorType behaviorType = BehaviorType.Attack;
+	[SerializeField, Tooltip("If the attack of the enemy can be canceled when hit")] bool staggerable = true;
 	[SerializeField, Tooltip("Should the enemy drop a key when dying ?")] bool dropKey = false;
 	[SerializeField, Tooltip("Transform where the key should be if the enemy would drop one")] Transform keyTransform;
 	[SerializeField] float patrolMoveSpeed = 4f;
@@ -26,6 +27,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] protected float attackDuration = 0.5f;
 	[SerializeField] protected float attackCooldown = 1f;
 	[SerializeField] protected float attackKnockbackForce = 0f;
+	[SerializeField] protected float attackSlowMultiplier = 1f;
+	[SerializeField] protected float attackSlowDuration = 0f;
 
 	[Header("Flee")]
 	[SerializeField] protected float fleeMoveSpeed = 4f;
@@ -373,7 +376,7 @@ public class Enemy : MonoBehaviour
 		if (state == EnemyState.Death)
 			return;
 
-		if (gotDamaged)
+		if (gotDamaged && staggerable)
 		{
 			gotDamaged = false;
 			animator.SetTrigger("CancelAttack");
@@ -445,6 +448,12 @@ public class Enemy : MonoBehaviour
 
 		navMeshAgent.speed = chargeMoveSpeed;
 
+		if (target == null)
+		{
+			ChangeState(EnemyState.Patrol);
+			return;
+		}
+
 		float distance = Vector3.Distance(transform.position, target.position);
 
 		if (distance <= acquisitionRange && !NavMesh.Raycast(transform.position, target.position, out NavMeshHit hit, NavMesh.AllAreas))
@@ -493,6 +502,12 @@ public class Enemy : MonoBehaviour
 		debugText.text = "FLEE";
 
 		navMeshAgent.speed = fleeMoveSpeed;
+
+		if (target == null)
+		{
+			ChangeState(EnemyState.Patrol);
+			return;
+		}
 
 		Vector3 direction = (transform.position - target.position).normalized;
 

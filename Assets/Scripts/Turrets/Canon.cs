@@ -94,7 +94,9 @@ public class Canon : MonoBehaviour
 	public void Shoot()
 	{
 		GameObject obj = Instantiate(projectile, origin.position, origin.rotation, GameManager.Instance.ProjectileParent);
-		AudioManager.Instance.Play(audioShoot, transform.position);
+
+		if (AudioManager.Instance != null)
+			AudioManager.Instance.Play(audioShoot, transform.position);
 		obj.GetComponent<Projectile>().Setup(projectileLifeSpan, destroyOnImpact);
 		obj.GetComponent<Rigidbody>().linearVelocity = obj.transform.forward * projectileSpeed;
 	}

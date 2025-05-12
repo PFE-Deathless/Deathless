@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
-using TMPro;
+using Unity.VisualScripting;
 
 public class AudioManager : MonoBehaviour
 {
@@ -177,11 +176,17 @@ public class AudioManager : MonoBehaviour
 
 	public void Play(AudioEntry entry)
 	{
+		if (entry == null)
+			return;
+
 		Play(entry, Vector3.zero);
 	}
 
 	public void Play(AudioEntry entry, Transform parent)
 	{
+		if (entry == null)
+			return;
+
 		if (Vector3.Distance(PlayerController.Instance.transform.position, parent.position) > maxPlayerDistance)
 			return;
 
@@ -227,6 +232,9 @@ public class AudioManager : MonoBehaviour
 
 	public void Play(AudioEntry entry, Vector3 position)
 	{
+		if (entry == null)
+			return;
+
 		if (Vector3.Distance(PlayerController.Instance.transform.position, position) > maxPlayerDistance)
 			return;
 
