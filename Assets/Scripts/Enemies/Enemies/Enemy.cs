@@ -423,9 +423,9 @@ public class Enemy : MonoBehaviour
 
 		navMeshAgent.speed = patrolMoveSpeed;
 
-		if (patrolPoints.Length == 0)
+		if (patrolPoints.Length == 0 || patrolPoints.Length == 1)
 		{
-			Debug.LogError("NO PATROL POINTS !!");
+			Debug.Log("Not enough patrol points to patrol ! (current amount : " + patrolPoints.Length + ")");
 			ChangeState(EnemyState.Wait);
 			return;
 		}
