@@ -26,7 +26,7 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 
 		if (door != null)
 			door.Activate();
-		GameManager.Instance.UnlockDungeon(dungeonValidation);
+		GameManager.Instance.UnlockDungeonSoul(dungeonValidation);
 		PlayerInteract.Instance.Remove(transform);
 		Destroy(gameObject);
 	}
