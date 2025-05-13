@@ -12,13 +12,13 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScreen.unity
     guid: 67147a00af1abd74a833ccdf5d329a57
   - enabled: 0
-    path: Assets/Scenes/Levels/HUB.unity
+    path: Assets/Scenes/Levels/OldLevels/HUB_Old.unity
     guid: f4fe556fe61b4f24dbd460b5760db8d5
   - enabled: 1
     path: Assets/Scenes/Levels/LD_Tuto.unity
     guid: a8507ba23547f5440a6852b20b38718a
   - enabled: 0
-    path: Assets/Scenes/Levels/CarrefourDesTest.unity
+    path: Assets/Scenes/Levels/OldLevels/CarrefourDesTest.unity
     guid: a9bf009bb7d551f458d963ffd1ce346e
   - enabled: 1
     path: Assets/Scenes/Levels/Donjon2.unity
@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Donjon1.unity
     guid: a734ce30a029bd04d91c267341dad65f
   - enabled: 1
-    path: Assets/Scenes/Levels/HUB_Final.unity
+    path: Assets/Scenes/Levels/HUB.unity
     guid: 098727bb5353e294a85f166eb5c36da4
   - enabled: 0
     path: Assets/Scenes/Levels/OldLevels/DonjonMediatheque.unity

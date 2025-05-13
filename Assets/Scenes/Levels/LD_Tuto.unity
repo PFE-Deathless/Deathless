@@ -11563,10 +11563,6 @@ PrefabInstance:
       value: SceneLoader
       objectReference: {fileID: 0}
     - target: {fileID: 4992374906775295997, guid: 4dabd7f6cc5303343803546b4763ed20, type: 3}
-      propertyPath: scenePath
-      value: Assets/Scenes/Levels/HUB_Final.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992374906775295997, guid: 4dabd7f6cc5303343803546b4763ed20, type: 3}
       propertyPath: removeGreenArea
       value: 1
       objectReference: {fileID: 0}
@@ -17329,7 +17325,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -17337,7 +17333,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
+  m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 05e31750ca4f79648a6448cd26bdc8b0, type: 2}
   m_BuildHeightMesh: 0
