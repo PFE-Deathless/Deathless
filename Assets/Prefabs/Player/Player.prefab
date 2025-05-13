@@ -5262,6 +5262,7 @@ GameObject:
   - component: {fileID: 5387221663729761172}
   - component: {fileID: 7375802363211154508}
   - component: {fileID: 6967038851598043510}
+  - component: {fileID: 3736881127704646357}
   m_Layer: 5
   m_Name: CDSlash
   m_TagString: Untagged
@@ -5308,9 +5309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 84f2c48d9b0f0c644b285f0f8919c689, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5323,9 +5324,22 @@ MonoBehaviour:
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 0
-  m_FillOrigin: 3
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3736881127704646357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6145581356685866883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d295c480d470f848a09724e24f15b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
 --- !u!1 &6443644959404397213
 GameObject:
   m_ObjectHideFlags: 0
@@ -10464,7 +10478,7 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 0.1
   dashChargesMax: 2
-  dashChargesCooldown: 5
+  dashChargesCooldown: 3
   dashCurve:
     serializedVersion: 2
     m_Curve:
@@ -10505,6 +10519,7 @@ MonoBehaviour:
   hitCooldownParticle: {fileID: 2288487816673272808}
   scytheSlash: {fileID: 8582181535093292171}
   scytheRenderer: {fileID: 4083552963227293055}
+  hitCooldownImage: {fileID: 6967038851598043510}
   audioScytheSlash: {fileID: 11400000, guid: b24aba21b6528504bb31f024458b844e, type: 2}
   audioDash: {fileID: 11400000, guid: 0677b2e1742c1ff449916a508ebe519a, type: 2}
 --- !u!114 &345143593785962827
@@ -10676,7 +10691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d295c480d470f848a09724e24f15b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  local: 0
+  type: 0
 --- !u!1 &9041398255230085645
 GameObject:
   m_ObjectHideFlags: 0

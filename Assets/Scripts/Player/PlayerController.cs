@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
 	public ParticleSystem hitCooldownParticle;
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
+	[SerializeField] private Image hitCooldownImage;
 
 	[Header("SFX")]
 	[SerializeField] AudioEntry audioScytheSlash;
@@ -183,16 +185,16 @@ public class PlayerController : MonoBehaviour
 				float percentage = (_hitElapsedTime - hitDuration) / (cooldownDuration - hitDuration);
 
 				if (_hitSuccess)
-					HitDisplay.Instance.SetVignPercentage(1f);
+					hitCooldownImage.fillAmount = 1f;
 				else
-					HitDisplay.Instance.SetVignPercentage(percentage);
+					hitCooldownImage.fillAmount = percentage;
 
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
 			{
-				HitDisplay.Instance.SetVignPercentage(1f);
+				hitCooldownImage.fillAmount = 1f;
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
 				if (!_hitSuccess)
 					hitCooldownParticle.Play();
