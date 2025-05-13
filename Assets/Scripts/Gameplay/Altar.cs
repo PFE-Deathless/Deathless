@@ -9,7 +9,7 @@ public class Altar : MonoBehaviour, IInteractable
 	[SerializeField] float cameraSpeed = 20f;
 
 	[Header("Technical")]
-	[SerializeField] IActivable[] toActivateObjects;
+	[SerializeField] Transform[] toActivateObjects;
 
 	private bool _activated = false;
 
@@ -36,37 +36,47 @@ public class Altar : MonoBehaviour, IInteractable
 	IEnumerator ActivateObjects()
 	{
 		float elapsedTime;
-		Transform start = PlayerController.Instance.transform;
-		Transform target = toActivateObjects[0].transform;
+		Vector3 start = PlayerController.Instance.transform.position;
+		Vector3 target = toActivateObjects[0].position;
 
-		for (int i = 0; i < toActivateObjects.Length - 1; i++)
+		InputsManager.Instance.EnableInput(false);
+
+		GameObject follow = new("Follow");
+
+		for (int i = 0; i < toActivateObjects.Length; i++)
 		{
 			elapsedTime = 0f;
 
-			float distance = Vector3.Distance(start.position, target.position);
+			float distance = Vector3.Distance(start, target);
 			float moveDuration = distance / cameraSpeed;
 
-			CameraBehavior.Instance.SetCinematicTarget(target);
+			CameraBehavior.Instance.SetCinematicTarget(follow.transform);
+
+			IActivable activable = toActivateObjects[i].GetComponent<IActivable>();
 
 			while (elapsedTime < moveDuration)
 			{
-				target.position = Vector3.Lerp(start.position, target.position, elapsedTime / moveDuration);
+				follow.transform.position = Vector3.Lerp(start, target, elapsedTime / moveDuration);
 				elapsedTime += Time.deltaTime;
 				yield return null;
 			}
 
-			while (!toActivateObjects[i].FinishedActivation)
-			{
+			activable.Activate();
 
-			}
+			start = toActivateObjects[i].position;
+			if (i < toActivateObjects.Length - 1)
+				target = toActivateObjects[i + 1].position;
 
-			start = toActivateObjects[i].transform;
-			target = toActivateObjects[i + 1].transform;
+			while (!activable.FinishedActivation)
+				yield return null;
+
+			yield return new WaitForSeconds(0.5f);
 		}
 
+		CameraBehavior.Instance.SetCinematicTarget(null);
+		Destroy(follow);
 
-
-
-		yield return null;
+		yield return new WaitForSeconds(0.5f);
+		InputsManager.Instance.EnableInput(true);
 	}
 }

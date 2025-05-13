@@ -485,7 +485,7 @@ public class Enemy : MonoBehaviour
 
 		if (patrolPoints.Length == 0 || patrolPoints.Length == 1)
 		{
-			Debug.Log("Not enough patrol points to patrol ! (current amount : " + patrolPoints.Length + ")");
+			//Debug.Log("Not enough patrol points to patrol ! (current amount : " + patrolPoints.Length + ")");
 			ChangeState(EnemyState.Wait);
 			return;
 		}
