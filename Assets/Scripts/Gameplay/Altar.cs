@@ -13,6 +13,12 @@ public class Altar : MonoBehaviour, IInteractable
 
 	private bool _activated = false;
 
+	private void Start()
+	{
+		if (GameManager.Instance.IsUnlocked(dungeon))
+			ActivateAll();
+	}
+
 	public void Interact(InteractableType type = InteractableType.Both)
 	{
 		if (_activated)
@@ -22,19 +28,36 @@ public class Altar : MonoBehaviour, IInteractable
 		{
 			if (GameManager.Instance.HasDungeonSoul(dungeon))
 			{
-				GameManager.Instance.UnlockDungeonSoul(dungeon);
+				GameManager.Instance.UnlockDungeon(dungeon);
 
 				// Here goes the logic to change the UI when consuming the dungeon soul
 
 				StartCoroutine(ActivateObjects());
+
+				gameObject.layer = 0;
 
 				_activated = true;
 			}
 		}
 	}
 
+	public void ActivateAll()
+	{
+		gameObject.layer = 0;
+		_activated = true;
+
+		if (toActivateObjects.Length == 0)
+			return;
+
+		for (int i = 0; i < toActivateObjects.Length; i++)
+			toActivateObjects[i].GetComponent<IActivable>().Activate();
+	}
+
 	IEnumerator ActivateObjects()
 	{
+		if (toActivateObjects.Length == 0)
+			yield break;
+
 		float elapsedTime;
 		Vector3 start = PlayerController.Instance.transform.position;
 		Vector3 target = toActivateObjects[0].position;

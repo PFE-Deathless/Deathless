@@ -49,10 +49,7 @@ MonoBehaviour:
   dungeon: 0
   interactableType: 0
   cameraSpeed: 20
-  toActivateObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  toActivateObjects: []
 --- !u!135 &6732474802348522160
 SphereCollider:
   m_ObjectHideFlags: 0

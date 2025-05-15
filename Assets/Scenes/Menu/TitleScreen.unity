@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169a4940b9eaf8b4f95e7aabd844c45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hubPath: Assets/Scenes/Levels/HUB_Final.unity
+  hubPath: Assets/Scenes/Levels/HUB.unity
   tutoPath: Assets/Scenes/Levels/LD_Tuto.unity
   canvaActive: {fileID: 1725838627}
   canvaDeactivate: {fileID: 1830656591}
