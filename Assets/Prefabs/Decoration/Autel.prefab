@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeon: 0
   interactableType: 0
-  cameraSpeed: 20
+  cameraSpeed: 30
   toActivateObjects: []
 --- !u!135 &6732474802348522160
 SphereCollider:

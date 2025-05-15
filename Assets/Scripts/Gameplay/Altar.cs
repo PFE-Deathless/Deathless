@@ -93,13 +93,13 @@ public class Altar : MonoBehaviour, IInteractable
 			while (!activable.FinishedActivation)
 				yield return null;
 
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.2f);
 		}
 
 		CameraBehavior.Instance.SetCinematicTarget(null);
 		Destroy(follow);
 
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.2f);
 		InputsManager.Instance.EnableInput(true);
 	}
 }
