@@ -156,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableType: 1
   dungeonValidation: 0
+  soulColor: {r: 1, g: 1, b: 1, a: 0}
   door: {fileID: 0}
 --- !u!1 &8715842227941272565
 GameObject:
