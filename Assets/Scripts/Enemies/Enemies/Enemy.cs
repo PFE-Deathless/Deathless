@@ -69,6 +69,7 @@ public class Enemy : MonoBehaviour
 
 	public HitType.Type CurrentType { get; private set; }
 	public HitType.Type[] Weaknesses => weaknesses;
+	public bool IsProtected => _isProtected;
 
 	int healthMax;
 	int health;
@@ -105,7 +106,7 @@ public class Enemy : MonoBehaviour
 
 	// Protection
 	protected bool _isProtected;
-	protected Enemy _protector;
+	protected List<Enemy> _protectors = new();
 	protected GameObject _protectionAura;
 	protected LineRenderer[] _protectionLinksLR;
 
@@ -178,7 +179,7 @@ public class Enemy : MonoBehaviour
 			_protectionLinksLR = new LineRenderer[protectedEnemies.Length];
 			for (int i = 0; i < protectedEnemies.Length; i++)
 			{
-				protectedEnemies[i].SetProtector(this);
+				protectedEnemies[i].SetProtector(this, true);
 				GameObject obj = Instantiate(protectionLinkPrefab, transform.position, Quaternion.identity, VFXParent);
 				_protectionLinksLR[i] = obj.GetComponent<LineRenderer>();
 			}
@@ -353,24 +354,30 @@ public class Enemy : MonoBehaviour
 		if (protecting)
 		{
 			for (int i = 0; i < protectedEnemies.Length; i++)
-				protectedEnemies[i].SetProtector(null);
+				protectedEnemies[i].SetProtector(this, false);
 		}
 
 		ChangeState(EnemyState.Death);
 	}
 
-	public void SetProtector(Enemy protector)
+	public void SetProtector(Enemy protector, bool protecting)
 	{
-		if (protector == null)
+		if (protecting)
 		{
-			Destroy(_protectionAura);
-			_isProtected = false;
-			return;
+			if (_protectionAura == null)
+				_protectionAura = Instantiate(protectionAuraPrefab, transform.position, Quaternion.identity, VFXParent);
+			_isProtected = true;
+			_protectors.Add(protector);
 		}
-
-		_protectionAura = Instantiate(protectionAuraPrefab, transform.position, Quaternion.identity, VFXParent);
-		_protector = protector;
-		_isProtected = true;
+		else
+		{
+			_protectors.Remove(protector);
+			if (_protectors.Count == 0)
+			{
+				Destroy(_protectionAura);
+				_isProtected = false;
+			}
+		}		
 	}
 
 	// #####################
