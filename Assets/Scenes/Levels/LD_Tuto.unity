@@ -18834,6 +18834,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 83707071}
     - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.b
+      value: 0.1681542
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.g
+      value: 1.4868289
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.r
+      value: 7.129739
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
       propertyPath: dungeonValidation
       value: 1
       objectReference: {fileID: 0}

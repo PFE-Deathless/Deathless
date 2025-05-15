@@ -13760,6 +13760,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 69596532}
     - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
       propertyPath: dungeonValidation
       value: 5
       objectReference: {fileID: 0}
