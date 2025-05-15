@@ -15,6 +15,9 @@ public class CameraBehavior : MonoBehaviour
 	private Vector3 currentVelocity;
 	private List<ShakeInstance> activeShakes = new List<ShakeInstance>();
 
+	private bool _cinematic;
+	private Transform _cinematicTargetTransform;
+
 	private void Awake()
 	{
 		if (Instance == null)
@@ -44,12 +47,12 @@ public class CameraBehavior : MonoBehaviour
 
 		ManageShakes();
 
-		Follow();
+		Follow(_cinematic ? _cinematicTargetTransform.position : playerTransform.position);
 	}
 
-	void Follow()
+	void Follow(Vector3 targetPos)
 	{
-		transform.position = Vector3.SmoothDamp(transform.position, playerTransform.position + offset, ref currentVelocity, smoothDampTime);
+		transform.position = Vector3.SmoothDamp(transform.position, targetPos + offset, ref currentVelocity, smoothDampTime);
 	}
 
 	void ManageShakes()
@@ -86,6 +89,19 @@ public class CameraBehavior : MonoBehaviour
 	public void Shake(float amplitude, float frequency, float duration)
 	{
 		activeShakes.Add(new ShakeInstance(amplitude, frequency, duration));
+	}
+
+	public void SetCinematicTarget(Transform target)
+	{
+		if (target == null)
+		{
+			_cinematic = false;
+		}
+		else
+		{
+			_cinematicTargetTransform = target;
+			_cinematic = true;
+		}
 	}
 
 	private class ShakeInstance

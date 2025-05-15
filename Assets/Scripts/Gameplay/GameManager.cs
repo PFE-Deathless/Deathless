@@ -169,6 +169,64 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public bool HasDungeonSoul(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return true;
+			case Dungeon.Tutorial:
+				return playerData.tutorialSoul;
+			case Dungeon.Dungeon1:
+				return playerData.dungeon1Soul;
+			case Dungeon.Dungeon2:
+				return playerData.dungeon2Soul;
+			case Dungeon.Dungeon3:
+				return playerData.dungeon3Soul;
+			case Dungeon.Dungeon4:
+				return playerData.dungeon4Soul;
+			case Dungeon.Dungeon5:
+				return playerData.dungeon5Soul;
+			default:
+				return false;
+		}
+	}
+
+	public void UnlockDungeonSoul(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return;
+			case Dungeon.Tutorial:
+				playerData.tutorialSoul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon1:
+				playerData.dungeon1Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon2:
+				playerData.dungeon2Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon3:
+				playerData.dungeon3Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon4:
+				playerData.dungeon4Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon5:
+				playerData.dungeon5Soul = true;
+				SaveData();
+				return;
+			default:
+				return;
+		}
+	}
+
 	#endregion
 
 	#region KEYS
@@ -471,4 +529,11 @@ public class PlayerData
 	public bool dungeon4 = false;
 	public bool dungeon5 = false;
 	public bool tutorial = false;
+
+	public bool dungeon1Soul = false;
+	public bool dungeon2Soul = false;
+	public bool dungeon3Soul = false;
+	public bool dungeon4Soul = false;
+	public bool dungeon5Soul = false;
+	public bool tutorialSoul = false;
 }
