@@ -44,8 +44,7 @@ public class GameManager : MonoBehaviour
 	string _savePath;
 
 	// Tomb system
-	string[] _epitaphs;
-	string[] _memories;
+	private TombData[] _tombData;
 
 	// Key System
 	int _keys;
@@ -259,34 +258,17 @@ public class GameManager : MonoBehaviour
 		TextAsset temp = Resources.Load<TextAsset>(path);
 		string[] tempArr = temp.text.Split("\r\n");
 
-		_epitaphs = new string[tempArr.Length - 1];
-		_memories = new string[tempArr.Length - 1];
+		_tombData = new TombData[tempArr.Length - 1];
 
 		for (int i = 0; i < tempArr.Length - 1; i++)
-		{
-			string t = tempArr[i + 1];
-
-			_epitaphs[i] = t.Split("\t")[1];
-			_memories[i] = t.Split("\t")[2];
-		}
+			_tombData[i] = new TombData(tempArr[i + 1]);
 	}
 
-	public string GetTombEpitah(uint id)
+	public TombData GetTombData(uint id)
 	{
-		if (id > _epitaphs.Length)
-			return "ERROR : Epitaph ID out of range !";
-		if (id == 0)
-			return "DEFAULT_EPITAPH_TEXT";
-		return _epitaphs[id - 1];
-	}
-
-	public string GetTombMemory(uint id)
-	{
-		if (id > _memories.Length)
-			return "ERROR : Memory ID out of range !";
-		if (id == 0)
-			return "DEFAULT_MEMORY_TEXT";
-		return _memories[id - 1];
+		if (id > _tombData.Length || id == 0)
+			return new(null);
+		return _tombData[id - 1];
 	}
 
 	#endregion
@@ -508,6 +490,45 @@ public class GameManager : MonoBehaviour
 	}
 
 	#endregion
+}
+
+public struct TombData
+{
+	public Dungeon dungeon;
+	public string name;
+	public string date;
+	public string epitaph;
+	public string memory;
+
+	public TombData(string data)
+	{
+		if (data == null)
+		{
+			dungeon = Dungeon.None;
+			name = "DEFAULT_NAME";
+			date = "DEFAULT_DATE";
+			epitaph = "DEFAULT_EPITAPH";
+			memory = "DEFAULT_MEMORY";
+		}
+		else
+		{
+			string[] temp = data.Split("\t");
+			dungeon = temp[1] switch
+			{
+				"Tutorial" => Dungeon.Tutorial,
+				"Donjon_1" => Dungeon.Dungeon1,
+				"Donjon_2" => Dungeon.Dungeon2,
+				"Donjon_3" => Dungeon.Dungeon3,
+				"Donjon_4" => Dungeon.Dungeon4,
+				"Donjon_5" => Dungeon.Dungeon5,
+				_ => Dungeon.None,
+			};
+			name = temp[2];
+			date = temp[3];
+			epitaph = temp[4];
+			memory = temp[5];
+		}
+	}
 }
 
 public enum Dungeon
