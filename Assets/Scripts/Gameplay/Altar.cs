@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Altar : MonoBehaviour, IInteractable
 {
@@ -7,9 +8,12 @@ public class Altar : MonoBehaviour, IInteractable
 	[SerializeField] Dungeon dungeon;
 	[SerializeField] InteractableType interactableType = InteractableType.Interact;
 	[SerializeField] float cameraSpeed = 20f;
+	[SerializeField, ColorUsage(false, true)] Color soulColor;
 
 	[Header("Technical")]
 	[SerializeField] Transform[] toActivateObjects;
+	[SerializeField] Transform soulTransform;
+	[SerializeField] GameObject soulPrefab;
 
 	private bool _activated = false;
 
@@ -45,6 +49,8 @@ public class Altar : MonoBehaviour, IInteractable
 	{
 		gameObject.layer = 0;
 		_activated = true;
+		GameObject obj = Instantiate(soulPrefab, soulTransform.position, soulTransform.rotation, soulTransform);
+		obj.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", soulColor);
 
 		if (toActivateObjects.Length == 0)
 			return;
@@ -96,10 +102,13 @@ public class Altar : MonoBehaviour, IInteractable
 			yield return new WaitForSeconds(0.2f);
 		}
 
+		GameObject obj = Instantiate(soulPrefab, soulTransform.position, soulTransform.rotation, soulTransform);
+		obj.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", soulColor);
+
 		CameraBehavior.Instance.SetCinematicTarget(null);
 		Destroy(follow);
 
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(0.5f);
 		InputsManager.Instance.EnableInput(true);
 	}
 }

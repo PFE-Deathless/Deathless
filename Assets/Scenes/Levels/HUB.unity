@@ -5512,6 +5512,18 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3475116151911439632, guid: 08dbeee930d12784ea478c6afd2050ea, type: 3}
+      propertyPath: soulColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475116151911439632, guid: 08dbeee930d12784ea478c6afd2050ea, type: 3}
+      propertyPath: soulColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475116151911439632, guid: 08dbeee930d12784ea478c6afd2050ea, type: 3}
+      propertyPath: soulColor.r
+      value: 5.3403134
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475116151911439632, guid: 08dbeee930d12784ea478c6afd2050ea, type: 3}
       propertyPath: toActivateObjects.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -33010,6 +33022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1174714687}
+  - component: {fileID: 1174714688}
   m_Layer: 0
   m_Name: Pont_part2
   m_TagString: Untagged
@@ -33036,6 +33049,27 @@ Transform:
   - {fileID: 1194046691}
   m_Father: {fileID: 1670767195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1174714688
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174714686}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 15, y: 1, z: 1}
+  m_Center: {x: 0, y: 100, z: 16}
 --- !u!1001 &1178511831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48464,6 +48498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1755506679}
+  - component: {fileID: 1755506680}
   m_Layer: 0
   m_Name: Pont_part4
   m_TagString: Untagged
@@ -48490,6 +48525,27 @@ Transform:
   - {fileID: 2042306434}
   m_Father: {fileID: 310358903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1755506680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755506678}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 15, y: 1, z: 1}
+  m_Center: {x: 0, y: 100, z: 48}
 --- !u!1001 &1757481030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49950,6 +50006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1783297764}
+  - component: {fileID: 1783297765}
   m_Layer: 0
   m_Name: Pont_part3
   m_TagString: Untagged
@@ -49976,6 +50033,27 @@ Transform:
   - {fileID: 1536960756}
   m_Father: {fileID: 30493659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1783297765
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783297763}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 15, y: 1, z: 1}
+  m_Center: {x: 0, y: 100, z: 32}
 --- !u!1001 &1784996690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55907,6 +55985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1981255638}
+  - component: {fileID: 1981255639}
   m_Layer: 0
   m_Name: Pont_part1
   m_TagString: Untagged
@@ -55933,6 +56012,27 @@ Transform:
   - {fileID: 1370771726}
   m_Father: {fileID: 1409650198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1981255639
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981255637}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 15, y: 1, z: 1}
+  m_Center: {x: 0, y: 100, z: 0}
 --- !u!1001 &1981388120
 PrefabInstance:
   m_ObjectHideFlags: 0
