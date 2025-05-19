@@ -4,9 +4,6 @@ using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
-	public static LoadingScreen Instance { get; private set; }
-
-
 	[Header("Technical")]
 	[SerializeField] RawImage fadeImage;
 	[SerializeField] Slider progressBar;
@@ -20,14 +17,6 @@ public class LoadingScreen : MonoBehaviour
 	float _fadeOutDuration = 0.5f;
 	bool _isFadingIn = false;
 	bool _isFadingOut = false;
-
-	private void Awake()
-	{
-		if (Instance == null)
-			Instance = this;
-		else
-			Destroy(gameObject);
-	}
 
 	private void Start()
 	{
