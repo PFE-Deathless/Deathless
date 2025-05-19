@@ -9,12 +9,15 @@ using UnityEngine.AI;
 [RequireComponent (typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-	[Header("Statistics")]
+	[Header("Properties")]
 	[SerializeField] HitType.Type[] weaknesses = new HitType.Type[1];
 	[Tooltip("Player detection range, range at which the enemy can detect the player")] public float range = 5f;
 	[Tooltip("Range at which the enemy will consider being close enough to perform its attack")] public float acquisitionRange = 2f;
 	[Tooltip("Maximum range before the enemy drops the aggro")] public float maxRange = 10f;
 	[SerializeField] BehaviorType behaviorType = BehaviorType.Attack;
+	[SerializeField, Tooltip("If the attack of the enemy can be canceled when hit")] bool staggerable = true;
+	[SerializeField, Tooltip("Should the enemy drop a key when dying ?")] bool dropKey = false;
+	[SerializeField, Tooltip("Transform where the key should be if the enemy would drop one")] Transform keyTransform;
 	[SerializeField] float patrolMoveSpeed = 4f;
 
 	[Header("Attack")]
@@ -24,6 +27,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] protected float attackDuration = 0.5f;
 	[SerializeField] protected float attackCooldown = 1f;
 	[SerializeField] protected float attackKnockbackForce = 0f;
+	[SerializeField] protected float attackSlowMultiplier = 1f;
+	[SerializeField] protected float attackSlowDuration = 0f;
 
 	[Header("Flee")]
 	[SerializeField] protected float fleeMoveSpeed = 4f;
@@ -40,13 +45,20 @@ public class Enemy : MonoBehaviour
 	public float stoppingDistance = 0.1f;
 	public Vector3[] patrolPoints;
 
+	[Header("Protection")]
+	[SerializeField] protected bool protecting = false;
+	[SerializeField] protected Enemy[] protectedEnemies;
+
 	[Header("VFX")]
+	[SerializeField] Transform VFXParent;
 	public GameObject slashObject;
 	public Transform slashTransform;
 	public Transform aggroTransform;
 	public GameObject damageParticle;
 	public GameObject aggroFeedbackPrefab;
 	public GameObject preHitFeedbackPrefab;
+	[SerializeField] private GameObject protectionLinkPrefab;
+	[SerializeField] private GameObject protectionAuraPrefab;
 
 	[Header("Technical")]
 	public bool showState;
@@ -57,6 +69,7 @@ public class Enemy : MonoBehaviour
 
 	public HitType.Type CurrentType { get; private set; }
 	public HitType.Type[] Weaknesses => weaknesses;
+	public bool IsProtected => _isProtected;
 
 	int healthMax;
 	int health;
@@ -64,6 +77,8 @@ public class Enemy : MonoBehaviour
 	protected NavMeshAgent navMeshAgent;
 	protected Transform target;
 	protected Material defaultMaterial;
+
+	protected Key key;
 
 	// Attack
 	protected AttackState attackState = AttackState.None;
@@ -88,6 +103,12 @@ public class Enemy : MonoBehaviour
 	protected float _shakeElapsedTime = 0f;
 
 	// Death
+
+	// Protection
+	protected bool _isProtected;
+	protected List<Enemy> _protectors = new();
+	protected GameObject _protectionAura;
+	protected LineRenderer[] _protectionLinksLR;
 
 	// State Machine
 	EnemyState state;
@@ -146,6 +167,28 @@ public class Enemy : MonoBehaviour
 		healthMax = weaknesses.Length;
 		health = healthMax;
 
+		if (dropKey && keyTransform != null)
+		{
+			GameObject prefab = Resources.Load<GameObject>("Key/Key");
+			GameObject obj = Instantiate(prefab, keyTransform.position, keyTransform.rotation, keyTransform);
+			key = obj.GetComponent<Key>();
+		}
+
+		if (protectedEnemies.Length > 0)
+		{
+			_protectionLinksLR = new LineRenderer[protectedEnemies.Length];
+			for (int i = 0; i < protectedEnemies.Length; i++)
+			{
+				protectedEnemies[i].SetProtector(this, true);
+				GameObject obj = Instantiate(protectionLinkPrefab, transform.position, Quaternion.identity, VFXParent);
+				_protectionLinksLR[i] = obj.GetComponent<LineRenderer>();
+			}
+		}
+		else
+		{
+			protecting = false;
+		}
+
 		debugText.gameObject.SetActive(showState);
 
 		GetMeshRenderersAndMaterials();
@@ -178,6 +221,15 @@ public class Enemy : MonoBehaviour
 		{
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
 			animator.SetFloat("AnimationSpeed", navMeshAgent.speed);
+		}
+
+		if (protecting)
+		{
+			for (int i = 0; i < _protectionLinksLR.Length; i++)
+			{
+				_protectionLinksLR[i].SetPosition(0, transform.position);
+				_protectionLinksLR[i].SetPosition(1, protectedEnemies[i].transform.position);
+			}
 		}
 
 		debugText.enabled = showState;
@@ -269,6 +321,9 @@ public class Enemy : MonoBehaviour
 		if (state == EnemyState.Death)
 			return;
 
+		if (_isProtected)
+			return;
+
 		health--;
 		if (slashObject != null && slashTransform != null)
 		{
@@ -296,7 +351,33 @@ public class Enemy : MonoBehaviour
 
 	public void Kill()
 	{
+		if (protecting)
+		{
+			for (int i = 0; i < protectedEnemies.Length; i++)
+				protectedEnemies[i].SetProtector(this, false);
+		}
+
 		ChangeState(EnemyState.Death);
+	}
+
+	public void SetProtector(Enemy protector, bool protecting)
+	{
+		if (protecting)
+		{
+			if (_protectionAura == null)
+				_protectionAura = Instantiate(protectionAuraPrefab, transform.position, Quaternion.identity, VFXParent);
+			_isProtected = true;
+			_protectors.Add(protector);
+		}
+		else
+		{
+			_protectors.Remove(protector);
+			if (_protectors.Count == 0)
+			{
+				Destroy(_protectionAura);
+				_isProtected = false;
+			}
+		}		
 	}
 
 	// #####################
@@ -362,7 +443,7 @@ public class Enemy : MonoBehaviour
 		if (state == EnemyState.Death)
 			return;
 
-		if (gotDamaged)
+		if (gotDamaged && staggerable)
 		{
 			gotDamaged = false;
 			animator.SetTrigger("CancelAttack");
@@ -396,6 +477,8 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
+			if (dropKey)
+				key.DropKey();
 			Destroy(gameObject);
 		}
 	}
@@ -407,9 +490,9 @@ public class Enemy : MonoBehaviour
 
 		navMeshAgent.speed = patrolMoveSpeed;
 
-		if (patrolPoints.Length == 0)
+		if (patrolPoints.Length == 0 || patrolPoints.Length == 1)
 		{
-			Debug.LogError("NO PATROL POINTS !!");
+			//Debug.Log("Not enough patrol points to patrol ! (current amount : " + patrolPoints.Length + ")");
 			ChangeState(EnemyState.Wait);
 			return;
 		}
@@ -579,7 +662,13 @@ public class Enemy : MonoBehaviour
 
 	void ChooseNewPatrolPoint()
 	{
-		if (patrolPoints.Length > 0)
+		if (patrolPoints.Length == 1)
+		{
+			patrolDestination = patrolPoints[0];
+			return;
+		}
+
+		if (patrolPoints.Length > 1)
 		{
 			List<Vector3> tempPatrols = patrolPoints.ToList();
 			tempPatrols.Remove(patrolDestination);

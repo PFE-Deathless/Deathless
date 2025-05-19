@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2d22d3f74e55c4fad8ac445bb2f220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenePath: Assets/Scenes/Levels/HUB_Final.unity
+  scenePath: Assets/Scenes/Levels/HUB.unity
   removeGreenArea: 1
   playerLayer:
     serializedVersion: 2

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8799756459847541831}
   - component: {fileID: 301770174128239554}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Vase_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 8822800287333595720}
   - component: {fileID: 3173968358150659448}
   - component: {fileID: 4502244012638714734}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

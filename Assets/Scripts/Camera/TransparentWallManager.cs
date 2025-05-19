@@ -65,6 +65,13 @@ public class TransparentWallManager : MonoBehaviour
 		// Fade hit walls to transparent
 		foreach (MeshRenderer mr in _inMR)
 		{
+			if (mr == null)
+			{
+				if (!_clearMR.Contains(mr))
+					_clearMR.Add(mr);
+				continue;
+			}
+
 			Color c = mr.material.GetColor("_Base_Color");
 
 			if (c.a > transparentPercentage)
@@ -82,6 +89,13 @@ public class TransparentWallManager : MonoBehaviour
 		// Fade the others back to opaque
 		foreach (MeshRenderer mr in _outMR)
 		{
+			if (mr == null)
+			{
+				if (!_clearMR.Contains(mr))
+					_clearMR.Add(mr);
+				continue;
+			}
+
 			Color c = mr.material.GetColor("_Base_Color");
 
 			if (c.a < 1f)
@@ -100,7 +114,10 @@ public class TransparentWallManager : MonoBehaviour
 		}
 
 		foreach (MeshRenderer mr in _clearMR)
+		{
 			_outMR.Remove(mr);
+			_inMR.Remove(mr);
+		}
 		_clearMR.Clear();
 	}
 

@@ -4,13 +4,13 @@ public class Tomb : MonoBehaviour, IInteractable
 {
 	[Header("Properties")]
 	[SerializeField, Tooltip("ID of the text to show when interacting with the tomb")] uint ID = 0;
-	[SerializeField, Tooltip("Dungeon that will unlock the memory of this tomb")] Dungeon dungeonToUnlock;
 	[SerializeField] InteractableType interactableType;
 
 	[Header("Technical")]
 	[SerializeField] GameObject tombParticle;
 
 	bool _isUnlocked = false;
+	TombData _data;
 
 	void Start()
 	{
@@ -19,7 +19,8 @@ public class Tomb : MonoBehaviour, IInteractable
 
 	void Init()
 	{
-		_isUnlocked = GameManager.Instance.IsUnlocked(dungeonToUnlock);
+		_data = GameManager.Instance.GetTombData(ID);
+		_isUnlocked = GameManager.Instance.IsUnlocked(_data.dungeon);
 		tombParticle.SetActive(_isUnlocked);
 	}
 
@@ -28,10 +29,15 @@ public class Tomb : MonoBehaviour, IInteractable
 		if (interactableType != type && interactableType != InteractableType.Both)
 			return;
 
-		Debug.Log("Epitaph : \n" + GameManager.Instance.GetTombEpitah(ID));
+		string text = "";
+		text += $"Name : {_data.name}\n";
+		text += $"Date : {_data.date}\n";
+		text += $"Epitaph : {_data.epitaph}\n";
 		if (_isUnlocked)
-			Debug.Log("Memory : \n" + GameManager.Instance.GetTombMemory(ID));
+			text += $"Memory : {_data.memory}\n";
 		else
-			Debug.Log("Memory isn't unlocked !");
+			text += $"Memory : {_data.dungeon} hasn't be unlocked yet !\n";
+
+		Debug.Log(text);
 	}
 }

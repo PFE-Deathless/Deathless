@@ -13,7 +13,8 @@ public class HealthDisplay : MonoBehaviour
 	public Image[] hearts;
 
 	[Header("Vignette")]
-	[SerializeField] RawImage[] hitVignetteImages;
+	[SerializeField] RawImage[] hitVignetteHorizontal;
+	[SerializeField] RawImage[] hitVignetteVertical;
 	[SerializeField] float fadeSpeed = 2f;
 
 
@@ -70,10 +71,18 @@ public class HealthDisplay : MonoBehaviour
 
 	public void SetVignettePercentage(float percentage)
 	{
-		foreach(RawImage vignette in hitVignetteImages)
+		foreach (RawImage vign in hitVignetteHorizontal)
 		{
-			Vector3 scale = new(1f, percentage, 1f);
-			vignette.transform.localScale = scale;
+			Vector3 scale = vign.transform.localScale;
+			scale.y = percentage;
+			vign.transform.localScale = scale;
+		}
+
+		foreach (RawImage vign in hitVignetteVertical)
+		{
+			Vector3 scale = vign.transform.localScale;
+			scale.x = percentage;
+			vign.transform.localScale = scale;
 		}
 	}
 }

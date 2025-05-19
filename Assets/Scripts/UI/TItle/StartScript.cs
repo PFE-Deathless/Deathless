@@ -23,7 +23,7 @@ public class StartScript : MonoBehaviour
 
 	public void StartGame()
 	{
-		if (GameManager.Instance.IsUnlocked(Dungeon.Tutorial))
+		if (GameManager.Instance.HasDungeonSoul(Dungeon.Tutorial))
 			LoadLevel(hubPath);
 		else
 			LoadLevel(tutoPath);

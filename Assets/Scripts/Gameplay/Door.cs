@@ -4,8 +4,10 @@ public class Door : MonoBehaviour, IActivable
 {
 	[Header("Parameters")]
 	[SerializeField] float fadeDuration = 1f;
-	[SerializeField, Tooltip("Type of door (Lever : opened by a lever, Progression : Opened by a finished dungeon, Key : Opened by a key)")] Type doorType = Type.Lever;
+	[SerializeField, Tooltip("Type of door (Lever : opened by a lever, Progression : Opened by a finished dungeon, Key : Opened by a key)")] Type doorType = Type.Key;
 	[SerializeField, Tooltip("Dungeon that opens the door if finished (If Progression is selected in Door Type)")] Dungeon dungeonValidation;
+
+	public bool FinishedActivation { get; set; }
 
 	Material _transparentMaterial;
 	Color _baseColor;
@@ -35,6 +37,7 @@ public class Door : MonoBehaviour, IActivable
 			}
 			else
 			{
+				FinishedActivation = true;
 				Destroy(gameObject);
 			}
 		}
@@ -47,8 +50,7 @@ public class Door : MonoBehaviour, IActivable
 
 	public enum Type
 	{
-		Lever,
-		Progression,
 		Key,
+		Progression,
 	}
 }

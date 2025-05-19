@@ -140,7 +140,7 @@ public class PlayerHealth : MonoBehaviour
 		invicible = invicibility;
 	}
 
-	public void TakeDamage(int damage)
+	public bool TakeDamage(int damage)
 	{
 		if (!invicible && !_invicible)
 		{
@@ -157,8 +157,12 @@ public class PlayerHealth : MonoBehaviour
 			isBlinking = true;
 
 			StartCoroutine(InvicibilityTime());
+
 			//Debug.Log("HP : " + health);
+			return true;
 		}
+
+		return false;
 	}
 
 	public void Kill()

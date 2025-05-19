@@ -7311,7 +7311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1872787399021961225, guid: 23fabada5a77fcf45a538ba039108cd6, type: 3}
       propertyPath: maxRange
-      value: 10
+      value: 9.45
       objectReference: {fileID: 0}
     - target: {fileID: 1872787399021961225, guid: 23fabada5a77fcf45a538ba039108cd6, type: 3}
       propertyPath: minRange
@@ -14483,10 +14483,6 @@ PrefabInstance:
     - target: {fileID: 2884414984885603687, guid: 4dabd7f6cc5303343803546b4763ed20, type: 3}
       propertyPath: m_Name
       value: SceneLoader
-      objectReference: {fileID: 0}
-    - target: {fileID: 4992374906775295997, guid: 4dabd7f6cc5303343803546b4763ed20, type: 3}
-      propertyPath: scenePath
-      value: Assets/Scenes/Levels/HUB_Final.unity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23520,6 +23516,18 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1923725553}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.b
+      value: 5.3403134
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.g
+      value: 0.5212731
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
+      propertyPath: soulColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6668196049668267217, guid: de94d79a429d2714aa11a449b8d4982e, type: 3}
       propertyPath: dungeonValidation
       value: 2
@@ -41069,7 +41077,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -41077,7 +41085,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
+  m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 51760cc0c7f85574ca91e2094be7ebbd, type: 2}
   m_BuildHeightMesh: 0

@@ -19,6 +19,7 @@ public static class StaticFunctions
 
 		for (int i = 0; i < list.Count; i++)
 		{
+			if (list[i] == null) continue;
 			distance = Vector3.Distance(list[i].position, position);
 			if (distance < nearestDistance)
 			{
@@ -44,6 +45,7 @@ public static class StaticFunctions
 
 		for (int i = 0; i < array.Length; i++)
 		{
+			if (array[i] == null) continue;
 			distance = Vector3.Distance(array[i].position, position);
 			if (distance < nearestDistance)
 			{

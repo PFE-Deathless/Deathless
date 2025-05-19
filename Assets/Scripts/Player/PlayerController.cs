@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
 	public ParticleSystem hitCooldownParticle;
 	public VisualEffect scytheSlash;
 	public SkinnedMeshRenderer scytheRenderer;
+	[SerializeField] private Image hitCooldownImage;
 
 	[Header("SFX")]
 	[SerializeField] AudioEntry audioScytheSlash;
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour
 	Animator animator;
 	float animAcceleration = 10f;
 	float animCurrentSpeed = 0f;
+	float _originalMoveSpeed;
+	Coroutine _speedModifierCoroutine;
 
 	private void Awake()
 	{
@@ -79,7 +83,7 @@ public class PlayerController : MonoBehaviour
 		InputsManager.Instance.hit = HitType.Type.None;
 		_dashCharges = dashChargesMax;
 		_scytheBaseEmissive = scytheRenderer.material.GetVector("_EmissionColor");
-
+		_originalMoveSpeed = moveSpeed;
 	}
 
 	void Update()
@@ -181,16 +185,16 @@ public class PlayerController : MonoBehaviour
 				float percentage = (_hitElapsedTime - hitDuration) / (cooldownDuration - hitDuration);
 
 				if (_hitSuccess)
-					HitDisplay.Instance.SetVignPercentage(1f);
+					hitCooldownImage.fillAmount = 1f;
 				else
-					HitDisplay.Instance.SetVignPercentage(percentage);
+					hitCooldownImage.fillAmount = percentage;
 
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
 			{
-				HitDisplay.Instance.SetVignPercentage(1f);
+				hitCooldownImage.fillAmount = 1f;
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
 				if (!_hitSuccess)
 					hitCooldownParticle.Play();
@@ -248,7 +252,9 @@ public class PlayerController : MonoBehaviour
 
 	public void SetSpeedModifier(float modifier, float duration)
 	{
-		StartCoroutine(ApplySpeedModifier(modifier, duration));
+		if (_speedModifierCoroutine != null)
+			StopCoroutine(_speedModifierCoroutine);
+		_speedModifierCoroutine = StartCoroutine(ApplySpeedModifier(modifier, duration));
 	}
 
 	public void ResetDashCharges()
@@ -260,10 +266,9 @@ public class PlayerController : MonoBehaviour
 
 	IEnumerator ApplySpeedModifier(float modifier, float duration)
 	{
-		float originalMoveSpeed = moveSpeed;
 		moveSpeed *= modifier;
 		yield return new WaitForSeconds(duration);
-		moveSpeed = originalMoveSpeed;
+		moveSpeed = _originalMoveSpeed;
 	}
 
 	IEnumerator ApplyDash()
