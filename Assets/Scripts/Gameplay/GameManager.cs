@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] string tombTSVFileName = "Texte_Tombes";
 
 	[Header("Scene Transition")]
-	[SerializeField] string loadingScreenScenePath = "Assets/Scenes/LoadingScreen.unity";
+	[SerializeField] LoadingScreen loadingScreen;
 	[SerializeField] float fadeInDuration = 0.5f;
 	[SerializeField] float fadeOutDuration = 0.5f;
 	[SerializeField] float loadingScreenDuration = 1f;
@@ -49,6 +51,9 @@ public class GameManager : MonoBehaviour
 	// Key System
 	int _keys;
 
+	// Debug screen
+	string _debugText = "";
+
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
@@ -62,15 +67,23 @@ public class GameManager : MonoBehaviour
 		}
 		else
 			Destroy(gameObject);
+
+		Debug.developerConsoleEnabled = true;
+		Debug.developerConsoleVisible = true;
 	}
 
 	private void Start()
 	{
 #if !UNITY_EDITOR
-		Cursor.visible = false;
+		//Cursor.visible = false;
 #endif
+		Debug.developerConsoleEnabled = true;
+		Debug.developerConsoleVisible = true;
 
 		_savePath = Path.Combine(Application.persistentDataPath, saveFileName);
+
+		// Set loading screen timings for fadings
+		loadingScreen.SetTiming(fadeInDuration, fadeOutDuration);
 
 		LoadData();
 		//playerData = new(); // To change to load correct data on game start
@@ -88,6 +101,12 @@ public class GameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Y))
 		{
 			SaveData();
+		}
+
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			Debug.LogError("X !");
+			Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
 		}
 
 		if (Input.GetKeyDown(KeyCode.U))
@@ -324,15 +343,20 @@ public class GameManager : MonoBehaviour
 
 	void SpawnTeleportPlayer()
 	{
-		//Transform playerStartPosition = null;
-		//while (playerStartPosition == null)
-		//	playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
+		GameObject beginPlayObj;
+		do
+		{
+			beginPlayObj = GameObject.FindWithTag("BeginPlay");
+			LogText("Searching for Begin Play...");
+		} while (beginPlayObj == null);
 
-		Transform beginPlayTransform = GameObject.FindWithTag("BeginPlay").transform;
+		LogText("Begin Play found !");
+		Transform beginPlayTransform = beginPlayObj.transform;
 
 		if (beginPlayTransform == null)
 		{
 			Debug.LogWarning("No Begin Play in the Scene ! ");
+			LogText("No Begin Play in the Scene ! ");
 			return;
 		}
 
@@ -375,6 +399,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+
 	IEnumerator LoadLevelCoroutine(string scenePath)
 	{
 		_loadingLevel = true;
@@ -382,35 +407,49 @@ public class GameManager : MonoBehaviour
 		// Check if the new level is a menu or not
 		bool isMenu = IsMenu(scenePath);
 
-		// Load loading screen scene
-		SceneManager.LoadSceneAsync(loadingScreenScenePath, LoadSceneMode.Additive);
-		Scene loadingScreenScene = SceneManager.GetSceneAt(SceneManager.loadedSceneCount);
-
-		// Wait until the loading screen scene to be loaded
-		while (LoadingScreen.Instance == null)
-			yield return null;
-
 		// Block player inputs
 		if (InputsManager.Instance != null && !isMenu)
 			InputsManager.Instance.EnableInput(false);
 
-		// Start fade in
-		LoadingScreen.Instance.SetTiming(fadeInDuration, fadeOutDuration);
-		LoadingScreen.Instance.FadeIn();
-
-		// Get current scene
-		Scene oldLevel = SceneManager.GetActiveScene();
-
-		//Debug.Log("Scene : " + loadingScreenScene.path);
-		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
-
-		// Wait for the fade in to finish
-		while (LoadingScreen.Instance.IsFadingIn)
+		// Start loading screen fade in, and wait for it to finish
+		loadingScreen.FadeIn();
+		while (loadingScreen.IsFadingIn)
+		{
+			LogText("Fading in...");
 			yield return null;
+		}
 
-		// Unload previous level
-		SceneManager.UnloadSceneAsync(oldLevel);
-		yield return new WaitForSeconds(0.1f);
+		// Load new scene
+		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath);
+		newLevelAO.allowSceneActivation = false;
+
+		// Loading in progress (wait for it to finish)
+		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
+		{
+			// Loading Screen progress here
+			LogText("Progress : " + newLevelAO.progress);
+
+			loadingScreen.SetProgressBarValue(newLevelAO.progress / 0.9f);
+			yield return null;
+		}
+
+		// Skip a frame (just to be sure)
+		yield return null;
+
+		// Activate the new scene afterwards
+		newLevelAO.allowSceneActivation = true;
+
+		// Wait for the active scene to be the newly loaded scene
+		while (SceneManager.GetActiveScene().path != scenePath)
+		{
+			LogText("Loading new scene...");
+			yield return null;
+		}
+
+		LogText("Active Scene path : " + SceneManager.GetActiveScene().path);
+
+
+		// ### Scene changes ###
 
 		// Reset keys number
 		_keys = 0;
@@ -419,31 +458,8 @@ public class GameManager : MonoBehaviour
 		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
 			Destroy(projectileParent.transform.GetChild(i).gameObject);
 
-		// Start loading the new level
-		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
-		newLevelAO.allowSceneActivation = false;
-
-
-		// Loading in progress
-		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
-		{
-			// Loading Screen progress here
-			//Debug.Log("Progress : " + newLevelAO.progress);
-
-			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
-			yield return null;
-		}
-
+		// Skip a frame (just to be sure)
 		yield return null;
-
-		// Activate new level
-		newLevelAO.allowSceneActivation = true;
-		yield return new WaitForSeconds(0.1f);
-
-		// Set new level as active level
-		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
-		SceneManager.SetActiveScene(newLevel);
-		//Debug.Log("New Level : " + newLevel.path);
 
 		// Spawn/Teleport player, reset his dash charges and fully heal him, if the scene isn't a menu
 		if (!isMenu)
@@ -459,34 +475,37 @@ public class GameManager : MonoBehaviour
 			yield return null;
 		}
 
-		// Wait for the load screen to do its things uh
+		// Wait a bit for the loading screen to finish (so the player is correclty teleported)
 		yield return new WaitForSeconds(loadingScreenDuration);
 
-		// Start fade out
-		LoadingScreen.Instance.FadeOut();
+		// #####################
 
-		// Wait for the fade out to finish
-		while (LoadingScreen.Instance.IsFadingOut)
+
+		// Start loading screen fade out, and wait for it to finish
+		loadingScreen.FadeOut();
+		while (loadingScreen.IsFadingOut)
+		{
+			LogText("Fading out...");
 			yield return null;
-
-		// Unload loading screen level
-		SceneManager.UnloadSceneAsync(loadingScreenScene);
+		}
 
 		// Wait a bit and activate player inputs back
 		yield return new WaitForSeconds(0.2f);
 		if (!isMenu)
 			InputsManager.Instance.EnableInput(true);
 
-		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
-
-
-		//Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
-		//for (int i = 0; i < SceneManager.loadedSceneCount; i++)
-		//{
-		//	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
-		//}
-
 		_loadingLevel = false;
+	}
+
+	#endregion
+
+	#region DEBUG
+
+	void LogText(string log)
+	{
+		_debugText += $"\n [{DateTime.Now}] : {log}";
+		File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
+		Debug.Log(log);
 	}
 
 	#endregion
