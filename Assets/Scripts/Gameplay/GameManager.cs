@@ -3,7 +3,6 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -112,6 +111,11 @@ public class GameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.U))
 		{
 			LoadData();
+		}
+
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			ResetData();
 		}
 
 		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
@@ -316,6 +320,7 @@ public class GameManager : MonoBehaviour
 
 	public void ResetData()
 	{
+		Debug.Log("Data reset !");
 		playerData = new();
 		SaveData();
 	}
@@ -501,11 +506,14 @@ public class GameManager : MonoBehaviour
 
 	#region DEBUG
 
-	void LogText(string log)
+	public void LogText(string log)
 	{
-		_debugText += $"\n [{DateTime.Now}] : {log}";
-		File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
-		Debug.Log(log);
+		if (Debug.isDebugBuild)
+		{
+			_debugText += $"\n [{DateTime.Now}] : {log}";
+			File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
+			Debug.Log(log);
+		}
 	}
 
 	#endregion
