@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -48,6 +49,9 @@ public class GameManager : MonoBehaviour
 
 	// Key System
 	int _keys;
+
+	// Debug screen
+	string _debugText = "";
 
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
@@ -343,13 +347,16 @@ public class GameManager : MonoBehaviour
 		do
 		{
 			beginPlayObj = GameObject.FindWithTag("BeginPlay");
+			LogText("Searching for Begin Play...");
 		} while (beginPlayObj == null);
 
+		LogText("Begin Play found !");
 		Transform beginPlayTransform = beginPlayObj.transform;
 
 		if (beginPlayTransform == null)
 		{
 			Debug.LogWarning("No Begin Play in the Scene ! ");
+			LogText("No Begin Play in the Scene ! ");
 			return;
 		}
 
@@ -407,6 +414,7 @@ public class GameManager : MonoBehaviour
 		while (LoadingScreen.Instance == null)
 		{
 			Debug.Log("Waiting for loading screen");
+			LogText("Waiting for loading screen");
 			yield return null;
 		}
 
@@ -420,6 +428,7 @@ public class GameManager : MonoBehaviour
 
 		// Get current scene
 		Scene oldLevel = SceneManager.GetActiveScene();
+		LogText("Exitting scene : " + oldLevel.path);
 
 		//Debug.Log("Scene : " + loadingScreenScene.path);
 		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
@@ -428,12 +437,18 @@ public class GameManager : MonoBehaviour
 		while (LoadingScreen.Instance.IsFadingIn)
 		{
 			Debug.Log("Waiting for fade in");
+			LogText("Waiting for fade in");
 			yield return null;
 		}
 
 		// Unload previous level
-		SceneManager.UnloadSceneAsync(oldLevel);
-		yield return new WaitForSeconds(0.1f);
+		AsyncOperation unloading = SceneManager.UnloadSceneAsync(oldLevel);
+		while (!unloading.isDone)
+		{
+			LogText("Waiting for the exitting scene to unload...");
+			yield return null;
+		}
+		//yield return new WaitForSeconds(0.1f);
 
 		// Reset keys number
 		_keys = 0;
@@ -445,6 +460,9 @@ public class GameManager : MonoBehaviour
 		// Start loading the new level
 		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
 		newLevelAO.allowSceneActivation = false;
+		
+		// Skip a frame
+		yield return null;
 
 
 		// Loading in progress
@@ -452,6 +470,7 @@ public class GameManager : MonoBehaviour
 		{
 			// Loading Screen progress here
 			Debug.Log("Progress : " + newLevelAO.progress);
+			LogText("Progress : " + newLevelAO.progress);
 
 			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
@@ -465,8 +484,24 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 
 		// Set new level as active level
-		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
-		SceneManager.SetActiveScene(newLevel);
+		//Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
+		Scene newLevel;
+		do
+		{
+			newLevel = SceneManager.GetSceneByPath(scenePath);
+			LogText("Trying to get the entering scene reference...");
+			yield return null;
+		} while (!newLevel.IsValid());
+
+		LogText("New Level scene path : " + newLevel.path);
+
+		while (!SceneManager.SetActiveScene(newLevel))
+		{
+			LogText("Setting new level as active scene...");
+			yield return null;
+		}
+		
+		
 		//Debug.Log("New Level : " + newLevel.path);
 
 		//Skip a frame
@@ -496,6 +531,7 @@ public class GameManager : MonoBehaviour
 		while (LoadingScreen.Instance.IsFadingOut)
 		{
 			Debug.Log("Waiting for fade out");
+			LogText("Waiting for fade out");
 			yield return null;
 		}
 
@@ -517,6 +553,16 @@ public class GameManager : MonoBehaviour
 		//}
 
 		_loadingLevel = false;
+	}
+
+	#endregion
+
+	#region DEBUG
+
+	void LogText(string log)
+	{
+		_debugText += $"\n [{DateTime.Now}] : {log}";
+		File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
 	}
 
 	#endregion
