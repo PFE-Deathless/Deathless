@@ -34,6 +34,37 @@ Transform:
   - {fileID: 7128961381971432287}
   m_Father: {fileID: 6939404660023884105}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1780761617564182852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908527584793675140}
+  m_Layer: 7
+  m_Name: KeyTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1908527584793675140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780761617564182852}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.55511856, y: -0.51913804, z: 0.47465703, w: 0.4438917}
+  m_LocalPosition: {x: -0.01149, y: -0.0006, z: 0.0121}
+  m_LocalScale: {x: 0.055352576, y: 0.055352576, z: 0.055352576}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2045728169210893414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3596306810577175913
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,12 +371,21 @@ MonoBehaviour:
   range: 5
   acquisitionRange: 3
   maxRange: 20
-  chargeMoveSpeed: 8
+  behaviorType: 0
+  staggerable: 1
+  dropKey: 0
+  keyTransform: {fileID: 1908527584793675140}
   patrolMoveSpeed: 4
+  chargeMoveSpeed: 8
   attackWaitTime: 0.6
   attackCastTime: 0.46
   attackDuration: 0.1
   attackCooldown: 2
+  attackKnockbackForce: 0
+  attackSlowMultiplier: 1
+  attackSlowDuration: 0
+  fleeMoveSpeed: 4
+  fleeDistance: 2
   blinkingTime: 0.25
   shakeDuration: 0.3
   deathDuration: 1
@@ -354,12 +394,17 @@ MonoBehaviour:
   stoppingDistance: 0.1
   patrolPoints:
   - {x: 0, y: 0, z: 2}
+  protecting: 0
+  protectedEnemies: []
+  VFXParent: {fileID: 3733443275274896514}
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 8793929234922687775}
   aggroTransform: {fileID: 7128961381971432287}
   damageParticle: {fileID: 5468568597703221516}
   aggroFeedbackPrefab: {fileID: 8258709214345215218, guid: 92ad4dbdf27cd4e4d8f16d0c43b3b208, type: 3}
   preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
+  protectionLinkPrefab: {fileID: 292647218442263076, guid: 123c471b026a05049b04c3637729a985, type: 3}
+  protectionAuraPrefab: {fileID: 5224460352986802442, guid: b54086eb462c2004e8cec8caac694e97, type: 3}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:
@@ -459,6 +504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be735c741d3237f4fbbb40682461bc64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackForce: 0
+  slowDuration: 0
+  slowMultiplier: 0
 --- !u!23 &4960916469420895448
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -666,12 +714,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -2881332458612937114, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1908527584793675140}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8511013528044502864}
   m_SourcePrefab: {fileID: 100100000, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
+--- !u!4 &2045728169210893414 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2881332458612937114, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}
+  m_PrefabInstance: {fileID: 4927098020480285184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4893768982302858731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 087a2c69f90000c4ba68b4b1eddf8caa, type: 3}

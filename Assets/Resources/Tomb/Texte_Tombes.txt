@@ -1,21 +1,21 @@
-ID	Épitaphe	Mémoire
-1	A1	B1
-2	A2	B2
-3	A3	B3
-4	A4	B4
-5	A5	B5
-6	A6	B6
-7	A7	B7
-8	A8	B8
-9	A9	B9
-10	A10	B10
-11	A11	B11
-12	A12	B12
-13	A13	B13
-14	A14	B14
-15	A15	B15
-16	A16	B16
-17	A17	B17
-18	A18	B18
-19	A19	B19
-20	A20	B20
+ID	Donjon	Nom	Date	Épitaphe	Souvenir
+1	None	Name_1	xxxx-xxxx_1	A1	B1
+2	None	Name_2	xxxx-xxxx_2	A2	B2
+3	None	Name_3	xxxx-xxxx_3	A3	B3
+4	None	Name_4	xxxx-xxxx_4	A4	B4
+5	None	Name_5	xxxx-xxxx_5	A5	B5
+6	None	Name_6	xxxx-xxxx_6	A6	B6
+7	None	Name_7	xxxx-xxxx_7	A7	B7
+8	None	Name_8	xxxx-xxxx_8	A8	B8
+9	None	Name_9	xxxx-xxxx_9	A9	B9
+10	None	Name_10	xxxx-xxxx_10	A10	B10
+11	None	Name_11	xxxx-xxxx_11	A11	B11
+12	None	Name_12	xxxx-xxxx_12	A12	B12
+13	None	Name_13	xxxx-xxxx_13	A13	B13
+14	None	Name_14	xxxx-xxxx_14	A14	B14
+15	None	Name_15	xxxx-xxxx_15	A15	B15
+16	None	Name_16	xxxx-xxxx_16	A16	B16
+17	None	Name_17	xxxx-xxxx_17	A17	B17
+18	None	Name_18	xxxx-xxxx_18	A18	B18
+19	None	Name_19	xxxx-xxxx_19	A19	B19
+20	None	Name_20	xxxx-xxxx_20	A20	B20

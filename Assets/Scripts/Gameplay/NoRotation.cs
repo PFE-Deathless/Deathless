@@ -2,13 +2,28 @@ using UnityEngine;
 
 public class NoRotation : MonoBehaviour
 {
-	public bool local;
+	[SerializeField] Type type;
 
-	void Update()
+	void LateUpdate()
 	{
-		if (local)
-			transform.localRotation = Quaternion.identity;
-		else
-			transform.rotation = Quaternion.identity;
+		switch (type)
+		{
+			case Type.None:
+				transform.rotation = Quaternion.identity;
+				break;
+			case Type.Local:
+				transform.localRotation = Quaternion.identity;
+				break;
+			case Type.UpAxis:
+				transform.rotation = Quaternion.LookRotation(Vector3.up, Vector3.up);
+				break;
+		}
+	}
+
+	enum Type
+	{
+		None,
+		Local,
+		UpAxis,
 	}
 }

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] GameObject userInterfacePrefab;
 	[SerializeField] GameObject cameraPrefab;
+	[SerializeField] GameObject audioManagerPrefab;
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
 
 	[Header("Save/Load player data")]
@@ -43,8 +44,10 @@ public class GameManager : MonoBehaviour
 	string _savePath;
 
 	// Tomb system
-	string[] _epitaphs;
-	string[] _memories;
+	private TombData[] _tombData;
+
+	// Key System
+	int _keys;
 
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
@@ -116,12 +119,16 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	#region DUNGEON_SYSTEM
+
 	public bool IsUnlocked(Dungeon dungeon)
 	{
 		switch (dungeon)
 		{
 			case Dungeon.None:
 				return true;
+			case Dungeon.Tutorial:
+				return playerData.tutorial;
 			case Dungeon.Dungeon1:
 				return playerData.dungeon1;
 			case Dungeon.Dungeon2:
@@ -137,6 +144,122 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void UnlockDungeon(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return;
+			case Dungeon.Tutorial:
+				playerData.tutorial = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon1:
+				playerData.dungeon1 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon2:
+				playerData.dungeon2 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon3:
+				playerData.dungeon3 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon4:
+				playerData.dungeon4 = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon5:
+				playerData.dungeon5 = true;
+				SaveData();
+				return;
+			default:
+				return;
+		}
+	}
+
+	public bool HasDungeonSoul(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return true;
+			case Dungeon.Tutorial:
+				return playerData.tutorialSoul;
+			case Dungeon.Dungeon1:
+				return playerData.dungeon1Soul;
+			case Dungeon.Dungeon2:
+				return playerData.dungeon2Soul;
+			case Dungeon.Dungeon3:
+				return playerData.dungeon3Soul;
+			case Dungeon.Dungeon4:
+				return playerData.dungeon4Soul;
+			case Dungeon.Dungeon5:
+				return playerData.dungeon5Soul;
+			default:
+				return false;
+		}
+	}
+
+	public void UnlockDungeonSoul(Dungeon dungeon)
+	{
+		switch (dungeon)
+		{
+			case Dungeon.None:
+				return;
+			case Dungeon.Tutorial:
+				playerData.tutorialSoul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon1:
+				playerData.dungeon1Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon2:
+				playerData.dungeon2Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon3:
+				playerData.dungeon3Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon4:
+				playerData.dungeon4Soul = true;
+				SaveData();
+				return;
+			case Dungeon.Dungeon5:
+				playerData.dungeon5Soul = true;
+				SaveData();
+				return;
+			default:
+				return;
+		}
+	}
+
+	#endregion
+
+	#region KEYS
+
+	public void AddKey()
+	{
+		_keys++;
+		Debug.Log("Keys : " + _keys);
+	}
+
+	public bool UseKey()
+	{
+		if (_keys >= 1)
+		{
+			_keys--;
+			Debug.Log("Keys : " + _keys);
+			return true;
+		}
+		return false;
+	}
+
+	#endregion
+
 	#region TOMB_SYSTEM
 
 	void LoadTombText()
@@ -146,34 +269,17 @@ public class GameManager : MonoBehaviour
 		TextAsset temp = Resources.Load<TextAsset>(path);
 		string[] tempArr = temp.text.Split("\r\n");
 
-		_epitaphs = new string[tempArr.Length - 1];
-		_memories = new string[tempArr.Length - 1];
+		_tombData = new TombData[tempArr.Length - 1];
 
 		for (int i = 0; i < tempArr.Length - 1; i++)
-		{
-			string t = tempArr[i + 1];
-
-			_epitaphs[i] = t.Split("\t")[1];
-			_memories[i] = t.Split("\t")[2];
-		}
+			_tombData[i] = new TombData(tempArr[i + 1]);
 	}
 
-	public string GetTombEpitah(uint id)
+	public TombData GetTombData(uint id)
 	{
-		if (id > _epitaphs.Length)
-			return "ERROR : Epitaph ID out of range !";
-		if (id == 0)
-			return "DEFAULT_EPITAPH_TEXT";
-		return _epitaphs[id - 1];
-	}
-
-	public string GetTombMemory(uint id)
-	{
-		if (id > _memories.Length)
-			return "ERROR : Memory ID out of range !";
-		if (id == 0)
-			return "DEFAULT_MEMORY_TEXT";
-		return _memories[id - 1];
+		if (id > _tombData.Length || id == 0)
+			return new(null);
+		return _tombData[id - 1];
 	}
 
 	#endregion
@@ -184,7 +290,7 @@ public class GameManager : MonoBehaviour
 	{
 		string json = JsonUtility.ToJson(playerData, true);
 		File.WriteAllText(_savePath, json);
-		Debug.Log("Game Saved at : " + _savePath);
+		Debug.Log("Game Saved at : " + _savePath + " !\n" + json);
 	}
 
 	public void LoadData()
@@ -197,7 +303,13 @@ public class GameManager : MonoBehaviour
 
 		string json = File.ReadAllText(_savePath);
 		playerData = JsonUtility.FromJson<PlayerData>(json);
-		Debug.Log("Game Loaded from : " + _savePath + " !");
+		Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
+	}
+
+	public void ResetData()
+	{
+		playerData = new();
+		SaveData();
 	}
 
 	#endregion
@@ -247,6 +359,7 @@ public class GameManager : MonoBehaviour
 			Instantiate(userInterfacePrefab, playerParent);
 			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
 			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
+			Instantiate(audioManagerPrefab, playerParent);
 		}
 		else
 		{
@@ -264,13 +377,19 @@ public class GameManager : MonoBehaviour
 	public void LoadLevel(string scenePath)
 	{
 		if (!_loadingLevel)
+		{
+			LoadData();
 			StartCoroutine(LoadLevelCoroutine(scenePath));
+		}
 	}
 
 	public void ReloadLevel()
 	{
 		if (!_loadingLevel)
+		{
+			LoadData();
 			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
+		}
 	}
 
 	IEnumerator LoadLevelCoroutine(string scenePath)
@@ -302,10 +421,6 @@ public class GameManager : MonoBehaviour
 		// Get current scene
 		Scene oldLevel = SceneManager.GetActiveScene();
 
-		// Destroy all existing projectiles
-		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
-			Destroy(projectileParent.transform.GetChild(i).gameObject);
-
 		//Debug.Log("Scene : " + loadingScreenScene.path);
 		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
 
@@ -319,6 +434,13 @@ public class GameManager : MonoBehaviour
 		// Unload previous level
 		SceneManager.UnloadSceneAsync(oldLevel);
 		yield return new WaitForSeconds(0.1f);
+
+		// Reset keys number
+		_keys = 0;
+
+		// Destroy all existing projectiles
+		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
+			Destroy(projectileParent.transform.GetChild(i).gameObject);
 
 		// Start loading the new level
 		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
@@ -334,7 +456,9 @@ public class GameManager : MonoBehaviour
 			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
 		}
-		
+
+		yield return null;
+
 		// Activate new level
 		newLevelAO.allowSceneActivation = true;
 		yield return new WaitForSeconds(0.1f);
@@ -394,9 +518,49 @@ public class GameManager : MonoBehaviour
 	#endregion
 }
 
+public struct TombData
+{
+	public Dungeon dungeon;
+	public string name;
+	public string date;
+	public string epitaph;
+	public string memory;
+
+	public TombData(string data)
+	{
+		if (data == null)
+		{
+			dungeon = Dungeon.None;
+			name = "DEFAULT_NAME";
+			date = "DEFAULT_DATE";
+			epitaph = "DEFAULT_EPITAPH";
+			memory = "DEFAULT_MEMORY";
+		}
+		else
+		{
+			string[] temp = data.Split("\t");
+			dungeon = temp[1] switch
+			{
+				"Tutorial" => Dungeon.Tutorial,
+				"Donjon_1" => Dungeon.Dungeon1,
+				"Donjon_2" => Dungeon.Dungeon2,
+				"Donjon_3" => Dungeon.Dungeon3,
+				"Donjon_4" => Dungeon.Dungeon4,
+				"Donjon_5" => Dungeon.Dungeon5,
+				_ => Dungeon.None,
+			};
+			name = temp[2];
+			date = temp[3];
+			epitaph = temp[4];
+			memory = temp[5];
+		}
+	}
+}
+
 public enum Dungeon
 {
 	None,
+	Tutorial,
 	Dungeon1,
 	Dungeon2,
 	Dungeon3,
@@ -411,5 +575,12 @@ public class PlayerData
 	public bool dungeon3 = false;
 	public bool dungeon4 = false;
 	public bool dungeon5 = false;
-	public bool tuto = false;
+	public bool tutorial = false;
+
+	public bool dungeon1Soul = false;
+	public bool dungeon2Soul = false;
+	public bool dungeon3Soul = false;
+	public bool dungeon4Soul = false;
+	public bool dungeon5Soul = false;
+	public bool tutorialSoul = false;
 }

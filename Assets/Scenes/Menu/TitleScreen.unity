@@ -533,8 +533,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1830656596}
         m_TargetAssemblyTypeName: StartScript, Assembly-CSharp
-        m_MethodName: LoadLevel
-        m_Mode: 5
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1858,6 +1858,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169a4940b9eaf8b4f95e7aabd844c45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hubPath: Assets/Scenes/Levels/HUB.unity
+  tutoPath: Assets/Scenes/Levels/LD_Tuto.unity
   canvaActive: {fileID: 1725838627}
   canvaDeactivate: {fileID: 1830656591}
 --- !u!1 &1858278202
