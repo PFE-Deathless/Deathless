@@ -451,12 +451,13 @@ public class GameManager : MonoBehaviour
 		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
 		{
 			// Loading Screen progress here
-			//Debug.Log("Progress : " + newLevelAO.progress);
+			Debug.Log("Progress : " + newLevelAO.progress);
 
 			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
 		}
 
+		//Skip a frame
 		yield return null;
 
 		// Activate new level
@@ -467,6 +468,9 @@ public class GameManager : MonoBehaviour
 		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
 		SceneManager.SetActiveScene(newLevel);
 		//Debug.Log("New Level : " + newLevel.path);
+
+		//Skip a frame
+		yield return null;
 
 		// Spawn/Teleport player, reset his dash charges and fully heal him, if the scene isn't a menu
 		if (!isMenu)
