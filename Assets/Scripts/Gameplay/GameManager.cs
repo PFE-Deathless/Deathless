@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject userInterfacePrefab;
 	[SerializeField] GameObject cameraPrefab;
 	[SerializeField] GameObject audioManagerPrefab;
+	[SerializeField] GameObject tombInterfacePrefab;
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
 
 	[Header("Save/Load player data")]
@@ -46,6 +47,11 @@ public class GameManager : MonoBehaviour
 
 	// Tomb system
 	private TombData[] _tombData;
+	private GameObject _tombInterfaceObject;
+	private TombInterface _tombInterface;
+	private bool _isShowingTomb = false;
+	private bool _turnedOffTomb = false;
+	private Transform _tombTransform;
 
 	// Key System
 	int _keys;
@@ -116,6 +122,11 @@ public class GameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.I))
 		{
 			ResetData();
+		}
+
+		if (_isShowingTomb && _tombTransform != null && (Vector3.Distance(_tombTransform.position, PlayerController.Instance.transform.position) > 7f || InputsManager.Instance.interact))
+		{
+			_turnedOffTomb = true;
 		}
 
 		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
@@ -294,6 +305,27 @@ public class GameManager : MonoBehaviour
 		return _tombData[id - 1];
 	}
 
+	public void ShowTombData(TombData data, Transform tomb)
+	{
+		if (_turnedOffTomb)
+		{
+			_turnedOffTomb = false;
+			_isShowingTomb = false;
+		}
+		else
+			_isShowingTomb = !_isShowingTomb;
+
+		if (_isShowingTomb)
+		{
+			_tombInterface.ShowData(data, IsUnlocked(data.dungeon));
+			_tombTransform = tomb;
+		}
+		else
+			_tombTransform = null;
+
+		_tombInterfaceObject.SetActive(_isShowingTomb);
+	}
+
 	#endregion
 
 	#region SAVE_PLAYER_DATA
@@ -372,6 +404,9 @@ public class GameManager : MonoBehaviour
 			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
 			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
 			Instantiate(audioManagerPrefab, playerParent);
+			_tombInterfaceObject = Instantiate(tombInterfacePrefab, playerParent);
+			_tombInterfaceObject.SetActive(false);
+			_tombInterface = _tombInterfaceObject.GetComponent<TombInterface>();
 		}
 		else
 		{

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6618445619243899944}
   - component: {fileID: 4107247322272094296}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Unlocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,6 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2133566010577061385}
+  - component: {fileID: 8042908788301932991}
   - component: {fileID: 8431578470828329158}
   - component: {fileID: 2541123269732713225}
   - component: {fileID: 2079108647289248489}
@@ -261,6 +262,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &8042908788301932991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2242199457522132642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f8de159278f9d47866adee21a6c478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedParent: {fileID: 3454481359821454082}
+  lockedName: {fileID: 6106518900776881377}
+  lockedDate: {fileID: 5748577345157251013}
+  lockedEpitaph: {fileID: 2741911855826743696}
+  unlockedParent: {fileID: 315062480020409631}
+  unlockedName: {fileID: 2017837504509753535}
+  unlockedDate: {fileID: 98308409930755696}
+  unlockedEpitaph: {fileID: 1879075640875512088}
+  unlockedMemory: {fileID: 3220323443271905222}
 --- !u!223 &8431578470828329158
 Canvas:
   m_ObjectHideFlags: 0
@@ -336,7 +358,7 @@ GameObject:
   - component: {fileID: 8694474196559842187}
   - component: {fileID: 1113997956771450327}
   m_Layer: 5
-  m_Name: Unlocked
+  m_Name: Locked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
