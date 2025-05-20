@@ -30,9 +30,12 @@ public class Tomb : MonoBehaviour, IInteractable
 		if (interactableType != type && interactableType != InteractableType.Both)
 			return;
 
-		GameManager.Instance.ShowTombData(_data, transform);
+		if (!GameManager.Instance.IsShowingTomb)
+			GameManager.Instance.ShowTombData(_data, transform);
+		else
+			GameManager.Instance.HideTombData();
 
-		string text = "";
+			string text = "";
 		text += $"Name : {_data.name}\n";
 		text += $"Date : {_data.date}\n";
 		text += $"Epitaph : {_data.epitaph}\n";

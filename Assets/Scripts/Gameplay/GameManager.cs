@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
 	private GameObject _tombInterfaceObject;
 	private TombInterface _tombInterface;
 	private bool _isShowingTomb = false;
-	private bool _turnedOffTomb = false;
 	private Transform _tombTransform;
 
 	// Key System
@@ -62,6 +61,7 @@ public class GameManager : MonoBehaviour
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
+	public bool IsShowingTomb => _isShowingTomb;
 
 	private void Awake()
 	{
@@ -124,9 +124,10 @@ public class GameManager : MonoBehaviour
 			ResetData();
 		}
 
-		if (_isShowingTomb && _tombTransform != null && (Vector3.Distance(_tombTransform.position, PlayerController.Instance.transform.position) > 7f || InputsManager.Instance.interact))
+		if (_isShowingTomb && _tombTransform != null && InputsManager.Instance.cancel)
 		{
-			_turnedOffTomb = true;
+			HideTombData();
+			InputsManager.Instance.cancel = false;
 		}
 
 		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
@@ -305,23 +306,22 @@ public class GameManager : MonoBehaviour
 		return _tombData[id - 1];
 	}
 
+	public void HideTombData()
+	{
+		_isShowingTomb = false;
+		_tombTransform = null;
+		InputsManager.Instance.SetMap(Map.Gameplay);
+
+		_tombInterfaceObject.SetActive(false);
+	}
+
 	public void ShowTombData(TombData data, Transform tomb)
 	{
-		if (_turnedOffTomb)
-		{
-			_turnedOffTomb = false;
-			_isShowingTomb = false;
-		}
-		else
-			_isShowingTomb = !_isShowingTomb;
+		_isShowingTomb = true;
+		InputsManager.Instance.SetMap(Map.Menu);
 
-		if (_isShowingTomb)
-		{
-			_tombInterface.ShowData(data, IsUnlocked(data.dungeon));
-			_tombTransform = tomb;
-		}
-		else
-			_tombTransform = null;
+		_tombInterface.ShowData(data, IsUnlocked(data.dungeon));
+		_tombTransform = tomb;
 
 		_tombInterfaceObject.SetActive(_isShowingTomb);
 	}
