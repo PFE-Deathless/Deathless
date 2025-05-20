@@ -10632,12 +10632,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353c5331d639ffe4cbb7daa21c42bc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayMap:
+    m_Name: Gameplay Map
+    m_Id: 3800ceaf-6ff6-4aa6-a244-467a234b4a89
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  menuMap:
+    m_Name: Menu Map
+    m_Id: fe064d1c-9430-4a7c-b198-3e680963979d
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
   move: {x: 0, y: 0}
   hit: 0
   dash: 0
   reloadScene: 0
   interact: 0
   mainMenu: 0
+  validate: 0
+  cancel: 0
 --- !u!1 &8718884331310951209
 GameObject:
   m_ObjectHideFlags: 0

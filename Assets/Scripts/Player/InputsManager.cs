@@ -5,7 +5,6 @@ public class InputsManager : MonoBehaviour
 {
 	[HideInInspector] public static InputsManager Instance { get; private set; }
 
-
 	[HideInInspector] public Vector2 move;
 	[HideInInspector] public HitType.Type hit = HitType.Type.None;
 	[HideInInspector] public bool dash;
@@ -13,6 +12,10 @@ public class InputsManager : MonoBehaviour
 	[HideInInspector] public bool interact;
 	[HideInInspector] public bool mainMenu;
 
+	[HideInInspector] public bool validate;
+	[HideInInspector] public bool cancel;
+
+	private PlayerInput _playerInput;
 	private bool canInput = true;
 
 	public bool CanInput => canInput;
@@ -23,12 +26,44 @@ public class InputsManager : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+
+		_playerInput = GetComponent<PlayerInput>();
 	}
 
 	public void EnableInput(bool state)
 	{
 		canInput = state;
 		move = Vector2.zero;
+	}
+
+	public void SetMap(Map map)
+	{
+		InputActionMap current = _playerInput.currentActionMap;
+		current.Disable();
+
+		switch (map)
+		{
+			case Map.Gameplay:
+				current = _playerInput.actions.FindActionMap("Gameplay");
+				break;
+			case Map.Menu:
+				current = _playerInput.actions.FindActionMap("Menu");
+				break;
+			default:
+				break;
+		}
+
+		current.Enable();
+	}
+
+	public void OnValidation()
+	{
+		validate = true;
+	}
+
+	public void OnCancel()
+	{
+		cancel = true;
 	}
 
 	public void OnMove(InputValue value)
@@ -90,4 +125,10 @@ public class InputsManager : MonoBehaviour
 		canInput = true;
 		mainMenu = true;
 	}
+}
+
+public enum Map
+{
+	Gameplay,
+	Menu,
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject userInterfacePrefab;
 	[SerializeField] GameObject cameraPrefab;
 	[SerializeField] GameObject audioManagerPrefab;
+	[SerializeField] GameObject tombInterfacePrefab;
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
 
 	[Header("Save/Load player data")]
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] string tombTSVFileName = "Texte_Tombes";
 
 	[Header("Scene Transition")]
-	[SerializeField] string loadingScreenScenePath = "Assets/Scenes/LoadingScreen.unity";
+	[SerializeField] LoadingScreen loadingScreen;
 	[SerializeField] float fadeInDuration = 0.5f;
 	[SerializeField] float fadeOutDuration = 0.5f;
 	[SerializeField] float loadingScreenDuration = 1f;
@@ -45,13 +47,21 @@ public class GameManager : MonoBehaviour
 
 	// Tomb system
 	private TombData[] _tombData;
+	private GameObject _tombInterfaceObject;
+	private TombInterface _tombInterface;
+	private bool _isShowingTomb = false;
+	private Transform _tombTransform;
 
 	// Key System
 	int _keys;
 
+	// Debug screen
+	string _debugText = "";
+
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
+	public bool IsShowingTomb => _isShowingTomb;
 
 	private void Awake()
 	{
@@ -62,15 +72,23 @@ public class GameManager : MonoBehaviour
 		}
 		else
 			Destroy(gameObject);
+
+		Debug.developerConsoleEnabled = true;
+		Debug.developerConsoleVisible = true;
 	}
 
 	private void Start()
 	{
 #if !UNITY_EDITOR
-		Cursor.visible = false;
+		//Cursor.visible = false;
 #endif
+		Debug.developerConsoleEnabled = true;
+		Debug.developerConsoleVisible = true;
 
 		_savePath = Path.Combine(Application.persistentDataPath, saveFileName);
+
+		// Set loading screen timings for fadings
+		loadingScreen.SetTiming(fadeInDuration, fadeOutDuration);
 
 		LoadData();
 		//playerData = new(); // To change to load correct data on game start
@@ -90,9 +108,26 @@ public class GameManager : MonoBehaviour
 			SaveData();
 		}
 
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			Debug.LogError("X !");
+			Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
+		}
+
 		if (Input.GetKeyDown(KeyCode.U))
 		{
 			LoadData();
+		}
+
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			ResetData();
+		}
+
+		if (_isShowingTomb && _tombTransform != null && InputsManager.Instance.cancel)
+		{
+			HideTombData();
+			InputsManager.Instance.cancel = false;
 		}
 
 		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
@@ -271,6 +306,26 @@ public class GameManager : MonoBehaviour
 		return _tombData[id - 1];
 	}
 
+	public void HideTombData()
+	{
+		_isShowingTomb = false;
+		_tombTransform = null;
+		InputsManager.Instance.SetMap(Map.Gameplay);
+
+		_tombInterfaceObject.SetActive(false);
+	}
+
+	public void ShowTombData(TombData data, Transform tomb)
+	{
+		_isShowingTomb = true;
+		InputsManager.Instance.SetMap(Map.Menu);
+
+		_tombInterface.ShowData(data, IsUnlocked(data.dungeon));
+		_tombTransform = tomb;
+
+		_tombInterfaceObject.SetActive(_isShowingTomb);
+	}
+
 	#endregion
 
 	#region SAVE_PLAYER_DATA
@@ -297,6 +352,7 @@ public class GameManager : MonoBehaviour
 
 	public void ResetData()
 	{
+		Debug.Log("Data reset !");
 		playerData = new();
 		SaveData();
 	}
@@ -324,15 +380,20 @@ public class GameManager : MonoBehaviour
 
 	void SpawnTeleportPlayer()
 	{
-		//Transform playerStartPosition = null;
-		//while (playerStartPosition == null)
-		//	playerStartPosition = GameObject.FindGameObjectWithTag("BeginPlay").transform;
+		GameObject beginPlayObj;
+		do
+		{
+			beginPlayObj = GameObject.FindWithTag("BeginPlay");
+			LogText("Searching for Begin Play...");
+		} while (beginPlayObj == null);
 
-		Transform beginPlayTransform = GameObject.FindWithTag("BeginPlay").transform;
+		LogText("Begin Play found !");
+		Transform beginPlayTransform = beginPlayObj.transform;
 
 		if (beginPlayTransform == null)
 		{
 			Debug.LogWarning("No Begin Play in the Scene ! ");
+			LogText("No Begin Play in the Scene ! ");
 			return;
 		}
 
@@ -343,6 +404,9 @@ public class GameManager : MonoBehaviour
 			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
 			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
 			Instantiate(audioManagerPrefab, playerParent);
+			_tombInterfaceObject = Instantiate(tombInterfacePrefab, playerParent);
+			_tombInterfaceObject.SetActive(false);
+			_tombInterface = _tombInterfaceObject.GetComponent<TombInterface>();
 		}
 		else
 		{
@@ -362,6 +426,7 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
+			PlayerInteract.Instance.ClearInteract();
 			StartCoroutine(LoadLevelCoroutine(scenePath));
 		}
 	}
@@ -371,9 +436,11 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
+			PlayerInteract.Instance.ClearInteract();
 			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
 		}
 	}
+
 
 	IEnumerator LoadLevelCoroutine(string scenePath)
 	{
@@ -382,35 +449,49 @@ public class GameManager : MonoBehaviour
 		// Check if the new level is a menu or not
 		bool isMenu = IsMenu(scenePath);
 
-		// Load loading screen scene
-		SceneManager.LoadSceneAsync(loadingScreenScenePath, LoadSceneMode.Additive);
-		Scene loadingScreenScene = SceneManager.GetSceneAt(SceneManager.loadedSceneCount);
-
-		// Wait until the loading screen scene to be loaded
-		while (LoadingScreen.Instance == null)
-			yield return null;
-
 		// Block player inputs
 		if (InputsManager.Instance != null && !isMenu)
 			InputsManager.Instance.EnableInput(false);
 
-		// Start fade in
-		LoadingScreen.Instance.SetTiming(fadeInDuration, fadeOutDuration);
-		LoadingScreen.Instance.FadeIn();
-
-		// Get current scene
-		Scene oldLevel = SceneManager.GetActiveScene();
-
-		//Debug.Log("Scene : " + loadingScreenScene.path);
-		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
-
-		// Wait for the fade in to finish
-		while (LoadingScreen.Instance.IsFadingIn)
+		// Start loading screen fade in, and wait for it to finish
+		loadingScreen.FadeIn();
+		while (loadingScreen.IsFadingIn)
+		{
+			LogText("Fading in...");
 			yield return null;
+		}
 
-		// Unload previous level
-		SceneManager.UnloadSceneAsync(oldLevel);
-		yield return new WaitForSeconds(0.1f);
+		// Load new scene
+		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath);
+		newLevelAO.allowSceneActivation = false;
+
+		// Loading in progress (wait for it to finish)
+		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
+		{
+			// Loading Screen progress here
+			LogText("Progress : " + newLevelAO.progress);
+
+			loadingScreen.SetProgressBarValue(newLevelAO.progress / 0.9f);
+			yield return null;
+		}
+
+		// Skip a frame (just to be sure)
+		yield return null;
+
+		// Activate the new scene afterwards
+		newLevelAO.allowSceneActivation = true;
+
+		// Wait for the active scene to be the newly loaded scene
+		while (SceneManager.GetActiveScene().path != scenePath)
+		{
+			LogText("Loading new scene...");
+			yield return null;
+		}
+
+		LogText("Active Scene path : " + SceneManager.GetActiveScene().path);
+
+
+		// ### Scene changes ###
 
 		// Reset keys number
 		_keys = 0;
@@ -419,31 +500,8 @@ public class GameManager : MonoBehaviour
 		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
 			Destroy(projectileParent.transform.GetChild(i).gameObject);
 
-		// Start loading the new level
-		AsyncOperation newLevelAO = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
-		newLevelAO.allowSceneActivation = false;
-
-
-		// Loading in progress
-		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
-		{
-			// Loading Screen progress here
-			//Debug.Log("Progress : " + newLevelAO.progress);
-
-			//LoadingScreen.Instance.SetProgressBarValue(newLevelAO.progress / 0.9f);
-			yield return null;
-		}
-
+		// Skip a frame (just to be sure)
 		yield return null;
-
-		// Activate new level
-		newLevelAO.allowSceneActivation = true;
-		yield return new WaitForSeconds(0.1f);
-
-		// Set new level as active level
-		Scene newLevel = SceneManager.GetSceneAt(SceneManager.loadedSceneCount - 1);
-		SceneManager.SetActiveScene(newLevel);
-		//Debug.Log("New Level : " + newLevel.path);
 
 		// Spawn/Teleport player, reset his dash charges and fully heal him, if the scene isn't a menu
 		if (!isMenu)
@@ -459,34 +517,40 @@ public class GameManager : MonoBehaviour
 			yield return null;
 		}
 
-		// Wait for the load screen to do its things uh
+		// Wait a bit for the loading screen to finish (so the player is correclty teleported)
 		yield return new WaitForSeconds(loadingScreenDuration);
 
-		// Start fade out
-		LoadingScreen.Instance.FadeOut();
+		// #####################
 
-		// Wait for the fade out to finish
-		while (LoadingScreen.Instance.IsFadingOut)
+
+		// Start loading screen fade out, and wait for it to finish
+		loadingScreen.FadeOut();
+		while (loadingScreen.IsFadingOut)
+		{
+			LogText("Fading out...");
 			yield return null;
-
-		// Unload loading screen level
-		SceneManager.UnloadSceneAsync(loadingScreenScene);
+		}
 
 		// Wait a bit and activate player inputs back
 		yield return new WaitForSeconds(0.2f);
 		if (!isMenu)
 			InputsManager.Instance.EnableInput(true);
 
-		//Debug.Log("Active Scene : " + SceneManager.GetActiveScene().path);
-
-
-		//Debug.Log("Nb Scene : " + SceneManager.loadedSceneCount);
-		//for (int i = 0; i < SceneManager.loadedSceneCount; i++)
-		//{
-		//	Debug.Log($"Scene ({i}) : {SceneManager.GetSceneAt(i).path}");
-		//}
-
 		_loadingLevel = false;
+	}
+
+	#endregion
+
+	#region DEBUG
+
+	public void LogText(string log)
+	{
+		if (Debug.isDebugBuild)
+		{
+			_debugText += $"\n [{DateTime.Now}] : {log}";
+			File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
+			Debug.Log(log);
+		}
 	}
 
 	#endregion
