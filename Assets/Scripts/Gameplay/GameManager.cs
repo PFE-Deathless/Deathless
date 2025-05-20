@@ -426,6 +426,7 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
+			PlayerInteract.Instance.ClearInteract();
 			StartCoroutine(LoadLevelCoroutine(scenePath));
 		}
 	}
@@ -435,6 +436,7 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
+			PlayerInteract.Instance.ClearInteract();
 			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
 		}
 	}
