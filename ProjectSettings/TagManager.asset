@@ -24,7 +24,7 @@ TagManager:
   - TransparentWallCollider
   - PlayerHealth
   - EnemyHitCollider
-  - 
+  - Crystal
   - 
   - Wall
   - Shooter
