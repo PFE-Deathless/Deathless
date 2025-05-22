@@ -19,7 +19,7 @@ public class Crystal : MonoBehaviour
 	private float _deathElapsedTime = 0f;
 	private Vector3 _meshOriginalScale;
 	private ParticleSystem _ps;
-
+	private CrystalCounter _crystalCounter;
 
 	public HitType.Type CurrentType { get; private set; }
 
@@ -77,6 +77,11 @@ public class Crystal : MonoBehaviour
 		}
 	}
 
+	public void SetCounter(CrystalCounter counter)
+	{
+		_crystalCounter = counter;
+	}
+
 	public void TakeDamage()
 	{
 		_health--;
@@ -100,6 +105,7 @@ public class Crystal : MonoBehaviour
 	{
 		Destroy(GetComponentInChildren<Collider>());
 		Destroy(_hitBar.gameObject);
+		_crystalCounter.RemoveCrystal(this);
 		_dead = true;
 	}
 }
