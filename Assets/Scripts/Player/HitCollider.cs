@@ -7,6 +7,7 @@ public class HitCollider : MonoBehaviour
 
 	readonly List<Enemy> _enemiesInside = new();
 	readonly List<Dummy> _dummiesInside = new();
+	readonly List<Crystal> _crystalInside = new();
 	HitType.Type type;
 
 	bool _hitSuccess = false;
@@ -56,10 +57,25 @@ public class HitCollider : MonoBehaviour
 				{
 					dummy.TakeDamage();
 					_hitSuccess = true;
-
 				}
 
 				_dummiesInside.Add(dummy);
+			}
+		}
+
+		if (other.gameObject.layer == 16) // Crystal
+		{
+			Crystal crystal = other.gameObject.GetComponentInParent<Crystal>();
+
+			if (!_crystalInside.Contains(crystal))
+			{
+				if (crystal.CurrentType == type)
+				{
+					crystal.TakeDamage();
+					_hitSuccess = true;
+				}
+
+				_crystalInside.Add(crystal);
 			}
 		}
 	}
@@ -74,5 +90,6 @@ public class HitCollider : MonoBehaviour
 		_hitSuccess = false;
 		_enemiesInside.Clear();
 		_dummiesInside.Clear();
+		_crystalInside.Clear();
 	}
 }
