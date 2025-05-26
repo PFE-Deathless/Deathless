@@ -7,7 +7,7 @@ public class PlayerInteract : MonoBehaviour
 
 	[SerializeField] GameObject interactObjectPrefab;
 
-	readonly List<Transform> interactables = new();
+	[SerializeField] List<Transform> interactables = new();
 	IInteractable _nearest;
 
 	GameObject _interactObject;
@@ -69,6 +69,11 @@ public class PlayerInteract : MonoBehaviour
 		}
 
 		_interactObject.transform.position = nearest.position;
+	}
+
+	public void ClearInteract()
+	{
+		interactables.Clear();
 	}
 
 	public List<Transform> Interactables
