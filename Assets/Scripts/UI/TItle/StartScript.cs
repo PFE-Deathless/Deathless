@@ -3,7 +3,7 @@ using UnityEngine;
 public class StartScript : MonoBehaviour
 {
 	[Header("Level Paths")]
-	[SerializeField] string hubPath = "Assets/Scenes/Levels/HUB_Final.unity";
+	[SerializeField] string hubPath = "Assets/Scenes/Levels/HUB.unity";
 	[SerializeField] string tutoPath = "Assets/Scenes/Levels/LD_Tuto.unity";
 
 	[Header("Technical")]
