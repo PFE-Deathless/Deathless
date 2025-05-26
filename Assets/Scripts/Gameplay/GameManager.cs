@@ -3,7 +3,6 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject userInterfacePrefab;
 	[SerializeField] GameObject cameraPrefab;
 	[SerializeField] GameObject audioManagerPrefab;
+	[SerializeField] GameObject tombInterfacePrefab;
 	[SerializeField, Tooltip("Transform the player objects will be attached to")] Transform playerParent;
 
 	[Header("Save/Load player data")]
@@ -47,6 +47,10 @@ public class GameManager : MonoBehaviour
 
 	// Tomb system
 	private TombData[] _tombData;
+	private GameObject _tombInterfaceObject;
+	private TombInterface _tombInterface;
+	private bool _isShowingTomb = false;
+	private Transform _tombTransform;
 
 	// Key System
 	int _keys;
@@ -57,6 +61,7 @@ public class GameManager : MonoBehaviour
 	// Public attributes
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
+	public bool IsShowingTomb => _isShowingTomb;
 
 	private void Awake()
 	{
@@ -112,6 +117,17 @@ public class GameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.U))
 		{
 			LoadData();
+		}
+
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			ResetData();
+		}
+
+		if (_isShowingTomb && _tombTransform != null && InputsManager.Instance.cancel)
+		{
+			HideTombData();
+			InputsManager.Instance.cancel = false;
 		}
 
 		if (InputsManager.Instance != null && InputsManager.Instance.reloadScene)
@@ -290,6 +306,26 @@ public class GameManager : MonoBehaviour
 		return _tombData[id - 1];
 	}
 
+	public void HideTombData()
+	{
+		_isShowingTomb = false;
+		_tombTransform = null;
+		InputsManager.Instance.SetMap(Map.Gameplay);
+
+		_tombInterfaceObject.SetActive(false);
+	}
+
+	public void ShowTombData(TombData data, Transform tomb)
+	{
+		_isShowingTomb = true;
+		InputsManager.Instance.SetMap(Map.Menu);
+
+		_tombInterface.ShowData(data, IsUnlocked(data.dungeon));
+		_tombTransform = tomb;
+
+		_tombInterfaceObject.SetActive(_isShowingTomb);
+	}
+
 	#endregion
 
 	#region SAVE_PLAYER_DATA
@@ -316,6 +352,7 @@ public class GameManager : MonoBehaviour
 
 	public void ResetData()
 	{
+		Debug.Log("Data reset !");
 		playerData = new();
 		SaveData();
 	}
@@ -367,6 +404,9 @@ public class GameManager : MonoBehaviour
 			Instantiate(playerPrefab, beginPlayTransform.position, beginPlayTransform.rotation, playerParent);
 			Instantiate(cameraPrefab, beginPlayTransform.position, Quaternion.identity, playerParent);
 			Instantiate(audioManagerPrefab, playerParent);
+			_tombInterfaceObject = Instantiate(tombInterfacePrefab, playerParent);
+			_tombInterfaceObject.SetActive(false);
+			_tombInterface = _tombInterfaceObject.GetComponent<TombInterface>();
 		}
 		else
 		{
@@ -386,6 +426,8 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
+			if (PlayerInteract.Instance != null)
+				PlayerInteract.Instance.ClearInteract();
 			StartCoroutine(LoadLevelCoroutine(scenePath));
 		}
 	}
@@ -395,7 +437,9 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
-			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
+            if (PlayerInteract.Instance != null)
+                PlayerInteract.Instance.ClearInteract();
+            StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
 		}
 	}
 
@@ -501,11 +545,14 @@ public class GameManager : MonoBehaviour
 
 	#region DEBUG
 
-	void LogText(string log)
+	public void LogText(string log)
 	{
-		_debugText += $"\n [{DateTime.Now}] : {log}";
-		File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
-		Debug.Log(log);
+		if (Debug.isDebugBuild)
+		{
+			_debugText += $"\n [{DateTime.Now}] : {log}";
+			File.WriteAllText(Path.Combine(Application.persistentDataPath, "debug.log"), _debugText);
+			Debug.Log(log);
+		}
 	}
 
 	#endregion

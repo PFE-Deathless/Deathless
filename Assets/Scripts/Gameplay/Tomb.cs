@@ -14,6 +14,7 @@ public class Tomb : MonoBehaviour, IInteractable
 
 	void Start()
 	{
+		tombParticle.SetActive(false);
 		Invoke(nameof(Init), 0.1f);
 	}
 
@@ -29,7 +30,12 @@ public class Tomb : MonoBehaviour, IInteractable
 		if (interactableType != type && interactableType != InteractableType.Both)
 			return;
 
-		string text = "";
+		if (!GameManager.Instance.IsShowingTomb)
+			GameManager.Instance.ShowTombData(_data, transform);
+		else
+			GameManager.Instance.HideTombData();
+
+			string text = "";
 		text += $"Name : {_data.name}\n";
 		text += $"Date : {_data.date}\n";
 		text += $"Epitaph : {_data.epitaph}\n";

@@ -10391,6 +10391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactObjectPrefab: {fileID: 2317120428064906363, guid: 48ee15783d40c0a48a4b3ec058050dd0, type: 3}
+  interactables: []
 --- !u!64 &6935471443238791510
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10404,7 +10405,7 @@ MeshCollider:
     m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1842175
+    m_Bits: 1965055
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -10638,6 +10639,8 @@ MonoBehaviour:
   reloadScene: 0
   interact: 0
   mainMenu: 0
+  validate: 0
+  cancel: 0
 --- !u!1 &8718884331310951209
 GameObject:
   m_ObjectHideFlags: 0

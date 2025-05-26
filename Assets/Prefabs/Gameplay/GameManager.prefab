@@ -461,11 +461,11 @@ MonoBehaviour:
   userInterfacePrefab: {fileID: 3328817507981037403, guid: 1dfff72b3ab174d478df73cac9ee8256, type: 3}
   cameraPrefab: {fileID: 6665708693319582443, guid: 4f5b4a74e74bbd340b0e35d90c76b41a, type: 3}
   audioManagerPrefab: {fileID: 5122343253450590490, guid: 454dd6af1cc033d40a8d401d0ba6007f, type: 3}
+  tombInterfacePrefab: {fileID: 2242199457522132642, guid: ed5dfa56a447b114aa77b3210ece793a, type: 3}
   playerParent: {fileID: 7109721540235664752}
   saveFileName: data.sav
   tombTSVFileName: Texte_Tombes
   loadingScreen: {fileID: 1572068831295121178}
-  loadingScreenScenePath: Assets/Scenes/LoadingScreen.unity
   fadeInDuration: 0.2
   fadeOutDuration: 0.2
   loadingScreenDuration: 0.5

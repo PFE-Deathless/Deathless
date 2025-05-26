@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
 	protected Transform target;
 	protected Material defaultMaterial;
 
-	protected Key key;
+	protected EnemyKey key;
 
 	// Attack
 	protected AttackState attackState = AttackState.None;
@@ -169,9 +169,9 @@ public class Enemy : MonoBehaviour
 
 		if (dropKey && keyTransform != null)
 		{
-			GameObject prefab = Resources.Load<GameObject>("Key/Key");
+			GameObject prefab = Resources.Load<GameObject>("Key/EnemyKey");
 			GameObject obj = Instantiate(prefab, keyTransform.position, keyTransform.rotation, keyTransform);
-			key = obj.GetComponent<Key>();
+			key = obj.GetComponent<EnemyKey>();
 		}
 
 		if (protectedEnemies.Length > 0)
@@ -468,6 +468,9 @@ public class Enemy : MonoBehaviour
 		animator.SetFloat("Speed", 0f);
 		navMeshAgent.isStopped = true;
 
+		if (key != null && dropKey)
+			key.DropKey();
+
 		if (stateTimer < deathDuration)
 		{
 			Vector3 newPos = transform.position;
@@ -477,8 +480,6 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
-			if (dropKey)
-				key.DropKey();
 			Destroy(gameObject);
 		}
 	}
