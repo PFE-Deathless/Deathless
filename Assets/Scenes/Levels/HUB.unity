@@ -20291,6 +20291,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1597913959}
     m_Modifications:
+    - target: {fileID: 5996467127146724909, guid: 00865bb9872ea1d41963d08108248003, type: 3}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8026919090721361035, guid: 00865bb9872ea1d41963d08108248003, type: 3}
       propertyPath: m_Name
       value: Tomb1 (3)
@@ -34082,6 +34086,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1597913959}
     m_Modifications:
+    - target: {fileID: 5996467127146724909, guid: 90815bf8bd2f9834d90409b4431e2c53, type: 3}
+      propertyPath: ID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8026919090721361035, guid: 90815bf8bd2f9834d90409b4431e2c53, type: 3}
       propertyPath: m_Name
       value: Tomb5 (2)
