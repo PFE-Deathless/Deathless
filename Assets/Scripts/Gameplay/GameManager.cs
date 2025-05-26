@@ -268,7 +268,8 @@ public class GameManager : MonoBehaviour
 	public void AddKey()
 	{
 		_keys++;
-		Debug.Log("Keys : " + _keys);
+		KeyDisplay.Instance.SetKeyNumber(_keys);
+		//Debug.Log("Keys : " + _keys);
 	}
 
 	public bool UseKey()
@@ -276,6 +277,7 @@ public class GameManager : MonoBehaviour
 		if (_keys >= 1)
 		{
 			_keys--;
+			KeyDisplay.Instance.SetKeyNumber(_keys);
 			Debug.Log("Keys : " + _keys);
 			return true;
 		}
