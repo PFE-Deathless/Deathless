@@ -49,7 +49,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -4892,7 +4892,6 @@ MonoBehaviour:
   ID: 0
   interactableType: 0
   tombParticle: {fileID: 2158422306155127547}
-  tombInterface: {fileID: 2242199457522132642, guid: ed5dfa56a447b114aa77b3210ece793a, type: 3}
 --- !u!65 &5677399184799770928
 BoxCollider:
   m_ObjectHideFlags: 0
