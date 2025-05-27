@@ -1,0 +1,14 @@
+Type	Text content OR Image name
+Title	Crédits
+Subtitle	System Design
+Base	Maxence d'Aboville
+Base	Pierre Ermé
+Base	Soulanny Phiphak
+Base	Milo Garric
+Subtitle	Programmation
+Base	Maxence d'Aboville
+Subtitle	Level Design
+Base	Pierre Ermé
+Title	Remerciements
+Base	Des gens
+Image	concept_autel_ame
