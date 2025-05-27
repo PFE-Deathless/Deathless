@@ -8,8 +8,11 @@ public class CrystalCounter : MonoBehaviour
 	[Header("Properties")]
 	//[SerializeField, Tooltip("Objects that will be activated once all the crystals are destroyed (need to implement IActivable interface)")] GameObject[] activables;
 	[SerializeField, Tooltip("All the crystals references for the slider bar")] List<Crystal> crystals = new();
-	[SerializeField, Tooltip("Objects that will be activated after a certain milestone is reached (amount of crystal destroyed, need to implement IActivable interface)")] List<CrystalMilestone> milestones = new(); 
+	[SerializeField, Tooltip("Objects that will be activated after a certain milestone is reached (amount of crystal destroyed, need to implement IActivable interface)")] List<CrystalMilestone> milestones = new();
+
+	[Header("Technical")]
 	[SerializeField] Slider sliderBar;
+	[SerializeField] GameObject thresholdIndicatorPrefab;
 
 	private int _total;
 	private int _current;
@@ -21,6 +24,27 @@ public class CrystalCounter : MonoBehaviour
 		_current = _total;
 		for (int i = 0; i < _total; i++)
 			crystals[i].SetCounter(this);
+
+		PlaceThresholdIndicators();
+	}
+
+	void PlaceThresholdIndicators()
+	{
+		for (int i = 0; i < milestones.Count; i++)
+		{
+			if (milestones[i].threshold == _total)
+				return;
+
+			RectTransform rt = (RectTransform)sliderBar.transform;
+			float delta = rt.rect.width / _total;
+			float offset = (rt.rect.width / 2f) - (delta * milestones[i].threshold);
+
+			Vector3 pos = sliderBar.transform.position;
+			pos.x += offset;
+
+			Instantiate(thresholdIndicatorPrefab, pos, Quaternion.identity, transform);
+		}
+
 	}
 
 	public void RemoveCrystal(Crystal crystal)
