@@ -88,26 +88,34 @@ public class Credits : MonoBehaviour
 					currentOffset -= spacingImage;
 					isImage = true;
 					break;
+				case CreditType.Spacing:
+					currentOffset -= float.Parse(_creditsTexts[i].content);
+					break;
 			}
 
-			if (isImage)
+			if (_creditsTexts[i].type != CreditType.Spacing)
 			{
-				Image image = obj.GetComponent<Image>();
-				image.sprite = Resources.Load<Sprite>(Path.Combine(imagePath, _creditsTexts[i].content));
-				currentOffset -= image.rectTransform.rect.height / 2f;
-			}
-			else
-			{
-				tmp = obj.GetComponent<TextMeshProUGUI>();
-				tmp.text = _creditsTexts[i].content;
-				currentOffset -= tmp.rectTransform.rect.height / 2f;
+				if (isImage)
+				{
+					Image image = obj.GetComponent<Image>();
+					image.sprite = Resources.Load<Sprite>(Path.Combine(imagePath, _creditsTexts[i].content));
+					currentOffset -= image.rectTransform.rect.height / 2f;
+				}
+				else
+				{
+					tmp = obj.GetComponent<TextMeshProUGUI>();
+					tmp.text = _creditsTexts[i].content;
+					currentOffset -= tmp.rectTransform.rect.height / 2f;
+				}
+
+				Vector3 pos = obj.transform.position;
+				pos.y = currentOffset;
+				obj.transform.position = pos;
 			}
 
-			Vector3 pos = obj.transform.position;
-			pos.y = currentOffset;
-			obj.transform.position = pos;
 
-			Debug.Log($"Content [{i}] : {_creditsTexts[i].content}");
+
+			Debug.Log($"Content (Type : {_creditsTexts[i].type}) [{i}] : {_creditsTexts[i].content}");
 		}
 	}
 
@@ -133,6 +141,7 @@ public class Credits : MonoBehaviour
 					"Title" => CreditType.Title,
 					"Subtitle" => CreditType.Subtitle,
 					"Image" => CreditType.Image,
+					"Spacing" => CreditType.Spacing,
 					_ => CreditType.Base,
 				};
 				content = temp[1];
@@ -146,5 +155,6 @@ public class Credits : MonoBehaviour
 		Title,
 		Subtitle,
 		Image,
+		Spacing,
 	}
 }

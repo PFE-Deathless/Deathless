@@ -1,4 +1,4 @@
-Type	Text content OR Image name
+Type	Text content OR Image name OR Spacing (in pixels)
 Title	Crédits
 Subtitle	System Design
 Base	Maxence d'Aboville
@@ -10,5 +10,7 @@ Base	Maxence d'Aboville
 Subtitle	Level Design
 Base	Pierre Ermé
 Title	Remerciements
+Spacing	50
 Base	Des gens
+Spacing	20
 Image	concept_autel_ame
