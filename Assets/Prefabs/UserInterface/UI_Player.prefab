@@ -1024,6 +1024,7 @@ GameObject:
   - component: {fileID: 3242603461178730841}
   - component: {fileID: 1011278732670169017}
   - component: {fileID: 8872785933953064468}
+  - component: {fileID: 969495753566138737}
   m_Layer: 0
   m_Name: UI_Player
   m_TagString: UIPlayer
@@ -1121,6 +1122,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyNumberTMP: {fileID: 2824464674588607939}
+--- !u!114 &969495753566138737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3328817507981037403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf06f254b4f6f343a1ff14e39dcdafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soulTuto: {fileID: 2108630533810748989}
+  soulDungeon1: {fileID: 3106871574658210892}
+  soulDungeon2: {fileID: 8823135817592553242}
+  soulDungeon3: {fileID: 2519573499461371526}
+  soulDungeon4: {fileID: 2783958381464330585}
 --- !u!1 &3405235857298829631
 GameObject:
   m_ObjectHideFlags: 0
