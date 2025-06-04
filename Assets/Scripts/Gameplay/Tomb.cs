@@ -21,6 +21,11 @@ public class Tomb : MonoBehaviour, IInteractable
 	void Init()
 	{
 		_data = GameManager.Instance.GetTombData(ID);
+		CheckUnlock();
+	}
+
+	public void CheckUnlock()
+	{
 		_isUnlocked = GameManager.Instance.IsUnlocked(_data.dungeon);
 		tombParticle.SetActive(_isUnlocked);
 	}
@@ -35,15 +40,15 @@ public class Tomb : MonoBehaviour, IInteractable
 		else
 			GameManager.Instance.HideTombData();
 
-			string text = "";
-		text += $"Name : {_data.name}\n";
-		text += $"Date : {_data.date}\n";
-		text += $"Epitaph : {_data.epitaph}\n";
-		if (_isUnlocked)
-			text += $"Memory : {_data.memory}\n";
-		else
-			text += $"Memory : {_data.dungeon} hasn't be unlocked yet !\n";
+		//	string text = "";
+		//text += $"Name : {_data.name}\n";
+		//text += $"Date : {_data.date}\n";
+		//text += $"Epitaph : {_data.epitaph}\n";
+		//if (_isUnlocked)
+		//	text += $"Memory : {_data.memory}\n";
+		//else
+		//	text += $"Memory : {_data.dungeon} hasn't be unlocked yet !\n";
 
-		Debug.Log(text);
+		//Debug.Log(text);
 	}
 }

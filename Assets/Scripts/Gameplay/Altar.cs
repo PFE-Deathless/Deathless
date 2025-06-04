@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Android;
 
 public class Altar : MonoBehaviour, IInteractable
 {
@@ -33,6 +32,10 @@ public class Altar : MonoBehaviour, IInteractable
 			if (GameManager.Instance.HasDungeonSoul(dungeon))
 			{
 				GameManager.Instance.UnlockDungeon(dungeon);
+
+				var tombs = FindObjectsByType(typeof(Tomb), FindObjectsSortMode.None);
+				foreach (Tomb tomb in tombs)
+					tomb.CheckUnlock();
 
 				// Here goes the logic to change the UI when consuming the dungeon soul
 
