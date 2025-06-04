@@ -99,7 +99,7 @@ public class Credits : MonoBehaviour
 				{
 					Image image = obj.GetComponent<Image>();
 					image.sprite = Resources.Load<Sprite>(Path.Combine(imagePath, _creditsTexts[i].content));
-					currentOffset -= image.rectTransform.rect.height / 2f;
+					currentOffset -= image.rectTransform.rect.height;
 				}
 				else
 				{

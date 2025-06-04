@@ -527,7 +527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollSpeed: 100
   scrollOffset: 1000
-  spacingBase: 10
+  spacingBase: 0
   spacingTitle: 100
   spacingSubtitle: 40
   spacingImage: 30
