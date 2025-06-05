@@ -1,4 +1,6 @@
 Type	Text content OR Image name OR Spacing (in pixels)
+Image	WEB_blanc
+Spacing	200
 Title	Développement
 Subtitle	Game Design
 Base	Maxence d'Aboville
@@ -88,25 +90,3 @@ Base	Corentin Noyer
 Spacing	400
 Subtitle	Et surtout
 Subtitle	Merci à vous !
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-Title	Remerciements
-Spacing	50
-Base	Des gens
-Spacing	20
-Image	concept_autel_ame
