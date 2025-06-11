@@ -4165,7 +4165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -65.7
+      value: -32.1
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4173,7 +4173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -41.4
+      value: -14.6
       objectReference: {fileID: 0}
     - target: {fileID: 7416780649823145239, guid: 9f83af20ec9ebaf4980aced70f0aff4a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6866,18 +6866,6 @@ PrefabInstance:
       value: CrystalCounter
       objectReference: {fileID: 0}
     - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: crystals.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: activables.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
       propertyPath: 'crystals.Array.data[0]'
       value: 
       objectReference: {fileID: 1286017791}
@@ -6897,46 +6885,6 @@ PrefabInstance:
       propertyPath: 'crystals.Array.data[4]'
       value: 
       objectReference: {fileID: 1624317242}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: 'activables.Array.data[0]'
-      value: 
-      objectReference: {fileID: 186251185}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: 'activables.Array.data[1]'
-      value: 
-      objectReference: {fileID: 361323195}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: 'activables.Array.data[2]'
-      value: 
-      objectReference: {fileID: 774727532}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: 'activables.Array.data[3]'
-      value: 
-      objectReference: {fileID: 1000672608}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.data[0].threshold
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.data[1].threshold
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.data[2].threshold
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.data[0].activables.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.data[1].activables.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
-      propertyPath: milestones.Array.data[2].activables.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3898712429803191897, guid: bedf6ddfbdf66b04181488f6fce331ca, type: 3}
       propertyPath: 'milestones.Array.data[0].activables.Array.data[0]'
       value: 
