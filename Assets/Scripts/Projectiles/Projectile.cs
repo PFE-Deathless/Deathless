@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+	[SerializeField] GameObject impactParticlePrefab;
+
 	bool _destroyOnImpact = true;
 
 	public void Setup(float lifeSpan, bool destroyOnImpact)
@@ -15,6 +17,9 @@ public class Projectile : MonoBehaviour
 		if (other.gameObject.layer == 14)
 			PlayerHealth.Instance.TakeDamage(1);
 		if (_destroyOnImpact)
+		{
+			Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
 			Destroy(gameObject, 0.02f);
+		}
 	}
 }
