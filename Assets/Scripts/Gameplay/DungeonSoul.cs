@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
 
 public class DungeonSoul : MonoBehaviour, IInteractable
 {
@@ -29,7 +28,7 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 		if (GameManager.Instance.IsUnlocked(dungeonValidation))
 		{
 			if (door != null)
-				door.Activate();
+				door.Activate(false);
 			Destroy(gameObject);
 		}
 	}
@@ -68,7 +67,7 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 		if (interactableType != type && interactableType != InteractableType.Both)
 			return;
 
-		CameraBehavior.Instance.Shake(0.3f, 300f, 5f);
+        CameraBehavior.Instance.Shake(0.3f, 300f, 5f);
         permanentParticle.Stop();
         slashParticle.Play();
         explosionParticle.Play();

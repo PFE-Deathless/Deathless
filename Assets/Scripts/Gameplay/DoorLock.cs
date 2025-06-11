@@ -5,9 +5,17 @@ public class DoorLock : MonoBehaviour, IInteractable
 	[SerializeField] InteractableType interactableType = InteractableType.Interact;
 	[SerializeField] Door door;
 
+	[Header("Technical")]
+	[SerializeField] GameObject padlockMesh;
+
 	private bool _activated = false;
 
-	public void Interact(InteractableType type = InteractableType.Both)
+    private void Start()
+    {
+		padlockMesh.SetActive(false);
+    }
+
+    public void Interact(InteractableType type = InteractableType.Both)
 	{
 		if (_activated)
 			return;
@@ -18,6 +26,7 @@ public class DoorLock : MonoBehaviour, IInteractable
 			{
 				_activated = true;
 				door.Activate();
+				Destroy(gameObject);
 			}
 		}
 	}

@@ -62,9 +62,9 @@ public class Door : MonoBehaviour, IActivable
 		}
 	}
 
-	public void Activate()
+	public void Activate(bool playAnimation = true)
 	{
-		if (!_activated)
+		if (!_activated && playAnimation)
 		{
 			smokePS.Play();
 			CameraBehavior.Instance.Shake(0.4f, 100f, fadeDuration * 1.5f);

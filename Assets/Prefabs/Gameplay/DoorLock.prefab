@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableType: 0
   door: {fileID: 0}
+  padlockMesh: {fileID: 1776477384378819457}
 --- !u!65 &7640002229727583254
 BoxCollider:
   m_ObjectHideFlags: 0

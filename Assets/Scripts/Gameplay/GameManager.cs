@@ -347,7 +347,7 @@ public class GameManager : MonoBehaviour
 	{
 		string json = JsonUtility.ToJson(playerData, true);
 		File.WriteAllText(_savePath, json);
-		Debug.Log("Game Saved at : " + _savePath + " !\n" + json);
+		//Debug.Log("Game Saved at : " + _savePath + " !\n" + json);
 	}
 
 	public void LoadData()
@@ -356,18 +356,18 @@ public class GameManager : MonoBehaviour
 		{
 			playerData = new();
 			_doesSaveExist = false;
-            return;
+			return;
 		}
 
 		string json = File.ReadAllText(_savePath);
 		playerData = JsonUtility.FromJson<PlayerData>(json);
 		_doesSaveExist = true;
-        Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
+		//Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
 	}
 
 	public void ResetData()
 	{
-		Debug.Log("Data reset !");
+		//Debug.Log("Data reset !");
 		playerData = new();
 		SaveData();
 	}
@@ -512,10 +512,10 @@ public class GameManager : MonoBehaviour
 
 		// Reset keys number
 		_keys = 0;
-        KeyDisplay.Instance.SetKeyNumber(_keys);
+		KeyDisplay.Instance.SetKeyNumber(_keys);
 
-        // Destroy all existing projectiles
-        for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
+		// Destroy all existing projectiles
+		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
 			Destroy(projectileParent.transform.GetChild(i).gameObject);
 
 		// Skip a frame (just to be sure)

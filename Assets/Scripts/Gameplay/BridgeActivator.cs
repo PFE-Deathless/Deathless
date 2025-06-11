@@ -31,7 +31,7 @@ public class BridgeActivator : MonoBehaviour, IActivable
 		}
 	}
 
-	public void Activate()
+	public void Activate(bool playAnimation = true)
 	{
 		_activated = true;
 	}
