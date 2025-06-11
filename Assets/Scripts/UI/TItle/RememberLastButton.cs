@@ -6,12 +6,6 @@ public class RememberLastButton : MonoBehaviour
 	[SerializeField] private EventSystem eventSystem;
 	[SerializeField] private GameObject lastSelectedElement;
 
-	private void Reset()
-	{
-		lastSelectedElement = eventSystem.firstSelectedGameObject;
-		
-	}
-
 	void Update()
 	{
 		if (eventSystem.currentSelectedGameObject &&

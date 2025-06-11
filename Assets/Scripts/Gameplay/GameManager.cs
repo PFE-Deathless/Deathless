@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
 	// Save/Load system
 	string _savePath;
+	private bool _doesSaveExist = false;
 
 	// Tomb system
 	private TombData[] _tombData;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
 	public bool IsShowingTomb => _isShowingTomb;
+	public bool DoesSaveExist => _doesSaveExist;
 
 	private void Awake()
 	{
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 #if !UNITY_EDITOR
-		//Cursor.visible = false;
+		Cursor.visible = false;
 #endif
 		Debug.developerConsoleEnabled = true;
 		Debug.developerConsoleVisible = true;
@@ -91,7 +93,6 @@ public class GameManager : MonoBehaviour
 		loadingScreen.SetTiming(fadeInDuration, fadeOutDuration);
 
 		LoadData();
-		//playerData = new(); // To change to load correct data on game start
 
 		LoadTombText();
 
@@ -356,12 +357,14 @@ public class GameManager : MonoBehaviour
 		if (!File.Exists(_savePath))
 		{
 			playerData = new();
-			return;
+			_doesSaveExist = false;
+            return;
 		}
 
 		string json = File.ReadAllText(_savePath);
 		playerData = JsonUtility.FromJson<PlayerData>(json);
-		Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
+		_doesSaveExist = true;
+        Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
 	}
 
 	public void ResetData()

@@ -115,7 +115,7 @@ public class Credits : MonoBehaviour
 
 
 
-			Debug.Log($"Content (Type : {_creditsTexts[i].type}) [{i}] : {_creditsTexts[i].content}");
+			//Debug.Log($"Content (Type : {_creditsTexts[i].type}) [{i}] : {_creditsTexts[i].content}");
 		}
 	}
 
