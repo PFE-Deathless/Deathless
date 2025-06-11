@@ -13,7 +13,10 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 	[SerializeField, Tooltip("Curve that will dictate the scale changes on the soul sphere")] AnimationCurve activationCurve;
 	[SerializeField, Tooltip("Duration of the scale animation")] float animationDuration = 1f;
 	[SerializeField, Tooltip("Particle prefab that will be spawnded from the souls to the door")] GameObject soulParticleFeedbackPrefab;
-	[SerializeField, Tooltip("Particle prefab that will be spawnded from the souls to the door")] Transform soulMesh;
+	[SerializeField, Tooltip("Mesh of the soul (for scale animation)")] Transform soulMesh;
+	[SerializeField, Tooltip("ParticleSystem for the slash")] ParticleSystem permanentParticle;
+	[SerializeField, Tooltip("ParticleSystem for the slash")] ParticleSystem slashParticle;
+	[SerializeField, Tooltip("ParticleSystem for the slash")] ParticleSystem explosionParticle;
 
 	bool _animationStarted = false;
 	bool _soulDestroyed = false;
@@ -54,7 +57,7 @@ public class DungeonSoul : MonoBehaviour, IInteractable
                     GameObject obj = Instantiate(soulParticleFeedbackPrefab, transform.position, Quaternion.identity);
                     obj.GetComponent<SoulParticleFeedback>().Setup(transform.position, door.transform.position);
 
-                    Destroy(gameObject);
+                    Destroy(gameObject, 5f);
                 }
 			}
 		}
@@ -64,6 +67,11 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 	{
 		if (interactableType != type && interactableType != InteractableType.Both)
 			return;
+
+		CameraBehavior.Instance.Shake(0.3f, 300f, 5f);
+        permanentParticle.Stop();
+        slashParticle.Play();
+        explosionParticle.Play();
 
 		_animationStarted = true;
     }
