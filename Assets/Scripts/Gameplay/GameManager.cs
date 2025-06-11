@@ -281,8 +281,7 @@ public class GameManager : MonoBehaviour
 	public void AddKey()
 	{
 		_keys++;
-		KeyDisplay.Instance.SetKeyNumber(_keys);
-		//Debug.Log("Keys : " + _keys);
+		KeyDisplay.Instance.AddKey(_keys);
 	}
 
 	public bool UseKey()
@@ -290,8 +289,7 @@ public class GameManager : MonoBehaviour
 		if (_keys >= 1)
 		{
 			_keys--;
-			KeyDisplay.Instance.SetKeyNumber(_keys);
-			Debug.Log("Keys : " + _keys);
+			KeyDisplay.Instance.RemoveKey(_keys);
 			return true;
 		}
 		return false;
@@ -514,9 +512,10 @@ public class GameManager : MonoBehaviour
 
 		// Reset keys number
 		_keys = 0;
+        KeyDisplay.Instance.SetKeyNumber(_keys);
 
-		// Destroy all existing projectiles
-		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
+        // Destroy all existing projectiles
+        for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
 			Destroy(projectileParent.transform.GetChild(i).gameObject);
 
 		// Skip a frame (just to be sure)

@@ -112,6 +112,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   keyMeshTransform: {fileID: 919727382895960875}
+  particleFeedbackPrefab: {fileID: 4593825860533020571, guid: d1ae7486ccaa70249991cb3c45713f04, type: 3}
 --- !u!1001 &5616590075596790971
 PrefabInstance:
   m_ObjectHideFlags: 0

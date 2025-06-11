@@ -14,6 +14,7 @@ public class HoveringKey : MonoBehaviour
 
 	[Header("Technical")]
 	[SerializeField] Transform keyMeshTransform;
+	[SerializeField] GameObject particleFeedbackPrefab;
 
 	private float _hoveringDuration = 0f;
 	private float _hoveringElapsedTime;
@@ -68,6 +69,7 @@ public class HoveringKey : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		GetComponent<Collider>().enabled = false;
+		Instantiate(particleFeedbackPrefab, transform.position, Quaternion.identity, keyMeshTransform);
 		_isPickedUp = true;
 	}
 }

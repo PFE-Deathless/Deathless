@@ -8,8 +8,9 @@ public class EnemyKey : MonoBehaviour
 
 	[Header("Technical")]
 	[SerializeField] Transform keyMeshTransform;
+    [SerializeField] GameObject particleFeedbackPrefab;
 
-	private float _pickUpElapsedTime = 0f;
+    private float _pickUpElapsedTime = 0f;
 	private bool _isDropped = false;
 
 	private void Update()
@@ -37,6 +38,8 @@ public class EnemyKey : MonoBehaviour
 	public void DropKey()
 	{
 		transform.parent = null;
-		_isDropped = true;
+		if (!_isDropped)
+			Instantiate(particleFeedbackPrefab, transform.position, Quaternion.identity, keyMeshTransform);
+        _isDropped = true;
 	}
 }
