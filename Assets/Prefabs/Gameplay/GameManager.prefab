@@ -472,6 +472,7 @@ MonoBehaviour:
   mainMenuScenePath: Assets/Scenes/Menu/TitleScreen.unity
   menuScenePaths:
   - Assets/Scenes/Menu/TitleScreen.unity
+  - Assets/Scenes/Menu/Credits.unity
   projectileParent: {fileID: 162474035659303666}
 --- !u!1 &7574550398922462670
 GameObject:
