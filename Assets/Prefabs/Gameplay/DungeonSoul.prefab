@@ -158,6 +158,42 @@ MonoBehaviour:
   dungeonValidation: 0
   soulColor: {r: 1, g: 1, b: 1, a: 0}
   door: {fileID: 0}
+  activationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0059871
+      value: 0.9980986
+      inSlope: 1.3631319
+      outSlope: 1.3631319
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.29608127
+    - serializedVersion: 3
+      time: 0.37379488
+      value: 1.232369
+      inSlope: -0.02727364
+      outSlope: -0.02727364
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.32853216
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationDuration: 0.4
+  soulParticleFeedbackPrefab: {fileID: 2280185451817444971, guid: 3f996fbdf644dd04aa4e3bcf767105fd, type: 3}
+  soulMesh: {fileID: 3338319405670896512}
 --- !u!1 &8715842227941272565
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +417,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.7764706, g: 1, b: 0.99215686, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

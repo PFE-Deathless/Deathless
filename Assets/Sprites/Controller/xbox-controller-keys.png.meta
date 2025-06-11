@@ -1,0 +1,2739 @@
+fileFormatVersion: 2
+guid: a856addbc7d13f3489dbf1c9847bb07e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1024
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: xbox-controller-keys_0
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a62d19c891be1e4f8100b75b248b4a7
+      internalID: -1339374016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_1
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c16f363a75559e6489b30aeb94b5c00b
+      internalID: -535787150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_2
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aa51cca42bc45641886d04c4dbbd011
+      internalID: 685488691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_3
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18df294ce2d57034ea5ac3f99e71c4f1
+      internalID: 440005564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_4
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e67065b39375ef84187d83a3b5943da1
+      internalID: -801915615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_5
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 786
+        width: 116
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555b3c7f32fad884bb0f2c228b1c3341
+      internalID: -1140350459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_6
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 790
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55fa1ba58534e1c42acbae363ada9082
+      internalID: -846794808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_7
+      rect:
+        serializedVersion: 2
+        x: 1081
+        y: 811
+        width: 116
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 816f21267487fab4592499f278d1083d
+      internalID: 1825887913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_8
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 787
+        width: 115
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f14083b22af4a947ae7bc65463cabeb
+      internalID: 198985741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_9
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 787
+        width: 115
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e79d0b22319b714498842a70d83f29bd
+      internalID: 1472954645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_10
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30b3dc5aa6c35c34d919ed00299d7e02
+      internalID: -87918218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_11
+      rect:
+        serializedVersion: 2
+        x: 1654
+        y: 786
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8c144d586cc0614cbe8b29b0a4befc3
+      internalID: 1020885243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_12
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab7fcb63614a80344a8b413df12b428f
+      internalID: -1768485649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_13
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05a862d63b6dd24a9c5060168151c77
+      internalID: 2084473333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_14
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0fcffd40415b7143b2aaa1059ca017f
+      internalID: -1690406767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_15
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62c6a5385c7911240b8682a400a6389f
+      internalID: 1661034771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_16
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a04fdade9294ba646b58714115dd22f5
+      internalID: 626494996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_17
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 636
+        width: 110
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da084d5e986b69b4ba9b04796c2ebbcd
+      internalID: -733725399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_18
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4c8efa14187b1847aae3217bb235a2f
+      internalID: 1533667293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_19
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 636
+        width: 110
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 289625f681ed3034fb88941cf4240ce0
+      internalID: 1669268526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_20
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b747c1436e6859459fd72ec89f432b0
+      internalID: -501718649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_21
+      rect:
+        serializedVersion: 2
+        x: 1371
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3af37eec397f9c419749b091673976d
+      internalID: -1987484257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_22
+      rect:
+        serializedVersion: 2
+        x: 1514
+        y: 636
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 472758624568ccb40bfc655ff46b9a0b
+      internalID: 2043761935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_23
+      rect:
+        serializedVersion: 2
+        x: 1654
+        y: 633
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2c5b6cf58ecbd4eb3a988b712e0968
+      internalID: 1557248581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_24
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 490
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bbf1cda77753764f85e830430937bba
+      internalID: 425366688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_25
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 485
+        width: 115
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b3ce9fbfa4e8d439568cfb2c552565
+      internalID: 211011599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_26
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 594
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8d4b89546c1b3b41aaf285aa3fce27c
+      internalID: 889495519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_27
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 495
+        width: 115
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2c3053dbd83b3b4cb597e1999c55fec
+      internalID: -312438776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_28
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 490
+        width: 113
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb8dced170414c439c31c6d237c2172
+      internalID: -98903842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_29
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 490
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0369ecba196b0741b6c3d7ae4f5f9dc
+      internalID: -461632736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_30
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 560
+        width: 111
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ef016b32bc0c84fabbe67f210f2bc7
+      internalID: 1203938674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_31
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 492
+        width: 44
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23054dcba4dfbd14ca42f5763c16d29f
+      internalID: 212455871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_32
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 598
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f657dd860c5892d4e83dc2337318d06b
+      internalID: -366271934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_33
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 492
+        width: 45
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557511e5236a25f40a8c8effb702815b
+      internalID: -1245355392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_34
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 517
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1f07fee4751b764c84916772c725373
+      internalID: 1355047372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_35
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 518
+        width: 87
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fab1a4f275fa53d40b1a4241515579cc
+      internalID: -535888367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_36
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 502
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71b822a5077f7e4fa5cdf66cd827de0
+      internalID: 963184712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_37
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 502
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a632be9fd2ffee4abc0751c6142782f
+      internalID: 248748942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_38
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 502
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c545b60fb947ba44b8bd920505c86fd4
+      internalID: -1360073328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_39
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 579
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f3a14b56c47804ca3d371432ea4032
+      internalID: -608652487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_40
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 579
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ad4e341f056b2249ae73c1b859165f7
+      internalID: -273780049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_41
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 502
+        width: 91
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a47f652839a9594ba4604eed153fbc3
+      internalID: -1906735520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_42
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 513
+        width: 108
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dbae219fea2cd842955b97ed63c3aaf
+      internalID: -308679037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_43
+      rect:
+        serializedVersion: 2
+        x: 1501
+        y: 513
+        width: 108
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa31b5727991724458da1bc8ecc0c652
+      internalID: 1972124650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_44
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 502
+        width: 83
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 111f3d0b6f4dde843a5a1095844d727b
+      internalID: 125812308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_45
+      rect:
+        serializedVersion: 2
+        x: 1768
+        y: 502
+        width: 83
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4584867102114847a86feac1ffcae2f
+      internalID: 1076817490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_46
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 539
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81b85d1ca534d0549a95744fbe7b32fe
+      internalID: 815990876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_47
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 539
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41ae9a7c93354ae49b8f7f7d69c807a5
+      internalID: 1550937398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_48
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 539
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d874cedaf77c942995754dd4e0a624
+      internalID: 899247710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_49
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 539
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f4313d182812c4baa7619486d637cc
+      internalID: 521966752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_50
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 490
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a30310ddc3a27c4595b5bd05ebdb9a9
+      internalID: 1674945397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_51
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 490
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3adee94b41d8874469e1c695fed358f6
+      internalID: -973911230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_52
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 485
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b38010a0590f9a489d9feb4d912c0fe
+      internalID: -852877907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_53
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 490
+        width: 111
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8276200b455bf52478dd17d4b36e9c2e
+      internalID: 86305684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_54
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 500
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5600e132c0f197742989abf85ea99ca7
+      internalID: 1854019706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_55
+      rect:
+        serializedVersion: 2
+        x: 1302
+        y: 500
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797a2942962e68140989ec3f85fb7c7c
+      internalID: 447873306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_56
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 482
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 320a9e5aa1ccc9d47853aff03416bfb9
+      internalID: -235048731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_57
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 300
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fd9847c135cdf5438ee771b2f318836
+      internalID: -1222909710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_58
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 296
+        width: 115
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac0fb176475f694fb71d8c8a42a142d
+      internalID: 1337712652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_59
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 405
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201193e5954212f41bb1f0aa6ede0a6d
+      internalID: -1519736648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_60
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 296
+        width: 116
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e936eeb4ea4aa9438386b6926f7b725
+      internalID: -288562574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_61
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 292
+        width: 113
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 880ad034033903a4c8d0bf1aedf73d2b
+      internalID: -1886482886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_62
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 292
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24cd1a3fbbcf7bd48becc0093e26648e
+      internalID: 1613491506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_63
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 366
+        width: 111
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce8c3a652b4fde48995d92fda29e6e0
+      internalID: -153049108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_64
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 297
+        width: 45
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c02a12d8480ef984e81bb5f2517e4157
+      internalID: -2086154965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_65
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 403
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4db5911e53d3b5240b3cb27e2c82d120
+      internalID: 7020779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_66
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 297
+        width: 44
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9076292224ea8041b728171b54aa46e
+      internalID: 1713778451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_67
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 323
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b3b3b85040996b448eebde011ea4610
+      internalID: 167154610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_68
+      rect:
+        serializedVersion: 2
+        x: 1257
+        y: 323
+        width: 86
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7878aaf4146c25642b8c9473d526ab4b
+      internalID: -1220257987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_69
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 308
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e840ad6cbbd4344ca7f4f7754ccb8b3
+      internalID: -1924080367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_70
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 307
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0362f69d0f34954d82831a64bf50af4
+      internalID: -96460623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_71
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 307
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e0551566b12b394c9e32e8db7657af3
+      internalID: -734891985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_72
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 384
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48fedb27f0d13094aad964a0c5d5402a
+      internalID: -1589257075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_73
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 384
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9927129f7740d3e469cddf7d3495fef6
+      internalID: -1968481745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_74
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 308
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ce0a44613323a489370d12e93cad20
+      internalID: 619068407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_75
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 308
+        width: 83
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3417af8a5dc70d148bd464a8f4fc14aa
+      internalID: -28345659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_76
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 389
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 491f19ef4c0d02047a758d2bc442fa9e
+      internalID: 836877431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_77
+      rect:
+        serializedVersion: 2
+        x: 1768
+        y: 308
+        width: 83
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 579eac6d6b93fa540bd496ef024b3c3a
+      internalID: -3398513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_78
+      rect:
+        serializedVersion: 2
+        x: 1802
+        y: 389
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf6b033a0f86df6489e97ddcb1e1b94c
+      internalID: -1663166396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_79
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 342
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a04c58aa3391f746a669fe2b3168759
+      internalID: 343523130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_80
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 342
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be58bd92d3b0bc64bbfad918719a1891
+      internalID: 651924426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_81
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 345
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a06a5798a5186f4fb6406f5cb0ca6c0
+      internalID: 979887322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_82
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 345
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d291d5c4e4a021c408eb63003273f94f
+      internalID: 1676034492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_83
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 295
+        width: 86
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a608733ed42f734bad86bcef82d9ea5
+      internalID: -1660670054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_84
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 295
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13372eecde39af543a6aa856c897a977
+      internalID: 1772892379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_85
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 318
+        width: 108
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0a863f8579214546be073d9da7e6b39
+      internalID: -1334103632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_86
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 319
+        width: 108
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbec667d8c1881f4e9de1a4c83c7aac7
+      internalID: 1772694633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_87
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 295
+        width: 111
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92bc6be0ca402eb42ba2a656c82dc5a0
+      internalID: 150319079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_88
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 306
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7314a60ef999114eb57ec57586da4b4
+      internalID: -324767029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_89
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 306
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e45aed5739aa7f948a83d2b38bc01503
+      internalID: -784183219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_90
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 286
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3abc4363d9ed0074d98aae24ece23eb2
+      internalID: 1031673229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_91
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 287
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed44488eee0e0d84b9f8d6a225ab5edb
+      internalID: 1257937445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_92
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 206
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 064af7b68d8ac6444847039d1ac8c6e7
+      internalID: 1597473805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_93
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 206
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b67c4fee62f278844a6e3ea823792989
+      internalID: -249482897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_94
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 206
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73de1701aacfd354697f2bce4cd40845
+      internalID: 1703601787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_95
+      rect:
+        serializedVersion: 2
+        x: 1107
+        y: 206
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 360c82ae0f34dc94abd1ea337b2ac5ca
+      internalID: 32592970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_96
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 207
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a11df756df6f6479dea85f1fb53695
+      internalID: -1126567654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_97
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 207
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be28eda4455cd674d90aa669ab2f6345
+      internalID: 207596224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_98
+      rect:
+        serializedVersion: 2
+        x: 1471
+        y: 206
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f597e544792604f47a38f374c0bdd916
+      internalID: -1963589189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_99
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 206
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73d80ae6418225c488ec3916c151969d
+      internalID: -869428349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_100
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 113
+        width: 122
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87ee48852e00ad54c8ec7a1276acbf78
+      internalID: -2082679999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_101
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 113
+        width: 122
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d53d5805ff5d5d4aa25efbaccfe50af
+      internalID: 990173494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_102
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 113
+        width: 122
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af43beca2e3ea004584cec594524ae40
+      internalID: 1879001413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_103
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 183
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64099ff38f096e64aa859f02d691fede
+      internalID: 684473641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_104
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 113
+        width: 122
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a6db98994a26214680206a85c53e917
+      internalID: -1333230436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_105
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 183
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1190280c3ee4bbe4fb62833dc4458a1e
+      internalID: -1334434935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_106
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 109
+        width: 91
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c406276ddfcad54d9b3fcff29edb487
+      internalID: 786243267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_107
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 109
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 059aaecb969b6cd4a8636697ca2571b3
+      internalID: 64056143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_108
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 109
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce8b7163dd61b0c4db56caba3e503629
+      internalID: -1348327501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_109
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 109
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab829d916c3fcd14b9490d28e8ae76d4
+      internalID: 461768893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_110
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 109
+        width: 89
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cdd59cbc0bca8149b5a011350be4a52
+      internalID: -885864735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_111
+      rect:
+        serializedVersion: 2
+        x: 1324
+        y: 109
+        width: 89
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bda3d5875d9f61438c24f5d36d26316
+      internalID: -1988895100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_112
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 109
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff18ffbfcf56b6046a241cdb1fe28871
+      internalID: -1393709488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: xbox-controller-keys_113
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 109
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a626512a50ee3e044b67707b33ebad21
+      internalID: -256261520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 98c2ac0bb8a3efb4299a758cfc072259
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      xbox-controller-keys_0: -1339374016
+      xbox-controller-keys_1: -535787150
+      xbox-controller-keys_10: -87918218
+      xbox-controller-keys_100: -2082679999
+      xbox-controller-keys_101: 990173494
+      xbox-controller-keys_102: 1879001413
+      xbox-controller-keys_103: 684473641
+      xbox-controller-keys_104: -1333230436
+      xbox-controller-keys_105: -1334434935
+      xbox-controller-keys_106: 786243267
+      xbox-controller-keys_107: 64056143
+      xbox-controller-keys_108: -1348327501
+      xbox-controller-keys_109: 461768893
+      xbox-controller-keys_11: 1020885243
+      xbox-controller-keys_110: -885864735
+      xbox-controller-keys_111: -1988895100
+      xbox-controller-keys_112: -1393709488
+      xbox-controller-keys_113: -256261520
+      xbox-controller-keys_12: -1768485649
+      xbox-controller-keys_13: 2084473333
+      xbox-controller-keys_14: -1690406767
+      xbox-controller-keys_15: 1661034771
+      xbox-controller-keys_16: 626494996
+      xbox-controller-keys_17: -733725399
+      xbox-controller-keys_18: 1533667293
+      xbox-controller-keys_19: 1669268526
+      xbox-controller-keys_2: 685488691
+      xbox-controller-keys_20: -501718649
+      xbox-controller-keys_21: -1987484257
+      xbox-controller-keys_22: 2043761935
+      xbox-controller-keys_23: 1557248581
+      xbox-controller-keys_24: 425366688
+      xbox-controller-keys_25: 211011599
+      xbox-controller-keys_26: 889495519
+      xbox-controller-keys_27: -312438776
+      xbox-controller-keys_28: -98903842
+      xbox-controller-keys_29: -461632736
+      xbox-controller-keys_3: 440005564
+      xbox-controller-keys_30: 1203938674
+      xbox-controller-keys_31: 212455871
+      xbox-controller-keys_32: -366271934
+      xbox-controller-keys_33: -1245355392
+      xbox-controller-keys_34: 1355047372
+      xbox-controller-keys_35: -535888367
+      xbox-controller-keys_36: 963184712
+      xbox-controller-keys_37: 248748942
+      xbox-controller-keys_38: -1360073328
+      xbox-controller-keys_39: -608652487
+      xbox-controller-keys_4: -801915615
+      xbox-controller-keys_40: -273780049
+      xbox-controller-keys_41: -1906735520
+      xbox-controller-keys_42: -308679037
+      xbox-controller-keys_43: 1972124650
+      xbox-controller-keys_44: 125812308
+      xbox-controller-keys_45: 1076817490
+      xbox-controller-keys_46: 815990876
+      xbox-controller-keys_47: 1550937398
+      xbox-controller-keys_48: 899247710
+      xbox-controller-keys_49: 521966752
+      xbox-controller-keys_5: -1140350459
+      xbox-controller-keys_50: 1674945397
+      xbox-controller-keys_51: -973911230
+      xbox-controller-keys_52: -852877907
+      xbox-controller-keys_53: 86305684
+      xbox-controller-keys_54: 1854019706
+      xbox-controller-keys_55: 447873306
+      xbox-controller-keys_56: -235048731
+      xbox-controller-keys_57: -1222909710
+      xbox-controller-keys_58: 1337712652
+      xbox-controller-keys_59: -1519736648
+      xbox-controller-keys_6: -846794808
+      xbox-controller-keys_60: -288562574
+      xbox-controller-keys_61: -1886482886
+      xbox-controller-keys_62: 1613491506
+      xbox-controller-keys_63: -153049108
+      xbox-controller-keys_64: -2086154965
+      xbox-controller-keys_65: 7020779
+      xbox-controller-keys_66: 1713778451
+      xbox-controller-keys_67: 167154610
+      xbox-controller-keys_68: -1220257987
+      xbox-controller-keys_69: -1924080367
+      xbox-controller-keys_7: 1825887913
+      xbox-controller-keys_70: -96460623
+      xbox-controller-keys_71: -734891985
+      xbox-controller-keys_72: -1589257075
+      xbox-controller-keys_73: -1968481745
+      xbox-controller-keys_74: 619068407
+      xbox-controller-keys_75: -28345659
+      xbox-controller-keys_76: 836877431
+      xbox-controller-keys_77: -3398513
+      xbox-controller-keys_78: -1663166396
+      xbox-controller-keys_79: 343523130
+      xbox-controller-keys_8: 198985741
+      xbox-controller-keys_80: 651924426
+      xbox-controller-keys_81: 979887322
+      xbox-controller-keys_82: 1676034492
+      xbox-controller-keys_83: -1660670054
+      xbox-controller-keys_84: 1772892379
+      xbox-controller-keys_85: -1334103632
+      xbox-controller-keys_86: 1772694633
+      xbox-controller-keys_87: 150319079
+      xbox-controller-keys_88: -324767029
+      xbox-controller-keys_89: -784183219
+      xbox-controller-keys_9: 1472954645
+      xbox-controller-keys_90: 1031673229
+      xbox-controller-keys_91: 1257937445
+      xbox-controller-keys_92: 1597473805
+      xbox-controller-keys_93: -249482897
+      xbox-controller-keys_94: 1703601787
+      xbox-controller-keys_95: 32592970
+      xbox-controller-keys_96: -1126567654
+      xbox-controller-keys_97: 207596224
+      xbox-controller-keys_98: -1963589189
+      xbox-controller-keys_99: -869428349
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

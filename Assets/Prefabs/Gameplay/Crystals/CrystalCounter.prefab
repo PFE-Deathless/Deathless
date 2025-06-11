@@ -141,8 +141,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ff001522cfbd94aa06ba6ad1ba4fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crystals: []
-  milestones: []
+  crystals:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  milestones:
+  - threshold: 1
+    activables:
+    - {fileID: 0}
+  - threshold: 3
+    activables:
+    - {fileID: 0}
+  - threshold: 5
+    activables:
+    - {fileID: 0}
+    - {fileID: 0}
   sliderBar: {fileID: 3555688114259051084}
   thresholdIndicatorPrefab: {fileID: 5048554689159768974, guid: 29cec4ae908ab7943a3854c90398f081, type: 3}
 --- !u!223 &2334217952303635127
@@ -180,10 +195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

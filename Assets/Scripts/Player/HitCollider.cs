@@ -38,10 +38,10 @@ public class HitCollider : MonoBehaviour
 			Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
 			if (!_enemiesInside.Contains(enemy))
 			{
-				if (enemy.CurrentType == type && !enemy.IsProtected)
+				if (enemy.CurrentType == type)
 				{
 					enemy.TakeDamage();
-					_hitSuccess = true;
+					_hitSuccess = !enemy.IsProtected;
 				}
 
 				_enemiesInside.Add(enemy);

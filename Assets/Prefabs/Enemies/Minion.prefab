@@ -396,6 +396,39 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 2}
   protecting: 0
   protectedEnemies: []
+  protectedDamageAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.00007323268
+      outSlope: 0.00007323268
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.5
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.005379063
+      outSlope: -0.005379063
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   VFXParent: {fileID: 3733443275274896514}
   slashObject: {fileID: 4795716983761748448, guid: 981021315902227408dbb35e175f9705, type: 3}
   slashTransform: {fileID: 8793929234922687775}
@@ -405,6 +438,7 @@ MonoBehaviour:
   preHitFeedbackPrefab: {fileID: 8258709214345215218, guid: 2738892c4205b094e9717bdb0b1f141d, type: 3}
   protectionLinkPrefab: {fileID: 292647218442263076, guid: 123c471b026a05049b04c3637729a985, type: 3}
   protectionAuraPrefab: {fileID: 5224460352986802442, guid: b54086eb462c2004e8cec8caac694e97, type: 3}
+  protectedDamageLinkPrefab: {fileID: 2618302406709643360, guid: 58eb0fe570fd8104785354174140ca0f, type: 3}
   showState: 0
   showPathToTarget: 0
   playerLayerMask:

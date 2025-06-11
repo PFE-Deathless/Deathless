@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 public class DungeonSoul : MonoBehaviour, IInteractable
 {
@@ -9,6 +10,14 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 
 	[Header("Technical")]
 	[SerializeField, Tooltip("Door that will be opened after the soul is reaped")] Door door;
+	[SerializeField, Tooltip("Curve that will dictate the scale changes on the soul sphere")] AnimationCurve activationCurve;
+	[SerializeField, Tooltip("Duration of the scale animation")] float animationDuration = 1f;
+	[SerializeField, Tooltip("Particle prefab that will be spawnded from the souls to the door")] GameObject soulParticleFeedbackPrefab;
+	[SerializeField, Tooltip("Particle prefab that will be spawnded from the souls to the door")] Transform soulMesh;
+
+	bool _animationStarted = false;
+	bool _soulDestroyed = false;
+	float _elapsedTime = 0f;
 
 	private void Start()
 	{
@@ -22,15 +31,40 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 		}
 	}
 
-	public void Interact(InteractableType type)
+    private void Update()
+    {
+        if (_animationStarted)
+		{
+			if (_elapsedTime < animationDuration)
+			{
+                soulMesh.localScale = Vector3.one * activationCurve.Evaluate(_elapsedTime / animationDuration);
+                _elapsedTime += Time.deltaTime;
+            }
+			else
+			{
+				if (!_soulDestroyed)
+				{
+					_soulDestroyed = true;
+
+                    if (door != null)
+                        door.Activate();
+                    GameManager.Instance.UnlockDungeonSoul(dungeonValidation);
+                    PlayerInteract.Instance.Remove(transform);
+
+                    GameObject obj = Instantiate(soulParticleFeedbackPrefab, transform.position, Quaternion.identity);
+                    obj.GetComponent<SoulParticleFeedback>().Setup(transform.position, door.transform.position);
+
+                    Destroy(gameObject);
+                }
+			}
+		}
+    }
+
+    public void Interact(InteractableType type)
 	{
 		if (interactableType != type && interactableType != InteractableType.Both)
 			return;
 
-		if (door != null)
-			door.Activate();
-		GameManager.Instance.UnlockDungeonSoul(dungeonValidation);
-		PlayerInteract.Instance.Remove(transform);
-		Destroy(gameObject);
-	}
+		_animationStarted = true;
+    }
 }

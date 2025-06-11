@@ -176,26 +176,32 @@ public class GameManager : MonoBehaviour
 				return;
 			case Dungeon.Tutorial:
 				playerData.tutorial = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon1:
 				playerData.dungeon1 = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon2:
 				playerData.dungeon2 = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon3:
 				playerData.dungeon3 = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon4:
 				playerData.dungeon4 = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon5:
 				playerData.dungeon5 = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			default:
@@ -234,26 +240,32 @@ public class GameManager : MonoBehaviour
 				return;
 			case Dungeon.Tutorial:
 				playerData.tutorialSoul = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon1:
 				playerData.dungeon1Soul = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon2:
 				playerData.dungeon2Soul = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon3:
 				playerData.dungeon3Soul = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon4:
 				playerData.dungeon4Soul = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			case Dungeon.Dungeon5:
 				playerData.dungeon5Soul = true;
+				SoulsDisplay.Instance.UpdateSouls();
 				SaveData();
 				return;
 			default:
@@ -386,16 +398,16 @@ public class GameManager : MonoBehaviour
 		do
 		{
 			beginPlayObj = GameObject.FindWithTag("BeginPlay");
-			LogText("Searching for Begin Play...");
+			//LogText("Searching for Begin Play...");
 		} while (beginPlayObj == null);
 
-		LogText("Begin Play found !");
+		//LogText("Begin Play found !");
 		Transform beginPlayTransform = beginPlayObj.transform;
 
 		if (beginPlayTransform == null)
 		{
-			Debug.LogWarning("No Begin Play in the Scene ! ");
-			LogText("No Begin Play in the Scene ! ");
+			//Debug.LogWarning("No Begin Play in the Scene ! ");
+			//LogText("No Begin Play in the Scene ! ");
 			return;
 		}
 
@@ -439,9 +451,9 @@ public class GameManager : MonoBehaviour
 		if (!_loadingLevel)
 		{
 			LoadData();
-            if (PlayerInteract.Instance != null)
-                PlayerInteract.Instance.ClearInteract();
-            StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
+			if (PlayerInteract.Instance != null)
+				PlayerInteract.Instance.ClearInteract();
+			StartCoroutine(LoadLevelCoroutine(SceneManager.GetActiveScene().path));
 		}
 	}
 
@@ -461,7 +473,7 @@ public class GameManager : MonoBehaviour
 		loadingScreen.FadeIn();
 		while (loadingScreen.IsFadingIn)
 		{
-			LogText("Fading in...");
+			//LogText("Fading in...");
 			yield return null;
 		}
 
@@ -473,7 +485,7 @@ public class GameManager : MonoBehaviour
 		while (newLevelAO.progress < 0.9f && !newLevelAO.isDone)
 		{
 			// Loading Screen progress here
-			LogText("Progress : " + newLevelAO.progress);
+			//LogText("Progress : " + newLevelAO.progress);
 
 			loadingScreen.SetProgressBarValue(newLevelAO.progress / 0.9f);
 			yield return null;
@@ -488,11 +500,11 @@ public class GameManager : MonoBehaviour
 		// Wait for the active scene to be the newly loaded scene
 		while (SceneManager.GetActiveScene().path != scenePath)
 		{
-			LogText("Loading new scene...");
+			//LogText("Loading new scene...");
 			yield return null;
 		}
 
-		LogText("Active Scene path : " + SceneManager.GetActiveScene().path);
+		//LogText("Active Scene path : " + SceneManager.GetActiveScene().path);
 
 
 		// ### Scene changes ###
@@ -514,6 +526,7 @@ public class GameManager : MonoBehaviour
 			yield return null;
 			PlayerController.Instance.ResetDashCharges();
 			PlayerHealth.Instance.Heal();
+			SoulsDisplay.Instance.UpdateSouls();
 		}
 		else // Otherwise we destroy the player object
 		{
@@ -531,7 +544,7 @@ public class GameManager : MonoBehaviour
 		loadingScreen.FadeOut();
 		while (loadingScreen.IsFadingOut)
 		{
-			LogText("Fading out...");
+			//LogText("Fading out...");
 			yield return null;
 		}
 
