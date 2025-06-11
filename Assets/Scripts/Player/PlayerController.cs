@@ -84,7 +84,8 @@ public class PlayerController : MonoBehaviour
 		_dashCharges = dashChargesMax;
 		_scytheBaseEmissive = scytheRenderer.material.GetVector("_EmissionColor");
 		_originalMoveSpeed = moveSpeed;
-	}
+        hitCooldownImage.fillAmount = 0f;
+    }
 
 	void Update()
 	{
@@ -185,16 +186,16 @@ public class PlayerController : MonoBehaviour
 				float percentage = (_hitElapsedTime - hitDuration) / (cooldownDuration - hitDuration);
 
 				if (_hitSuccess)
-					hitCooldownImage.fillAmount = 1f;
+					hitCooldownImage.fillAmount = 0f;
 				else
-					hitCooldownImage.fillAmount = percentage;
+					hitCooldownImage.fillAmount = 1f - percentage;
 
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * percentage * percentage);
 				hitColliderObject.SetActive(false);
 			}
 			else
 			{
-				hitCooldownImage.fillAmount = 1f;
+				hitCooldownImage.fillAmount = 0f;
 				scytheRenderer.material.SetVector("_EmissionColor", _scytheBaseEmissive * 4f);
 				if (!_hitSuccess)
 					hitCooldownParticle.Play();

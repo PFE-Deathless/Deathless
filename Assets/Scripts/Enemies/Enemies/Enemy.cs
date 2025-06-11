@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
 	[Header("Protection")]
 	[SerializeField] protected bool protecting = false;
 	[SerializeField] protected Enemy[] protectedEnemies;
+	[SerializeField] protected AnimationCurve protectedDamageAnimationCurve;
 
 	[Header("VFX")]
 	[SerializeField] Transform VFXParent;
@@ -59,8 +60,9 @@ public class Enemy : MonoBehaviour
 	public GameObject preHitFeedbackPrefab;
 	[SerializeField] private GameObject protectionLinkPrefab;
 	[SerializeField] private GameObject protectionAuraPrefab;
+    [SerializeField] protected GameObject protectedDamageLinkPrefab;
 
-	[Header("Technical")]
+    [Header("Technical")]
 	public bool showState;
 	public bool showPathToTarget;
 	public LayerMask playerLayerMask = (1 << 3) | (1 << 6);
@@ -108,7 +110,10 @@ public class Enemy : MonoBehaviour
 	protected bool _isProtected;
 	protected List<Enemy> _protectors = new();
 	protected GameObject _protectionAura;
-	protected LineRenderer[] _protectionLinksLR;
+	protected LineRenderer[] _protectionFromLinksLR;
+
+	protected float _protectedDamageElapsedTime = 0f;
+	protected float _protectedDamageDuration = 0.3f;
 
 	// State Machine
 	EnemyState state;
@@ -176,12 +181,12 @@ public class Enemy : MonoBehaviour
 
 		if (protectedEnemies.Length > 0)
 		{
-			_protectionLinksLR = new LineRenderer[protectedEnemies.Length];
+            _protectionFromLinksLR = new LineRenderer[protectedEnemies.Length];
 			for (int i = 0; i < protectedEnemies.Length; i++)
 			{
 				protectedEnemies[i].SetProtector(this, true);
 				GameObject obj = Instantiate(protectionLinkPrefab, transform.position, Quaternion.identity, VFXParent);
-				_protectionLinksLR[i] = obj.GetComponent<LineRenderer>();
+                _protectionFromLinksLR[i] = obj.GetComponent<LineRenderer>();
 			}
 		}
 		else
@@ -217,7 +222,9 @@ public class Enemy : MonoBehaviour
 
 		HandleShake();
 
-		if (animator != null)
+		HandleProtectedDamage();
+
+        if (animator != null)
 		{
 			animator.SetFloat("Speed", navMeshAgent.velocity.sqrMagnitude / navMeshAgent.speed);
 			animator.SetFloat("AnimationSpeed", navMeshAgent.speed);
@@ -225,10 +232,10 @@ public class Enemy : MonoBehaviour
 
 		if (protecting)
 		{
-			for (int i = 0; i < _protectionLinksLR.Length; i++)
+			for (int i = 0; i < _protectionFromLinksLR.Length; i++)
 			{
-				_protectionLinksLR[i].SetPosition(0, transform.position);
-				_protectionLinksLR[i].SetPosition(1, protectedEnemies[i].transform.position);
+                _protectionFromLinksLR[i].SetPosition(0, transform.position);
+                _protectionFromLinksLR[i].SetPosition(1, protectedEnemies[i].transform.position);
 			}
 		}
 
@@ -289,6 +296,18 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	void HandleProtectedDamage()
+	{
+		if (_protectedDamageElapsedTime > 0f)
+		{
+			float percentage = 1f - (_protectedDamageElapsedTime / _protectedDamageDuration);
+            
+			_protectionAura.transform.localScale = Vector3.one * protectedDamageAnimationCurve.Evaluate(percentage);
+
+            _protectedDamageElapsedTime -= Time.deltaTime;
+		}
+	}
+
 	bool DetectPlayer()
 	{
 		if (target != null)
@@ -322,7 +341,17 @@ public class Enemy : MonoBehaviour
 			return;
 
 		if (_isProtected)
-			return;
+		{
+			_protectedDamageElapsedTime = _protectedDamageDuration;
+
+			foreach (Enemy protector in _protectors)
+			{
+                GameObject obj = Instantiate(protectedDamageLinkPrefab, transform.position, Quaternion.identity);
+                obj.GetComponent<EnemyProtectedDamageParticle>().Setup(transform, protector.transform);
+            }
+
+            return;
+		}
 
 		health--;
 		if (slashObject != null && slashTransform != null)
