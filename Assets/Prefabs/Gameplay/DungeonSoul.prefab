@@ -9975,7 +9975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46ce77727f29d24083b769036bab279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableType: 1
+  interactableType: 2
   dungeonValidation: 0
   soulColor: {r: 1, g: 1, b: 1, a: 0}
   door: {fileID: 0}
