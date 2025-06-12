@@ -12,18 +12,23 @@ public class IntroSequence : MonoBehaviour
 	[SerializeField] Image uiCircle;
 
 	VideoPlayer _player;
-	float _elapsedTime;
+	float _elapsedTime = 0f;
 	bool _isFinished = false;
+
+	InputsManager _inputManager;
 
 	void Start()
 	{
 		_player = GetComponent<VideoPlayer>();
 		_player.loopPointReached += OnCutSceneFinished;
+
+		_inputManager = GetComponent<InputsManager>();
+		_inputManager.SetMap(Map.Menu);
 	}
 
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.Space))
+		if (_inputManager.skip)
 		{
 			_elapsedTime += Time.deltaTime;
 			if (_elapsedTime > timeToPass)

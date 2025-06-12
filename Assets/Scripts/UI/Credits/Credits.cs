@@ -3,13 +3,16 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Credits : MonoBehaviour
 {
 	[Header("Scroll Properties")]
-	[SerializeField] float scrollSpeed = 10f;
+	[SerializeField] float scrollSpeed = 100f;
+	[SerializeField] float scrollSpeedMultiplier = 5f;
 	[SerializeField] float scrollOffset = 1000f;
-	
+	[SerializeField] float timeToPass = 2f;
+
 	[Header("Text Properties")]
 	[SerializeField] float spacingBase = 10f;
 	[SerializeField] float spacingTitle = 35f;
@@ -17,6 +20,8 @@ public class Credits : MonoBehaviour
 	[SerializeField] float spacingImage = 20f;
 
 	[Header("Technical")]
+	[SerializeField] string sceneToLoad;
+	[SerializeField] Image uiCircle;
 	[SerializeField] string creditTSVFileName = "Credits";
 	[SerializeField] GameObject baseTextPrefab;
 	[SerializeField] GameObject titleTextPrefab;
@@ -24,20 +29,53 @@ public class Credits : MonoBehaviour
 	[SerializeField] GameObject imagePrefab;
 
 	Transform _creditParent;
-
 	CreditText[] _creditsTexts;
+	float _totalOffset;
+
+	float _elapsedTime = 0f;
+
+	InputsManager _inputManager;
 
 	private void Start()
 	{
 		//Destroy(GameManager.Instance.gameObject);
+		_inputManager = GetComponent<InputsManager>();
+		_inputManager.SetMap(Map.Menu);
+
 		CreateCredits();
 	}
 
 	private void Update()
 	{
+		float mult = 1f + (scrollSpeedMultiplier * _inputManager.creditScroll);
+
 		Vector3 pos = _creditParent.position;
-		pos.y += scrollSpeed * Time.deltaTime;
+		pos.y += scrollSpeed * Time.deltaTime * mult;
 		_creditParent.position = pos;
+
+		// Load menu after credits
+		if (pos.y > _totalOffset)
+		{
+			if (GameManager.Instance != null)
+				GameManager.Instance.LoadLevel(sceneToLoad);
+		}
+
+		// Skip
+		if (_inputManager.skip)
+		{
+			_elapsedTime += Time.deltaTime;
+			if (_elapsedTime > timeToPass)
+			{
+				if (GameManager.Instance != null)
+					GameManager.Instance.LoadLevel(sceneToLoad);
+			}
+		}
+		else
+		{
+			_elapsedTime = 0f; ;
+		}
+
+		uiCircle.fillAmount = _elapsedTime / timeToPass;
 	}
 
 	void CreateCredits()
@@ -117,6 +155,9 @@ public class Credits : MonoBehaviour
 
 			//Debug.Log($"Content (Type : {_creditsTexts[i].type}) [{i}] : {_creditsTexts[i].content}");
 		}
+
+		_totalOffset = -(currentOffset);
+		Debug.Log("Offset : " + _totalOffset);
 	}
 
 	public class CreditText
