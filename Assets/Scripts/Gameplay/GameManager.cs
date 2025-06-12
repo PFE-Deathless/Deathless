@@ -528,7 +528,7 @@ public class GameManager : MonoBehaviour
 			SpawnTeleportPlayer();
 			yield return null;
 			PlayerController.Instance.ResetDashCharges();
-			PlayerHealth.Instance.Heal();
+			PlayerHealth.Instance.HealFull();
 			SoulsDisplay.Instance.UpdateSouls();
 		}
 		else // Otherwise we destroy the player object

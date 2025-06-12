@@ -90,7 +90,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.KeypadPlus))
 		{
-			Heal();
+			HealFull();
 		}
 
 		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
@@ -158,22 +158,28 @@ public class PlayerHealth : MonoBehaviour
 
 			StartCoroutine(InvicibilityTime());
 
-			//Debug.Log("HP : " + health);
-			return true;
+            //Debug.Log("Health : " + health);
+            return true;
 		}
 
-		return false;
+        return false;
 	}
 
 	public void Kill()
 	{
-		Debug.Log("x_x");
-		health = healthMax;
-		HealthDisplay.Instance.UpdateHealth(health);
-		GameManager.Instance.ReloadLevel();
+        GameManager.Instance.ReloadLevel();
 	}
 
-	public void Heal()
+	public void Heal(int amount)
+	{
+        health += amount;
+		if (health > healthMax)
+			health = healthMax;
+		//Debug.Log("Health : " + health);
+        HealthDisplay.Instance.UpdateHealth(health);
+    }
+
+	public void HealFull()
 	{
 		health = healthMax;
 		HealthDisplay.Instance.UpdateHealth(health);

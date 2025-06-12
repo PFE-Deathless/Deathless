@@ -33,7 +33,6 @@ public class HealthDisplay : MonoBehaviour
 		UpdateVignette();
 	}
 
-
 	public void UpdateHealth(int value) // La valeur passée en paramètre est la quantité de HP actuel du joueur
 	{
 		for (int i = 0; i < hearts.Length; i++)
