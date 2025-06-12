@@ -157,7 +157,6 @@ public class Credits : MonoBehaviour
 		}
 
 		_totalOffset = -(currentOffset);
-		Debug.Log("Offset : " + _totalOffset);
 	}
 
 	public class CreditText
