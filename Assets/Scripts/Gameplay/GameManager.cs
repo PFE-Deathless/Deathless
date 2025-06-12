@@ -512,7 +512,8 @@ public class GameManager : MonoBehaviour
 
 		// Reset keys number
 		_keys = 0;
-		KeyDisplay.Instance.SetKeyNumber(_keys);
+		if (KeyDisplay.Instance != null)
+			KeyDisplay.Instance.SetKeyNumber(_keys);
 
 		// Destroy all existing projectiles
 		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)

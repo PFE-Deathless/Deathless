@@ -18,7 +18,8 @@ public class Projectile : MonoBehaviour
 			PlayerHealth.Instance.TakeDamage(1);
 		if (_destroyOnImpact)
 		{
-			Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
+			if (impactParticlePrefab != null)
+				Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
 			Destroy(gameObject, 0.02f);
 		}
 	}
