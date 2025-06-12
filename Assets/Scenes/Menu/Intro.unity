@@ -581,6 +581,8 @@ GameObject:
   - component: {fileID: 1880201031}
   - component: {fileID: 1880201032}
   - component: {fileID: 1880201030}
+  - component: {fileID: 1880201034}
+  - component: {fileID: 1880201033}
   m_Layer: 0
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -654,6 +656,58 @@ MonoBehaviour:
   timeToPass: 2
   sceneToLoad: Assets/Scenes/Menu/TitleScreen.unity
   uiCircle: {fileID: 1033003205}
+--- !u!114 &1880201033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880201029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e35fe19988672024792bf0301628d0bb, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1880201034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880201029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353c5331d639ffe4cbb7daa21c42bc27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  hit: 3
+  dash: 0
+  reloadScene: 0
+  interact: 0
+  mainMenu: 0
+  validate: 0
+  cancel: 0
+  creditScroll: 0
+  skip: 0
 --- !u!1 &1937770055
 GameObject:
   m_ObjectHideFlags: 0

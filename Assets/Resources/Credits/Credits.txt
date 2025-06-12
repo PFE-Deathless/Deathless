@@ -1,5 +1,5 @@
 Type	Text content OR Image name OR Spacing (in pixels)
-Image	WEB_blanc
+Image	WEB_blanc-bleu
 Spacing	200
 Title	Développement
 Subtitle	Game Design
@@ -34,7 +34,6 @@ Base	Ludivine Lithaud
 Base	Emma Koita
 Base	Solène Moreau
 Base	Jack Compan
-Base	Noemie Barbieri
 Spacing	20
 Subtitle	Design Graphique
 Base	Quiterie Le Tullier
@@ -63,6 +62,25 @@ Base	Concepts réalisés par les artistes graphiques
 Image	concept_typo_logo_1
 Image	concept_typo_logo_2
 Image	concept_typo_logo_3
+Spacing	50
+Title	Cinématique d'introduction
+Subtitle	Artistes 3D
+Base	Jack Compan
+Base	Emma Koita
+Base	Macha Landrieux
+Base	Ludivine Lithaud
+Base	Lucie Mauléon
+Base	Louis Médina
+Base	Solène Moreau
+Subtitle	Voix Off
+Base	Lisa Robinaud
+Subtitle	Sound Design
+Base	Mikhaël Landrieux
+Base	Macha Landrieux
+Subtitle	Logo & typographie
+Base	Julie Fernandez
+Subtitle	Musique
+Base	Prologue - Yuka Kitamura (DARK SOULS III)
 Spacing	50
 Title	Outils & Logiciels
 Subtitle	Logiciels
