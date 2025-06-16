@@ -538,7 +538,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Wait a bit for the loading screen to finish (so the player is correclty teleported)
-		yield return new WaitForSeconds(loadingScreenDuration);
+		yield return new WaitForSecondsRealtime(loadingScreenDuration);
 
 		// #####################
 
@@ -552,7 +552,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Wait a bit and activate player inputs back
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSecondsRealtime(0.2f);
 		if (!isMenu)
 			InputsManager.Instance.EnableInput(true);
 

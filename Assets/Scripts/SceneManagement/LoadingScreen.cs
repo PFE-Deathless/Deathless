@@ -54,7 +54,7 @@ public class LoadingScreen : MonoBehaviour
 		{
 			_color.a = (elapsedTime / _fadeInDuration);
 			fadeImage.color = _color;
-			elapsedTime += Time.deltaTime;
+			elapsedTime += Time.unscaledDeltaTime;
 			yield return null;
 		}
 
@@ -74,7 +74,7 @@ public class LoadingScreen : MonoBehaviour
 		{
 			_color.a = 1f - (elapsedTime / _fadeOutDuration);
 			fadeImage.color = _color;
-			elapsedTime += Time.deltaTime;
+			elapsedTime += Time.unscaledDeltaTime;
 			yield return null;
 		}
 
