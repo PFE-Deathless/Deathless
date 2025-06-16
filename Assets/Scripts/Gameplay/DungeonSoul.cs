@@ -53,8 +53,11 @@ public class DungeonSoul : MonoBehaviour, IInteractable
                     GameManager.Instance.UnlockDungeonSoul(dungeonValidation);
                     PlayerInteract.Instance.Remove(transform);
 
-                    GameObject obj = Instantiate(soulParticleFeedbackPrefab, transform.position, Quaternion.identity);
-                    obj.GetComponent<SoulParticleFeedback>().Setup(transform.position, door.transform.position);
+					if (door != null)
+					{
+						GameObject obj = Instantiate(soulParticleFeedbackPrefab, transform.position, Quaternion.identity);
+						obj.GetComponent<SoulParticleFeedback>().Setup(transform.position, door.transform.position);
+					}
 
                     Destroy(gameObject, 5f);
                 }
@@ -64,7 +67,7 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 
     public void Interact(InteractableType type)
 	{
-		if (interactableType != type && interactableType != InteractableType.Both)
+		if ((interactableType != type && interactableType != InteractableType.Both) || _animationStarted)
 			return;
 
         CameraBehavior.Instance.Shake(0.3f, 300f, 5f);
