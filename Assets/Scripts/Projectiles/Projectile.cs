@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
 		if (_destroyOnImpact)
 		{
 			if (impactParticlePrefab != null)
-				Instantiate(impactParticlePrefab, transform.position, Quaternion.identity);
+				Instantiate(impactParticlePrefab, transform.position, Quaternion.identity, GameManager.Instance.ProjectileParent); 
 			Destroy(gameObject, 0.02f);
 		}
 	}
