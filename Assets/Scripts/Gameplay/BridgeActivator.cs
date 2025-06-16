@@ -33,6 +33,8 @@ public class BridgeActivator : MonoBehaviour, IActivable
 
 	public void Activate(bool playAnimation = true)
 	{
+		if (playAnimation)
+			CameraBehavior.Instance.Shake(0.5f, 100f, animationDuration * 1.5f);
 		_activated = true;
 	}
 }
