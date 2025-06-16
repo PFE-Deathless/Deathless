@@ -160,6 +160,7 @@ MonoBehaviour:
     - {fileID: 0}
   sliderBar: {fileID: 3555688114259051084}
   thresholdIndicatorPrefab: {fileID: 5048554689159768974, guid: 29cec4ae908ab7943a3854c90398f081, type: 3}
+  soulParticleFeedbackPrefab: {fileID: 2280185451817444971, guid: 3f996fbdf644dd04aa4e3bcf767105fd, type: 3}
 --- !u!223 &2334217952303635127
 Canvas:
   m_ObjectHideFlags: 0

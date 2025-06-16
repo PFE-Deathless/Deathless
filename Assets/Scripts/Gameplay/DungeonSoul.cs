@@ -13,9 +13,9 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 	[SerializeField, Tooltip("Duration of the scale animation")] float animationDuration = 1f;
 	[SerializeField, Tooltip("Particle prefab that will be spawnded from the souls to the door")] GameObject soulParticleFeedbackPrefab;
 	[SerializeField, Tooltip("Mesh of the soul (for scale animation)")] Transform soulMesh;
-	[SerializeField, Tooltip("ParticleSystem for the slash")] ParticleSystem permanentParticle;
+	[SerializeField, Tooltip("ParticleSystem permanent")] ParticleSystem permanentParticle;
 	[SerializeField, Tooltip("ParticleSystem for the slash")] ParticleSystem slashParticle;
-	[SerializeField, Tooltip("ParticleSystem for the slash")] ParticleSystem explosionParticle;
+	[SerializeField, Tooltip("ParticleSystem exploding")] ParticleSystem explosionParticle;
 
 	bool _animationStarted = false;
 	bool _soulDestroyed = false;
