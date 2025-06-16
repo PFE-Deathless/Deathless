@@ -10,11 +10,6 @@ public class DoorLock : MonoBehaviour, IInteractable
 
 	private bool _activated = false;
 
-    private void Start()
-    {
-		padlockMesh.SetActive(false);
-    }
-
     public void Interact(InteractableType type = InteractableType.Both)
 	{
 		if (_activated)
