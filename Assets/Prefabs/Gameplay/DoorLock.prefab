@@ -81,6 +81,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableType: 0
   door: {fileID: 0}
+  animDuration: 0.5
+  animCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 4.601132
+      outSlope: 4.601132
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1598997
+    - serializedVersion: 3
+      time: 0.19264439
+      value: 1.9842943
+      inSlope: 0.6686271
+      outSlope: 0.6686271
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23075281
+      outWeight: 0.18663007
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   padlockMesh: {fileID: 1776477384378819457}
 --- !u!65 &7640002229727583254
 BoxCollider:
