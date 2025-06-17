@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToPass: 2
-  sceneToLoad: Assets/Scenes/Menu/TitleScreen.unity
+  sceneToLoad: Assets/Scenes/Levels/LD_Tuto.unity
   uiCircle: {fileID: 1033003205}
 --- !u!114 &1880201033
 MonoBehaviour:

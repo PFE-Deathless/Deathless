@@ -365,11 +365,23 @@ public class GameManager : MonoBehaviour
 		//Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
 	}
 
+	public void CreateNewSaveFile()
+	{
+		playerData = new();
+		SaveData();
+	}
+
 	public void ResetData()
 	{
 		//Debug.Log("Data reset !");
 		playerData = new();
-		SaveData();
+		if (File.Exists(_savePath))
+			File.Delete(_savePath);
+	}
+
+	public bool SaveFileExists()
+	{
+		return File.Exists(_savePath);
 	}
 
 	#endregion

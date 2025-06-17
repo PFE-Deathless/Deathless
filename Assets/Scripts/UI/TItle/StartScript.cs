@@ -12,6 +12,7 @@ public class StartScript : MonoBehaviour
 	[Header("Level Paths")]
 	[SerializeField] string hubPath = "Assets/Scenes/Levels/HUB.unity";
 	[SerializeField] string tutoPath = "Assets/Scenes/Levels/LD_Tuto.unity";
+	[SerializeField] string introPath = "Assets/Scenes/Menu/Intro.unity";
 	[SerializeField] string creditsPath = "Assets/Scenes/Menu/Credits.unity";
 
 	[Header("Technical")]
@@ -54,8 +55,15 @@ public class StartScript : MonoBehaviour
 		if (GameManager.Instance.HasDungeonSoul(Dungeon.Tutorial))
 			LoadLevel(hubPath);
 		else
-			LoadLevel(tutoPath);
-			
+		{
+			if (GameManager.Instance.SaveFileExists())
+				LoadLevel(tutoPath);
+			else
+			{
+				GameManager.Instance.CreateNewSaveFile();
+				LoadLevel(introPath);
+			}
+		}
 	}
 
 	public void LoadLevel(string path)
