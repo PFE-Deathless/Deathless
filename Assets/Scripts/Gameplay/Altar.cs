@@ -59,7 +59,7 @@ public class Altar : MonoBehaviour, IInteractable
 			return;
 
 		for (int i = 0; i < toActivateObjects.Length; i++)
-			toActivateObjects[i].GetComponent<IActivable>().Activate();
+			toActivateObjects[i].GetComponent<IActivable>().Activate(false);
 	}
 
 	IEnumerator ActivateObjects()

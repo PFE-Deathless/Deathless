@@ -33,13 +33,13 @@ public class CameraBehavior : MonoBehaviour
 		transform.LookAt(playerTransform.position);
 	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.O))
-		{
-			Shake(0.4f, 20f, 0.5f);
-		}
-	}
+	//private void Update()
+	//{
+	//	if (Input.GetKeyDown(KeyCode.O))
+	//	{
+	//		Shake(0.4f, 20f, 0.5f);
+	//	}
+	//}
 
 	void LateUpdate()
 	{
@@ -88,6 +88,7 @@ public class CameraBehavior : MonoBehaviour
 
 	public void Shake(float amplitude, float frequency, float duration)
 	{
+		//Debug.Log("Shake !");
 		activeShakes.Add(new ShakeInstance(amplitude, frequency, duration));
 	}
 

@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
+using UnityEngine.UI;
 
 public class CrystalCounter : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class CrystalCounter : MonoBehaviour
 	[Header("Technical")]
 	[SerializeField] Slider sliderBar;
 	[SerializeField] GameObject thresholdIndicatorPrefab;
+    [SerializeField, Tooltip("Particle prefab that will be spawnded from the crystal to the door(s)")] GameObject soulParticleFeedbackPrefab;
 
-	private int _total;
+    private int _total;
 	private int _current;
 	private List<CrystalMilestone> _milestoneToRemove = new();
 
@@ -59,7 +61,11 @@ public class CrystalCounter : MonoBehaviour
 			if (_total - _current >= milestones[i].threshold)
 			{
 				for (int j = 0; j < milestones[i].activables.Length; j++)
-					milestones[i].activables[j].GetComponentInChildren<IActivable>().Activate();
+				{
+                    GameObject obj = Instantiate(soulParticleFeedbackPrefab, transform.position, Quaternion.identity);
+                    obj.GetComponent<SoulParticleFeedback>().Setup(crystal.transform.position, milestones[i].activables[j].transform.position);
+                    milestones[i].activables[j].GetComponentInChildren<IActivable>().Activate();
+				}
 
 				_milestoneToRemove.Add(milestones[i]);
 			}

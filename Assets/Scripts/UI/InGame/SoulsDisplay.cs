@@ -21,7 +21,6 @@ public class SoulsDisplay : MonoBehaviour
 
 	public void UpdateSouls()
 	{
-		Debug.Log("paf");
 		soulTuto.SetActive(GameManager.Instance.playerData.tutorialSoul && !GameManager.Instance.playerData.tutorial);
 		soulDungeon1.SetActive(GameManager.Instance.playerData.dungeon1Soul && !GameManager.Instance.playerData.dungeon1);
 		soulDungeon2.SetActive(GameManager.Instance.playerData.dungeon2Soul && !GameManager.Instance.playerData.dungeon2);

@@ -1,0 +1,110 @@
+Type	Text content OR Image name OR Spacing (in pixels)
+Image	WEB_blanc-bleu
+Spacing	200
+Title	Développement
+Subtitle	Game Design
+Base	Maxence d'Aboville
+Base	Pierre Ermé
+Base	Soulanny Phiphak
+Base	Milo Garric
+Subtitle	System Design
+Base	Maxence d'Aboville
+Subtitle	Programmation
+Base	Maxence d'Aboville
+Base	Pierre Ermé
+Subtitle	Level Design
+Base	Pierre Ermé
+Subtitle	Game Writing
+Base	Milo Garric
+Base	Soulanny Phiphak
+Subtitle	Narrative Design
+Base	Milo Garric
+Subtitle	Interface
+Base	Soulanny Phiphak
+Base	Maxence d'Aboville
+Subtitle	User Experience
+Base	Soulanny Phiphak
+Spacing	50
+Title	Artistes
+Subtitle	Artistes 3D
+Base	Lucie Mauléon
+Base	Louis Médina
+Base	Macha Landrieux
+Base	Ludivine Lithaud
+Base	Emma Koita
+Base	Solène Moreau
+Base	Jack Compan
+Spacing	20
+Subtitle	Design Graphique
+Base	Quiterie Le Tullier
+Base	Arthur Piller
+Base	Rachel Bastié
+Base	Lucas Piau
+Spacing	20
+Subtitle	Sound Design
+Base	Pol Monnier
+Base	Milo Garric
+Base	Maxence d’Aboville
+Spacing	50
+Title	Concepts
+Subtitle	Concepts 3D
+Base	Concepts réalisés par les artistes 3D
+Image	concept_de_la_mort_iterations
+Image	concept_de_la_mort
+Image	concept_de_la_faux
+Image	concept_de_la_faux_rework
+Image	concept_des_mobs
+Image	concept_des_mobs_rework
+Image	concept_autel_ame
+Image	planche_d_assets
+Subtitle	Concepts Graphique
+Base	Concepts réalisés par les artistes graphiques
+Image	concept_typo_logo_1
+Image	concept_typo_logo_2
+Image	concept_typo_logo_3
+Spacing	50
+Title	Cinématique d'introduction
+Subtitle	Artistes 3D
+Base	Jack Compan
+Base	Emma Koita
+Base	Macha Landrieux
+Base	Ludivine Lithaud
+Base	Lucie Mauléon
+Base	Louis Médina
+Base	Solène Moreau
+Subtitle	Voix Off
+Base	Lisa Robinaud
+Subtitle	Sound Design
+Base	Mikhaël Landrieux
+Base	Macha Landrieux
+Subtitle	Logo & typographie
+Base	Julie Fernandez
+Subtitle	Musique
+Base	Prologue - Yuka Kitamura (DARK SOULS III)
+Spacing	50
+Title	Outils & Logiciels
+Subtitle	Logiciels
+Base	Unity (version 6000.0.25f1)
+Base	Microsoft Visual Studio
+Subtitle	Outils de gestion
+Base	HacknPlan
+Base	GitHub Desktop
+Subtitle	Publication
+Base	itch.io
+Spacing	50
+Title	Remerciements
+Subtitle	Un grand merci à :
+Base	Toutes les personnes qui ont pris le temps de tester notre jeu
+Base	Le Salon du Jeu Vidéo Toulousain, organisé par le Toulouse Game Dev
+Base	https://toulousegamedev.fr/salon-du-jeu-video-toulousain/
+Base	Les intervenants qui nous ont accompagnés durant le projet
+Subtitle	Les intervenants
+Base	Pascal Bocquillon
+Base	Julien Barbe
+Base	Clément Dualé
+Base	Luke Devillard
+Base	Romain Delbecq
+Base	Corentin Noyer
+Spacing	400
+Subtitle	Et surtout
+Subtitle	Merci à vous !

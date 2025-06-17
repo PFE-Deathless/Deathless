@@ -7,6 +7,10 @@ public class Door : MonoBehaviour, IActivable
 	[SerializeField, Tooltip("Type of door (Lever : opened by a lever, Progression : Opened by a finished dungeon, Key : Opened by a key)")] Type doorType = Type.Key;
 	[SerializeField, Tooltip("Dungeon that opens the door if finished (If Progression is selected in Door Type)")] Dungeon dungeonValidation;
 
+	[Header("Technical")]
+	[SerializeField] ParticleSystem smokePS;
+	[SerializeField] GameObject doorMesh;
+
 	public bool FinishedActivation { get; set; }
 
 	Material _transparentMaterial;
@@ -29,22 +33,43 @@ public class Door : MonoBehaviour, IActivable
 		{
 			if (_elapsedTime < fadeDuration)
 			{
-				_baseColor.a = 1f - (_elapsedTime / fadeDuration);
+				float percentage = 1f - (_elapsedTime / fadeDuration);
 
+				// Color change
+				_baseColor.a = percentage;
 				_transparentMaterial.SetColor("_Base_Color", _baseColor);
 
-				_elapsedTime += Time.deltaTime;
+				// Shake
+                float strength = percentage * 0.5f;
+                float shakeX = (Mathf.PerlinNoise(Time.time * 20f, 0) - 0.5f) * 2f * strength;
+                float shakeZ = (Mathf.PerlinNoise(0, Time.time * 20f) - 0.5f) * 2f * strength;
+				doorMesh.transform.localPosition = new(shakeX, 0f, shakeZ);
+
+                _elapsedTime += Time.deltaTime;
 			}
 			else
 			{
+				if (!FinishedActivation)
+				{
+					smokePS.Stop();
+                    doorMesh.SetActive(false);
+
+                    GetComponentInChildren<Collider>().enabled = false;
+				}
+
 				FinishedActivation = true;
-				Destroy(gameObject);
 			}
 		}
 	}
 
-	public void Activate()
+	public void Activate(bool playAnimation = true)
 	{
+		if (!_activated && playAnimation)
+		{
+			smokePS.Play();
+			CameraBehavior.Instance.Shake(0.4f, 100f, fadeDuration * 1.5f);
+        }
+
 		_activated = true;
 	}
 

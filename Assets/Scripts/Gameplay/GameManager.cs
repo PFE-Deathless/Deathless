@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
 	// Save/Load system
 	string _savePath;
+	private bool _doesSaveExist = false;
 
 	// Tomb system
 	private TombData[] _tombData;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
 	public bool LevelIsLoading => _loadingLevel;
 	public Transform ProjectileParent => projectileParent;
 	public bool IsShowingTomb => _isShowingTomb;
+	public bool DoesSaveExist => _doesSaveExist;
 
 	private void Awake()
 	{
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 #if !UNITY_EDITOR
-		//Cursor.visible = false;
+		Cursor.visible = false;
 #endif
 		Debug.developerConsoleEnabled = true;
 		Debug.developerConsoleVisible = true;
@@ -91,7 +93,6 @@ public class GameManager : MonoBehaviour
 		loadingScreen.SetTiming(fadeInDuration, fadeOutDuration);
 
 		LoadData();
-		//playerData = new(); // To change to load correct data on game start
 
 		LoadTombText();
 
@@ -280,8 +281,7 @@ public class GameManager : MonoBehaviour
 	public void AddKey()
 	{
 		_keys++;
-		KeyDisplay.Instance.SetKeyNumber(_keys);
-		//Debug.Log("Keys : " + _keys);
+		KeyDisplay.Instance.AddKey(_keys);
 	}
 
 	public bool UseKey()
@@ -289,8 +289,7 @@ public class GameManager : MonoBehaviour
 		if (_keys >= 1)
 		{
 			_keys--;
-			KeyDisplay.Instance.SetKeyNumber(_keys);
-			Debug.Log("Keys : " + _keys);
+			KeyDisplay.Instance.RemoveKey(_keys);
 			return true;
 		}
 		return false;
@@ -348,7 +347,7 @@ public class GameManager : MonoBehaviour
 	{
 		string json = JsonUtility.ToJson(playerData, true);
 		File.WriteAllText(_savePath, json);
-		Debug.Log("Game Saved at : " + _savePath + " !\n" + json);
+		//Debug.Log("Game Saved at : " + _savePath + " !\n" + json);
 	}
 
 	public void LoadData()
@@ -356,19 +355,33 @@ public class GameManager : MonoBehaviour
 		if (!File.Exists(_savePath))
 		{
 			playerData = new();
+			_doesSaveExist = false;
 			return;
 		}
 
 		string json = File.ReadAllText(_savePath);
 		playerData = JsonUtility.FromJson<PlayerData>(json);
-		Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
+		_doesSaveExist = true;
+		//Debug.Log("Game Loaded from : " + _savePath + " !\n" + json);
+	}
+
+	public void CreateNewSaveFile()
+	{
+		playerData = new();
+		SaveData();
 	}
 
 	public void ResetData()
 	{
-		Debug.Log("Data reset !");
+		//Debug.Log("Data reset !");
 		playerData = new();
-		SaveData();
+		if (File.Exists(_savePath))
+			File.Delete(_savePath);
+	}
+
+	public bool SaveFileExists()
+	{
+		return File.Exists(_savePath);
 	}
 
 	#endregion
@@ -511,6 +524,8 @@ public class GameManager : MonoBehaviour
 
 		// Reset keys number
 		_keys = 0;
+		if (KeyDisplay.Instance != null)
+			KeyDisplay.Instance.SetKeyNumber(_keys);
 
 		// Destroy all existing projectiles
 		for (int i = projectileParent.transform.childCount - 1; i >= 0; i--)
@@ -525,7 +540,7 @@ public class GameManager : MonoBehaviour
 			SpawnTeleportPlayer();
 			yield return null;
 			PlayerController.Instance.ResetDashCharges();
-			PlayerHealth.Instance.Heal();
+			PlayerHealth.Instance.HealFull();
 			SoulsDisplay.Instance.UpdateSouls();
 		}
 		else // Otherwise we destroy the player object
@@ -535,7 +550,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Wait a bit for the loading screen to finish (so the player is correclty teleported)
-		yield return new WaitForSeconds(loadingScreenDuration);
+		yield return new WaitForSecondsRealtime(loadingScreenDuration);
 
 		// #####################
 
@@ -549,7 +564,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Wait a bit and activate player inputs back
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSecondsRealtime(0.2f);
 		if (!isMenu)
 			InputsManager.Instance.EnableInput(true);
 

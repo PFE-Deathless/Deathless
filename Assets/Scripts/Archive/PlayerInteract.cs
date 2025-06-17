@@ -30,6 +30,7 @@ public class PlayerInteract : MonoBehaviour
 		if (interactables.Count > 0 && _nearest != null)
 		{
 			_nearest.Interact(InteractableType.Interact);
+			_nearest = null;
 		}
 	}
 

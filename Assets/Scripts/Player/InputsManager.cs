@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class InputsManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class InputsManager : MonoBehaviour
 
 	[HideInInspector] public bool validate;
 	[HideInInspector] public bool cancel;
+	[HideInInspector] public float creditScroll;
+	[HideInInspector] public bool skip;
 
 	private PlayerInput _playerInput;
 	private bool canInput = true;
@@ -54,6 +57,16 @@ public class InputsManager : MonoBehaviour
 		}
 
 		current.Enable();
+	}
+
+	public void OnCreditScroll(InputValue value)
+	{
+		creditScroll = value.Get<float>();
+	}
+
+	public void OnSkip(InputValue value)
+	{
+		skip = value.isPressed;
 	}
 
 	public void OnValidation()
