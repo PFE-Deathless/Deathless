@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
 				_allEnemiesDied = false;
 		}
 
-		if (_allEnemiesDied)
+		if (enemiesDoor != null && _allEnemiesDied)
 			if (enemiesDoor.TryGetComponent(out IActivable activable))
 				activable.Activate();
 
