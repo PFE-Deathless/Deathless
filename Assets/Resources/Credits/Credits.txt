@@ -18,6 +18,7 @@ Subtitle	Game Writing
 Base	Milo Garric
 Base	Soulanny Phiphak
 Subtitle	Narrative Design
+Base	Maxence d'Aboville
 Base	Milo Garric
 Subtitle	Interface
 Base	Soulanny Phiphak

@@ -53,7 +53,7 @@ public class Door : MonoBehaviour, IActivable
 				{
 					smokePS.Stop();
                     doorMesh.SetActive(false);
-
+					Destroy(gameObject, 1f);
                     GetComponentInChildren<Collider>().enabled = false;
 				}
 
