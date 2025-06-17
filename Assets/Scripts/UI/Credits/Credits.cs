@@ -37,7 +37,6 @@ public class Credits : MonoBehaviour
 
 	private void Start()
 	{
-		//Destroy(GameManager.Instance.gameObject);
 		_inputManager = GetComponent<InputsManager>();
 		_inputManager.SetMap(Map.Menu);
 

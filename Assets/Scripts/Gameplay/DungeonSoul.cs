@@ -25,7 +25,7 @@ public class DungeonSoul : MonoBehaviour, IInteractable
 	{
 		GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", soulColor);
 
-		if (GameManager.Instance.IsUnlocked(dungeonValidation))
+		if (GameManager.Instance != null && GameManager.Instance.IsUnlocked(dungeonValidation))
 		{
 			if (door != null)
 				door.Activate(false);
