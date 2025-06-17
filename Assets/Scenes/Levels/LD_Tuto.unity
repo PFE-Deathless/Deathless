@@ -22444,6 +22444,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "Utilisez le joystick gauche pour vous d\xE9placer."
       objectReference: {fileID: 0}
+    - target: {fileID: 2123228658420464569, guid: 845182040681601438a118e3e5a86872, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2516004032091424910, guid: 845182040681601438a118e3e5a86872, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6483731307743107056, guid: 845182040681601438a118e3e5a86872, type: 3}
       propertyPath: m_Sprite
       value: 

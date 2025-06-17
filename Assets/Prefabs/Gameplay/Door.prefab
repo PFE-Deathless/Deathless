@@ -4939,6 +4939,7 @@ GameObject:
   - component: {fileID: 2355163875321439043}
   - component: {fileID: 6065851573521887356}
   - component: {fileID: 4109512207908487818}
+  - component: {fileID: 6389984514292056692}
   m_Layer: 18
   m_Name: Door
   m_TagString: Untagged
@@ -5001,3 +5002,19 @@ MonoBehaviour:
   dungeonValidation: 0
   smokePS: {fileID: 3701061240673001782}
   doorMesh: {fileID: 705469020673613276}
+--- !u!208 &6389984514292056692
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313657396808044470}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.72, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

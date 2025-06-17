@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -9,7 +10,7 @@ public class Projectile : MonoBehaviour
 	public void Setup(float lifeSpan, bool destroyOnImpact)
 	{
 		_destroyOnImpact = destroyOnImpact;
-		Destroy(gameObject, lifeSpan);
+		StartCoroutine(DestroyProjectile(lifeSpan));
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -19,8 +20,29 @@ public class Projectile : MonoBehaviour
 		if (_destroyOnImpact)
 		{
 			if (impactParticlePrefab != null)
-				Instantiate(impactParticlePrefab, transform.position, Quaternion.identity, GameManager.Instance.ProjectileParent); 
-			Destroy(gameObject, 0.02f);
+				Instantiate(impactParticlePrefab, transform.position, Quaternion.identity, GameManager.Instance.ProjectileParent);
+			StartCoroutine(DestroyProjectile());
 		}
+	}
+
+	IEnumerator DestroyProjectile(float delay = 0f)
+	{
+		yield return new WaitForSeconds(delay);
+
+		GetComponentInChildren<Rigidbody>().linearVelocity = Vector3.zero;
+
+		foreach (Collider collider in GetComponentsInChildren<Collider>())
+			collider.enabled = false;
+
+		foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+			renderer.enabled = false;
+
+		foreach (TrailRenderer trail in GetComponentsInChildren<TrailRenderer>())
+			trail.enabled = false;
+
+		foreach (ParticleSystem ps in GetComponentsInChildren<ParticleSystem>())
+			ps.Stop();
+
+		Destroy(gameObject, 3f);
 	}
 }
