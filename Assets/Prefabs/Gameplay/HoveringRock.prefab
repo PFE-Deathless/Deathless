@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10759ec4481bed241be45a2dc6ab273c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeedMin: 20
-  rotationSpeedMax: 70
+  rotationSpeedMin: 2
+  rotationSpeedMax: 10
   verticalDisplacementSpeedMin: 0.1
-  verticalDisplacementSpeedMax: 0.5
-  verticalDisplacementMinDelta: 0.3
-  verticalDisplacementMaxDelta: 0.8
+  verticalDisplacementSpeedMax: 0.35
+  verticalDisplacementMinDelta: 0.25
+  verticalDisplacementMaxDelta: 0.5
   verticalDisplacementCurve:
     serializedVersion: 2
     m_Curve:
