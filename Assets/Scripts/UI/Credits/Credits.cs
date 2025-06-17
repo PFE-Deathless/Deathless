@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -35,9 +36,10 @@ public class Credits : MonoBehaviour
 
 	InputsManager _inputManager;
 
-	private void Start()
+	private IEnumerator Start()
 	{
-		_inputManager = GetComponent<InputsManager>();
+		yield return new WaitForSeconds(0.2f);
+		_inputManager = gameObject.AddComponent<InputsManager>();
 		_inputManager.SetMap(Map.Menu);
 
 		CreateCredits();
@@ -45,6 +47,9 @@ public class Credits : MonoBehaviour
 
 	private void Update()
 	{
+		if (_inputManager == null)
+			return;
+
 		float mult = 1f + (scrollSpeedMultiplier * _inputManager.creditScroll);
 
 		Vector3 pos = _creditParent.position;
