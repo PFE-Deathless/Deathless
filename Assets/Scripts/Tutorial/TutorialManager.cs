@@ -35,7 +35,7 @@ public class TutorialManager : MonoBehaviour
 			}
 		}
 
-		if (dummy.GetComponent<Dummy>().Died == true)
+		if (dummyDoor != null && dummy.GetComponent<Dummy>().Died == true)
 			if (dummyDoor.TryGetComponent(out IActivable activable))
 				activable.Activate();
 
